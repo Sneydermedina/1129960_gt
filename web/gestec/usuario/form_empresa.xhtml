@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./../../WEB-INF/template/template_principal_sin_menu.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+    </ui:define>
+
+
+    <ui:define name="titulo">Registrar empresa</ui:define>
+    <ui:define name="titulo2">Registrar Empresa</ui:define>
+
+    <ui:define name="content2">
+
+        <div class="imgfondo">
+            <div class="container" style="padding: 15px">
+                <form id="formLogin" class="contacto" action="" method="post" name="contacto">
+                    <div class="row">
+                        <div id="titulo" class="col-md-2 col-md-offset-2">
+                            <img id="user" src="#{request.contextPath}/resources/img/user.png"/>
+                            <br/>Empresa
+                            <br/>Persona Juridica 
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div id="titulo2" class="col-md-6">
+                            <input id="" type="text" class="col-xs-12 form-control" name="razonSocial" size="70" maxlength="70" placeholder="Razon Social" required="true" pattern="[a-zA-Z]{5,}"/>
+                            <input id="text" type="url" class="col-xs-12 form-control" name="web" size="70" maxlength="70" placeholder="Pagina Facebook o Pagina web" required="true"/>
+                            <br/><p>Horario Laboral</p>
+                            <p>De: <input type="date" name="fecha" required="true" class="form-control"/></p>
+                            <p>A: &nbsp;&nbsp;<input type="date" name="fecha" required="true"/></p>
+                        </div>
+                        <div id="titulo3" class="col-md-2">
+                            <p>Logo empresa</p>
+                            <a tittle="subirImagen" href=""><img id="subirImagen" src="#{request.contextPath}/resources/img/perfil.jpg" alt="subirImagen"/></a>
+                        </div>	
+                        <div id="titulo4" class="col-md-3 col-xs-offset-1">
+                            <a tittle="clip" href=""><img id="clip" src="#{request.contextPath}/resources/img/click.png" alt="clip"/></a>
+                            <p>Fecha expedicion del documento</p>
+                            <input type="date" class="form-control" name="fecha" required="true"/>
+                        </div>	
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div id="input" class="col-md-6">
+                            <p>Contacto Principal</p>
+                            <input type="text" class="col-xs-12 form-control" name="nombre" size="70" maxlength="70" placeholder="Nombres" required="true" pattern="[a-zA-Z]{2,}"/>
+                            <input id="text" class="col-xs-12 form-control" type="text" name="celular" size="70" maxlength="70" placeholder="Celular" required="true" pattern="[0-9]{8,}"/>
+                        </div>
+                        <div id="input" class="col-md-6">
+                            <div id="margen">
+                                <p>Mujer &nbsp;<input type="radio" name="sexo"/> &nbsp;&nbsp;&nbsp;Hombre &nbsp;<input type="radio" name="sexo" required="true"/></p>
+                            </div>
+                            <input type="text" class="col-xs-12 form-control" name="nombre" size="70" maxlength="70" placeholder="Apellidos" required="true" pattern="[a-zA-Z]{2,}"/>
+                            <input id="text" class="col-xs-12 form-control" type="email" name="correo" size="70" maxlength="70" placeholder="Correo" required="true"/>
+
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div id="input" class="col-md-6">
+                            <p>Contacto Secundario</p>
+                            <input type="text" class="col-xs-12 form-control" name="nombre" size="70" maxlength="70" placeholder="Nombres" pattern="[a-zA-Z]{2,}" />
+                            <input id="text" type="text" class="col-xs-12 form-control" name="celular" size="70" maxlength="70" placeholder="Celular" pattern="[0-9]{8,}"/>
+                        </div>
+                        <div id="input" class="col-md-6">
+                            <div id="margen">
+                                <p>Mujer &nbsp;<input type="radio" name="sexo1"/> &nbsp;&nbsp;&nbsp;Hombre &nbsp;<input type="radio" name="sexo1"/></p>
+                            </div>
+                            <input type="text" class="col-xs-12 form-control" name="nombre" size="70" maxlength="70" placeholder="Apellidos" pattern="[a-zA-Z]{2,}"/>
+                            <input id="text" type="email" class="col-xs-12 form-control" name="celular" size="70" maxlength="70" placeholder="Correo"/>
+
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div align="center">
+                                <button id="boton" type="submit" class="btn btn-primary">Continuar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

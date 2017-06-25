@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/img/icono.png" rel="shortcut icon" type="image/png"/>
+        <link href="#{request.contextPath}/resources/css/font-awesome.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/estilos2.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css"/>
+
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script>
+
+
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>   
+    </h:head>
+    <h:body>
+
+        <h:form>
+            <p:growl id="messages" showDetail="true" />
+
+            <h:panelGrid columnClasses="value">
+                <h3 style="margin-top: 0">Editable Schedule</h3>
+                <p:schedule id="schedule" value="#{horarioView.eventModel}" widgetVar="myschedule" timeZone="GMT+2">
+
+                    <p:ajax event="dateSelect" listener="#{horarioView.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                    <p:ajax event="eventSelect" listener="#{horarioView.onEventSelect}" update="mensaje" oncomplete="$('#confirmacionSolicitud').modal('show');" />
+                    <p:ajax event="eventMove" listener="#{horarioView.onEventMove}" update="messages" />
+                    <p:ajax event="eventResize" listener="#{horarioView.onEventResize}" update="messages" />
+
+                </p:schedule>
+            </h:panelGrid>
+
+            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                <h:panelGrid id="eventDetails" columns="2">
+                    <p:outputLabel for="title" value="Titles:" />
+                    <p:inputText id="title" value="#{horarioView.event.title}" required="true" />
+
+                    <p:outputLabel for="from" value="From:" />
+                    <p:calendar id="from" value="#{horarioView.event.startDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+
+                    <p:outputLabel for="to" value="To:" />
+                    <p:calendar id="to" value="#{horarioView.event.endDate}" timeZone="GMT+2" pattern="dd/MM/yyyy HH:mm"/>
+
+                    <p:outputLabel for="allDay" value="All Day:" />
+                    <h:selectBooleanCheckbox id="allDay" value="#{horarioView.event.allDay}" />
+
+                    <p:commandButton type="reset" value="Reset" />
+                    <p:commandButton id="addButton" value="Save" actionListener="#{horarioView.addEvent}" oncomplete="PF('myschedule').update();PF('eventDialog').hide();" />
+                </h:panelGrid>
+            </p:dialog>    
+        
+        <div id="confirmacionSolicitud" class="modal fade bs-example-modal-sm" tabindex="-1" 
+                     role="dialog" aria-labelledby="mySmallModalLabel">
+                    <div class="modal-dialog modal-sm" role="document" style="width: 400px">
+                        <div class="modal-content" style="background-color: #ddd;">
+                            <h:panelGroup id="mensaje">
+                                #{horarioView.event.title}
+                                <c:if test="#{calendarioView.event.styleClass == 'eventoPersonal'}">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel" style="margin: 10px auto">#{calendarioView.event.title}</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            #{calendarioView.event.description}
+                                        </p>
+                                        <br/>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            De: #{sesionGestec.formatearFechaNotificacion(calendarioView.event.startDate)}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Hasta: #{sesionGestec.formatearFechaNotificacion(calendarioView.event.endDate)}
+                                        </p>                        
+                                    </div>
+                                </c:if>
+
+
+                                <c:if test="#{calendarioView.event.styleClass == 'eventoAgenda'}">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel" style="margin: 10px auto">#{calendarioView.event.title}</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            #{calendarioView.event.description}
+                                        </p>
+                                        <img src="#{request.contextPath}/faces/resources/img/reparacion.jpg" class="col-md-12" style="padding: 0;margin-bottom: 10px;"/>
+                                        <br/>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            De: #{sesionGestec.formatearFechaNotificacion(calendarioView.event.startDate)}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Hasta: #{sesionGestec.formatearFechaNotificacion(calendarioView.event.endDate)}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Cliente: #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Dirección: 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.tipoVia} 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.numeroVia}
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.complementoVia} 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.numeroVia2} 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.complementoVia2}-
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.numeroCasa} 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.complemento}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Barrio: 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.idBarrio.nombreBarrio}
+                                        </p>
+
+                                    </div>
+                                </c:if>
+
+
+                                <c:if test="#{calendarioView.event.styleClass == 'eventoSolicitud'}">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel" style="margin: 10px auto">#{calendarioView.event.title}</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            #{calendarioView.event.description}
+                                        </p>
+                                        <img src="#{request.contextPath}/faces/resources/img/reparacion.jpg" class="col-md-12" style="padding: 0;margin-bottom: 10px;"/>
+                                        <br/>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            De: #{sesionGestec.formatearFechaNotificacion(calendarioView.event.startDate)}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Hasta: #{sesionGestec.formatearFechaNotificacion(calendarioView.event.endDate)}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Cliente: #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Dirección: 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.tipoVia} 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.numeroVia}
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.complementoVia} 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.numeroVia2} 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.complementoVia2}-
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.numeroCasa} 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.complemento}
+                                        </p>
+                                        <p style="color: #eee;margin-top: 5px;">
+                                            Barrio: 
+                                            #{calendarioView.eventoSeleccionado.solicitudIdsolicitud.direccionidDireccion.idBarrio.nombreBarrio}
+                                        </p>
+
+                                    </div>
+                                </c:if>
+                            </h:panelGroup>
+                            <h:form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                    <h:commandButton value="Enviar solicitud" class="btn btn-primary"
+                                                     />
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+        </h:form>
+
+        <script>
+
+            $('#ddd').click(function () {
+                $('#confirmacionSolicitud').modal('show');
+
+            });
+
+            PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Sólo hora',
+                timeText: 'Tiempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Hoy',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText: 'Todo el día'
+            };
+
+        </script>
+
+        <style type="text/css">
+            .value {
+                width: 1510px;
+            }
+            .eventoAgenda{
+                background: #2895cc;
+                cursor: pointer;
+            }
+            .eventoSolicitud{
+                background: #1d9d74;
+                cursor: pointer;
+            }
+            .eventoPersonal{
+                background: red;
+                cursor: pointer;
+            }
+            .fc-button-prev{
+                display: none;
+            }
+            .fc-button-next{
+                display: none;
+            }
+
+        </style>
+    </h:body>
+</html>

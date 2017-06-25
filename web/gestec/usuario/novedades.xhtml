@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>  
+        <script src="#{request.contextPath}/resources/js/notificaciones.js" defer=""></script>  
+
+        <style>
+
+            div .card-view{
+                padding: 5px;
+            }
+            .table-hover>tbody>tr:hover{
+                background: #fff;
+            }
+            .bootstrap-table .table:not(.table-condensed) > tbody > tr > td.bs-checkbox{
+                padding: 7px 0 7px 7px;
+                vertical-align: middle;
+            }
+            .table>tbody>tr>td{
+                padding: 0;
+                border-bottom: 1px solid #ddd;
+            }
+            tr>td.selected{
+                background: #ddd;
+                border-bottom: 1px solid #000;
+            }
+            .enviado{
+                background: #ddd;
+            }
+        </style>
+
+    </ui:define>
+
+    <ui:define name="titulo">Novedades</ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+
+        <div class=" col-md-12 inicio">
+            <div class="col-md-12 encabezado">
+
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#recientes" data-toggle="tab">Todos</a></li>
+                    <li role="presentation"><a href="#importantes" data-toggle="tab">Importantes</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="recientes" class="tab-pane fade in active">
+
+
+
+                        <c:forEach items="#{sesionGestec.notificaciones}" var="n">
+                            <c:if test="#{n.idUsuario==sesionGestec.usuario}">
+                                <c:if test="#{n.estadoNotificacion=='Visto'}">
+                                    <c:if test="#{n.idNotificacion.idNotificacion==2}">
+                                        <div class="notMensajes" style="background: #fff">
+                                            <div>
+                                                <br/><br/><h5 class="mensajeCorto">#{n.idNotificacion.notificacion}</h5>
+                                                <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(n.fechaNotificacion)}</h5>
+                                            </div>
+                                        </div>
+
+                                    </c:if>
+                                    <c:if test="#{n.idNotificacion.idNotificacion!=2}">
+                                        <div class="notMensajes">
+                                            <div class="notificacionMensaje">
+                                                <img src="#{request.contextPath}/resources/img/tecnico5.jpg" alt="" class="imagenNotificacion"/>
+                                            </div>
+                                            <div>
+                                                <strong><span class=" label label-success">Carlos Ramírez</span></strong>
+                                                <br/><br/>   <h5 class="mensajeCorto">#{n.idNotificacion.notificacion}</h5>
+                                                <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(n.fechaNotificacion)}</h5>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="#{n.estadoNotificacion=='Enviado'}">
+                                    <c:if test="#{n.idNotificacion.idNotificacion==2}">
+                                        <div class="notMensajes" style="background: #fff">
+                                            <div>
+                                                <br/><br/><h5 class="mensajeCorto">#{n.idNotificacion.notificacion}</h5>
+                                                <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(n.fechaNotificacion)}</h5>
+                                            </div>
+                                        </div>
+
+                                    </c:if>
+                                    <c:if test="#{n.idNotificacion.idNotificacion!=2}">
+                                        <div class="notMensajes">
+                                            <div class="notificacionMensaje">
+                                                <img src="#{request.contextPath}/resources/img/tecnico5.jpg" alt="" class="imagenNotificacion"/>
+                                            </div>
+                                            <div>
+                                                <strong><span class=" label label-success">Carlos Ramírez</span></strong>
+                                                <br/><br/>   <h5 class="mensajeCorto">#{n.idNotificacion.notificacion}</h5>
+                                                <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(n.fechaNotificacion)}</h5>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:if>
+                            </c:if>
+                        </c:forEach>
+
+
+                        <c:if test="#{sesionGestec.notificacionesCitaUsuario.size()>0}">
+                            <c:forEach items="#{sesionGestec.notificacionesCitaUsuario}" var="nc">
+                                <c:if test="#{nc.estadoNotificacion=='Visto'}">
+                                    <c:if test="#{nc.idNotificacion.idNotificacion==2}">
+                                        <div class="notMensajes" style="background: #fff">
+                                            <div>
+                                                <br/><br/><h5 class="mensajeCorto">#{nc.idNotificacion.notificacion}</h5>
+                                                <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(nc.fechaNotificacion)}</h5>
+                                            </div>
+                                        </div>
+
+                                    </c:if>
+                                    <c:if test="#{nc.idNotificacion.idNotificacion!=2}">
+                                        <div class="notMensajes" style="background: #fff">
+                                            <div class="notificacionMensaje">
+                                                <img src="#{request.contextPath}/resources/img/tecnico5.jpg" alt="" class="imagenNotificacion"/>
+                                            </div>
+                                            <div>
+                                                <strong><span class=" label label-success">#{nc.idCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                                        #{nc.idCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}</span></strong>
+                                                <br/><br/>   <h5 class="mensajeCorto">
+                                                    <h:form>
+                                                        <h:commandLink actionListener="#{citasRequest.verDetalleNotificacion(nc.idCita,nc)}"
+                                                                       class="enlace-perfil"
+                                                                       value="#{nc.idNotificacion.notificacion}"/>
+                                                    </h:form>
+                                                </h5>
+                                                <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(nc.fechaNotificacion)}</h5>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:if>
+                                <c:if test="#{nc.estadoNotificacion=='Enviado'}">
+                                    <c:if test="#{nc.idNotificacion.idNotificacion==2}">
+                                        <div class="notMensajes" style="background: #ddd">
+                                            <div>
+                                                <br/><br/><h5 class="mensajeCorto">
+                                                    <h:form>
+                                                        <h:commandLink actionListener="#{citasRequest.verDetalleNotificacion(nc.idCita,nc)}"
+                                                                       class="enlace-perfil"
+                                                                       value="#{nc.idNotificacion.notificacion}"/>
+                                                    </h:form>
+                                                </h5>
+                                            </div>
+                                        </div>
+
+                                    </c:if>
+                                    <c:if test="#{nc.idNotificacion.idNotificacion!=2}">
+                                        <div class="notMensajes" style="background: #ddd">
+                                            <div class="notificacionMensaje">
+                                                <img src="#{request.contextPath}/resources/img/tecnico5.jpg" alt="" class="imagenNotificacion"/>
+                                            </div>
+                                            <div>
+                                                <strong><span class=" label label-success">#{nc.idCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                                        #{nc.idCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}</span></strong>
+                                                <br/><br/>   <h5 class="mensajeCorto">
+                                                    <h:form>
+                                                        <h:commandLink actionListener="#{citasRequest.verDetalleNotificacion(nc.idCita,nc)}"
+                                                                       class="enlace-perfil"
+                                                                       value="#{nc.idNotificacion.notificacion}"/>
+                                                    </h:form>
+                                                </h5>
+                                                <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(nc.fechaNotificacion)}</h5>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:if>
+                            </c:forEach>
+                        </c:if>
+
+
+                        <c:if test="#{sesionGestec.validarCantNotificaciones()}">
+                            <div style="text-align: center;border-left: 1px solid #ddd;
+                                 border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;padding: 15px;">
+                                <span class='fa fa-newspaper-o' style='color:#ccc;font-size:275px'></span>
+                                <h3><strong>No hay novedades en este momento</strong></h3>
+                            </div>
+                        </c:if>
+                    </div>
+
+
+                    <div id="importantes" class="tab-pane fade">
+
+                        <table id="table2" data-click-to-select="true" class="table" data-toggle="table" data-card-view="true" style="border-left:1px solid#ccc;border-right:1px solid#ccc">
+                            <thead>
+                                <tr>
+                                    <th data-field="check" data-checkbox="true"></th>
+                                    <th data-field="tiquet" data-align="left"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </ui:define>
+
+    <ui:define name="bottom"></ui:define>
+
+</ui:composition>
+

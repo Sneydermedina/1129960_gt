@@ -1,0 +1,32 @@
+*{
+
+}
+#perfil{
+	width:200px;
+	height:150px;
+}
+#select{
+	margin-top: 15px;
+}
+#tex{
+	margin-top: 15px;
+}
+#contenedor{
+	float:right;
+}
+select{
+	padding: 3px 3px;
+}
+#di{
+	margin-top: 10px;
+	width:250px;
+	height:80px;
+}
+#cert{
+	margin-top: 5px;
+	width:150px;
+	height:40px;
+}
+#bot{
+		border-radius: 20px;
+}

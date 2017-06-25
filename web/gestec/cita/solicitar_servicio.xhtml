@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="head2">
+        <style>
+            label{
+                margin-top: 10px;
+            }
+            .radio-inline{
+                padding-left: 0;
+            }
+            td,th{
+                padding-left: 10px;
+            }
+            input[type=radio]{
+                display: none;
+
+            }
+            input[type=radio] + label{
+                cursor: pointer;
+                padding: 10px;
+                margin-left: 10px;
+                border: 1px solid #337AB7;
+                color: #337AB7;
+                width: 100%;
+                text-align: center;
+                border-radius: 20px;
+            }           
+            .cuadro:before{
+                content: '';
+                width: 100%;
+                padding: 10px 70px;
+                border: 1px solid #aaa;
+                float: left;
+            }
+            input[type=radio]:checked + label{
+                background: #337AB7;
+
+                color: #fff;
+                border: 1px solid #337AB7;
+            } 
+            .ui-inputfield{
+                width: 100%;
+            }
+            .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error{
+                border: 1px solid #ccc;
+            }
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+            }
+        </style>
+        #{citasRequest.validarCita()}
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>  
+
+    </ui:define>
+
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/> 
+    </ui:define>
+
+    <ui:define name="titulo"> 
+        <f:view>#{msjGestec.solicitarServicio}</f:view>
+    </ui:define>
+    <ui:define name="content">
+        <f:view>
+            <c:if test="#{citasRequest.citaEnviada==false}">
+                <h:form prependId="false" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="tipoServicio">#{msjGestec.tipo}</label>
+                            <h:selectOneMenu id="tipoServicio"
+                                             class="form-control"
+                                             style="margin-top: 0"
+                                             value="#{citasRequest.tipoServicio}">
+                                <f:selectItem itemLabel="Instalación" itemValue="2"/>
+                                <f:selectItem itemLabel="Mantenimiento" itemValue="1"/>
+                                <f:selectItem itemLabel="Diagnóstico" itemValue="3"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="tipoEquipo">#{msjGestec.equipo1}</label>
+                            <h:selectOneMenu id="tipoEquipo"
+                                             style="margin-top: 0"
+                                             class="form-control"
+                                             value="#{citasRequest.tipoEquipo}">
+                                <f:selectItem itemLabel="Móvil" itemValue="1"/>
+                                <f:selectItem itemLabel="Computador" itemValue="2"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="cantEquipos">#{msjGestec.CantEquipo}</label>
+                            <h:inputText id="cantEquipos"
+                                         class="form-control" 
+                                         maxlength="4"
+                                         required="true"
+                                         requiredMessage="Mínimo 1 equipo"
+                                         value="#{citasRequest.cantidadEquipos}"/>
+                            <h:message for="cantEquipos" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                    </div>
+
+                    <label for="descripcion">#{msjGestec.solicitar1}</label>
+                    <h:inputText id="descripcion" 
+                                 class="form-control"
+                                 maxlength="300"
+                                 required="true"
+                                 requiredMessage="Escriba una descripción"
+                                 value="#{citasRequest.descripcionEvento}"/>
+                    <h:message for="descripcion" style="color:red"  styleClass="error"></h:message>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="fechaCita">#{msjGestec.solicitar2}</label>
+                            <p:calendar id="fechaCita" value="#{citasRequest.fechaCita}" pattern="MM/dd/yyyy HH:mm"  
+                                        style="width: 100%"
+                                        required="true"
+                                        locale="es"
+                                        requiredMessage="Seleccione una fecha"/>
+                            <h:message for="fechaCita" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                        <div class="col-md-4">
+
+                            <label for="FechaInicio">#{msjGestec.desde}</label>
+                            <p:calendar id="FechaInicio" value="#{citasRequest.horaInicio}" pattern="MM/dd/yyyy HH:mm"  
+                                        style="width: 100%"
+                                        required="true"
+                                        requiredMessage="Seleccione una fecha"/>
+
+                            <h:message for="FechaInicio" style="color:red"  styleClass="error"></h:message>
+                            <h:messages globalOnly="true" showSummary="true" style="color: red;padding: 10px 0"/>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="fechafin">#{msjGestec.hasta}</label>
+
+                            <p:calendar id="FechaFin" value="#{citasRequest.horaFin}" pattern="MM/dd/yyyy HH:mm"  
+                                        style="width: 100%"
+                                        required="true"
+                                        requiredMessage="Seleccione una fecha"/>
+                            <h:message for="FechaFin" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                        <div class="col-md-12" style="margin-top: 20px">
+                            <label>#{msjGestec.adjuntar}</label>
+                            <p:fileUpload id="imgSol"
+                                          fileUploadListener="#{citasRequest.subir}" mode="advanced" dragDropSupport="false"
+                                          update="messages" sizeLimit="64000" fileLimit="1" 
+                                          allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
+                                          cancelLabel="#{msjGestec.cancelar}"
+                                          uploadLabel="#{msjGestec.subir}"
+                                          label="#{msjGestec.examinar}"
+                                          fileLimitMessage="Sólo un archivo"
+                                          invalidFileMessage="Sólo archivos de imagen"
+                                          invalidSizeMessage="El archivo es demasiado grande"/>
+
+                            <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
+                                        style="padding: 10px 0; color: #337AB7"/>
+                        </div>
+                    </div>
+
+
+
+                    <label class="col-md-12">#{msjGestec.solicitar3}</label>
+                    <h:selectOneRadio id="tecnicos" value="#{citasRequest.tecnicos}"
+                                      class="col-md-12"
+                                      styleClass ="radio-inline" enabledClass ="radio-inline">
+                        <f:selectItem itemLabel=" #{msjGestec.solicitar4}" itemValue="1"/>
+                        <f:selectItem itemLabel=" #{msjGestec.solicitar5}" itemValue="2"/>
+                        <f:selectItem itemLabel=" #{msjGestec.solicitar6}" itemValue="3"/>
+                    </h:selectOneRadio>
+
+
+                    <h:form>
+                        <h:commandButton actionListener="#{citasRequest.ingresarSolicitud()}" 
+                                         style="margin-top: 50px;"
+                                         class="btn btn-primary col-md-6 col-sm-12 pull-right" 
+                                         value="#{msjGestec.publicar}"/>
+                    </h:form>
+
+                </h:form>
+            </c:if>
+
+            <c:if test="#{citasRequest.citaEnviada==true}">
+
+                <div class="row" style="padding: 50px 0">
+                    <center>
+                        <h2>
+                            <strong> Su cita fue publicada con éxito, se verá en la sección de inicio</strong>
+                        </h2>
+                        <span class="fa fa-check fa-5x"></span>
+                    </center>
+                </div>
+
+            </c:if>
+
+        </f:view>
+
+        <script>
+            $('#ddd').click(function () {
+                $('#confirmacionSolicitud').modal('show');
+
+            });
+
+            PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Sólo hora',
+                timeText: 'Tiempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                currentText: 'Hoy',
+                ampm: false,
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText: 'Todo el día'
+            };
+
+        </script>
+    </ui:define>
+
+    <ui:define name="bottom">
+
+    </ui:define>
+</ui:composition>
+
+
+

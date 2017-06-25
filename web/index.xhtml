@@ -1,0 +1,523 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="./WEB-INF/template/template_index.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!--Que hubo x2-->
+    <ui:define name="top">    
+        <ui:include src="/WEB-INF/template/top_index.xhtml"/>
+    </ui:define>
+
+    <ui:define name="head2">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+    </ui:define>
+
+    <ui:define name="menu"></ui:define>
+
+    <ui:define name="titulo">Gestec</ui:define>
+
+    <ui:define name="content">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+            <div class="col-md-12">
+                <section class="visible-xs" id="s1"></section>
+                <section id="img-carousel">
+                    <div class="container-fluid"> 
+                        <div class="row">
+                            <div id="carousel1" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel1" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel1" data-slide-to="1"></li>
+                                    <li data-target="#carousel1" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                    <div class="item active">
+                                        <img src="#{request.contextPath}/resources/img/carousel1.jpg" alt="First slide image" class="img-responsive center-block"/>
+                                    </div>
+                                    <div class="item">
+                                        <img src="#{request.contextPath}/resources/img/carousel2.jpg" alt="First slide image" class="img-responsive center-block"/>
+                                    </div>
+                                    <div class="item">
+                                        <img src="#{request.contextPath}/resources/img/carousel3.jpg" alt="First slide image" class="img-responsive center-block"/>
+                                    </div>
+                                </div>
+
+                                <a class="left carousel-control" href="#carousel1" role="button" data-slide="prev">
+                                    <span class="fa fa-chevron-left" style="margin-top: 200px;font-size: 30px"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel1" role="button" data-slide="next">
+                                    <span class="fa fa-chevron-right" aria-hidden="true" style="margin-top: 200px;font-size: 30px"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>     
+
+                <section id="s2">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="page-header titulo1 col-xs-12 col-sm-6 col-md-4">
+                                <h3>&nbsp;&nbsp;&nbsp;&nbsp;#{msjGestec.queEsGestec}</h3>
+                            </div>
+                        </div>
+
+                        <div class="columnas col-xs-12 col-sm-6 col-md-3 text-center"> <img class="img140 img-circle" alt="140x140"  src="#{request.contextPath}/resources/img/4.jpg" data-holder-rendered="true"/>
+                            <h3>GESTEC</h3>
+                            <p>#{msjGestec.queEsGestec1}</p>
+                        </div>
+                        <div class="columnas col-xs-12 col-sm-6 col-md-3 text-center"><img class="img140 img-circle" alt="140x140" src="#{request.contextPath}/resources/img/1.jpg" data-holder-rendered="true"/>
+                            <h3>#{msjGestec.queEsGestec2}</h3>
+                            <p>#{msjGestec.queEsGestec21}.</p>
+                        </div>
+                        <div class="columnas col-xs-12 col-sm-6 col-md-3 text-center"><img class="img140 img-circle" alt="140x140" src="#{request.contextPath}/resources/img/2.jpg" data-holder-rendered="true"/>
+                            <h3>#{msjGestec.queEsGestec3}</h3>
+                            <p>#{msjGestec.queEsGestec31}</p>
+                        </div>
+                        <div class=" columnas col-xs-12 col-sm-6 col-md-3 text-center"><img class="img140 img-circle" alt="140x140" src="#{request.contextPath}/resources/img/3.jpg" data-holder-rendered="true"/>
+                            <h3>#{msjGestec.queEsGestec4}</h3>
+                            <p>#{msjGestec.queEsGestec41}</p><br/><p>#{msjGestec.queEsGestec42}</p>
+                        </div>      
+                    </div>
+
+                </section>
+
+                <section id="s3" class="seccion2">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="page-header titulo2 col-xs-12 col-sm-6 col-md-4">
+                                <h3>#{msjGestec.comoFunciona}&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                            </div>
+                        </div> 
+                        <div class="col-xs-12 col-sm-4 col-md-4 text-center"> <img class="img140 img-circle" alt="140x140"  src="#{request.contextPath}/resources/img/4.jpg" data-holder-rendered="true"/>
+                            <h3>#{msjGestec.comoFunciona1}</h3>
+                            <p>#{msjGestec.comoFunciona11}</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 text-center"><img class="img140 img-circle" alt="140x140" src="#{request.contextPath}/resources/img/1.jpg" data-holder-rendered="true"/>
+                            <h3>#{msjGestec.comoFunciona2}</h3>
+                            <p>#{msjGestec.comoFunciona21}.</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 text-center"><img class="img140 img-circle" alt="140x140" src="#{request.contextPath}/resources/img/2.jpg" data-holder-rendered="true"/>
+                            <h3>#{msjGestec.comoFunciona3}</h3>
+                            <p>#{msjGestec.comoFunciona31}</p>
+                        </div>         
+                    </div> 
+                </section> 
+
+                <section id="s4">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="page-header titulo1 col-xs-12 col-sm-6 col-md-4">
+                                <h3>&nbsp;&nbsp;&nbsp;&nbsp;#{msjGestec.beneficiosCliente0}</h3>
+                            </div>
+                            <div class="page-header titulo2 col-xs-12 col-sm-6 col-md-5">
+                                <h3>#{msjGestec.beneficiosTecnico0}&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                            </div>  
+                            <div class="col-xs-12 col-sm-4 col-md-6 text-center"> <img class="img140 img-circle" alt="140x140"  src="#{request.contextPath}/resources/img/4.jpg" data-holder-rendered="true"/>
+                                <h3>#{msjGestec.beneficiosCliente1}</h3>
+                                <p>#{msjGestec.beneficiosCliente11} </p>
+                                <a  href="#" type="button" data-toggle="modal" data-target="#myModal2" class="btn btn-primary"><span class="fa fa-pencil"></span>&nbsp;&nbsp;#{msjGestec.beneficiosClienteBoton}</a>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 text-center"></div>
+                            <div class="col-xs-12 col-sm-4 col-md-6 text-center"><img class="img140 img-circle" alt="140x140" src="#{request.contextPath}/resources/img/1.jpg" data-holder-rendered="true"/>
+                                <h3>#{msjGestec.beneficiosTecnico1}</h3>
+                                <p>#{msjGestec.beneficiosTecnico11}</p>      
+                                <a  href="#" type="button" data-toggle="modal" data-target="#myModal2" class="btn btn-primary"><span class="fa fa-pencil"></span>&nbsp;&nbsp;#{msjGestec.beneficiosTecnicoBoton}</a>
+                            </div>
+                        </div> 
+                    </div> 
+                </section>  
+                <section id="s6">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="page-header titulo1 col-xs-12 col-sm-6 col-md-4">
+                                <h3>&nbsp;&nbsp;&nbsp;&nbsp;${msjGestec.testimonios0}</h3>
+                            </div>
+                            <section class="web_disigner">
+                                <div class="color main-container">
+                                    <div class="web_disigner_contain">
+                                        <center><h1  style=" display:inline;">#{msjGestec.nuestrosTecnicos}</h1></center>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="carousel slide media-carousel" id="media">
+                                                        <div class="carousel-inner">
+                                                            <div class="item  active">
+                                                                <div class="row">
+                                                                    <div class="col-md-4 padtop30">
+                                                                        <center><div class="parent_circle">
+                                                                                <div class="parent_circle_contain">
+                                                                                    <h3>#{msjGestec.tecnico1}</h3>
+                                                                                    <h5 class="texto">#{msjGestec.tecnico1Men}</h5>
+                                                                                    <a href="#" class="btn btn-default">#{msjGestec.detalles}</a>
+                                                                                </div>
+                                                                                <div class="child_round_circle child_round_circle_img1">
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </center>
+                                                                    </div>          
+                                                                    <div class="col-md-4 padtop30">
+                                                                        <center><div class="parent_circle">
+                                                                                <div class="parent_circle_contain">
+                                                                                    <h3>#{msjGestec.tecnico2}</h3>
+                                                                                    <h5 class="texto">#{msjGestec.tecnico2Men}</h5>
+                                                                                    <a href="#" class="btn btn-default">#{msjGestec.detalles}</a>
+                                                                                </div>
+                                                                                <div class="child_round_circle child_round_circle_img2  ">
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </center>
+                                                                    </div>
+                                                                    <div class="col-md-4 padtop30">
+                                                                        <center> <div class="parent_circle">
+                                                                                <div class="parent_circle_contain">
+                                                                                    <h3>#{msjGestec.tecnico3}</h3>
+                                                                                    <h5 class="texto">#{msjGestec.tecnico3Men}</h5>
+                                                                                    <a href="#" class="btn btn-default">#{msjGestec.detalles}</a>
+                                                                                </div>
+                                                                                <div class=" child_round_circle child_round_circle_img3 ">
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </center> 
+                                                                    </div>        
+                                                                </div>
+                                                            </div>
+                                                            <div class="item">
+                                                                <div class="row">
+                                                                    <div class="col-md-4 padtop30">
+                                                                        <center><div class="parent_circle">
+                                                                                <div class="parent_circle_contain">
+                                                                                    <h3>#{msjGestec.tecnico4}</h3>
+                                                                                    <h5 class="texto">#{msjGestec.tecnico4Men}</h5>
+                                                                                    <a href="#" class="btn btn-default">#{msjGestec.detalles}</a>
+                                                                                </div>
+                                                                                <div class="tecnicos child_round_circle child_round_circle_img4">
+                                                                                </div>
+                                                                            </div>
+                                                                        </center>
+                                                                    </div>              
+                                                                    <div class="col-md-4 padtop30">
+                                                                        <center><div class="parent_circle">
+                                                                                <div class="parent_circle_contain">
+                                                                                    <h3>#{msjGestec.tecnico5}</h3>
+                                                                                    <h5 class="texto">#{msjGestec.tecnico5Men}</h5>
+                                                                                    <a href="#" class="btn btn-default">#{msjGestec.detalles}</a>
+                                                                                </div>
+                                                                                <div class=" child_round_circle child_round_circle_img5">
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </center>
+                                                                    </div>    
+                                                                    <div class="col-md-4 padtop30">
+                                                                        <center><div class="parent_circle">
+                                                                                <div class="parent_circle_contain">
+                                                                                    <h3>#{msjGestec.tecnico6}</h3>
+                                                                                    <h5 class="texto">#{msjGestec.tecnico6Men}</h5>
+                                                                                    <a href="#" class="btn btn-default">#{msjGestec.detalles}</a>
+                                                                                </div>
+                                                                                <div class=" child_round_circle child_round_circle_img6">                         
+                                                                                </div>
+                                                                            </div>
+                                                                        </center>
+                                                                    </div>            
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <a data-slide="prev" href="#media" class="left carousel-control">‹</a>
+                                                        <a data-slide="next" href="#media" class="right carousel-control">›</a>
+                                                    </div>                          
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+            <div>
+                <h:form>
+
+                    <h:form id="formularioIngreso" role="form">
+                        <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog " role="document">
+                                <div class="modal-content col-md-9 col-md-offset-2">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close1"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">#{msjGestec.modalIngreso}</h4>
+                                    </div>
+                                    <br/>
+                                    <div class="modal-body">
+                                        <img class="img-responsive logo2" src="#{request.contextPath}/resources/img/icono-gestec4.png" alt="Gestec"/>
+                                        <div class="form-group">
+                                            <h:inputText class="form-control" id="usuario" pt:placeholder="#{msjGestec.nombreUser}" value="#{sesionGestec.nombreUsuario}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <h:inputSecret class="form-control" id="contrasena" pt:placeholder="#{msjGestec.contra}" value="#{sesionGestec.contrasena}"/>
+                                        </div>
+                                        <div style="padding: 5px;text-align: center;color: #ddd;" class="col-md-12">
+                                            <h:messages globalOnly="true" showSummary="true"/>
+                                        </div>
+                                        <div class="check checkbox">
+                                            <label>
+                                                <input type="checkbox"/> #{msjGestec.noCerrar}
+                                            </label>
+                                        </div>            
+                                    </div>
+                                    <div class="pie-modal">
+                                        <div class="col-xs-12 col-md-6 center"><a data-toggle="modal" data-target="#myModal4"><h5>#{msjGestec.contraOlvidada}</h5></a></div>
+                                        <div class="col-xs-12  col-md-6 center"><a data-toggle="modal" data-target="#myModal3"><h5>#{msjGestec.userBloqueado}</h5></a></div>
+
+                                        <div class="center">
+                                            <h:commandButton id="botonValidar" class="btn btn-primary" value="#{msjGestec.ingresar}" action="#{sesionGestec.iniciarSesion()}"/>
+                                            &nbsp;&nbsp;&nbsp;
+
+                                            <button class="btn btn-default" data-dismiss="modal">#{msjGestec.cerrar}</button>       
+
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+
+                </h:form>
+
+                <div class="modal fade " id="myModal2"  role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog col-md-12" role="document">
+
+                        <div class="container" id="registrar">
+                            <form class="contacto" action="" method="post" name="contacto">
+                                <div class="row">
+                                    <div class="col md-6">
+                                        <h2>#{msjGestec.crearUser}</h2>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 col-md-offset-2" align="">
+                                        <h3>#{msjGestec.cliente}</h3>
+                                    </div>
+                                    <div class="col-md-6" align="">
+                                        <h3>#{msjGestec.tecnico}</h3>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 col-md-offset-2">
+                                        <br/>
+                                        <div align="center">
+                                            <img id="icon" src="#{request.contextPath}/resources/img/user.png"/><br/>
+                                            #{msjGestec.cliente1}<br/>
+                                            #{msjGestec.cliente11}<br/>
+                                            <input type="radio" name="radio" required="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <br/>
+                                        <div align="center">
+                                            <img id="icon"  src="#{request.contextPath}/resources/img/user.png"/><br/>
+                                            #{msjGestec.cliente2}<br/>
+                                            #{msjGestec.cliente22}<br/>
+                                            <input type="radio" name="radio" required="true"/>
+                                        </div>
+                                    </div>
+                                    <div id="caja" class="col-md-2">
+                                        <br/>
+                                        <div align="center">
+                                            <img id="icon"  src="#{request.contextPath}/resources/img/user.png"/><br/>
+                                            #{msjGestec.cliente3}<br/>
+                                            #{msjGestec.cliente33} <br/>
+                                            <input type="radio" name="radio" required="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <br/>
+                                        <div align="center">
+                                            <img id="icon"  src="#{request.contextPath}/resources/img/user.png"/><br/>
+                                            #{msjGestec.cliente2}<br/>
+                                            #{msjGestec.cliente4}<br/>
+                                            <input type="radio" name="radio" required="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <br/>
+                                        <h4>#{msjGestec.tipoDocumento}</h4>
+                                        <br/>
+                                        <select name="documento"  class="col-xs-12" required="true">
+
+                                            <option value="">#{msjGestec.tipoDocumento}</option>
+                                            <hr/>
+                                            <option class="lt" value="1">#{msjGestec.cedula}</option>
+                                            <option class="lt" value="2">#{msjGestec.tarjeta}</option>
+                                            <option class="lt" value="3">#{msjGestec.cedula1}</option>
+                                            <option class="lt" value="4">#{msjGestec.pasaporte}</option>
+
+                                        </select>
+
+                                        <input id="text" type="text" class="col-xs-12" name="numero" pattern="[a-zA-Z0-9]{10,}" placeholder="#{msjGestec.numDocumento}" required="true"/>
+
+                                        <input id="text" type="text" class="col-xs-12" name="telefono" pattern="[0-9]{5,}" placeholder="#{msjGestec.telefono}" required="true"/>
+                                        <input id="text" type="password" class="col-xs-12" name="contraseña" pattern="[a-zA-Z0-9]{6,}" placeholder="#{msjGestec.contraCaracteres}" required="true"/>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <br/>
+                                            <h4>#{msjGestec.localidad}</h4>
+                                            <br/>
+                                            <select name="documento"  class="col-xs-12" required="true">
+
+                                                <option value="">#{msjGestec.localidad}</option>
+                                                <option class="lt" value="1">Usaquén</option>
+                                                <option class="lt" value="2">Suba</option>
+                                                <option class="lt" value="3">Chapinero</option>
+                                                <option class="lt" value="4">Usme</option>
+                                                <option class="lt" value="5">Bosa</option>
+                                                <option class="lt" value="6">Kenedy</option>
+                                                <option class="lt" value="7">Fontibon</option>
+                                                <option class="lt" value="8">Engativa</option>
+                                                <option class="lt" value="9">Candelaria</option>
+                                                <option class="lt" value="10">Ciudad Bolivar</option>
+                                                <option class="lt" value="11">Otro</option>
+
+                                            </select>
+
+                                            <input id="text" type="text" class="col-xs-12" name="Direccion" placeholder="#{msjGestec.direccion}" required="true"/>
+
+                                            <input id="text" type="email" class="col-xs-12" name="email" placeholder="#{msjGestec.correo}" required="true"/>
+                                            <input id="text" type="password" class="col-xs-12" name="confcontraseña" pattern="[a-zA-Z0-9]{6,}" placeholder="#{msjGestec.contra1}" required="true"/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <input id="cb6" name="cb6" type="checkbox" required="true"/> &nbsp;<label for="cb6"><h4>
+                                            <strong>#{msjGestec.confirm}</strong>, #{msjGestec.confirm2}
+                                        </h4>
+                                    </label>
+                                    <br/>
+                                    <div align="center">
+                                        <button type="submit" class="btn btn-primary">#{msjGestec.registrar}</button></div>
+
+                                </div>
+                            </form> </div></div></div>
+
+                <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <br/>
+
+                                <h4 class="modal-title" id="myModalLabel" align="center">Contactanos</h4>
+                                <br/>
+                                <div/>
+                                <div class="modal-body">	
+                                    <div align="center">
+                                        <p>Para desbloquar su usuario por favor comuniquese con</p>
+                                        <p>nosotros llenando el siguiente formulario....</p>
+                                        <p>Lo atenderemos lo más rapido posible</p> 
+                                    </div>
+
+                                    <form style="border: 1px solid black">
+                                        <div class="contenedor">
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input type="text" class="form-control" name="usuario" required="true"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>E-Mail</label>
+                                                <input type="email" class="form-control" style="text-align:center" required="true"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Asunto</label>
+                                                <input type="text" class="form-control" placeholder="Codigo enviado al correo" style="text-align:center" required="true"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Descripcion</label><br/>
+                                                <textarea rows="5" cols="70" class="col-xs-12" required="true"></textarea>
+                                            </div>
+
+                                            <div align="center">
+
+                                                <button type="submit" href="#" class="btn btn-default"  style="padding: 10px 50px; margin-top:5px;">Enviar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <br/>
+                                    <br/>
+                                    <h4 class="modal-title" id="myModalLabel" align="center">La contraseña será restaurada</h4>
+                                    <br/>
+                                    <br/>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="Documento">Tipo de documento de identidad</label>
+                                            <select class="form-control" style="text-align-last:center" required="true">
+                                                <option  value="" >Seleccione un tipo de documento</option>
+                                                <option  value="1">Cedula de ciudadania</option>
+                                                <option  value="2">Tarjeta de identidad</option>
+                                                <option  value="3">Cedula extrangera</option>
+                                                <option  value="4">Pasaporte</option>
+                                                <option  value="5">Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Numero de documento" style="text-align:center" required="true" pattern="[0-9]{10,20}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Codigo enviado al correo" style="text-align:center"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Nueva contraseña (6 o más caracteres)" style="text-align:center" required="true" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="Confirmar contraseña (6 o más caracteres)" style="text-align:center" required="true"/>
+                                        </div>
+                                        <div align="center">
+                                            <button type="submit" href="#" class="btn btn-default"  style="padding: 10px 50px">Restaurar</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </f:view>
+    </ui:define>
+
+
+</ui:composition>
+
+
+
+
+
+

@@ -1,0 +1,106 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Tw Cen MT;
+}
+body{
+    /*overflow: hidden;*/
+}
+.logo{
+    height: 60px;
+    width: 140px;
+}
+.mensajes-enviados{
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(0, 121, 161, 1);
+    color: #fff;
+}
+.encabezadoChat{
+    padding: 10px;
+    background: #0179a1;
+    color: #fff;
+}
+.mensajes-recibidos{
+    padding: 10px;
+    border-radius: 10px;
+    background: #ddd;
+    color: #000;
+}
+.media-object{
+    height: 50px;
+    width: 50px;
+}
+.media-heading{
+    color: #0179a1;
+    cursor: pointer;
+}
+.media-heading:hover{
+    text-decoration: underline;
+}
+nav{
+    background-color: #333;
+    width: 100%;
+    height: 60px;
+}
+nav ul li a{
+    list-style: none;
+    text-decoration: none;
+    color: #ccc;
+    font-weight: 600;
+}
+nav ul li :hover{
+    list-style: none;
+    text-decoration: none;
+    color: #fff;
+}
+nav ul{
+    float: right;
+}
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    text-decoration: none;
+    padding: 19px;
+}
+.cuerpo{
+    height: 100%;
+    width: 100%;
+    background: #eee;
+    padding: 10px;
+}
+.encabezado{
+    width: 100%;
+    padding: 10px 400px 10px 150px;
+    border-bottom: 1px solid #ddd;
+}
+.img-perfil{
+    height: 150px;
+    width: 150px;
+    float: left;
+}
+.nombre{
+    height: 150px;
+    margin-left: 80px;
+    padding-top: 10px;
+    color: #333;
+    float: left;
+}
+.botones{
+    height: 150px;
+    margin-left: 550px;
+    padding-top: 30px; 
+}
+.pad{
+    margin-top: 20px;
+}
+.contenido{
+    margin-top: 20px;
+    height: 390px;
+    overflow: auto;
+}
+.titulos{
+    font-weight: 600;
+    text-align: center;
+}

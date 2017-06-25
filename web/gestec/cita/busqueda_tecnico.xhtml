@@ -1,0 +1,322 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">Búsqueda técnico</f:view>
+    </ui:define>
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" defer=""></script> 
+
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <c:if test="#{citasRequest.citaEnviada==false}">
+        <h:form prependId="false">
+
+            <h4>
+                <center>
+                    <strong><span class="fa fa-user"></span> &nbsp;Busca un técnico que se ajuste a tus necesidades</strong>
+                </center>
+            </h4>
+            <br/>
+            <div class="col-md-6">
+
+                <div class="form-group col-md-6">
+                    <label for="localidad">Localidad </label>
+
+                    <h:selectOneMenu id="localidad" 
+                                     class="form-control" 
+                                     style="margin-top:0"
+                                     value="#{citasRequest.numeroLocalidad}">
+                        <f:selectItem itemValue="0" itemLabel="Cualquier localidad"/>
+                        <c:forEach items="#{sesionGestec.localidades}" var="l">
+                            <f:selectItem itemLabel="#{l.nombreLocalidad}" itemValue="#{l.idLocalidad}"/>
+                        </c:forEach>
+                        <f:ajax delay="300" event="change" listener="#{citasRequest.llenarBarrios}" render="barrio busquedaTecnicos"
+                                execute="@this"/>
+                    </h:selectOneMenu>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="barrio">Barrio </label>
+
+                    <h:selectOneMenu id="barrio" 
+                                     class="form-control" 
+                                     style="margin-top:0"
+                                     value="#{citasRequest.numeroBarrio}">
+                        <f:selectItem itemValue="0" itemLabel="Cualquier barrio"/>
+                        <c:forEach items="#{citasRequest.barrios}" var="ba">
+                            <f:selectItem itemLabel="#{ba.nombreBarrio}" itemValue="#{ba.idBarrio}"/>
+                        </c:forEach>
+                        <f:ajax  delay="300" event="change" listener="#{citasRequest.filtrarTecnicos()}" render="busquedaTecnicos" 
+                                 execute="@this"/>
+                    </h:selectOneMenu>
+                </div>
+
+                <div class="col-md-12">
+                    <label>Nombre del técnico</label>
+                    <h:inputText value="#{citasRequest.nombreTecnico}" class="form-control">
+                        <f:ajax delay="300" execute="@this" render="busquedaTecnicos" event="keyup" 
+                                listener="#{citasRequest.filtrarTecnicos()}"/>
+                    </h:inputText>
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Ordenar por</label>
+                    <h:selectOneMenu class="form-control"
+                                     style="margin-top:0"
+                                     value="#{citasRequest.orden}">
+                        <f:selectItem itemLabel="Nombre" itemValue="usuarios.nombreUsuario"/>
+                        <f:selectItem itemLabel="Localidad" itemValue="localidad.nombreLocalidad"/>
+                        <f:selectItem itemLabel="Barrio" itemValue="barrio.nombreBarrio"/>
+                        <f:selectItem itemLabel="Calificación" itemValue="relcalificacionusuarios.calificacion_idCalificacion"/>
+                        <f:ajax delay="300" execute="@this" render="busquedaTecnicos" event="change"
+                                listener="#{citasRequest.filtrarTecnicos()}"/>
+                    </h:selectOneMenu>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Orientación</label>
+                    <h:selectOneMenu class="form-control"
+                                     style="margin-top:0"
+                                     value="#{citasRequest.orientacion}">
+                        <f:selectItem itemLabel="Ascendente" itemValue="ASC"/>
+                        <f:selectItem itemLabel="Descendente" itemValue="DESC"/>
+                        <f:ajax delay="300" execute="@this" render="busquedaTecnicos" event="change"
+                                listener="#{citasRequest.filtrarTecnicos()}"/>
+                    </h:selectOneMenu>
+
+                </div>
+
+                <div class="col-md-12" style="margin-top: 25px;">
+                    <div class="col-md-6 col-sm-6" style="padding: 0">
+                        <a href="solicitar_servicio.xhtml" class="col-md-6 pull-left btn btn-danger col-sm-12">Volver</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <h4 style="margin-top: 0"><center><strong>Técnicos</strong></center></h4>
+            </div>
+
+            <h:panelGroup id="busquedaTecnicos">
+                <div class="col-md-6 col-sm-12" style="height: 350px;overflow: auto;border: 1px solid #ccc;">
+                    <c:if test="#{citasRequest.tecnicosCita.size()>0}">
+
+                        <c:forEach items="#{citasRequest.tecnicosCita}" var="tc">
+                            <div class="row" style="background: #fff;padding: 10px;border-bottom: 1px solid #ddd;">
+                                <div class="col-md-1">
+                                    <p:graphicImage value="#{citasRequest.imagenTecnico}" style="height: 50px;width: 50px">
+                                        <f:param name="imgTecnico" value="#{tc.idUsuario}"/>
+                                    </p:graphicImage>
+                                </div>
+
+                                <div class="col-md-11 pull-right">
+                                    <h:commandLink class="enlace-perfil" 
+                                                   style="position: relative;left:15px"
+                                                   actionListener="#{sesionGestec.verPerfil(tc)}" 
+                                                   value="#{tc.nombreUsuario} #{tc.apellido}"
+                                                   target="_blank"/>    
+                                    <div class="col-md-12" style="padding-left: 5px">
+
+                                        <div class="col-md-9" style="color: #337AB7;">
+                                            <c:forEach items="#{citasRequest.getCalificaciones(tc)}" var="cal">
+                                                <c:if test="#{cal==5}">
+
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==4.5}">
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-half-empty"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==4}">
+
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==3.5}">
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-half-empty"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==3}">
+
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==2.5}"> 
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-half-empty"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==2}">
+
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==1.5}">
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-half-empty"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==1}">
+
+                                                    <span class="fa fa-star"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==0.5}">
+                                                    <span class="fa fa-star-half-empty"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                                <c:if test="#{cal==0}">
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                    <span class="fa fa-star-o"></span>
+                                                </c:if>
+                                            </c:forEach>
+                                            <br/>
+                                            <div class="col-md-12" style="color:#000;padding: 0">
+                                                <c:forEach items="#{citasRequest.getDireccion(tc)}" var="dir">
+                                                    #{dir.idBarrio.idLocalidad.nombreLocalidad}-
+                                                    #{dir.idBarrio.nombreBarrio}
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-3 col-sm-6" style="padding: 0">
+                                            <h:commandLink class="btn btn-primary pull-right col-md-12 col-sm-12" 
+                                                           pt:data-toggle="modal" pt:data-target="#confirmacionSolicitud"
+                                                           value="Enviar solicitud" >
+                                                <f:ajax event="click" render="mensaje"
+                                                        listener="#{citasRequest.setTecnicoCita(tc)}"></f:ajax>
+                                            </h:commandLink>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="#{citasRequest.tecnicosCita.size()==0}">
+                        <center style="padding: 60px 0">
+                            <span class="fa fa-user-times fa-5x"></span><br/><br/>
+                            <h5>No hay técnicos que coincidan con el criterio de búsqueda</h5>
+                        </center>
+                    </c:if>
+                </div>
+            </h:panelGroup>
+
+        </h:form>
+        </c:if>
+        
+        <c:if test="#{citasRequest.citaEnviada==true}">
+            <div class="row" style="padding: 50px 0">
+                    <center>
+                        <h2>
+                            <strong> Su solicitud fue enviada con éxito, debe esperar la respuesta del técnico</strong>
+                        </h2>
+                        <span class="fa fa-check fa-5x"></span>
+                    </center>
+                </div>
+        </c:if>
+
+
+        <div id="confirmacionSolicitud" class="modal fade bs-example-modal-sm" tabindex="-1" 
+             role="dialog" aria-labelledby="mySmallModalLabel"
+             style="margin-top: 100px;">
+            <div class="modal-dialog modal-sm" role="document" style="width: 400px">
+                <div class="modal-content" style="background-color: #ddd;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Enviar solicitud</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h:panelGroup id="mensaje">
+                            <p style="color: #eee">Los datos de su cita serán enviados a 
+                                #{citasRequest.NTecnico}
+                                <br/>
+                                <center style="color: #eee;margin-top: 5px;">¿Está seguro de enviar la solicitud?</center></p>
+                        </h:panelGroup>
+
+
+                    </div>
+                    <h:form>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                            <h:commandButton value="Enviar solicitud" class="btn btn-primary"
+                                             actionListener="#{citasRequest.agendarCita()}"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+    <ui:define name="bottom">
+
+    </ui:define>
+</ui:composition>
+
+
+

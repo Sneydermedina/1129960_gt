@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo"> 
+        <f:view>
+            #{msjGestec.cita}
+        </f:view>
+    </ui:define>
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" defer=""></script> 
+
+    </ui:define>
+
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/> 
+    </ui:define>
+
+    <ui:define name="content">
+        <f:view>
+            <div class="col-md-12 novedades">
+                <div class="col-md-12 encabezado_cita">
+                    <h3 style="margin: 0"><strong>#{msjGestec.novedades}</strong></h3>
+                </div>
+
+                <div class="col-md-12 contenido_cita">
+                    <h5 class="novedad">• #{msjGestec.novedad1}</h5>
+                    <h5 class="novedad">• #{msjGestec.novedad2}</h5>
+                    <h5 class="novedad">• #{msjGestec.novedad3}</h5>
+                </div>
+            </div>
+            <c:if test="#{citasRequest.citas.size()!=0}">
+
+                <div class="col-md-12">
+                    <div class="citas col-md-12" style="padding-right: 0">
+                        <h:form prependId="false">
+                            <c:forEach items="#{citasRequest.citas}" var="cita">
+                                <div class="row col-md-12" style="padding-right: 0">
+                                    <div class="col-md-12 encabezado_cita">
+                                        <strong>#{citasRequest.formatearFechaCita(cita.fechaCita)} - #{cita.servicionoTiquet.descripcionServicio}</strong>
+                                        <strong class="pull-right"><span class="fa fa-plus"></span> #{msjGestec.nuevo}</strong>
+                                    </div>
+                                    <div class="col-md-12 contenido_cita">
+                                        <div class="row">
+                                            <div class="col-md-5 col-sm-10 col-xs-10">
+                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>#{msjGestec.direccion}: </strong>
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.tipoVia} 
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.numeroVia}
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.complementoVia} 
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.numeroVia2} 
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.complementoVia2}-
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.numeroCasa} 
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.complemento}</p>
+                                                <br/>
+                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
+                                                    <strong>#{msjGestec.contacto}: </strong>
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}</p>
+                                            </div>
+                                            <div class="col-md-5 col-sm-10 col-xs-10">
+                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                        #{msjGestec.citasTiempo}: </strong>#{cita.duracionCita}</p>
+                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                        #{msjGestec.citasPosibleCosto}: </strong>$ #{cita.servicionoTiquet.costoServicio}</p>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <div class="tiquet">
+                                                    <strong><center>#{msjGestec.citasNoTiquet}</center></strong>
+                                                    <p style="text-align: center;margin: 0">#{cita.servicionoTiquet.noTiquet}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12" style="margin-top: 10px;">
+                                            <div class="col-md-12">
+                                                <p style="text-align: left">
+                                                    #{cita.duracionCita}
+                                                </p>
+                                            </div>
+                                        </div>
+
+
+                                        <c:if test="#{cita.estadoCita=='Agendada'}">
+                                            <h:commandLink id="botonValidar" class="btn btn-info" value="#{msjGestec.citasDetalle}" action="#{citasRequest.verDetalle(cita)}"
+                                                           ></h:commandLink>
+                                        </c:if>
+                                        <div class="pull-right">
+                                            <c:if test="#{cita.estadoCita=='Agendada'}">
+                                                <h:commandButton class="btn btn-danger" value="#{msjGestec.citasCancelar}" 
+                                                                 pt:data-toggle="modal" pt:data-target="#confirmacionCancelar">
+                                                    <f:ajax event="click" render="mensaje" listener="#{citasRequest.setCitaModificada(cita)}"/>
+                                                </h:commandButton>
+                                            </c:if>
+                                            &nbsp;
+                                            <h:commandLink class="btn btn-primary" 
+                                                           value="#{msjGestec.citasModificar}" action="#{citasRequest.editar(cita)}">
+                                            </h:commandLink>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </c:forEach>
+
+
+                        </h:form>
+                    </div>
+                </div>
+
+                <div id="confirmacionCancelar" class="modal fade bs-example-modal-sm" tabindex="-1" 
+                     role="dialog" aria-labelledby="mySmallModalLabel"
+                     style="margin-top: 100px;">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content" style="background-color: #ddd;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Cancelar cita</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <h:panelGroup id="mensaje">
+                                    <p style="color: #eee">
+                                        <center style="color: #eee;margin-top: 5px;">
+                                            ¿Está seguro que desea cancelar su cita con 
+                                            #{citasRequest.citaModificada.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                            #{citasRequest.citaModificada.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}?
+                                        </center></p>
+                                </h:panelGroup>
+
+
+                            </div>
+                            <h:form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                    <h:commandButton value="Cancelar cita" class="btn btn-primary" actionListener="#{citasRequest.cancelarCita()}"/>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+            </c:if>
+
+            <c:if test="#{citasRequest.citas.size()==0}">
+                <div style="margin-top: 50px;" class="col-md-12">
+                    <h3><center><strong><span class="fa fa-times"></span>
+                                &nbsp;No hay citas disponibles en este momento</strong></center></h3>                   
+                </div>
+            </c:if>
+        </f:view>
+    </ui:define>
+
+    <ui:define name="bottom">
+
+    </ui:define>
+</ui:composition>
+

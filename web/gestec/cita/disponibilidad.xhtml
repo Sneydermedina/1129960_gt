@@ -1,0 +1,698 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="./../../WEB-INF/template/template_principal.xhtml">
+
+    <ui:define name="titulo">Modificar cita</ui:define>
+
+    <ui:define name="head2">
+        <style>
+            hr{
+                margin-top: 10px; 
+                margin-bottom: 10px;
+                border: 0;
+                border-top: 1px solid #aaa;
+            }
+            h2{
+                margin: 0;
+            }
+            input[type=checkbox]{
+                display: none;
+            }
+            input[type=checkbox] + label{
+                cursor: pointer;
+            }           
+            .cuadro:before{
+                content: '';
+                width: 100%;
+                padding: 10px 70px;
+                border: 1px solid #aaa;
+                float: left;
+            }
+            input[type=checkbox]:checked + .cuadro:before{
+                content: '';
+                background: #337AB7;
+                border: 1px solid #337AB7;
+            } 
+            .dia{
+                float: left;
+            }
+            .fila{
+                width: 12.8%;
+                margin-left: 5px;
+                float: left;
+            }
+            .fila-hora{
+                width: 6%;
+                float: left;
+                margin-top: 20px;
+            }
+            .horas{
+                width: 90%;
+                text-align: center;
+                border-top: 1px solid transparent;
+                border-right: 1px solid transparent;
+                border-left: 1px solid transparent;
+                border-bottom: 1px solid #aaa;
+                float: left;
+                margin-bottom: 11px;
+            }
+        </style>
+
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>    
+
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/> 
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h2><strong><center>Datos servicio</center></strong></h2>
+        <hr/>
+
+
+        <div class="fila-hora">
+            <div class="horas">6:00 am</div>
+            <div class="horas">7:00 am</div>
+            <div class="horas">8:00 am</div>
+            <div class="horas">9:00 am</div>
+            <div class="horas">10:00 am</div>
+            <div class="horas">11:00 am</div>
+            <div class="horas">12:00 pm</div>
+            <div class="horas">1:00 pm</div>
+            <div class="horas">2:00 pm</div>
+            <div class="horas">3:00 pm</div>
+            <div class="horas">4:00 pm</div>
+            <div class="horas">5:00 pm</div>
+            <div class="horas">6:00 pm</div>
+            <div class="horas">7:00 pm</div>
+            <div class="horas">8:00 pm</div>
+            <div class="horas">9:00 pm</div>
+
+        </div>
+
+        <div class="fila">
+            <fieldset disabled="true">
+                <h5 style="margin-bottom: 5px"><strong><center>Lunes</center></strong></h5>
+                <div class="dia">
+                    <input id="L600am" type="checkbox" checked="true"/>
+                    <label class="cuadro" for="L600am"></label>
+                </div>
+                <div class="dia">
+                    <input id="L700am" type="checkbox"/>
+                    <label class="cuadro" for="L700am"></label>
+                </div>      
+                <div class="dia">
+                    <input id="L800am" type="checkbox"/>
+                    <label class="cuadro" for="L800am"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L900am" type="checkbox"/>
+                    <label class="cuadro" for="L900am"></label>
+                </div>       
+                <div class="dia">
+                    <input id="L1000am" type="checkbox"/>
+                    <label class="cuadro" for="L1000am"></label>
+                </div>   
+                <div class="dia">
+                    <input id="L1100am" type="checkbox"/>
+                    <label class="cuadro" for="L1100am"></label>
+                </div>    
+                <div class="dia">
+                    <input id="L1200am" type="checkbox"/>
+                    <label class="cuadro" for="L1200am"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L100pm" type="checkbox"/>
+                    <label class="cuadro" for="L100pm"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L200pm" type="checkbox"/>
+                    <label class="cuadro" for="L200pm"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L300pm" type="checkbox"/>
+                    <label class="cuadro" for="L300pm"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L400pm" type="checkbox"/>
+                    <label class="cuadro" for="L400pm"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L500pm" type="checkbox"/>
+                    <label class="cuadro" for="L500pm"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L600pm" type="checkbox"/>
+                    <label class="cuadro" for="L600pm"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L700pm" type="checkbox"/>
+                    <label class="cuadro" for="L700pm"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L800pm" type="checkbox"/>
+                    <label class="cuadro" for="L800pm"></label>
+                </div>        
+                <div class="dia">
+                    <input id="L900pm" type="checkbox"/>
+                    <label class="cuadro" for="L900pm"></label>
+                </div>  
+            </fieldset>
+        </div>
+
+
+        <div class="fila">
+            <h5 style="margin-bottom: 5px"><strong><center>Martes</center></strong></h5>
+            <div class="dia">
+                <input id="M600am" type="checkbox"/>
+                <label class="cuadro" for="M600am"></label>
+            </div>      
+            <div class="dia">
+                <input id="M700am" type="checkbox"/>
+                <label class="cuadro" for="M700am"></label>
+            </div>      
+            <div class="dia">
+                <input id="M800am" type="checkbox"/>
+                <label class="cuadro" for="M800am"></label>
+            </div>        
+            <div class="dia">
+                <input id="M900am" type="checkbox"/>
+                <label class="cuadro" for="M900am"></label>
+            </div>       
+            <div class="dia">
+                <input id="M1000am" type="checkbox"/>
+                <label class="cuadro" for="M1000am"></label>
+            </div>   
+            <div class="dia">
+                <input id="M1100am" type="checkbox"/>
+                <label class="cuadro" for="M1100am"></label>
+            </div>    
+            <div class="dia">
+                <input id="M1200am" type="checkbox"/>
+                <label class="cuadro" for="M1200am"></label>
+            </div>        
+            <div class="dia">
+                <input id="M100pm" type="checkbox"/>
+                <label class="cuadro" for="M100pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="M200pm" type="checkbox"/>
+                <label class="cuadro" for="M200pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="M300pm" type="checkbox"/>
+                <label class="cuadro" for="M300pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="M400pm" type="checkbox"/>
+                <label class="cuadro" for="M400pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="M500pm" type="checkbox"/>
+                <label class="cuadro" for="M500pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="M600pm" type="checkbox"/>
+                <label class="cuadro" for="M600pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="M700pm" type="checkbox"/>
+                <label class="cuadro" for="M700pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="M800pm" type="checkbox"/>
+                <label class="cuadro" for="M800pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="M900pm" type="checkbox"/>
+                <label class="cuadro" for="M900pm"></label>
+            </div>        
+        </div>
+
+
+        <div class="fila">
+            <h5 style="margin-bottom: 5px"><strong><center>Miércoles</center></strong></h5>
+            <div class="dia">
+                <input id="MI600am" type="checkbox"/>
+                <label class="cuadro" for="MI600am"></label>
+            </div>      
+            <div class="dia">
+                <input id="MI700am" type="checkbox"/>
+                <label class="cuadro" for="MI700am"></label>
+            </div>      
+            <div class="dia">
+                <input id="MI800am" type="checkbox"/>
+                <label class="cuadro" for="MI800am"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI900am" type="checkbox"/>
+                <label class="cuadro" for="MI900am"></label>
+            </div>       
+            <div class="dia">
+                <input id="MI1000am" type="checkbox"/>
+                <label class="cuadro" for="MI1000am"></label>
+            </div>   
+            <div class="dia">
+                <input id="MI1100am" type="checkbox"/>
+                <label class="cuadro" for="MI1100am"></label>
+            </div>    
+            <div class="dia">
+                <input id="MI1200am" type="checkbox"/>
+                <label class="cuadro" for="MI1200am"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI100pm" type="checkbox"/>
+                <label class="cuadro" for="MI100pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI200pm" type="checkbox"/>
+                <label class="cuadro" for="MI200pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI300pm" type="checkbox"/>
+                <label class="cuadro" for="MI300pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI400pm" type="checkbox"/>
+                <label class="cuadro" for="MI400pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI500pm" type="checkbox"/>
+                <label class="cuadro" for="MI500pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI600pm" type="checkbox"/>
+                <label class="cuadro" for="MI600pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI700pm" type="checkbox"/>
+                <label class="cuadro" for="MI700pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI800pm" type="checkbox"/>
+                <label class="cuadro" for="MI800pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="MI900pm" type="checkbox"/>
+                <label class="cuadro" for="MI900pm"></label>
+            </div>        
+        </div>
+
+
+        <div class="fila">
+            <h5 style="margin-bottom: 5px"><strong><center>Jueves</center></strong></h5>
+            <div class="dia">
+                <input id="J600am" type="checkbox"/>
+                <label class="cuadro" for="J600am"></label>
+            </div>      
+            <div class="dia">
+                <input id="J700am" type="checkbox"/>
+                <label class="cuadro" for="J700am"></label>
+            </div>      
+            <div class="dia">
+                <input id="J800am" type="checkbox"/>
+                <label class="cuadro" for="J800am"></label>
+            </div>        
+            <div class="dia">
+                <input id="J900am" type="checkbox"/>
+                <label class="cuadro" for="J900am"></label>
+            </div>       
+            <div class="dia">
+                <input id="J1000am" type="checkbox"/>
+                <label class="cuadro" for="J1000am"></label>
+            </div>   
+            <div class="dia">
+                <input id="J1100am" type="checkbox"/>
+                <label class="cuadro" for="J1100am"></label>
+            </div>    
+            <div class="dia">
+                <input id="J1200am" type="checkbox"/>
+                <label class="cuadro" for="J1200am"></label>
+            </div>        
+            <div class="dia">
+                <input id="J100pm" type="checkbox"/>
+                <label class="cuadro" for="J100pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="J200pm" type="checkbox"/>
+                <label class="cuadro" for="J200pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="J300pm" type="checkbox"/>
+                <label class="cuadro" for="J300pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="J400pm" type="checkbox"/>
+                <label class="cuadro" for="J400pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="J500pm" type="checkbox"/>
+                <label class="cuadro" for="J500pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="J600pm" type="checkbox"/>
+                <label class="cuadro" for="J600pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="J700pm" type="checkbox"/>
+                <label class="cuadro" for="J700pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="J800pm" type="checkbox"/>
+                <label class="cuadro" for="J800pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="J900pm" type="checkbox"/>
+                <label class="cuadro" for="J900pm"></label>
+            </div>        
+        </div>
+
+
+        <div class="fila">
+            <h5 style="margin-bottom: 5px"><strong><center>Viernes</center></strong></h5>
+            <div class="dia">
+                <input id="V600am" type="checkbox"/>
+                <label class="cuadro" for="V600am"></label>
+            </div>      
+            <div class="dia">
+                <input id="V700am" type="checkbox"/>
+                <label class="cuadro" for="V700am"></label>
+            </div>      
+            <div class="dia">
+                <input id="V800am" type="checkbox"/>
+                <label class="cuadro" for="V800am"></label>
+            </div>        
+            <div class="dia">
+                <input id="V900am" type="checkbox"/>
+                <label class="cuadro" for="V900am"></label>
+            </div>       
+            <div class="dia">
+                <input id="V1000am" type="checkbox"/>
+                <label class="cuadro" for="V1000am"></label>
+            </div>   
+            <div class="dia">
+                <input id="V1100am" type="checkbox"/>
+                <label class="cuadro" for="V1100am"></label>
+            </div>    
+            <div class="dia">
+                <input id="V1200am" type="checkbox"/>
+                <label class="cuadro" for="V1200am"></label>
+            </div>        
+            <div class="dia">
+                <input id="V100pm" type="checkbox"/>
+                <label class="cuadro" for="V100pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="V200pm" type="checkbox"/>
+                <label class="cuadro" for="V200pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="V300pm" type="checkbox"/>
+                <label class="cuadro" for="V300pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="V400pm" type="checkbox"/>
+                <label class="cuadro" for="V400pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="V500pm" type="checkbox"/>
+                <label class="cuadro" for="V500pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="V600pm" type="checkbox"/>
+                <label class="cuadro" for="V600pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="V700pm" type="checkbox"/>
+                <label class="cuadro" for="V700pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="V800pm" type="checkbox"/>
+                <label class="cuadro" for="V800pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="V900pm" type="checkbox"/>
+                <label class="cuadro" for="V900pm"></label>
+            </div>        
+        </div>
+
+
+        <div class="fila">
+            <h5 style="margin-bottom: 5px"><strong><center>Sábado</center></strong></h5>
+            <div class="dia">
+                <input id="S600am" type="checkbox"/>
+                <label class="cuadro" for="S600am"></label>
+            </div>      
+            <div class="dia">
+                <input id="S700am" type="checkbox"/>
+                <label class="cuadro" for="S700am"></label>
+            </div>      
+            <div class="dia">
+                <input id="S800am" type="checkbox"/>
+                <label class="cuadro" for="S800am"></label>
+            </div>        
+            <div class="dia">
+                <input id="S900am" type="checkbox"/>
+                <label class="cuadro" for="S900am"></label>
+            </div>       
+            <div class="dia">
+                <input id="S1000am" type="checkbox"/>
+                <label class="cuadro" for="S1000am"></label>
+            </div>   
+            <div class="dia">
+                <input id="S1100am" type="checkbox"/>
+                <label class="cuadro" for="S1100am"></label>
+            </div>    
+            <div class="dia">
+                <input id="S1200am" type="checkbox"/>
+                <label class="cuadro" for="S1200am"></label>
+            </div>        
+            <div class="dia">
+                <input id="S100pm" type="checkbox"/>
+                <label class="cuadro" for="S100pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="S200pm" type="checkbox"/>
+                <label class="cuadro" for="S200pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="S300pm" type="checkbox"/>
+                <label class="cuadro" for="S300pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="S400pm" type="checkbox"/>
+                <label class="cuadro" for="S400pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="S500pm" type="checkbox"/>
+                <label class="cuadro" for="S500pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="S600pm" type="checkbox"/>
+                <label class="cuadro" for="S600pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="S700pm" type="checkbox"/>
+                <label class="cuadro" for="S700pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="S800pm" type="checkbox"/>
+                <label class="cuadro" for="S800pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="S900pm" type="checkbox"/>
+                <label class="cuadro" for="S900pm"></label>
+            </div>          
+        </div>
+
+
+        <div class="fila">
+            <h5 style="margin-bottom: 5px"><strong><center>Domingo</center></strong></h5>
+            <div class="dia">
+                <input id="D600am" type="checkbox"/>
+                <label class="cuadro" for="D600am"></label>
+            </div>      
+            <div class="dia">
+                <input id="D700am" type="checkbox"/>
+                <label class="cuadro" for="D700am"></label>
+            </div>      
+            <div class="dia">
+                <input id="D800am" type="checkbox"/>
+                <label class="cuadro" for="D800am"></label>
+            </div>        
+            <div class="dia">
+                <input id="D900am" type="checkbox"/>
+                <label class="cuadro" for="D900am"></label>
+            </div>       
+            <div class="dia">
+                <input id="D1000am" type="checkbox"/>
+                <label class="cuadro" for="D1000am"></label>
+            </div>   
+            <div class="dia">
+                <input id="D1100am" type="checkbox"/>
+                <label class="cuadro" for="D1100am"></label>
+            </div>    
+            <div class="dia">
+                <input id="D1200am" type="checkbox"/>
+                <label class="cuadro" for="D1200am"></label>
+            </div>        
+            <div class="dia">
+                <input id="D100pm" type="checkbox"/>
+                <label class="cuadro" for="D100pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="D200pm" type="checkbox"/>
+                <label class="cuadro" for="D200pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="D300pm" type="checkbox"/>
+                <label class="cuadro" for="D300pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="D400pm" type="checkbox"/>
+                <label class="cuadro" for="D400pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="D500pm" type="checkbox"/>
+                <label class="cuadro" for="D500pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="D600pm" type="checkbox"/>
+                <label class="cuadro" for="D600pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="D700pm" type="checkbox"/>
+                <label class="cuadro" for="D700pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="D800pm" type="checkbox"/>
+                <label class="cuadro" for="D800pm"></label>
+            </div>        
+            <div class="dia">
+                <input id="D900pm" type="checkbox"/>
+                <label class="cuadro" for="D900pm"></label>
+            </div>        
+        </div>
+
+
+        <h:form id="sddssd" prependId="false">
+
+            <div class="form-group col-md-12" style="margin-top: 10px">
+                <label for="nombre">Nombre </label>
+                <input type="text" id="nombre" class="form-control" placeholder="Ingrese su(s) nombre(s)" value="#{sesionGestec.usuario.nombreUsuario}"/>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="apellido">Apellido </label>
+                <input type="text" id="apellido" class="form-control" placeholder="Ingrese su(s) apellido(s)" value="#{sesionGestec.usuario.apellido}"/>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="descripcion">Descripción </label>
+                <textarea id="descripcion" class="form-control" rows="2" placeholder="Escriba un descripción del servicio"></textarea>
+            </div>
+
+            <div class="pull-right">
+                <button class="btn btn-danger"><span class="fa fa-arrow-left"></span> Volver</button>
+                <button class="btn btn-primary">Guardar</button>
+            </div>
+
+            <div class="modal fade" id="añadirEvento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nuevo evento</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <h5 for="recipient-name" class="control-label">Id:</h5>
+                                    <input type="text" class="form-control" id="idEvento"/>
+                                </div>
+                                <div class="form-group">
+                                    <h5 for="recipient-name" class="control-label">Nombre del evento:</h5>
+                                    <input type="text" class="form-control" id="nombreEvento"/>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Tipo de evento</h5>
+                                    <select id="tipoEvento" class="form-control">
+                                        <option value="0">...</option>
+                                        <option value="1">Laboral</option>
+                                        <option value="2">Personal</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <h5 for="message-text" class="control-label">Fecha inicio:</h5>
+                                    <input class="form-control" type="datetime-local" id="fechaInicio" value="2016-12-01T00:00"/>
+                                </div>
+                                <div class="form-group">
+                                    <h5 for="message-text" class="control-label">Fecha inicio:</h5>
+                                    <input class="form-control" type="datetime-local" id="fechaFin" value="2016-12-01T00:00"/>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="evento">Guardar evento</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="clickEvento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="tituloModal">Nuevo evento</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form">
+                                <div class="form-group">
+                                    <h5 for="recipient-name" class="control-label">Evento:</h5>
+                                    <input type="text" class="form-control" id="editarEvento"/>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Tipo de evento</h5>
+                                    <select id="tipoEvento" class="form-control">
+                                        <option value="0">...</option>
+                                        <option value="1">Laboral</option>
+                                        <option value="2">Personal</option>
+                                    </select>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" id="eliminarEvento">Eliminar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="actualizarEvento">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+
+    <ui:define name="bottom"></ui:define>
+
+
+
+
+</ui:composition>
+

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="gestec/usuario/form_tecnico_empresa.xhtml" x="650" y="900" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/bootstrap_1.html" x="150" y="300" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/multipleExcel_2.html" x="400" y="450" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/sidebyside_2.html" x="1150" y="750" zoom="true"/>
+        <Node id="gestec/usuario/editar_perfil.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="gestec/usuario/perfil_externo.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/index_2.html" x="1900" y="450" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/massExcel_1.html" x="2150" y="300" zoom="true"/>
+        <Node id="gestec/error/error404.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="gestec/cita/solicitar_servicio.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="gestec/equipo/formActualizar.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/index.html" x="1650" y="150" zoom="true"/>
+        <Node id="gestec/cita/detalle_cita.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/multipleExcel.html" x="2400" y="150" zoom="true"/>
+        <Node id="gestec/usuario/form_empresa.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="gestec/cita/tabla_citas.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="gestec/cita/disponibilidad.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="gestec/equipo/listaEquipos.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="gestec/usuario/form_update_admin.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="gestec/error/error500.xhtml" x="149" y="150" zoom="true"/>
+        <Node id="gestec/cita/nueva_cita.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/singleExcel_1.html" x="1650" y="450" zoom="true"/>
+        <Node id="gestec/usuario/form_revisar_perfil.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/index_1.html" x="1400" y="150" zoom="true"/>
+        <Node id="index.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="gestec/usuario/tecnico.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/bootstrap.html" x="650" y="600" zoom="true"/>
+        <Node id="gestec/usuario/cliente.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/multipleExcel_1.html" x="900" y="300" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/bootstrap_2.html" x="650" y="1050" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/singleExcel_2.html" x="150" y="1050" zoom="true"/>
+        <Node id="gestec/equipo/formEquipo.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="gestec/usuario/form_perfil_tecnico.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="gestec/cita/formulario_citas.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="gestec/usuario/mensajes.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="gestec/cita/citas.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/sidebyside_1.html" x="650" y="150" zoom="true"/>
+        <Node id="gestec/usuario/admin.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="gestec/usuario/calendario.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="gestec/usuario/form_admin.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/massExcel.html" x="1900" y="300" zoom="true"/>
+        <Node id="gestec/usuario/novedades.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/singleExcel.html" x="1150" y="600" zoom="true"/>
+        <Node id="gestec/usuario/formpn.xhtml" x="650" y="300" zoom="false"/>
+        <Node id="resources/plugins/tableExport/test/sidebyside.html" x="150" y="1200" zoom="true"/>
+        <Node id="resources/plugins/tableExport/test/massExcel_2.html" x="400" y="300" zoom="true"/>
+        <Node id="gestec/usuario/perfil.xhtml" x="400" y="750" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

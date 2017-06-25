@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./../../WEB-INF/template/template_principal_sin_menu.xhtml">
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+    </ui:define>
+
+
+    <ui:define name="titulo">Registrar Datos personales</ui:define>
+    <ui:define name="titulo2">Registrar Datos personales</ui:define>
+
+    <ui:define name="content2">
+
+        <div class="imgfondo">
+            <div class="container">
+                <form class="contacto" action="" method="post" name="contacto">
+                    <div class="row">
+                        <div id="titulo111" class="col-md-2 col-md-offset-2">
+                            <img id="user" src="#{request.contextPath}/resources/img/user.png"/>
+                            <br/>Hogar
+                            <br/>Persona Natural 
+                            <br/>Cliente
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div id="titulo2" class="col-md-6">
+                            <p>Configura datos personales</p>
+                            <div>
+                                <input id="" type="text" class="col-xs-12 form-control" name="nombres" size="60" maxlength="60" placeholder="Nombres" required="true" pattern="[a-zA-Z]{2,}"/>
+                                <li id="a" class="fa fa-asterisk" aria-hidden="true"></li>
+                            </div>
+                            <div>
+                                <input id="text" type="text" class="col-xs-12 form-control" name="apellidos" size="60" maxlength="60" placeholder="Apellidos" required="true" pattern="[a-zA-Z]{2,}"/>
+                                <li id="b" class="fa fa-asterisk" aria-hidden="true"></li>
+                            </div>
+                            <div>
+                                <input id="text" type="text" class="col-xs-12 form-control" name="telefono2" size="60" maxlength="60" placeholder="Telefono 2" required="true" pattern="[0-9]{6,}"/>
+                                <li id="c" class="fa fa-asterisk" aria-hidden="true"></li>
+                            </div>
+                            <input id="text" type="text" class="col-xs-12 form-control" name="telefono3" size="60" maxlength="60" placeholder="Telefono 3" pattern="[0-9]{6,}"/>
+                            <li id="d" class="fa fa-asterisk" aria-hidden="true"></li>
+                            <hr/>
+                            <p>Fecha de nacimiento</p>
+                            <input type="date" name="fecha" required="true" class="form-control"/>
+                            <li if="icono1" class="fa fa-asterisk" aria-hidden="true"></li>
+                            <hr/>
+                            <li if="icono1" class="fa fa-asterisk" aria-hidden="true"></li>
+                            <p>Selecciona tu genero</p>
+                            <input type="radio" name="radio" required="true"/>Mujer<br/>
+                            <input type="radio" name="radio" required="true"/>Hombre
+
+                        </div>
+                        <div id="titulo3" class="col-md-6">
+                            <p>Foto de perfil</p>
+                            <div align="center">
+                                <a tittle="subirImagen" href=""><img id="subirImagen" src="#{request.contextPath}/resources/img/perfil.jpg" alt="subirImagen"/></a>
+                            </div>
+                            <br/><p>Documento de identificacion escaneado</p>
+                            <div align="center">
+                                <a tittle="doc" href=""><img id="doc" src="#{request.contextPath}/resources/img/documento.jpg"/></a>
+                                <a tittle="doc" href=""><img id="doc1" src="#{request.contextPath}/resources/img/documento.jpg"/></a>
+                            </div>
+                            <br/>
+                            <p>Fecha de expedición del documento</p>
+                            <div align="center">
+                                <input type="date" name="fecha" class="form-control"/>
+                                <li if="icono1" class="fa fa-asterisk" aria-hidden="true"></li>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div align="center">
+                                    <button id="boton" type="submit" class="btn btn-primary">FINALIZAR</button>
+
+                                </div>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

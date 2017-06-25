@@ -1,0 +1,647 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./../../WEB-INF/template/template_principal_sin_menu.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/js/archivo.js" defer=""></script>
+
+        <style>
+            .container{
+                background-color: #eee;
+            }
+            .progress{
+                height: 10px;
+            }
+        </style>
+
+    </ui:define>
+
+
+    <ui:define name="titulo">#{sesionGestec.usuario.nombreUsuario} #{sesionGestec.usuario.apellido}</ui:define>
+
+    <ui:define name="titulo2">#{sesionGestec.usuario.nombreUsuario} #{sesionGestec.usuario.apellido}</ui:define>
+
+    <ui:define name="content2">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+         <h:form>
+
+            <div class="container" style="padding: 20px">
+
+                <div class="col-md-3" style="padding-right: 10px; margin-top:10px;">
+                    <div class="inicio col-md-12" style="text-align: center;padding-bottom: 0">
+
+                        <h3 style="margin-top: 10px;margin-bottom: 0">
+                            <span class="fa fa-info-circle"></span>&nbsp;
+                            <strong>#{msjGestec.acerca}</strong>
+                            <a href="#{request.contextPath}/faces/gestec/usuario/editar_perfil.xhtml" class="btn btn-default pull-right" style="margin-right: 10px" title="Editar perfil">
+                                <span class="fa fa-pencil"></span>
+                            </a>
+                        </h3>
+                        <hr/>
+                  
+                        <p:graphicImage value="#{sesionGestec.imagenPerfil2}" class="img-circle" style="width: 130px;height: 130px;">
+                            <f:param name="pid2" value="#{sesionGestec.usuario.idUsuario}"/>
+                        </p:graphicImage>
+                        <h4 style="padding: 10px"><strong>#{sesionGestec.usuario.nombreUsuario} #{sesionGestec.usuario.apellido}</strong></h4>
+                        <h4>#{sesionGestec.usuario.tipoUsuario}</h4>
+
+                        <div class="inicio col-md-12" style="border-left:none;border-right: none;border-bottom: none">
+                            <strong>200</strong><br/> #{msjGestec.servicios1}
+                        </div>
+
+                        <div class="inicio col-md-12" style="border-left:none;border-right: none">
+                            <c:forEach items="#{sesionGestec.calificaciones}" var="cal">
+                                <c:if test="#{cal==5}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:if>
+                                <c:if test="#{cal==4.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-half-empty"></span>
+                                </c:if>
+                                <c:if test="#{cal==4}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==3.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-half-empty"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==3}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==2.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-half-empty"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==2}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==1.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-half-empty"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==1}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==0.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star-half-empty"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==0}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                            </c:forEach>
+
+                            <br/><br/><strong>#{msjGestec.redes1}</strong><br/> 
+
+                            <div class="inicio col-md-12" style="border-left:none;border-right: none;border-top: none">
+                                <a href="" class="btn  btn-default">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                                <a href="" class="btn  btn-default">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                                <a href="" class="btn  btn-default">
+                                    <span class="fa fa-youtube"></span>
+                                </a>
+                                <a href="" class="btn  btn-default">
+                                    <span class="fa fa-google"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="inicio col-md-12" style="margin-top: 10px;padding:10px">
+
+                        <h3 style="text-align: center;margin-top: 10px;margin-bottom: 0">
+                            <span class="fa fa-info-circle"></span>&nbsp;
+                            <strong>#{msjGestec.datos1}</strong>
+                        </h3>
+                        <hr/>
+
+                        <h5><strong>#{msjGestec.vivienda}</strong> &nbsp;
+                            <c:forEach items="#{sesionGestec.usuario.direccionList}" var="d">
+                                #{d.idBarrio.idLocalidad.nombreLocalidad} #{d.idBarrio.nombreBarrio}
+                            </c:forEach>
+                        </h5><br/>
+                        <h5><strong>#{msjGestec.cumpleaños}</strong> &nbsp;#{sesionGestec.formatearFechaCumpleaños()}</h5><br/>
+                        <c:forEach items="#{sesionGestec.usuario.telefonoList}" var="t">
+                            <h5><strong>#{msjGestec.contacto}</strong> &nbsp;#{t.numeroTelefono}</h5><br/>
+                        </c:forEach>
+
+                        <h5><strong>#{msjGestec.negoci}</strong> &nbsp;PC Redes</h5><br/>
+                        <c:forEach items="#{sesionGestec.usuario.direccionList}" var="d">
+                            <h5><strong>#{msjGestec.direccion}</strong> &nbsp; #{d.tipoVia} #{d.numeroVia}#{d.complementoVia} 
+                                ##{d.numeroVia2} #{d.complementoVia2}-#{d.numeroCasa} #{d.complemento}</h5><br/>
+                        </c:forEach>
+                    </div>
+
+                    <div class="inicio col-md-12" style="margin-top: 10px;padding:10px">
+
+                        <h3 style="text-align: center;margin-top: 10px;margin-bottom: 0">
+                            <span class="fa fa-briefcase"></span>&nbsp;
+                            <strong>#{msjGestec.perfil1}</strong>
+                        </h3>
+
+                        <hr/>
+
+                        <h5 style="margin-top: 10px;margin-bottom: 0">
+                            #{sesionGestec.usuario.perfil}
+                        </h5>
+                        <br/>
+
+                        <h4 style="margin-top: 10px;margin-bottom: 0">
+                            <span class="fa fa-mortar-board"></span>
+                            <strong>#{msjGestec.educacion}</strong>
+                        </h4>
+                        <hr/>
+                        <c:forEach items="#{sesionGestec.usuario.certificadoestudioList}" var="ce">
+                            <h5><strong>#{ce.centroEducativo}: </strong> #{ce.nivelEstudios}</h5><br/>
+                        </c:forEach>
+
+                        <br/>
+                        <h4 style="margin-top: 10px;margin-bottom: 0">
+                            <span class="fa fa-wrench"></span>
+                            <strong>#{msjGestec.especialidad}</strong>
+                        </h4>
+                        <hr/>
+                        <c:forEach items="#{sesionGestec.usuario.especialidadList}" var="esp">
+                            <h5>#{esp.especialidad}</h5>
+                        </c:forEach>
+
+                        <br/>
+                        <h4 style="margin-top: 10px;margin-bottom: 0">
+                            <span class="fa fa-cogs"></span>
+                            <strong>#{msjGestec.efectividad}</strong>
+                        </h4>
+                        <hr/>
+
+                        <div class="col-md-12">
+                            <h5 class="col-md-6" style="margin-bottom: 5px"><strong>#{msjGestec.mantenimiento}</strong></h5>
+                            <h5 class="col-md-6" style="text-align: right"><strong>95%</strong></h5>
+                        </div>
+                        <div class="progress col-md-12">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 95%">
+                                <span class="sr-only">20% Complete</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5 class="col-md-6" style="margin-bottom: 5px"><strong>#{msjGestec.diagnostico}</strong></h5>
+                            <h5 class="col-md-6" style="text-align: right"><strong>50%</strong></h5>
+                        </div>
+                        <div class="progress col-md-12">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                <span class="sr-only">40% Complete (success)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5 class="col-md-6" style="margin-bottom: 5px"><strong>#{msjGestec.instalacion}</strong></h5>
+                            <h5 class="col-md-6" style="text-align: right"><strong>70%</strong></h5>
+                        </div>
+                        <div class="progress col-md-12">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                <span class="sr-only">60% Complete (warning)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="inicio col-md-6" style="padding: 15px 20px;margin:10px 0">
+
+                    <h3 style="text-align: center;margin-top: 10px;margin-bottom: 0">
+                        <span class="fa fa-calendar"></span>&nbsp;
+                        <strong>#{msjGestec.linea}</strong>
+                    </h3>
+                    <hr/>
+
+                    <textarea class="form-control" placeholder="#{msjGestec.placeholderEscribe}" style="border-radius: 0"></textarea>
+
+                    <div class="inicio col-md-12" style="border-top: none;padding: 7px">
+
+                        <button class="btn btn-default btn-archivo" style="position: relative;cursor: pointer">
+                            <span class="fa fa-file-image-o"></span> #{msjGestec.adjuntar}
+                            <input type="file" accept="image/*" class="form-control archivo" style="position: absolute;width: 100%;height: 100%;top: 0;left: 0;opacity: 0;cursor: pointer"/>
+                        </button>
+                        <button class="btn btn-primary pull-right">
+                            #{msjGestec.publicar}
+                        </button>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12 publicacion" style="padding-right:15px;padding-left:15px">
+
+                            <div class="col-md-12 contenido-publicacion" style="padding-right:0;padding-left:0">
+                                <div class="col-md-12" style="padding:0;">
+                                    <div class='notMensajesVistos' style="border:none; padding:0">
+
+                                        <div class="oferta">
+                                            <div class='notificacionMensaje2'>
+                                                <img src='#{request.contextPath}/resources/img/tecnico1.jpg' alt='' class='imagenNotificacion'/>
+                                            </div>
+                                            <h5 class='mensajeCorto pull-right'>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-link dropdown-toggle fa fa-ellipsis-v" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Acciones" style="border:none">
+                                                    </button>
+                                                    <ul class="dropdown-menu" style="left:-140px" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" class="eliminarConversacion"><span class="fa fa-bullhorn"></span> #{msjGestec.reportar}</a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a href="#"><span class="fa fa-eye-slash"></span>#{msjGestec.ocultar}</a></li>
+                                                    </ul>
+                                                </div>
+                                            </h5>
+                                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle conectado'></span>Michael Medina</strong></h5>
+                                            <h5 class='tiempoMensaje' style="color:#fff">&nbsp;&nbsp;&nbsp;#{msjGestec.tiempo10}</h5>
+                                            <div class="descripcion-publicacion">
+                                                #{msjGestec.mensaje1}
+                                            </div>
+
+
+                                        </div>
+
+                                        <img class="imagen-publicacion" src="#{request.contextPath}/resources/img/computador.jpg" alt=""/>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 comentarios-publicacion">
+
+                                <div class="col-md-12 oferta">
+                                    <h5><strong>#{msjGestec.postulaciones} (10)</strong></h5>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <ul class="media-list">
+                                        <li class="media">
+
+                                            <div class="media-left">
+                                                <a href="#">
+                                                    <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico1.jpg" alt=""/>
+                                                </a>
+                                            </div>
+
+                                            <div class="media-body">
+                                                <h4 class="media-heading">Álvaro Ramirez</h4>
+                                                #{msjGestec.mensaje2}
+                                            </div>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico2.jpg" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Ana Rodríguez</h4>
+                                                        #{msjGestec.mensaje3}
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico3.png" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Michael Medina</h4>
+                                                        #{msjGestec.mensaje4}
+                                                    </div>
+                                                </li>
+                                            </ul>	    
+                                        </li>
+
+
+                                        <li class="media">
+
+                                            <div class="media-left">
+                                                <a href="#">
+                                                    <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico1.jpg" alt=""/>
+                                                </a>
+                                            </div>
+
+                                            <div class="media-body">
+                                                <h4 class="media-heading">Álvaro Ramirez</h4>
+                                                #{msjGestec.mensaje5}
+                                            </div>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico2.jpg" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Ana Rodríguez</h4>
+                                                        #{msjGestec.mensaje6}
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico3.png" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Michael Medina</h4>
+                                                        #{msjGestec.mensaje7}
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico4.png" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Orlando Moreno</h4>
+                                                        #{msjGestec.mensaje8}
+                                                    </div>
+                                                </li>
+                                            </ul>	    
+                                        </li>
+                                    </ul>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="#{msjGestec.comenta}" style="margin-bottom:10px"/>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12 publicacion" style="padding-right:15px;padding-left:15px">
+
+                            <div class="col-md-12 contenido-publicacion" style="padding-right:0;padding-left:0">
+                                <div class="col-md-12" style="padding:0;">
+                                    <div class='notMensajesVistos' style="border:none; padding:0">
+
+                                        <div class="pregunta">
+                                            <div class='notificacionMensaje2'>
+                                                <img src='#{request.contextPath}/resources/img/tecnico1.jpg' alt='' class='imagenNotificacion'/>
+                                            </div>
+                                            <h5 class='mensajeCorto pull-right'>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-link dropdown-toggle fa fa-ellipsis-v" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Acciones" style="border:none">
+                                                    </button>
+                                                    <ul class="dropdown-menu" style="left:-140px" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="#" class="eliminarConversacion"><span class="fa fa-bullhorn"></span> #{msjGestec.reportar}</a></li>
+                                                        <li role="separator" class="divider"></li>
+                                                        <li><a href="#"><span class="fa fa-eye-slash"></span>#{msjGestec.ocultar}</a></li>
+                                                    </ul>
+                                                </div>
+                                            </h5>
+                                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle desconectado'></span>Orlando Moreno</strong></h5>
+                                            <h5 class='tiempoMensaje' style="color:#fff">&nbsp;&nbsp;&nbsp;#{msjGestec.tiempo}</h5>
+                                            <div class="descripcion-publicacion">
+                                                #{msjGestec.mensaje9}
+                                            </div>
+
+
+                                        </div>
+
+                                        <img class="imagen-publicacion" src="#{request.contextPath}/resources/img/windows.jpg" alt=""/>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 comentarios-publicacion">
+
+                                <div class="col-md-12 pregunta">
+                                    <h5><strong>#{msjGestec.respuestas} (10)</strong></h5>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <ul class="media-list">
+                                        <li class="media">
+
+                                            <div class="media-left">
+                                                <a href="#">
+                                                    <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico1.jpg" alt=""/>
+                                                </a>
+                                            </div>
+
+                                            <div class="media-body">
+                                                <h4 class="media-heading">Álvaro Ramirez</h4>
+                                                #{msjGestec.mensaje10}
+                                            </div>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico2.jpg" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Ana Rodríguez</h4>
+                                                        #{msjGestec.mensaje11}
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico3.png" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Michael Medina</h4>
+                                                        #{msjGestec.mensaje12}
+                                                    </div>
+                                                </li>
+                                            </ul>	    
+                                        </li>
+
+
+                                        <li class="media">
+
+                                            <div class="media-left">
+                                                <a href="#">
+                                                    <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico1.jpg" alt=""/>
+                                                </a>
+                                            </div>
+
+                                            <div class="media-body">
+                                                <h4 class="media-heading">Álvaro Ramirez</h4>
+                                                #{msjGestec.mensaje13}
+                                            </div>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico2.jpg" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Ana Rodríguez</h4>
+                                                        .................
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico3.png" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Michael Medina</h4>
+                                                        #{msjGestec.mensaje14}
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                            <ul>
+                                                <li class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img class="media-object img-circle" src="#{request.contextPath}/resources/img/tecnico4.png" alt=""/>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Orlando Moreno</h4>
+                                                        ..........................
+                                                    </div>
+                                                </li>
+                                            </ul>	    
+                                        </li>
+                                    </ul>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="#{msjGestec.comenta}" style="margin-bottom:10px"/>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr/>
+                    <h4 style="text-align: center">
+                        <span class="fa fa-user"></span>
+                        &nbsp;#{msjGestec.fecha1}
+                    </h4>
+                </div>
+
+                <div class="col-md-3" style="padding: 0 0 0 10px; margin-top:10px;">
+                    <div class="inicio col-md-12">
+
+                        <h3 style="text-align: center;margin-top: 10px;margin-bottom: 0">
+                            <span class="fa fa-phone-square"></span>&nbsp;
+                            <strong>#{msjGestec.contactos}</strong>
+                        </h3>
+                        <hr/>
+
+                        <c:forEach items="#{sesionGestec.usuario.contactosList}" var="cont">
+
+
+                            <div class="row" style="padding: 10px;">
+                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                    <p:graphicImage value="#{sesionGestec.imagenContacto}" style="height: 40px;width: 40px">
+                                        <f:param name="imgC" value="#{cont.idUsuario.idUsuario}"/>
+                                    </p:graphicImage>
+                                </div>
+                                <div class="col-md-10 col-sm-10 col-xs-10">
+
+                                    <h:commandLink class="enlace-perfil" 
+                                                   actionListener="#{sesionGestec.verPerfil(cont.idUsuario)}"
+                                                   value="#{cont.idUsuario.nombreUsuario} #{cont.idUsuario.apellido}"/>
+                                </div>
+                                <div class="col-md-10">
+                                    <h5> &nbsp;#{cont.idUsuario.tipoUsuario}</h5>
+                                </div>
+                            </div>
+
+                        </c:forEach>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </h:form>
+        </f:view>
+    </ui:define>
+
+</ui:composition>

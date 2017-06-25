@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">#{msjGestec.reporteServicio}</f:view></ui:define>
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
+
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" defer=""></script> 
+
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form prependId="false">
+            <h4>
+                <center>
+                    <strong><span class="fa fa-star-o"></span> &nbsp;Reportes de Servicios realizados</strong>
+                </center>
+            </h4>
+            <br/>
+            <div class="form-group col-md-4">
+                <label for="tiquet">#{msjGestec.tiquet} </label>
+                <h:selectOneMenu value="#{servicioControl.servicio.noTiquet}" id="tiquet" >
+                    <f:selectItems itemValue="#{servicioControl.servicio.noTiquet}"/>
+                </h:selectOneMenu>
+                <h:commandButton class="btn btn-primary pull-right col-md-6" value="Consultar" action="#{servicioControl.serviciosTecnicos(noTiquet)}">
+                    <f:ajax event="click" listener="#{servicioControl.setListaTiquets(listaTiquets)}" 
+                                                render="servicios" ></f:ajax>
+                </h:commandButton>
+            </div>
+         
+            <div class="col-md-6">
+                <h4 style="margin-top: 0"><center><strong>#{msjGestec.detallesServicio}</strong></center></h4>
+            </div>
+
+                <div class="col-md-6 col-sm-12" style="height: 350px;overflow: auto;border: 1px solid #ccc;">
+
+                    <h:panelGroup id="servicios">
+                    <div class="row" style="background: #fff;padding: 10px;border-bottom: 1px solid #ddd;">
+                        <div class="col-md-2">
+                            <img src="../../resources/img/tecnico1.jpg" alt="" style="width: 50px;height: 50px;"/>
+                        </div>
+
+                        <div class="col-md-5">
+                            
+                            <label for="nombreusuario">#{msjGestec.usuario}</label>
+                            <h:outputText value=" #{servicioControl.servicio.noTiquet}"></h:outputText>
+                            
+                           
+                        </div>
+                        <div class="col-md-5 pull-right">
+                            <label for="fechaServicio">#{msjGestec.fechaServicio}</label>
+                            
+                            <h:outputText value=" #{servicioControl.servicio.fechaServicio}"></h:outputText>
+                            <br/>
+
+                        </div>
+
+                    </div>
+                    <div class="row" style="background: #fff;padding: 10px;border-bottom: 1px solid #ddd;">
+                        <div class="col-md-2">
+                            
+                        </div>
+
+                        <div class="col-md-5">
+                            <label for="estadoServicio">#{msjGestec.estadoServicio}</label>
+                            
+                            <h:outputText value=" #{servicioControl.servicio.estadoServicio}"></h:outputText>
+                        </div>
+                        <div class="col-md-5 pull-right">
+                            <label for="fechaGarantia">#{msjGestec.fechaGarantia}</label>
+                            
+                            <h:outputText value=" #{servicioControl.servicio.garantia}"></h:outputText>
+                            <br/>
+
+                        </div>
+
+                    </div>
+            
+            </h:panelGroup>
+                    <div class="row " style="background: #fff;padding: 10px;border-bottom: 1px solid #ddd;">
+                         <div class="col-md-3 col-sm-6" style="padding: 0">
+                             <h:commandButton class="btn btn-primary pull-right col-md-12 col-sm-12" 
+                                       pt:data-toggle="modal" pt:data-target="#Detalles"
+                                       value="Detalles">
+                            
+                             </h:commandButton>
+                    </div>
+                         <div class="col-md-3 col-sm-6 pull-right" style="padding: 0">
+                             <h:commandButton class="btn btn-primary pull-right col-md-12 col-sm-12" 
+                                       pt:data-toggle="modal" pt:data-target="#Adjuntar"
+                                       value="Adjuntar Archivo">
+                            
+                             </h:commandButton>
+                    </div>
+                        
+                    </div>
+
+                </div>
+                      
+        </h:form>
+        
+        <div class="modal fade" id="Detalles" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        <h4 class="modal-title custom_align" id="Heading">Nuevo Servicio</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        <div class="modal fade" id="Adjuntar" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        <h4 class="modal-title custom_align" id="Heading">Nuevo Servicio</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+
+    </ui:define>
+
+    <ui:define name="bottom">
+
+    </ui:define>
+</ui:composition>
+
+
+

@@ -1,0 +1,330 @@
+*{
+
+}
+#h4{
+    margin-top: 20px;
+    border: 1px solid black;
+}
+#correo1{
+    margin-bottom: 10px;
+}
+#imagen{
+    width:100px;
+    height:100px;
+}
+.imgfondo{
+    background-image:url(../img/7.png);
+    background-color: #cccccc;
+    padding: 50px 20px 20px 0px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: right top;
+
+}
+.container{background-color: rgba(255, 255, 255, 0.65);}
+.container1{
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 0.5px solid black;
+}
+.container2{
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 0.5px solid black;
+}
+.conta{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.container3{
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 0.5px solid black;
+}
+.container4{
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 0.5px solid black;
+}
+.container5{
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 0.5px solid black;
+}
+#texto1{
+    text-align: left;
+}
+#correo1{
+    background-color: #DBD9D9;
+    padding: 5px 5px 5px 5px;
+
+}
+#correo2{
+    background-color: #F4F0F0;
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+}
+#correo3{
+    background-color: #DBD9D9;
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+}
+#correo4{
+    background-color: #F4F0F0;
+    padding: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+}
+#correo5{
+    background-color: #DBD9D9;
+    padding: 5px 5px 5px 5px;
+}
+
+
+#user{
+    width: 50px;
+    height: 50px;
+}
+#titulo111{
+    text-align: center;
+}
+#titulo1{
+    text-align: left;
+}
+p{
+    text-align: center;
+}
+#subirImagen{
+    width: 200px;
+    height:150px;
+
+}
+#doc{
+    width:180px;
+    height:150px;
+}
+#doc1{
+    width:180px;
+    height:150px;
+    margin-left:50px;
+}
+#titulo2{
+    margin-top:50px;
+    text-align: center;
+}
+
+#text{
+    margin-top:20px;
+}
+#boton{
+    padding: 5px 50px 5px 50px;
+}
+
+#clip{
+    margin-top: 30px;
+    text-align: right;
+    width:200px;
+    height:60px;
+}
+
+/*-------------------*/
+
+.container{
+    margin-top: 20px;
+}
+#boton1{
+    margin-top: 35px;
+    background-color: #FCFAFA;
+}
+#boton2{
+    margin-top: 10px;
+    background-color: #C8BFBF;
+}
+#nuevo:hover{
+    cursor:pointer;
+}
+#boton3{
+    margin-top: 10px;
+    background-color: #C8BFBF;
+}
+#boton4{
+    margin-top: 10px;
+    background-color: #FCFAFA;
+}
+#hr{
+    border: 1px solid black;
+}
+#txt{
+    margin-top: 20px;
+}
+select{
+    padding: 4px 0;
+    margin-top: 20px;
+}
+#imagen{
+    margin-top: 50px;
+    width:100px;
+    height:100px;
+}
+#boton0{
+    background-color: #C8BFBF;
+    margin-top: 70px;
+    padding: 5px 5px 5px 5px;
+}
+#botonn{
+    background-color: #C8BFBF;
+    padding: 5px 5px 5px 5px;
+    margin-top: 5px;
+}
+#boto{
+    background-color: #C8BFBF;
+    padding: 5px 5px 5px 5px;	
+}
+#bt{
+    border-radius: 50px;
+}
+/* ------------*/
+
+#select{
+    margin-top: 5px;
+    padding: 5px 0;
+}
+#usuarioo{
+    height: 100px;
+    width:120px;
+    margin-top: 20px;
+}
+#tex{
+    margin-top: 10px;
+
+}
+#textt{
+    margin-top: 10px;
+
+    padding: 4px 0;
+
+}
+#texx{
+
+}
+#p{
+    margin-left: 15px;
+    text-align: center;
+}
+#bt{
+    margin-top: 30px;
+}
+#texxx{
+
+    margin-top:10px;
+}
+/*----------------*/
+#perfil{
+    width:200px;
+    height:150px;
+}
+#select{
+    margin-top: 15px;
+}
+#tex{
+    margin-top: 15px;
+}
+#contenedor{
+    float:right;
+}
+select{
+    padding: 3px 3px;
+}
+#di{
+    margin-top: 10px;
+    width:250px;
+    height:80px;
+}
+#cert{
+    margin-top: 5px;
+    width:150px;
+    height:40px;
+}
+#bot{
+    border-radius: 20px;
+}
+
+
+#h20{
+    margin-top: 80px;
+}
+
+#principal{
+    text-align: center;
+}
+
+input{
+    margin-right:5px;
+}
+
+
+#time{
+    margin-top: 5px;
+
+}
+#user1{
+    width:100px;
+    height:80px;
+}
+#caja1{
+    border: 1px solid black;
+}
+a:hover{
+    cursor:pointer;
+}
+#tt{
+    margin-top: 10px;
+}
+#ttt{
+    margin-top:-3px;
+}
+
+
+.contacto input:focus:valid, .contacto textarea:focus:valid{
+    box-shadow: 0 0 5px green;
+    border-color:green;
+}
+.contacto input:focus:invalid, .contacto textarea:focus:invalid{
+    box-shadow: 0 0 5px red;
+    border-color:red;
+}
+.contacto input:focus, .contacto textarea:focus {
+    padding-right: 70px;
+}
+.contacto input, .contacto textarea{
+    -moz-transition: padding .25s; 
+    -webkit-transition: padding .25s;
+    -o-transition:padding .25s;
+    transition:padding .25s;
+}
+.contacto input, .contacto textarea{
+    padding-right: 30px;
+}
+#aaa{
+    color:white;
+}
+
+#a{
+    position: absolute;
+    right: 20px;
+    top: 35px;
+}
+#b{
+    position:absolute;
+    right:20px;
+    top:80px;
+}	
+#c{
+    position:absolute;
+    right:20px;
+    top:122px;
+}
+#d{
+    position:absolute;
+    right:20px;
+    top:168px;
+}	

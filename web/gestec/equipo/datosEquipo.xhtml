@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    
+    <ui:define name="titulo">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">#{msjGestec.detalles}</f:view></ui:define>
+        
+        <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" defer=""></script> 
+
+
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/js-xlsx/xlsx.core.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/FileSaver/FileSaver.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/jsPDF/jspdf.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/html2canvas/html2canvas.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/tableExport.js"></script>
+    </ui:define>
+    
+     <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define>
+    <ui:define name="content">
+        <f:view>
+        <div class="col-md-12 inicio">
+            <div class="col-md-12 encabezado">
+
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active"><a href="#equipos" data-toggle="tab">#{msjGestec.equipo1}</a></li>
+                    <li role="presentation"><a href="#servicios" data-toggle="tab">#{msjGestec.servicios}</a></li>
+                    <li role="presentation"><a href="#usuarios" data-toggle="tab">#{msjGestec.Usuarios}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="equipos" class="tab-pane fade in active">
+                        <br/>
+        <h:form id="form" class="form-horizontal" style="border: 1px solid #0179a1;border-radius: 10px;padding: 10px;">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <h3><b>#{msjGestec.datosEquipo}</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <h3>#{msjGestec.referenciaEquipo}: </h3><h:inputText value="#{equipoController.e.referencia}" class="form-control" disabled="true"/>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <h3>#{msjGestec.descripcionEquipo}: </h3><h:inputText value="#{equipoController.e.descripcionEquipo}" class="form-control" disabled="true"/>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <h3>#{msjGestec.fechaRevision}: </h3><h:inputText value="#{equipoController.e.fechaUltimaRevision}" class="form-control" disabled="true">
+                        <f:convertDateTime pattern = "dd-mm-yyyy" /></h:inputText>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <h3>#{msjGestec.marcaEquipo}: </h3><h:inputText value="#{equipoController.e.marcaEquipo}" class="form-control" disabled="true"/>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <h3>#{msjGestec.serialEquipo}: </h3><h:inputText value="#{equipoController.e.serialEquipo}" class="form-control" disabled="true"/>
+                </div>
+                <div class="col-md-4 col-xs-12">
+                    <h3>#{msjGestec.tipoEquipo}: </h3><h:inputText value="#{equipoController.e.tipoEquipo}" class="form-control" disabled="true"/>
+                </div>
+            </div>
+            <br/>
+                <a href="#{request.contextPath}/faces/gestec/equipo/listaEquipos.xhtml"><h:inputText value="#{msjGestec.volver}" class="btn btn-default form-control"></h:inputText></a>
+
+                <br/>
+            </h:form>
+                    </div>
+                    <div id="servicios" class="tab-pane fade">
+        <h:form id="form1" class="form-horizontal" style="border: 1px solid #0179a1;border-radius: 10px;padding: 10px;margin-top:20px;">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <h3><b>#{msjGestec.equipoServicio}</b></h3>
+                </div>
+            </div>
+            <c:forEach items="#{equipoController.e.relequiposervicioList}" var="e">
+            <div class="row">
+                <div class="col-md-3 col-xs-12">
+                    <h3>#{msjGestec.equipoServicioNo}: </h3>
+                    <h:inputText value="#{e.servicionoTiquet.noTiquet}" class="form-control" disabled="true"/>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <h3>#{msjGestec.equipoTipoServicio}: </h3>
+                        <h:inputText value="#{e.servicionoTiquet.descripcionServicio}" class="form-control" disabled="true"/>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <h3>#{msjGestec.equipoEstadoServicio}: </h3><h:inputText value="#{e.servicionoTiquet.estadoServicio}" class="form-control" disabled="true"/>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <h3>#{msjGestec.equipoCostoServicio}: </h3><h:inputText value="#{e.servicionoTiquet.costoServicio}" class="form-control" disabled="true">
+                        </h:inputText>
+                </div>
+            </div>
+                    </c:forEach>
+            
+                <br/>
+            </h:form>
+                    </div>
+                      <div id="usuarios" class="tab-pane fade">
+                        <h:form id="form2" class="form-horizontal" style="border: 1px solid #0179a1;border-radius: 10px;padding: 10px;margin-top:20px;">
+                            <c:forEach items="#{equipoController.e.relequiposervicioList}" var="e">
+                                 
+                            </c:forEach>
+                            
+                            
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        </f:view>
+    </ui:define>
+    <ui:define name="bottom"></ui:define>
+</ui:composition>
+

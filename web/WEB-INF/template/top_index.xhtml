@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+
+    <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+    <div class="superior">  
+        <header>
+            <div class="container-fluid">
+                <div class="row">
+                    <div  class="col-xs-5 col-sm-3 col-md-2">
+                        <a href="#">
+                            <img class="img-responsive" src="resources/img/icono-gestec.png" alt="Gestec"/>
+                        </a>      
+                    </div>
+                    <div class="col-xs-7 col-sm-9 col-md-10 "  id="degrade">   
+                        <ul class="list-inline pull-right">
+                            <li class="hidden-xs">  <h6 class="recomiendanos">#{msjGestec.recomiendanos}</h6></li>
+                            <li><a class="social" href="https://www.facebook.com/">
+                                    <i class="fa fa-facebook-official fa-2x" ></i>             
+                                </a></li>
+                            <li> <a class="social" href="https://twitter.com/">
+                                    <i class="fa fa-twitter fa-2x" ></i>             
+                                </a></li>
+                            <li> <a class="social" href="https://plus.google.com/collections/featured">
+                                    <i class="fa fa-google-plus fa-2x" ></i>             
+                                </a>&nbsp;</li>
+                        </ul>           
+                    </div>
+                </div>  
+            </div>
+        </header>
+        <div class="menu"> 
+
+            <div class="container-fluid"> 
+                <div class="row">   
+                    <nav class="navbar navbar-inverse col-xs-6 col-sm-9 col-md-9" role="navigation">
+
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myInverseNavbar2" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="myInverseNavbar2">
+                            <ul class="nav navbar-nav navbar-left">
+                               <li class="item">
+                                    <a href="#s2">#{msjGestec.queEsGestec}</a>
+                                </li>
+                                <li class="item">		
+                                    <a href="#s3">#{msjGestec.comoFunciona}</a>
+                                </li>
+                                <li class="item">		
+                                    <a href="#s4">#{msjGestec.beneficiosCliente}</a>
+                                </li>
+                                <li class="item">		
+                                    <a href="#s4">#{msjGestec.beneficiosTecnico}</a>
+                                </li>
+                                <li class="item">		
+                                    <a href="#s6">#{msjGestec.testimonios}</a>
+                                </li> 
+                                <li class="item" style="margin-right: 5px;"> 
+                            <span class="logout-spn" >
+            <h:form id="form-logout" prependId="false">
+                        <div class="btn-group">
+                    <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="margin-top:-1px;">
+                        #{msjGestec[sesionGestec.idiomaSeleccionado.language]} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <c:forEach items="#{sesionGestec.idiomasSoportados}" var="idioma">
+                            <li><h:commandLink actionListener="#{sesionGestec.cambiarIdioma(idioma)}" value="#{msjGestec[idioma.language]}"/></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+                </h:form>
+
+        </span></li>
+                            </ul>
+                        </div>    
+
+                    </nav> 
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <a  href="#" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary"><span class="fa fa-sign-in"></span>&nbsp;&nbsp;#{msjGestec.iniciarSesion}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <a  href="#" type="button" data-toggle="modal" data-target="#myModal2" class="btn btn-primary"><span class="fa fa-pencil"></span>&nbsp;&nbsp;#{msjGestec.registrar}</a>
+                    </div>  
+                </div>
+            </div>
+        </div> 
+    </div>
+    </f:view>
+</ui:fragment>    

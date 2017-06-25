@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal_sin_menu.xhtml">
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <style>
+            .menu-top{
+                position: relative;
+            }
+        </style>           
+    </ui:define>
+
+
+    <ui:define name="titulo2">Registrar administrador</ui:define>
+    <ui:define name="titulo">Registrar administrador</ui:define>
+    <ui:define name="menu"></ui:define>
+
+    <div> 
+        <ui:define name="content2">
+
+            <div class="imgfondo">
+
+                <div class="container" style="padding: 20px">
+                    <form id="formLogin" class="contacto" action="" method="post" name="contacto">
+                        <div id="principal" class="row">
+
+
+                        </div>
+                        <div id="menu" class="row">
+                            <div class="col-md-6">
+                                <label for="nombres">Nombres &nbsp;</label>
+                                &nbsp;&nbsp;&nbsp;<input class="form-control" type="text" name="nombres" id="nombres" size="60" maxlenght="60" placeholder="Ingrese sus nombres completos" required="true"/>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="apellidos">Apellidos &nbsp;</label>
+                                <input class="form-control" type="text" name="apellidos" id="apellidos" size="60" maxlenght="60" placeholder="Ingrese sus nombres completos" required="true"/>
+                            </div>
+                        </div>	
+
+                        <div id="menu" class="row">
+                            <div class="col-md-6">
+                                <label for="documento">Documento &nbsp;</label>
+                                <input class="form-control" type="text" name="documento" id="documento" size="60" maxlenght="60" pattern="[0-9]{10}" placeholder="Numero de cedula" required="true"/>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="direccion">Direccion &nbsp;</label>
+                                <input class="form-control" type="text" name="direccion" id="direccion" size="60" maxlenght="60" placeholder="Ingrese una direccion"/>
+                            </div>
+                        </div>
+
+                        <div id="menu" class="row">
+                            <div class="col-md-6">
+                                <label for="telefono">Telefono &nbsp;&nbsp;</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" name="Telefono" id="telefono" size="60" maxlength="60" placeholder="Ingrese numero de telefono"/>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="correo">Correo E. &nbsp;&nbsp;</label>
+                                <input class="form-control" type="email" name="correo" id="correo" size="60" maxlength="60" placeholder="Ingrese su correo electronico" required="true"/>
+                            </div>
+                        </div>
+
+                        <div id="menu" class="row">
+                            <div class="col-md-6">
+                                <label for="contraseña">Contraseña &nbsp;</label>
+                                <input class="form-control" type="password" name="contraseña" id="contraseña" size="60" maxlenght="60" pattern="[0-9a-zA-Z]{3,}" placeholder="Ingrese su contraseña" required="true"/>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="confirmar">Confirmar &nbsp;</label>
+                                <input class="form-control" type="password" name="confirmas" id="confirmar" size="60" maxlenght="60" pattern ="[0-9a-zA-Z]{3,}" placeholder="Confirme la contraseña" required="true"/>
+                            </div>
+                        </div>
+
+                        <div id="menu" class="row">
+                            <div class="col-md-6">
+                                <label for="codigo">Codigo &nbsp;&nbsp;&nbsp;</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-control" type="text" name="codigo" id="codigo" size="60" maxlength="60" placeholder="Ingrese el codigo de confirmacion"/>
+                                
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div id="menu" class= "row" style="margin-left: 10px">
+                            <input type="checkbox" id="check" name=""/><label for="check">&nbsp;Al crear una cuenta, acepta las condiciones legales,Reglamento de
+                                prestación de servicios y la política de privacidad de ComPCurar&nbsp;</label>
+                        </div>
+                        <br/>
+
+                        <div class= "row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary col-md-12">Registrarse</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </ui:define>
+    </div> 
+</ui:composition>

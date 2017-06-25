@@ -1,0 +1,287 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./../../WEB-INF/template/template_principal_sin_menu.xhtml">
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+    </ui:define>
+
+
+    <ui:define name="titulo">Revisar Perfiles</ui:define>
+    <ui:define name="titulo2">Revisar Perfiles</ui:define>
+
+    <ui:define name="content2">
+
+        <div class="imgfondo">
+            <div class="container">
+                <form class="contacto" action="" method="post" name="contacto">
+                    <div class="row">
+                        <br/><br/><br/><br/>
+                        <div class="col-md-3">
+                            <h4>Campos sin registro</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <select id="select" class="col-xs-12 form-control">
+                                <option value="">Agregar campos sin registro</option>
+                                <option value="1">Item 1</option>
+                                <option value="2">Item 2</option>
+                                <option value="3">Item 3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-md-offset-3">
+                            <h4>Estado</h4>
+                        </div>
+
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <h3>Perfil</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1 col-md-offset-2">
+                            <a href=""><img class="img-responsive" id="usuario" src="#{request.contextPath}/resources/img/Usuario.png"/></a> <br/>
+                            <p>SubirImagen</p>
+                        </div>
+                        <div class="col-md-6 col-md-offset-1">
+                            <div class="col-md-3">
+                                <label>Nombres</label>	
+                            </div>
+                            <div class="col-md-9">
+                                <input id="texx" type="text" name="nombre" class="col-xs-12 form-control" required="true"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label id="tex" >Apellidos</label>	
+                            </div>
+                            <div class="col-md-9">
+                                <input id="tex" type="text" name="nombre" class="col-xs-12 form-control" required="true"/>
+                            </div>
+                            <div class="col-md-3">
+                                <label id="tex" >Documento</label>	
+                            </div>
+                            <div class="col-md-9">
+                                <select id="text" class="col-xs-12 form-control" required="true">
+                                    <option value="">Selecciona el tipo de documento</option>
+                                    <option value="1">Cedula de ciudadania</option>
+                                    <option value="2">Tarjeta de identidad</option>
+                                    <option value="3">Cedula extrangera</option>
+                                    <option value="4">Pasaporte</option>
+                                    <option value="5">Otro</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label id="tex" >No Documento</label>	
+                            </div>
+                            <div class="col-md-9">
+                                <input id="tex" type="text" name="nombre" class="col-xs-12 form-control" required="true"/>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+                                    <input id="bt" type="radio" name="sexo" required="true"/>&nbsp; Mujer 
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="bt" type="radio" name="sexo" required="true"/>&nbsp; Hombre
+                                </div>
+                                <div class="col-md-7">
+                                    <div align="center">
+                                        <label>FechaNacimiento</label>
+                                        <input type="date" name="fecha" class="col-xs-12 form-control" required="true"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <p>Documento de identificacion</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div align="center">
+                                <button type="button" class=" btn btn-default fa fa-paperclip" aria-hidden="true">&nbsp;Documento de identificacion</button>
+                                <p></p><p>Fecha de expedicion del documento</p>
+                                <input class="form-control" type="date" name="fecha"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div align="center">
+                                <button type="button" class=" btn btn-default fa fa-paperclip" aria-hidden="true">&nbsp;Adjuntar RUT escaneado</button>
+                                <p></p><p>Fecha de expedicion del documento</p>
+                                <input class="form-control" type="date" name="fecha"/>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="correo" >Correo electronico</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="tex" type="email" name="correo" class="col-xs-12 form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="telefono" >Telefono</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="tex" type="text" name="telefono" class="col-xs-12 form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="telefono2" >Telefono 2</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="tex" type="text" name="telefono2" class="col-xs-12 form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="telefono3" >Telefono 3</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="tex" type="text" name="telefono3" class="col-xs-12 form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="localidad" >Localidad</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select id="text" class="col-xs-12 form-control">
+                                    <option value="">Localidad</option>
+                                    <option class="lt" value="1">Usaquén</option>
+                                    <option class="lt" value="2">Suba</option>
+                                    <option class="lt" value="3">Chapinero</option>
+                                    <option class="lt" value="4">Usme</option>
+                                    <option class="lt" value="5">Bosa</option>
+                                    <option class="lt" value="6">Kenedy</option>
+                                    <option class="lt" value="7">Fontibon</option>
+                                    <option class="lt" value="8">Engativa</option>
+                                    <option class="lt" value="9">Candelaria</option>
+                                    <option class="lt" value="10">Ciudad Bolivar</option>
+                                    <option class="lt" value="11">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="direccion">Direccion</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="tex" type="text" name="direccion" class="col-xs-12 form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="web" >Pagina Web</label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="tex" type="web" name="web" class="col-xs-12 form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="direccion" ></label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="tex" type="text" name="direccion" class="col-xs-12 form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="web" >Especialidades</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select id="text" class="col-xs-12 form-control">
+                                    <option value="">Especialidad</option>
+                                    <option class="lt" value="1">Mantenimiento</option>
+                                    <option class="lt" value="2">Diagnostico</option>
+                                    <option class="lt" value="3">Cotizacion</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label id="tex" name="direccion" ></label>
+                            </div>
+                            <div class="col-md-8">
+                                <input id="tex" type="text" name="direccion" class="col-xs-12 form-control"/>
+                            </div>
+                        </div>
+                    </div>	
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div align="center">
+                                    <button class="btn btn-success">Activar Usuario</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div align="center">
+                                    <button class="btn btn-danger">Eliminar Campos</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="col-md-6">
+                                <div align="center">
+                                    <button class="btn btn-success">Desactivar Usuario</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div align="center">
+                                    <button class="btn btn-danger">Eliminar Usuario</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                </form>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

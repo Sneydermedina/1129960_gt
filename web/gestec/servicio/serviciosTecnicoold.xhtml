@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="titulo">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">#{msjGestec.ServiciosTecnicos}</f:view></ui:define>
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
+
+        <script type="text/javascript" src="#{request.contextPath}/resources/js/jquery.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" ></script> 
+        <script src="#{request.contextPath}/resources/js/Menu.js" ></script> 
+        <script src="#{request.contextPath}/resources/js/admin.js" ></script>
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" ></script> 
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/js-xlsx/xlsx.core.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/FileSaver/FileSaver.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/jsPDF/jspdf.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/html2canvas/html2canvas.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/tableExport.js"></script>
+
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="col-md-5">
+            <div class="dropdown col-md-2" style="margin: 10px 0px;padding:0">
+                <button class="btn btn-default dropdown-toggle" title="Exportar" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="fa fa-download"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#" id="pdf">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            PDF</a>
+                    </li>
+                    <li><a href="#" id="word">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/word_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            WORD
+                        </a></li>
+                    <li><a href="#" id="excel">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xls_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            EXCEL</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" id="json">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/json_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            JSON</a></li>
+                    <li><a href="#" id="xml">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xml_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            XML</a></li>
+                    <li><a href="#" id="txt">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/txt_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            TXT</a></li>
+                    <li><a href="#" id="sql">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/sql_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            SQL</a></li>
+                    <li><a href="#" id="csv">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            CSV</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" id="png">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/png_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            PNG</a></li>
+                </ul>
+            </div>
+            <a style="text-decoration: none;color:white;"><button data-toggle="modal" data-target="#myModalNuevo" class="btn btn-primary col-md-5 col-sm-4 col-xs-12" style="margin: 10px 0px;text-decoration: none;">&nbsp; #{msjGestec.nuevo}</button></a>
+            <button class="btn btn-danger col-md-5 col-sm-4 col-xs-12" id="eliminar" style="margin: 10px 0px"><span class="fa fa-trash"></span> &nbsp;#{msjGestec.eliminar}</button>
+        </div>
+
+        <table id="table" data-click-to-select="true" class="table" data-toggle="table" data-show-refresh="true" 
+               data-sort-name="Numero" data-sort-order="desc" data-show-toggle="true" data-show-columns="true" 
+               data-show-pagination-switch="true" data-search="true" data-pagination="true" 
+               data-detail-formatter="detailFormatter" style="border-left:1px solid#ccc;border-right:1px solid#ccc">
+            <thead>
+                <tr>
+                    <th data-checkbox="true"></th>
+                    <th data-align="left" data-sortable="true" data-field="numero">#{msjGestec.Notiquet}</th>
+                    <th data-align="left" data-sortable="true" data-field="desc" data-switchable="false">#{msjGestec.DescipcionServicio}</th>
+                    <th data-align="left" data-sortable="true" data-field="estado">#{msjGestec.estadoServicio}</th>
+                    <th data-align="left" data-sortable="true" data-field="costo" data-visible="false">#{msjGestec.costoServicio}</th>
+                    <th data-align="left" data-sortable="true" data-field="fechaS" data-visible="true">#{msjGestec.fechaServicio}</th>
+                    <th data-align="left" data-sortable="true" data-field="fechaS" data-visible="true">#{msjGestec.fechaGarantia}</th>
+
+                    <th data-align="left" data-sortable="true" data-field="fechaG" data-visible="true">Acciones</th>
+                </tr>
+            </thead>
+            <h:form prependId="false">
+                <tbody>
+                    <c:forEach items="#{servicioControl.listaServicios}" var="s">
+                        <tr>
+                            <td>#{s.noTiquet}</td>
+                            <td></td>
+                            <td>#{s.descripcionServicio}</td>
+                            <td>#{s.estadoServicio}</td>
+                            <td>#{s.costoServicio}</td>
+                            <td>#{citasRequest.formatearFechaCita(s.fechaServicio)}</td>
+                            <td>#{citasRequest.formatearFechaCita(s.garantia)}</td>
+
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </h:form>
+            <tfoot>
+            </tfoot>
+        </table>
+
+
+
+        <div id="myModalEliminar" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Eliminar Servicio</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h:panelGroup id="nombreActualizar">
+                            <p>¿ Esta Seguro de eliminar el servicio con el numero de Tiquet: #{servicioController.servicio.noTiquet}?</p>
+                            <p>#{servicioController.servicio.descripcionServicio}</p>
+                        </h:panelGroup>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                        <h:form>
+                            <h:commandButton actionListener="#{servicioController.eliminar(s)}"  class="btn btn-danger pull-right"  value="Eliminar">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </h:commandButton>   
+
+                        </h:form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModalEditar" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+            <div class="modal-dialog">
+                <h:form>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Editar servicios</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:panelGroup id="nombreEditar">
+
+                                <div class="form-group">
+                                    <h:outputLabel value="#{msjGestec.tiquet}"/>
+                                </div>
+                                <div class="form-group">
+                                    <h:inputTextarea value="#{servicioController.servicio.descripcionServicio}" class="form-control" pt:placeholder="#{msjGestec.DescipcionServicio}" />
+                                </div>
+                                <div class="form-group">
+                                    <h:inputText value="#{servicioController.servicio.estadoServicio}" class="form-control" pt:placeholder="#{msjGestec.estadoServicio}" />
+                                </div>
+                                <div class="form-group">
+                                    <h:inputText value="#{servicioController.servicio.costoServicio}" class="form-control" pt:placeholder="#{msjGestec.costoServicio}" />
+                                </div>
+                                <div class="form-group">
+                                    <h:inputText class="form-control" value="#{servicioController.servicio.fechaServicio}" pt:placeholder="#{msjGestec.FechaServicio}" />
+                                </div>
+                                <div class="form-group">
+                                    <h:inputText  class="form-control" value="#{ servicioController.servicio.garantia}" pt:placeholder="#{msjGestec.fechaGarantia}" />
+                                </div>
+
+                            </h:panelGroup>
+
+                        </div>
+                        <div class="modal-footer ">
+
+                            <h:commandButton  class="btn btn-warning btn-lg" actionListener="#{servicioController.editarServicio}" style="width: 100%;" value="#{msjGestec.actualizar}" onclick="return alert('#{msjGestec.alert}')"/>
+                        </div>
+
+                    </div>
+                </h:form>
+                <!-- /.modal-content --> 
+            </div>
+            <!-- /.modal-dialog --> 
+        </div>
+        <div class="modal fade" id="myModalNuevo" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                        <h4 class="modal-title custom_align" id="Heading">Nuevo Servicio</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h:form>
+                            <div class="form-group">
+                                <h:outputLabel value="#{msjGestec.tiquet}"/>
+                            </div>
+                            <div class="form-group">
+                                <h:inputTextarea value="#{servicioController.servicio.descripcionServicio}" class="form-control" pt:placeholder="#{msjGestec.DescipcionServicio}" />
+                            </div>
+                            <div class="form-group">
+                                <h:inputText value="#{servicioController.servicio.estadoServicio}" class="form-control" pt:placeholder="#{msjGestec.estadoServicio}" />
+                            </div>
+                            <div class="form-group">
+                                <h:inputText value="#{servicioController.servicio.costoServicio}" class="form-control" pt:placeholder="#{msjGestec.costoServicio}" />
+                            </div>
+                            <div class="form-group">
+                                <h:inputText class="form-control" value="#{servicioController.servicio.fechaServicio}" pt:placeholder="#{msjGestec.FechaServicio}" />
+                            </div>
+                            <div class="form-group">
+                                <h:inputText  class="form-control" value="#{servicioController.servicio.garantia}" pt:placeholder="#{msjGestec.fechaGarantia}" />
+                            </div>
+                        </h:form>
+                    </div>
+                    <div class="modal-footer ">
+                        <h:form>
+                            <h:commandButton  class="btn btn-warning btn-lg" actionListener="#{servicioController.nuevoServicio()}" style="width: 100%;" value="#{msjGestec.registrar1}" onclick="return alert('#{msjGestec.alert}')"/>
+                        </h:form>
+                    </div>
+
+                </div>
+                <!-- /.modal-content --> 
+            </div>
+            <!-- /.modal-dialog --> 
+        </div>
+
+    </ui:define>
+
+    <ui:define name="bottom"></ui:define>
+
+</ui:composition>
+

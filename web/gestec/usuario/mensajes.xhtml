@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/css/admin.css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>  
+        <script src="#{request.contextPath}/resources/js/mensajes.js" defer=""></script>  
+
+        <style>
+
+            .fixed-table-container .bs-checkbox{
+                text-align: left;
+            }
+            .table-hover>tbody>tr:hover{
+                background: #fff;
+            }
+            .bootstrap-table .table:not(.table-condensed) > tbody > tr > td.bs-checkbox{
+                padding: 7px 0 7px 7px;
+                vertical-align: middle;
+            }
+            .table>tbody>tr>td{
+                padding: 0;
+                border-top: none;
+            }
+            .bootstrap-table .table:not(.table-condensed) > tbody > tr > td{
+                padding: 7px 7px 7px 0;
+            }
+            tr.selected{
+                background: #fff;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="titulo">
+        <f:view>#{msjGestec.mensajes}
+        </f:view>
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define>
+
+
+    <ui:define name="content">
+        <f:view>
+
+
+        <div class="row">
+            <div class="cabecera-mensajes col-md-3 col-sm-12 col-xs-12">
+                <div class="busqueda-mensaje col-md-12">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Usuario"/>
+                    </div>
+                </div>
+                <div class="col-md-12 contenido-mensajes">
+                    <div class='notMensajesVistos'>
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico4.png' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle conectado'></span>Carlos Sarmiento</strong></h5>
+                            <h5 class='mensajeCorto'>#{msjGestec.men1}</h5>
+                            <h5 class='tiempoMensaje pull-right'>#{msjGestec.tiempo5}</h5>
+                        </div>
+                    </div>
+                    <div class='notMensajes'>
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico2.jpg' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle conectado'></span>Michael Medina</strong></h5>
+                            <h5 class='mensajeCorto'>#{msjGestec.men1}</h5>
+                            <h5 class='tiempoMensaje pull-right'>#{msjGestec.tiempo4}</h5>
+                        </div>
+                    </div>
+                    <div class='notMensajesVistos'>
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico1.jpg' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle desconectado'></span>Orlando Moreno</strong></h5>
+                            <h5 class='mensajeCorto'>#{msjGestec.men1}</h5>
+                            <h5 class='tiempoMensaje pull-right'>#{msjGestec.tiempo}</h5>
+                        </div>
+                    </div>
+                    <div class='notMensajes'>
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico3.png' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle conectado'></span>Leider Parada</strong></h5>
+                            <h5 class='mensajeCorto'>#{msjGestec.men1}</h5>
+                            <h5 class='tiempoMensaje pull-right'>#{msjGestec.tiempo2}</h5>
+                        </div>
+                    </div>
+                    <div class='notMensajesVistos'>
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico4.png' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle desconectado'></span>Luis Villamil</strong></h5>
+                            <h5 class='mensajeCorto'>#{msjGestec.men1}</h5>
+                            <h5 class='tiempoMensaje pull-right'>#{msjGestec.tiempo4}</h5>
+                        </div>
+                    </div>
+                    <div class='notMensajesVistos'>
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico5.jpg' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle conectado'></span>Pedro Perez</strong></h5>
+                            <h5 class='mensajeCorto'>#{msjGestec.men1}</h5>
+                            <h5 class='tiempoMensaje pull-right'>#{msjGestec.tiempo5}</h5>
+                        </div>
+                    </div>
+                    <div class='notMensajes'>
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico6.jpg' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle desconectado'></span>Alison Salazar</strong></h5>
+                            <h5 class='mensajeCorto'>#{msjGestec.men1}</h5>
+                            <h5 class='tiempoMensaje pull-right'>#{msjGestec.tiempo}</h5>
+                        </div>
+                    </div>
+                    <div class='notMensajes'>
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico2.jpg' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle desconectado'></span>Santiago Diaz</strong></h5>
+                            <h5 class='mensajeCorto'>#{msjGestec.men1}</h5>
+                            <h5 class='tiempoMensaje pull-right'>#{msjGestec.tiempo10}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9 col-sm-12 col-xs-12 mens-conv">
+                <div class="opciones-mensaje col-md-12" style="padding-top:9px">
+                    <div class='notMensajesVistos' style="border:none">
+                        <div class='notificacionMensaje'>
+                            <img src='#{request.contextPath}/resources/img/tecnico1.jpg' alt='' class='imagenNotificacion'/>
+                        </div>
+                        <div>
+                            <h5 class='mensajeCorto pull-right'>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle fa fa-ellipsis-v" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Acciones" style="border:none">
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#" class="eliminarConversacion"><span class="fa fa-trash-o"></span> Eliminar conversación</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="#"><span class="fa fa-ban"></span> Bloquear usuario</a></li>
+                                    </ul>
+                                </div>
+                            </h5>
+                            <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle desconectado'></span>Carlos Sarmiento</strong></h5>
+                            <h5 class='tiempoMensaje'><strong>Última conexión: </strong> #{msjGestec.tiempo}</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a href="#responder" class="btn btn-primary col-md-6 col-sm-6 col-xs-12"><span class="fa fa-commenting-o"></span> &nbsp;Escribir</a><button class="btn btn-danger col-md-6 col-sm-6 col-xs-12" id="eliminar"><span class="fa fa-trash"> </span>&nbsp; Eliminar mensajes seleccionados</button>
+                    </div>
+                </div>
+                <div class="col-md-12 conversaciones">
+
+                    <table id="table" class="table" data-toggle="table" data-sort-name="Numero" data-click-to-select="true" data-show-header="false" formatNoMatches="dsdsds">
+                        <thead>
+                            <tr>
+                                <th data-field="check" data-checkbox="true"></th>
+                                <th data-field="mensaje" data-align="left">No. Ticket</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-width="200px"></td>
+                                <td>
+                                    <div class='notMensajesVistos' style="border:none">
+                                        <div class='notificacionMensaje'>
+                                            <img src='#{request.contextPath}/resources/img/tecnico1.jpg' alt='' class='imagenNotificacion'/>
+                                        </div>
+                                        <div>
+                                            <h5><strong><span class='fa fa-circle desconectado'></span>Carlos Sarmiento</strong></h5>
+                                            <h5 class='mensajeCorto' style="padding:15px;background:#2895cc;color:#fff;border-radius: 0 10px 0 10px;margin-top:5px">Lorem ipsum dolor sit amet.</h5>
+                                            <h5 class='tiempoMensaje pull-right'>21/10/2017</h5>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class='notMensajesVistos' style="border:none">
+                                        <div>
+                                            <h5 class='mensajeCorto pull-right' style="padding:15px;background:#ddd;border-radius: 10px 0 10px 0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero voluptates pariatur tempora consequatur repellat cupiditate voluptatibus molestiae voluptate quod sint.</h5>
+                                            <h5 class='tiempoMensaje pull-right'>21/10/2017</h5>
+                                        </div>
+                                        <div class='notificacionMensaje'>
+                                            <img src='#{request.contextPath}/resources/img/tecnico4.png' alt='' class='imagenNotificacion pull-right'/>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class='notMensajesVistos' style="border:none">
+                                        <div class='notificacionMensaje'>
+                                            <img src='#{request.contextPath}/resources/img/tecnico1.jpg' alt='' class='imagenNotificacion'/>
+                                        </div>
+                                        <div>
+                                            <h5><strong><span class='fa fa-circle desconectado'></span>Carlos Sarmiento</strong></h5>
+                                            <h5 class='mensajeCorto' style="padding:15px;background:#2895cc;color:#fff;border-radius: 0 10px 0 10px;margin-top:5px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate pariatur quas labore voluptate, ut minima ipsum voluptates harum eaque similique sapiente expedita possimus laudantium dolores obcaecati animi, eligendi ducimus est quaerat maxime eius voluptas quam molestiae sint! Illum consequatur, distinctio cupiditate, harum pariatur rerum? Cum delectus voluptatem quisquam, praesentium quam.</h5>
+                                            <h5 class='tiempoMensaje pull-right'>21/10/2017</h5>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class='notMensajesVistos' style="border:none">
+                                        <div class='notificacionMensaje'>
+                                            <img src='#{request.contextPath}/resources/img/tecnico1.jpg' alt='' class='imagenNotificacion'/>
+                                        </div>
+                                        <div>
+                                            <h5><strong><span class='fa fa-circle desconectado'></span>Carlos Sarmiento</strong></h5>
+                                            <h5 class='mensajeCorto' style="padding:15px;background:#2895cc;color:#fff;border-radius: 0 10px 0 10px;margin-top:5px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id voluptatem labore sunt veritatis quam.</h5>
+                                            <h5 class='tiempoMensaje pull-right'>21/10/2017</h5>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class='notMensajesVistos' style="border:none">
+                                        <div>
+                                            <h5 class='mensajeCorto pull-right' style="padding:15px;background:#ddd;border-radius: 10px 0 10px 0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero voluptates pariatur tempora consequatur repellat cupiditate voluptatibus molestiae voluptate quod sint.</h5>
+                                            <h5 class='tiempoMensaje pull-right'>21/10/2017</h5>
+                                        </div>
+                                        <div class='notificacionMensaje'>
+                                            <img src='#{request.contextPath}/resources/img/tecnico4.png' alt='' class='imagenNotificacion pull-right'/>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class='notMensajesVistos' style="border:none">
+                                        <div class='notificacionMensaje'>
+                                            <img src="#{request.contextPath}/resources/img/tecnico1.jpg" alt='' class='imagenNotificacion'/>
+                                        </div>
+                                        <div>
+                                            <h5><strong><span class='fa fa-circle desconectado'></span>Carlos Sarmiento</strong></h5>
+                                            <h5 class='mensajeCorto' style="padding:15px;background:#2895cc;color:#fff;border-radius: 0 10px 0 10px;margin-top:5px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid voluptatem id eum sint dicta doloribus assumenda doloremque asperiores esse, beatae porro velit quasi, vero architecto corrupti. Reprehenderit numquam odio ad enim optio, hic ut corporis sint quo aliquid. Laboriosam ut ad eius alias! Ratione quaerat ex deleniti accusamus blanditiis amet dolore ea earum, maxime eum ab, commodi natus, aliquam veritatis minus laudantium ipsum, dolorum omnis culpa asperiores consectetur quo nisi. Velit doloribus itaque voluptas atque. Quibusdam perspiciatis doloribus esse amet, tenetur ea totam dolorum temporibus, rem itaque quis nam voluptatem assumenda dolore, vel est incidunt repudiandae veniam neque, magni aspernatur!</h5>
+                                            <h5 class='tiempoMensaje pull-right'>21/10/2017</h5>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-md-12" style="padding:0">
+                        <textarea id="responder" class="form-control" rows="3" style="border-right:0;
+                                  border-left:0;border-top:0;border-bottom:1px solid#ccc">
+                        </textarea>
+                        <button class="btn btn-success pull-right" style="margin-top:5px"> Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+            </f:view>
+    </ui:define>
+    <ui:define name="bottom"></ui:define>
+
+</ui:composition>
+

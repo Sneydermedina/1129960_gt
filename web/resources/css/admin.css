@@ -1,0 +1,114 @@
+.buscar{
+    margin: 15px 10px;
+}
+.buscar2{
+    padding: 5px 10px;
+    width: 100%;
+    height: 50px;
+}
+.color{
+    color: #999;
+}
+.color:hover{
+    color: #2895CC;
+}
+.color2{
+    color: #2895CC;
+}
+.color2:hover{
+    color: #999;
+}
+.paginacion{
+    float: right;
+}
+.pag-m{
+    padding: 7px 10px; 
+}
+.vermas{
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    padding: 5px 10px;
+    color: #000;
+    margin-left: 20px;
+}
+.img-usuario{
+    height: 70px;
+    width: 70px;
+}
+.vermas:hover{
+    padding: 7px;
+    color: #337ab7;
+}
+.encabezadoDescripcion{
+    height: 50px;
+    background-color: #0179a1;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+}
+.cuerpoDescripcion{
+    margin-top: 10px;
+    font-size: 17px;
+    line-height: 24.15px;
+}
+.margenLabel{
+    margin-top: 10px;
+}
+.col-md-8 .cuadroChat{
+    padding: 10px;
+    border: 1px solid #ddd;
+    height: 345px;
+    overflow-x: hidden;
+    overflow: auto;
+}
+a .imagen-disponibilidad{
+    height: 408px;
+}
+.cuerpoDescripcion{
+    width: 100%;
+}
+.adjuntar{
+    position: relative; 
+    border-radius: 10px;
+}
+.adjuntar:hover{
+    cursor: pointer;
+}
+.btnAdjuntar{
+    position: absolute;
+    top:0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+.cerrar{
+    border-radius: 50%;
+    margin: 0 0 5px 10px;
+}
+.modalDisp{
+    display: none;
+}
+.modalDisp:target{
+    display: block;
+    padding: 20px 10px 40px 10px;
+    width: 100%;
+    top:0;
+    left: 0;
+    height: 100%;
+    float: left;
+    background-color: rgba(0, 121, 161, 1);
+}
+.imgModalDisp{
+    height: 100%;
+    border: 7px solid #444;
+    padding: 0;
+}
+.estrellas{
+    color: #2895cc;
+}

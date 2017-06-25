@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="titulo">Citas</ui:define>
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" ></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" ></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" ></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" ></script> 
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" ></script> 
+
+
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/js-xlsx/xlsx.core.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/FileSaver/FileSaver.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/jsPDF/jspdf.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/html2canvas/html2canvas.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/tableExport.js"></script>
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="col-md-5">
+            <div class="dropdown col-md-2" style="margin: 10px 0px;padding:0">
+                <button class="btn btn-default dropdown-toggle" title="Exportar" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="fa fa-download"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#" id="pdf">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            PDF</a>
+                    </li>
+                    <li><a href="#" id="word">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/word_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            WORD
+                        </a></li>
+                    <li><a href="#" id="excel">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xls_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            EXCEL</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" id="json">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/json_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            JSON</a></li>
+                    <li><a href="#" id="xml">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xml_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            XML</a></li>
+                    <li><a href="#" id="txt">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/txt_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            TXT</a></li>
+                    <li><a href="#" id="sql">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/sql_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            SQL</a></li>
+                    <li><a href="#" id="csv">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            CSV</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" id="png">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/png_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            PNG</a></li>
+                </ul>
+            </div>
+            <button class="btn btn-primary col-md-5 col-sm-4 col-xs-12" id="boton" style="margin: 10px 0px;"><span class="fa fa-plus"></span>&nbsp; Nuevo</button>
+            <button class="btn btn-danger col-md-5 col-sm-4 col-xs-12" id="eliminar" style="margin: 10px 0px"><span class="fa fa-trash"></span> &nbsp;Eliminar</button>
+        </div>
+
+        <table id="table" data-click-to-select="true" class="table" data-toggle="table" data-show-refresh="true" 
+               data-sort-name="Numero" data-sort-order="desc" data-show-toggle="true" data-show-columns="true" 
+               data-show-pagination-switch="true" data-search="true" data-pagination="true" 
+               data-detail-formatter="detailFormatter" style="border-left:1px solid#ccc;border-right:1px solid#ccc">
+            <thead>
+                <tr>
+                    <th data-checkbox="true"></th>
+                    <th data-field="check">Código</th>
+                    <th data-field="tiquet" data-align="left">Marca</th>
+                    <th data-field="tipo" data-align="left">Modelo</th>
+                    <th data-field="descripcion" data-align="left">Precio</th>
+                    <th data-field="valor" data-align="left">Concesionario</th>
+                    <th data-field="archivo" data-align="left">Teléfono</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td></td>
+                        <td>dffddfdf</td>
+                        <td>dffgfgffgfgfgfgfgddf</td>
+                        <td>dffdgffgfgfggffgf</td>
+                        <td>dfgfffggffgfgdf</td>
+                        <td>fdfgfgffgfggffgddf</td>
+                        <td>fddgfgffgf</td>
+                    </tr>
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+
+    </ui:define>
+
+    <ui:define name="bottom"></ui:define>
+
+</ui:composition>
+

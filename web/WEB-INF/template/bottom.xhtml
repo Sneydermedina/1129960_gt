@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+    <footer class="pie">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-3 visible-xs"></div>
+                <div class="col-xs-4 col-sm-3 col-md-2">
+                    <img class="img-responsive" src="#{request.contextPath}/resources/img/icono-gestec.png" alt="Gestec"/>
+                    <h8>Version 1.0.0</h8>                    
+                </div>
+                <ul class="text-center col-xs-12 col-sm-3 col-md-4">
+                    <ol><h8><a href="error1.html">#{msjGestec.footerPoliticas}</a></h8></ol>
+                    <ol><h8><a href="error2.html">#{msjGestec.footerGuia}</a></h8></ol>
+                </ul>
+                <ul class="text-center col-xs-12 col-sm-3 col-md-4">
+                    <ol><h8> <a href="error1.html">#{msjGestec.footerPreguntas}</a></h8></ol>
+                    <ol><h8>  <a href="error2.html">#{msjGestec.footerTrabaja}</a></h8></ol>
+                </ul>      
+                <div class="text-center pull-right col-xs-12 col-sm-3 col-md-2 fa-2x">
+                    <h4>#{msjGestec.redes1}</h4>
+                    <h8> <a href="https://www.facebook.com/"><span class="fa fa-facebook">&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span></a><a href="https://twitter.com/?lang=es"><span class="fa fa-twitter">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;</span></a><a href="https://www.youtube.com/">
+                                        <span class="fa fa-youtube"></span></a></h8>
+                </div>
+                <div class="col-xs-7 col-sm-3 col-md-4">
+                    <h8 class="text-center">#{msjGestec.footerDerechos}</h8>
+                </div>  
+            </div>
+        </div>
+    </footer>
+    </f:view>
+</ui:fragment>    

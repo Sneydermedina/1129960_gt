@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal.xhtml">
+
+    <ui:define name="head2">
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>     
+        
+        <style>
+            hr{
+                margin-top: 10px; 
+                margin-bottom: 10px;
+                border: 0;
+                border-top: 1px solid #aaa;
+            }
+            h2{
+                margin: 0;
+            }
+            input[type=checkbox]{
+                display: none;
+            }
+            input[type=checkbox] + label{
+                cursor: pointer;
+            }           
+            .cuadro:before{
+                content: '';
+                width: 100%;
+                padding: 10px 70px;
+                border: 1px solid #aaa;
+                float: left;
+            }
+            input[type=checkbox]:checked + .cuadro:before{
+                content: '';
+                background: #337AB7;
+                border: 1px solid #337AB7;
+            } 
+            .dia{
+                float: left;
+            }
+            .fila{
+                width: 12.8%;
+                margin-left: 5px;
+                float: left;
+            }
+            .fila-hora{
+                width: 6%;
+                float: left;
+                margin-top: 20px;
+            }
+            .horas{
+                width: 90%;
+                text-align: center;
+                border-top: 1px solid transparent;
+                border-right: 1px solid transparent;
+                border-left: 1px solid transparent;
+                border-bottom: 1px solid #aaa;
+                float: left;
+                margin-bottom: 11px;
+            }
+        </style>
+    </ui:define>
+
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/> 
+    </ui:define>
+
+    <ui:define name="titulo"> Nueva cita</ui:define>
+    <ui:define name="content">
+
+        <h2><strong><center>Datos servicio</center></strong></h2>
+        <hr/>
+
+
+        <h:form id="sddssd" prependId="false">
+
+            <div class="form-group col-md-12" style="margin-top: 10px">
+                <label for="nombre">Nombre </label>
+                <input type="text" id="nombre" class="form-control" placeholder="Ingrese su(s) nombre(s)" value="#{sesionGestec.usuario.nombreUsuario}"/>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="apellido">Apellido </label>
+                <input type="text" id="apellido" class="form-control" placeholder="Ingrese su(s) apellido(s)" value="#{sesionGestec.usuario.apellido}"/>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="descripcion">Descripción </label>
+                <textarea id="descripcion" class="form-control" rows="2" placeholder="Escriba un descripción del servicio"></textarea>
+            </div>
+
+            <div class="pull-right">
+                <a href="#{request.contextPath}/faces/gestec/cita/citas.xhtml" class="btn btn-danger"><span class="fa fa-arrow-left"></span> Volver</a>
+                <button class="btn btn-primary">Guardar</button>
+            </div>
+
+            <div class="modal fade" id="añadirEvento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Nuevo evento</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <h5 for="recipient-name" class="control-label">Id:</h5>
+                                    <input type="text" class="form-control" id="idEvento"/>
+                                </div>
+                                <div class="form-group">
+                                    <h5 for="recipient-name" class="control-label">Nombre del evento:</h5>
+                                    <input type="text" class="form-control" id="nombreEvento"/>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Tipo de evento</h5>
+                                    <select id="tipoEvento" class="form-control">
+                                        <option value="0">...</option>
+                                        <option value="1">Laboral</option>
+                                        <option value="2">Personal</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <h5 for="message-text" class="control-label">Fecha inicio:</h5>
+                                    <input class="form-control" type="datetime-local" id="fechaInicio" value="2016-12-01T00:00"/>
+                                </div>
+                                <div class="form-group">
+                                    <h5 for="message-text" class="control-label">Fecha inicio:</h5>
+                                    <input class="form-control" type="datetime-local" id="fechaFin" value="2016-12-01T00:00"/>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="evento">Guardar evento</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="clickEvento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="tituloModal">Nuevo evento</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form">
+                                <div class="form-group">
+                                    <h5 for="recipient-name" class="control-label">Evento:</h5>
+                                    <input type="text" class="form-control" id="editarEvento"/>
+                                </div>
+                                <div class="form-group">
+                                    <h5>Tipo de evento</h5>
+                                    <select id="tipoEvento" class="form-control">
+                                        <option value="0">...</option>
+                                        <option value="1">Laboral</option>
+                                        <option value="2">Personal</option>
+                                    </select>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger pull-left" id="eliminarEvento">Eliminar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="actualizarEvento">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+
+    <ui:define name="bottom">
+
+    </ui:define>
+</ui:composition>
+

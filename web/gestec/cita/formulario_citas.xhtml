@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="./../../WEB-INF/template/template_principal.xhtml">
+
+    <ui:define name="titulo">
+        <f:view>
+        #{msjGestec.citasModificarCita}
+        </f:view>
+    </ui:define>
+
+    <ui:define name="head2">
+        <style>
+            hr{
+                margin-top: 10px; 
+                margin-bottom: 10px;
+                border: 0;
+                border-top: 1px solid #aaa;
+            }
+            h2{
+                margin: 0;
+            }
+            input[type=checkbox]{
+                display: none;
+            }
+            input[type=checkbox] + label{
+                cursor: pointer;
+            }           
+            .cuadro:before{
+                content: '';
+                width: 100%;
+                padding: 10px 70px;
+                border: 1px solid #aaa;
+                float: left;
+            }
+            input[type=checkbox]:checked + .cuadro:before{
+                content: '';
+                background: #337AB7;
+                border: 1px solid #337AB7;
+            } 
+            .dia{
+                float: left;
+            }
+            .fila{
+                width: 12.8%;
+                margin-left: 5px;
+                float: left;
+            }
+            .fila-hora{
+                width: 6%;
+                float: left;
+                margin-top: 20px;
+            }
+            .horas{
+                width: 90%;
+                text-align: center;
+                border-top: 1px solid transparent;
+                border-right: 1px solid transparent;
+                border-left: 1px solid transparent;
+                border-bottom: 1px solid #aaa;
+                float: left;
+                margin-bottom: 11px;
+            }
+        </style>
+
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>    
+
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/> 
+    </ui:define>
+
+    <ui:define name="content">
+        <f:view>
+            <h2><strong><center>#{msjGestec.citasDatosServicio}</center></strong></h2>
+        <hr/>
+
+        
+        <h:form id="sddssd" prependId="false">
+
+            <div class="form-group col-md-12" style="margin-top: 10px">
+                <label for="nombre">#{msjGestec.citasDuracion} </label>
+                <h:inputText id="nombre" class="form-control" value="#{citasRequest.citaModificada.duracionCita}"/>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="apellido">#{msjGestec.citasCosto} </label>
+                <h:inputText id="apellido" class="form-control" value="#{citasRequest.citaModificada.servicionoTiquet.costoServicio}"/>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="descripcion">#{msjGestec.citasDescripcion} </label>
+                <h:inputTextarea id="descripcion" class="form-control" rows="2" value="#{citasRequest.citaModificada.servicionoTiquet.descripcionServicio}"></h:inputTextarea>
+            </div>
+
+            <div class="pull-right">
+                <a href="#{request.contextPath}/faces/gestec/cita/citas.xhtml" class="btn btn-danger"><span class="fa fa-arrow-left"></span> Volver</a>
+                <h:commandLink value="Guardar cambios" class="btn btn-primary" action="#{citasRequest.actualizarCita()}"></h:commandLink>
+            </div>
+
+
+        </h:form>
+        </f:view>
+    </ui:define>
+
+    <ui:define name="bottom"></ui:define>
+
+
+
+
+</ui:composition>
+
+
+

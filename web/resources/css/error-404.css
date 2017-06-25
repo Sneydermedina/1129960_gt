@@ -1,0 +1,16 @@
+
+body{
+    background-image: url("../img/imageneswebgestec-01.jpg");
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    padding: 501px 0px 0px 605px;
+}
+.boton{
+    font-family: Tw Cen MT;
+    font-size: 25px;
+    padding: 7px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    background: #2895CC;
+    color: #fff;
+}
