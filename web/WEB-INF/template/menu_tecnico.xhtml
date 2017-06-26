@@ -71,11 +71,41 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                         style="margin-bottom: 10px;">
-                                    #{msjGestec[sesionGestec.idiomaSeleccionado.language]} <span class="caret"></span>
+                                    <c:if test="#{msjGestec[sesionGestec.idiomaSeleccionado.language]=='Inglés' || 
+                                                  msjGestec[sesionGestec.idiomaSeleccionado.language]=='English'}">
+                                        <img src="#{request.contextPath}/faces/resources/img/en.png" alt="" 
+                                                         style="height: 25px;width: 25px;"/>
+                                    </c:if>
+                                    <c:if test="#{msjGestec[sesionGestec.idiomaSeleccionado.language]=='Español' || 
+                                                  msjGestec[sesionGestec.idiomaSeleccionado.language]=='Spanish'}">
+                                        <img src="#{request.contextPath}/faces/resources/img/es.png" alt="" 
+                                                         style="height: 25px;width: 25px;"/>
+                                    </c:if>
+                                    #{msjGestec[sesionGestec.idiomaSeleccionado.language]} 
+                                    <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <c:forEach items="#{sesionGestec.idiomasSoportados}" var="idioma">
-                                        <li><h:commandLink actionListener="#{sesionGestec.cambiarIdioma(idioma)}" value="#{msjGestec[idioma.language]}"/></li>
+                                        <c:if test="#{msjGestec[idioma.language]=='Español' || 
+                                                      msjGestec[idioma.language]=='Spanish'}">  
+                                            <li>           
+                                                <h:commandLink actionListener="#{sesionGestec.cambiarIdioma(idioma)}">
+                                                    <img src="#{request.contextPath}/faces/resources/img/es.png" alt="" 
+                                                         style="height: 25px;width: 25px;"/>
+                                                    &nbsp;#{msjGestec[idioma.language]}
+                                                </h:commandLink>
+                                            </li>
+                                        </c:if>
+                                        <c:if test="#{msjGestec[idioma.language]=='English' ||
+                                                      msjGestec[idioma.language]=='Inglés'}">  
+                                            <li>           
+                                                <h:commandLink actionListener="#{sesionGestec.cambiarIdioma(idioma)}">
+                                                    <img src="#{request.contextPath}/faces/resources/img/en.png" alt="" 
+                                                         style="height: 25px;width: 25px;"/>
+                                                    &nbsp;#{msjGestec[idioma.language]}
+                                                </h:commandLink>
+                                            </li>
+                                        </c:if>
                                     </c:forEach>
                                 </ul>
                             </div>
