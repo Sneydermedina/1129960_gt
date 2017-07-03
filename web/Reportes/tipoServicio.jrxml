@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8dc1db04-81e8-4da9-811b-08721589c045">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Leider\\Desktop\\El Propio\\1129960_gt\\web\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select tipo.tiposervicio,COUNT(sol.idSolicitud) as Cantidad,max(s.costoservicio) as ServicioMasCostoso,min(s.costoservicio) as ServicioMasEconomico
+from servicio s join citas c on s.notiquet=c.servicio_notiquet
+join solicitud sol on c.solicitud_idsolicitud=sol.idsolicitud join relsolicitudtipo rel on 
+sol.idsolicitud=rel.solicitud_idsolicitud join tiposervicio tipo on rel.tiposervicio_idtiposervicio=tipo.idtiposervicio 
+group by tipo.tiposervicio ;]]>
+	</queryString>
+	<field name="tiposervicio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Cantidad" class="java.lang.Long"/>
+	<field name="ServicioMasCostoso" class="java.lang.String"/>
+	<field name="ServicioMasEconomico" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="79" forecolor="#0033FF" uuid="7e44251b-db8c-4c72-9ba9-4a8d6f8d0347"/>
+			</rectangle>
+			<image>
+				<reportElement x="68" y="7" width="219" height="65" uuid="52cf0d63-3ae5-4cd3-81b4-bf53cb19fd9c"/>
+				<imageExpression><![CDATA["gestec.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="611" y="8" width="110" height="65" uuid="acd11206-9d2e-4579-b682-762f8db3ba9c"/>
+				<imageExpression><![CDATA["icono.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="305" y="14" width="282" height="54" uuid="58dbde7c-f52e-4460-97b2-e7a2614b4183"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de los tipos de servicio vinculados a una cita]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="79" splitType="Stretch">
+			<line>
+				<reportElement x="86" y="12" width="638" height="1" uuid="c50cef28-8e99-43d9-a0cd-2da8e59128a3"/>
+			</line>
+			<staticText>
+				<reportElement x="206" y="20" width="454" height="41" uuid="538a294c-a1f0-4fa4-9954-ed8a1199a3d2"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[Informe de servicios vinculados a citas con sub reportes para complementar la información]]></text>
+			</staticText>
+			<line>
+				<reportElement x="86" y="70" width="638" height="1" uuid="b0b4212c-f628-4e41-8a8e-d8cc6d779324"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="86" y="8" width="638" height="20" uuid="eaf7334a-20c1-4892-9fe9-07815aff60ba"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="122" y="8" width="100" height="20" forecolor="#0033FF" uuid="7ae2461f-6000-4146-aaf6-7da2f53a867e"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[tipo de servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="8" width="100" height="20" forecolor="#0033FF" uuid="27adfb10-c9ef-4820-beb8-5efef675b9b5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="8" width="124" height="20" forecolor="#0033FF" uuid="e5fc5249-09fa-4e18-bc3f-8225f982f559"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Servicio más costoso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="8" width="141" height="20" forecolor="#0033FF" uuid="9d261269-ee6d-4bba-8e38-4c64d90d8910"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Servicio más economico]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="120" y="0" width="100" height="20" uuid="82588d13-4152-41d2-98ba-925eeb3972e2"/>
+				<textFieldExpression><![CDATA[$F{tiposervicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="0" width="68" height="20" uuid="0ffb2593-7ba3-4a24-b5cc-8a7dde92d5f2"/>
+				<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="0" width="51" height="20" uuid="5e5baf73-6750-46f0-b9f6-91fac73ee0c9"/>
+				<textFieldExpression><![CDATA[$F{ServicioMasCostoso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="616" y="1" width="60" height="20" uuid="56e085a5-a331-471c-806a-55bb6a5b3aed"/>
+				<textFieldExpression><![CDATA[$F{ServicioMasEconomico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="802" height="20" uuid="acdd2c11-bd34-4bb9-9fdd-e24b8cc2c36e"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="0" y="0" width="144" height="20" forecolor="#000000" uuid="b88d1ef2-f60f-4934-96dd-fea03b681ea2"/>
+					<textElement textAlignment="Left">
+						<font fontName="Serif" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="679" y="0" width="80" height="20" forecolor="#000000" uuid="a28c50f7-af3c-4307-9067-a5be63555fd5"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Serif" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="759" y="0" width="40" height="20" forecolor="#000000" uuid="f5e11fcb-888a-4667-ae6f-8583885df733"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="120" splitType="Stretch">
+			<subreport>
+				<reportElement x="77" y="15" width="181" height="100" uuid="211ee6c8-4cf8-4745-9a41-96691071b004"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tipoServicios_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="86" y="7" width="638" height="1" uuid="b22c34b8-2bac-4aff-a6bd-91f5893aefd5"/>
+			</line>
+			<subreport>
+				<reportElement x="422" y="15" width="200" height="100" uuid="58a24598-9c76-498e-8543-693677f55744"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tipoServicios_subreport2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

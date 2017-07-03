@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="550" pageHeight="940" columnWidth="510" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b43ab9b3-d4c3-4259-98eb-1d989759260d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select concat(u.nombreUsuario,' ',u.apellido) as NombreUsuario,u.correo,u.fotoPerfil,
+count(s.noTiquet)as Servicios,u.tipoUsuario,c.calificacion,if(u.estadoUsuario=1,'Disponible','No Disponible') as Estado
+from usuarios u join relequiposervicio rel on u.idUsuario=rel.id_usuario join
+servicio s on rel.servicio_notiquet=s.notiquet join relCalificacionusuarios rel1 on u.idUsuario=rel1.usuarios_idusuario
+join calificacion c on rel1.calificacion_idcalificacion=c.idCalificacion 
+group by u.nombreUsuario order by u.tipoUsuario;]]>
+	</queryString>
+	<field name="NombreUsuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="correo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fotoPerfil" class="java.io.InputStream">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Servicios" class="java.lang.Long"/>
+	<field name="tipoUsuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="calificacion" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Estado" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="510" height="64" forecolor="#0099FF" backcolor="#FFFFFF" uuid="024c639a-4b4e-44d0-b6cc-eb2433198330"/>
+			</rectangle>
+			<image>
+				<reportElement x="395" y="6" width="94" height="58" uuid="d1bc034e-b7ab-424c-ad35-3bc2804441b2"/>
+				<imageExpression><![CDATA["icono.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="19" y="5" width="175" height="59" uuid="c8ca27f4-c7b8-4349-834a-65060016e07b"/>
+				<imageExpression><![CDATA["gestec.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="194" y="14" width="188" height="39" uuid="6832a93b-357f-498d-9460-194bc63949c0"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte de vinculaciones a servicios técnicos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="111" y="3" width="330" height="31" uuid="b6ddf421-6ae0-4446-8b29-956009ab7d16"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Informe de usuarios vinculados a servicios técnicos con su respectivo promedio de calificación]]></text>
+			</staticText>
+			<line>
+				<reportElement x="111" y="35" width="326" height="1" uuid="67c885a3-fd60-4f9c-856b-14d4b96d99d3"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="120" splitType="Stretch">
+			<image>
+				<reportElement x="73" y="27" width="133" height="80" uuid="806aa0c3-c9ba-4b38-8ab4-5bd3e4baa927"/>
+				<imageExpression><![CDATA[$F{fotoPerfil}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="341" y="8" width="100" height="20" uuid="a2169fd9-f44e-47dc-8396-2ebf19b1096f"/>
+				<textFieldExpression><![CDATA[$F{NombreUsuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="230" y="8" width="111" height="20" uuid="51b36f86-3a73-4757-8e2e-1e66f56957c0"/>
+				<text><![CDATA[Nombres y apellidos]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="341" y="28" width="100" height="20" uuid="fddd07d6-d26f-4ac5-9861-a9178d9ebfd2"/>
+				<textFieldExpression><![CDATA[$F{correo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="230" y="28" width="111" height="20" uuid="2c3d7545-683f-4d93-ab13-078ef764545a"/>
+				<text><![CDATA[Correo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="341" y="48" width="100" height="20" uuid="e8790808-aa55-4bb9-bdbe-5c88a0e26406"/>
+				<textFieldExpression><![CDATA[$F{Servicios}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="230" y="48" width="111" height="20" uuid="211a72fd-61e5-4206-a38a-af73521e25ac"/>
+				<text><![CDATA[Servicios vinculados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="6" width="66" height="20" uuid="4035b51d-2fd2-4d0c-8c07-0384c59568b4"/>
+				<text><![CDATA[Tipo usuario]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="6" width="77" height="20" uuid="e83fcb46-4a37-4ac3-a1e9-a28ef9295106"/>
+				<textFieldExpression><![CDATA[$F{tipoUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="341" y="69" width="100" height="20" uuid="d5a9f4d9-fa86-439d-b49b-2d436b820f73"/>
+				<textFieldExpression><![CDATA[$F{calificacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="230" y="69" width="111" height="20" uuid="e3eec47f-d8e0-4fab-9098-45e4ac58d5f2"/>
+				<text><![CDATA[Calificación]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="341" y="89" width="100" height="20" uuid="027adf0e-5b5d-4ae1-b2ce-4270b0f336ac"/>
+				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="230" y="89" width="111" height="20" uuid="5c15ae11-bbb9-46fd-b4b8-d581554172b1"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<line>
+				<reportElement x="73" y="114" width="368" height="1" uuid="05ea4cc2-4026-4108-8f12-cadfb42d867c"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="4" width="510" height="20" uuid="d639f3b8-5664-4a90-ac1a-f8460c8609d4"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="0" y="0" width="144" height="20" forecolor="#000000" uuid="887088a1-4ce0-430c-8b02-28083f5c85a7"/>
+					<textElement textAlignment="Left">
+						<font fontName="Serif" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="390" y="0" width="80" height="20" forecolor="#000000" uuid="69d4899c-112d-4760-85a6-2971ea60e0cd"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Serif" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="470" y="0" width="40" height="20" forecolor="#000000" uuid="ab5f71e8-1c89-41ff-9919-e725981f5737"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Serif" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -78,5 +78,13 @@ public class ArchivosView implements Serializable{
         FacesMessage fm = new FacesMessage("Exito",event.getFile().getFileName()+" Fue subido");
         FacesContext.getCurrentInstance().addMessage(null, fm);
     }
+    public void redirect(){
+        try {
+        System.out.println("Vamos bien");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("ControlReportes");
+        } catch (IOException iOException) {
+            
+        }
+    }
     
 }

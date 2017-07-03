@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tipoServicios_subreport1" language="groovy" pageWidth="380" pageHeight="250" orientation="Landscape" columnWidth="380" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2343e20b-8688-460f-b690-3a2c07c81afc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select tipo.tiposervicio,round(avg(s.costoServicio),2) as Promedio from servicio s join citas c on s.notiquet=c.servicio_notiquet
+join solicitud sol on c.solicitud_idsolicitud=sol.idsolicitud join relsolicitudtipo rel on 
+sol.idsolicitud=rel.solicitud_idsolicitud join tiposervicio tipo on rel.tiposervicio_idtiposervicio=tipo.idtiposervicio
+ group by tipo.tiposervicio;]]>
+	</queryString>
+	<field name="tiposervicio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Promedio" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="146" y="10" width="194" height="53" uuid="98d482be-08b5-4d69-86e6-64bc6c9a898f"/>
+				<textElement textAlignment="Justified">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio de costos asociados a servicios]]></text>
+			</staticText>
+			<image>
+				<reportElement x="18" y="10" width="116" height="53" uuid="e7917fed-1300-48a6-8ce7-db4fbba8f847"/>
+				<imageExpression><![CDATA["gestec.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<summary>
+		<band height="142" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="50" y="6" width="257" height="132" uuid="d6ad3970-502b-4faa-94df-2e800bebe0e2"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{tiposervicio}]]></keyExpression>
+					<valueExpression><![CDATA[$F{Promedio}]]></valueExpression>
+					<labelExpression><![CDATA[" "+$F{Promedio}]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>

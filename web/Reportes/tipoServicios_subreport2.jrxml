@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tipoServicios_subreport2" language="groovy" pageWidth="380" pageHeight="250" orientation="Landscape" columnWidth="380" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="29269fb1-579f-4236-82bf-a2de5a17bc84">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT tp.tiposervicio,COUNT(s.idSolicitud) as Cantidad FROM solicitud s JOIN relsolicitudtipo rel on s.idsolicitud=rel.solicitud_idsolicitud
+JOIN tiposervicio tp ON rel.tiposervicio_idtiposervicio=tp.idtiposervicio
+group by tp.tiposervicio;]]>
+	</queryString>
+	<field name="tiposervicio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="174" y="14" width="142" height="44" uuid="c8b31faa-f5f7-4dca-b1cb-3b29feba2b0a"/>
+				<textElement textAlignment="Justified">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Conteo de tipos de servicios sin citas]]></text>
+			</staticText>
+			<image>
+				<reportElement x="34" y="13" width="126" height="60" uuid="c84fb7d1-8b61-40c5-ae2b-2ccccf3cebba"/>
+				<imageExpression><![CDATA["gestec.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<summary>
+		<band height="155" splitType="Stretch">
+			<stackedBar3DChart>
+				<chart>
+					<reportElement x="28" y="6" width="274" height="139" uuid="5b5f872f-2e6e-4ad1-aee5-12bca9af02ba"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Tipos de servicios"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{tiposervicio}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{Cantidad}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</stackedBar3DChart>
+		</band>
+	</summary>
+</jasperReport>

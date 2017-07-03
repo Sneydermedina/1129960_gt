@@ -39,7 +39,7 @@ public class ChartView implements Serializable {
     @PostConstruct
     public void init() {
         createPieModels();
-        createBarModels();
+        //createBarModels();
         createAnimatedModels();
     }
     public BarChartModel getAnimatedModel2() {
@@ -143,10 +143,13 @@ public class ChartView implements Serializable {
          
         return model;
     }
+    /* Bar Model
     private void createBarModels() {
         createBarModel();
         
-    }
+    }*/
+    
+    /*Bar Model
     private void createBarModel() {
         barModel = initBarModel();
          
@@ -157,7 +160,7 @@ public class ChartView implements Serializable {
         yAxis.setMin(0);
         yAxis.setMax(25 );
     }
- 
+ */
     private void createPieModel1() {
         pieModel1 = new PieChartModel();
          

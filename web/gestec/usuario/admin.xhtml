@@ -5,15 +5,18 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"               
                 template="./../../WEB-INF/template/template_principal.xhtml"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="head2">
         #{sesionGestec.bloquearCliente()}
         #{sesionGestec.bloquearTecnico()}
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
 
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/bootstrap-table.css" rel="stylesheet"/>
         <script src='#{request.contextPath}/resources/plugins/full-calendar/moment.min.js' defer=""></script>
-        
+
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
         <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
@@ -33,79 +36,111 @@
     </ui:define>
 
     <ui:define name="content">
-        <div class="container">
-            <center><h2>#{msjGestec.admin1}</h2></center>
-            <br/>
-            <div class="row">
-            <div class="col-md-6 col-xs-12">
-            <p:chart type="pie" model="#{chartView.pieModel2}" style="width:400px;height:300px" widgetVar="chart"/>
-            <p:commandButton type="button" value="#{msjGestec.admin2}" icon="ui-icon-extlink" onclick="exportChart()"/>
- 
-<p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
-    <p:outputPanel id="output" layout="block" style="width:500px;height:300px"/>
-</p:dialog>
-            </div>
-            <div class="col-md-6 col-xs-12">
-                <p:chart type="bar" model="#{chartView.barModel}" style="height:300px" widgetVar="chart1"/>
-                <p:commandButton type="button" value="#{msjGestec.admin2}" icon="ui-icon-extlink" onclick="exportChart1()"/>
- 
-<p:dialog widgetVar="dlg1" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
-    <p:outputPanel id="output1" layout="block" style="width:500px;height:300px"/>
-</p:dialog>
-            </div>
-                </div>
-            <hr style="border: 0.1px solid black"/>
-            <div class="row">
-                <div class="col-md-6 col-xs-12">
-                    <p:chart type="pie" model="#{chartView.pieModel1}" style="width:400px;height:300px" widgetVar="chart2"/>
-                    <p:commandButton type="button" value="#{msjGestec.admin2}" icon="ui-icon-extlink" onclick="exportChart2()" />
- 
-<p:dialog widgetVar="dlg2" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
-    <p:outputPanel id="output2" layout="block" style="width:500px;height:300px"/>
-</p:dialog>
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <p:chart type="bar" model="#{chartView.animatedModel2}" style="width:400px;" widgetVar="chart3"/>
-                    <p:commandButton type="button" value="#{msjGestec.admin2}" icon="ui-icon-extlink" onclick="exportChart3()" />
- 
-<p:dialog widgetVar="dlg3" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
-    <p:outputPanel id="output3" layout="block" style="width:500px;height:300px"/>
-</p:dialog>
-                </div>
-            </div>
+
+        <center><h2>#{msjGestec.admin1}</h2></center>
+        <br/>
+       <!-- <label>Generar informe detallado: </label>-->
+        <div class="col-md-12 col-xs-12 inicio">
+            
+                
+               
+            
+            
+                
+            <center><p:chart type="pie" model="#{chartView.pieModel2}" style="width:400px;height:300px" widgetVar="chart"/></center>
+            
+            <center><p:panelMenu style="width:200px;">
+                    <p:submenu label="Reportes de usuarios">
+                
+                    <p:menuitem value="Doc" url="/ControlReportes?Tipo=1" />
+                
+                <p:menuitem value="Pdf" url="/ControlReportes?Tipo=2" />
+                <p:menuitem value="Ppt" url="/ControlReportes?Tipo=3" />
+                <p:menuitem value="Xls" url="/ControlReportes?Tipo=4" />
+                <p:menuitem value="Html" url="/ControlReportes?Tipo=5" />
+                    </p:submenu>
+                </p:panelMenu></center>
+            
+
+
+
+
+
+
+            <!--<form action="ControlReportes" method="get" target="principal">
+            <select name="Tipo" onchange="submit()" class="form-control">
+                <option>Exportar como:</option>
+                <option value="1">Word</option>
+            </select>
+            </form>-->
+
+
+
         </div>
+        <hr style="border: 0.1px solid white"/>
         
+            <div class="col-md-12 col-xs-12 inicio">
+                <center><p:chart type="bar" model="#{chartView.animatedModel2}" style="width:400px;" widgetVar="chart3"/></center>
+                <center><p:commandButton type="button" value="Ver" icon="ui-icon-extlink" onclick="exportChart3()" /></center>
+                
+                <p:dialog widgetVar="dlg3" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
+                    <p:outputPanel id="output3" layout="block" style="width:500px;height:300px"/>
+                </p:dialog>
+                <br/>
+                <center><p:panelMenu style="width:200px;">
+                    <p:submenu label="Estadisticas servicios">
+                        <p:menuitem value="Doc" url="/ControlReportes?Tipo=6"/>
+                        <p:menuitem value="Pdf" url="/ControlReportes?Tipo=7"/>
+                        <p:menuitem value="Ppt" url="/ControlReportes?Tipo=8"/>
+                        <p:menuitem value="Xls" url="/ControlReportes?Tipo=9"/>
+                        <p:menuitem value="Html" url="/ControlReportes?Tipo=10"/>
+                    </p:submenu>
+                </p:panelMenu></center>
+            </div>
+        <hr style="border: 0.1px solid white"/>
+            <div class="col-md-12 col-xs-12 inicio">
+                
+                <center><p:chart type="pie" model="#{chartView.pieModel1}" style="width:400px;height:300px" widgetVar="chart2"/></center>
+                <center><p:commandButton type="button" value="Ver" icon="ui-icon-extlink" onclick="exportChart2()" /></center>
+
+                <p:dialog widgetVar="dlg2" showEffect="fade" modal="true" header="Chart as an Image" resizable="false">
+                    <p:outputPanel id="output2" layout="block" style="width:500px;height:300px"/>
+                </p:dialog>
+            </div>
         
+
+
+
         <script type="text/javascript">
-function exportChart() {
-    //export image
-    $('#output').empty().append(PF('chart').exportAsImage());
- 
-    //show the dialog
-    PF('dlg').show();
-}
-function exportChart1() {
-    //export image
-    $('#output1').empty().append(PF('chart1').exportAsImage());
- 
-    //show the dialog
-    PF('dlg1').show();
-}
-function exportChart2() {
-    //export image
-    $('#output2').empty().append(PF('chart2').exportAsImage());
- 
-    //show the dialog
-    PF('dlg2').show();
-}
-function exportChart3() {
-    //export image
-    $('#output3').empty().append(PF('chart3').exportAsImage());
- 
-    //show the dialog
-    PF('dlg3').show();
-}
-</script>
+            function exportChart() {
+                //export image
+                $('#output').empty().append(PF('chart').exportAsImage());
+
+                //show the dialog
+                PF('dlg').show();
+            }
+            function exportChart1() {
+                //export image
+                $('#output1').empty().append(PF('chart1').exportAsImage());
+
+                //show the dialog
+                PF('dlg1').show();
+            }
+            function exportChart2() {
+                //export image
+                $('#output2').empty().append(PF('chart2').exportAsImage());
+
+                //show the dialog
+                PF('dlg2').show();
+            }
+            function exportChart3() {
+                //export image
+                $('#output3').empty().append(PF('chart3').exportAsImage());
+
+                //show the dialog
+                PF('dlg3').show();
+            }
+        </script>
     </ui:define>
 
     <ui:define name="bottom">
