@@ -2,37 +2,41 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition  xmlns="http://www.w3.org/1999/xhtml"
                  xmlns:h="http://xmlns.jcp.org/jsf/html"
-                 template="./../../WEB-INF/template/template_principal_sin_menu.xhtml"
+                 template="./../../WEB-INF/template/template_principal.xhtml"
                  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                  xmlns:f = "http://java.sun.com/jsf/core">
 
-
+<ui:define name="titulo">
+    <f:view locale="#{sesionGestec.idiomaSeleccionado}">#{msjGestec.actualizacionEquipos}</f:view></ui:define>
     <ui:define name="head2">
-        <title>Mis Equipos</title>
-        
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
-        <link href="#{request.contextPath}/resources/css/estilosPerfil.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
         <link href="#{request.contextPath}/resources/css/bootstrap-table.css" rel="stylesheet"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.css"/>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
-        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""/>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" defer=""></script> 
 
     </ui:define> 
 
 
-    <ui:define name="titulo">
-        <f:view locale="#{sesionGestec.idiomaSeleccionado}">#{msjGestec.actualizacionEquipos}</f:view></ui:define>
-
-    <ui:define name="titulo2">
-        <f:view locale="#{sesionGestec.idiomaSeleccionado}">#{msjGestec.formularioActualizacion}</f:view></ui:define>
-
-    <ui:define name="content2">
+   
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define> 
+    
+    <ui:define name="content">
         <f:view locale="#{sesionGestec.idiomaSeleccionado}">
-        <div class="container" style="padding: 100px; ">
+            
+            
+        <div class="col-md-12 inicio">
+            <div class="col-md-12 encabezado">
             <h:form id="form" class="form-horizontal">
 
                 <div class="row">
@@ -77,6 +81,7 @@
                 <a href="#{request.contextPath}/faces/gestec/equipo/listaEquipos.xhtml"><h:inputText value="#{msjGestec.volver}" class="btn btn-default form-control"></h:inputText></a>
             </h:form>
         </div>
+            </div>
 
         <!-- Intento fallido de implementar sweet alert
         <script>
@@ -103,7 +108,7 @@
         </script>-->
         </f:view>
     </ui:define>
-
+    <ui:define name="bottom"></ui:define>
 </ui:composition>
 
 

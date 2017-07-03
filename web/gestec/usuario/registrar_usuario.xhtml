@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                 template="./../../WEB-INF/template/template_index.xhtml"
+                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                 xmlns:f = "http://java.sun.com/jsf/core"
+                 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+
+    <ui:define name="head2">
+        <title>Mis Equipos</title>
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/estilosPerfil.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/bootstrap-table.css" rel="stylesheet"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+    </ui:define> 
+
+
+    <ui:define name="titulo">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+            #{msjGestec.formRegistro}
+        </f:view>
+    </ui:define>
+
+    <ui:define name="titulo2"><f:view locale="#{sesionGestec.idiomaSeleccionado}">
+            #{msjGestec.formEquipo}
+        </f:view>
+    </ui:define>
+
+    <ui:define name="content">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+        <div style="padding: 100px; ">
+            <h:form id="form" class="form-horizontal">
+                <div class="col-md-12 inicio">
+                    
+                <h3 style="text-align: center">Registro de usuarios</h3>
+                    <hr/>
+                    <div class="container">
+                        
+                        <div class="col-md-6">
+                            <div class="col-md-5">
+                            <h4>Nombre de usuario</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:inputText value="" pt:placeholder="Ingrese nombre de usuario" class="form-control"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <div class="col-md-5">
+                            <h4>Apellido Usuario</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:inputText value="" pt:placeholder="Ingrese sus apellidos" class="form-control"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 ">
+                            <div class="col-md-5 inputs">
+                            <h4>Tipo de documento</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:selectOneMenu value="" class="form-control">
+                                    <f:selectItem itemLabel="Seleccione tipo de documento" class="form-horizontal"/>
+                                    <f:selectItem itemValue="1" itemLabel="CC" class="form-horizontal"/>
+                                    <f:selectItem itemValue="2" itemLabel="CE" class="form-horizontal"/>
+                                    <f:selectItem itemValue="2" itemLabel="TI" class="form-horizontal"/>
+                                    <f:selectItem itemValue="2" itemLabel="Otro" class="form-horizontal"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 inputs">
+                            <div class="col-md-5">
+                            <h4>Documento num:</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:inputText value="" pt:placeholder="Ingrese numero de documento" class="form-control"/>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-md-6 ">
+                            <div class="col-md-5 inputs">
+                            <h4>Tipo de usuario</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:selectOneMenu value="" class="form-control">
+                                    <f:selectItem itemLabel="Seleccione el tipo de usuario" class="form-horizontal"/>
+                                    <f:selectItem itemValue="1" itemLabel="Tecnico" class="form-horizontal"/>
+                                    <f:selectItem itemValue="2" itemLabel="Cliente" class="form-horizontal"/>
+                                 
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 ">
+                            <div class="col-md-5 inputs">
+                            <h4>Genero:</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:selectOneMenu value="" class="form-control">
+                                    <f:selectItem itemLabel="Seleccione su genero" class="form-horizontal"/>
+                                    <f:selectItem itemValue="1" itemLabel="Masculino" class="form-horizontal"/>
+                                    <f:selectItem itemValue="2" itemLabel="Femenino" class="form-horizontal"/>
+                                    <f:selectItem itemValue="2" itemLabel="Prefiero no decirlo" class="form-horizontal"/>
+                                    <f:selectItem itemValue="2" itemLabel="Otro" class="form-horizontal"/>
+                                 
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 inputs" >
+                            <div class="col-md-5">
+                            <h4>Contraseña</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:inputSecret value="" pt:placeholder="Contraseña" class="form-control"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 inputs">
+                            <div class="col-md-5">
+                            <h4>Confirmar Contraseña</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:inputSecret value="" pt:placeholder="Confirmar contraseña" class="form-control"/>
+                            </div>
+                        </div>
+                        
+                        
+                         <div class="col-md-6 ">
+                        <hr/>
+                            <div class="col-md-5 inputs">
+                            <h4>Tipo de telefono</h4>
+                            </div>
+                            <div class="col-md-7">
+                               
+                                <h:selectOneMenu value="" class="form-control">
+                                    <f:selectItem itemLabel="Seleccione tipo de telefono" class="form-horizontal"/>
+                                    <f:selectItem itemValue="1" itemLabel="Telefono Movil" class="form-horizontal"/>
+                                    <f:selectItem itemValue="2" itemLabel="Telefono Fijo" class="form-horizontal"/>
+                                    <f:selectItem itemValue="3" itemLabel="Otro" class="form-horizontal"/>              
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 inputs">
+                            <hr/>
+                            <div class="col-md-5">
+                            <h4>Numero de telefono:</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:inputText value="" pt:placeholder="Ingrese numero de telefonos" class="form-control"/>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 inputs">
+                            <div class="col-md-5">
+                            <h4>Direccion de correo electronico</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:inputText value="" pt:placeholder="Correo electronico" class="form-control"/>
+                            </div>
+                        </div>
+                       
+                            
+                        <div class="col-md-6 inputs" >
+                            <div class="col-md-5">
+                            <h4>Barrio</h4>
+                            </div>
+                            <div class="col-md-7">
+                                
+                                <h:selectOneMenu id="barrio" class="form-control"
+                                                 style="margin-top:0px"
+                                                 value="#{sesionGestec.barrios}">
+                                    <c:forEach items="#{sesionGestec.barrios}" var="b">
+                                        <f:selectItem itemLabel="#{b.nombreBarrio}" itemValue="#{b.idBarrio}"/>
+                                    </c:forEach>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 inputs">
+                            <div class="col-md-5">
+                            <h4>Localidad</h4>
+                            </div>
+                            <div class="col-md-7">
+                               
+                            <h:selectOneMenu id="localidad" 
+                                             class="form-control" 
+                                             style="margin-top:0"
+                                             value="#{sesionGestec.numeroLocalidad}">
+                             
+                                <c:forEach items="#{sesionGestec.localidades}" var="l">
+                                    <f:selectItem itemLabel="#{l.nombreLocalidad}" itemValue="#{l.idLocalidad}"/>
+                                </c:forEach>
+                                <f:ajax event="change" listener="#{sesionGestec.llenarBarrios}" render="barrio"
+                                        execute="@this"/>
+                            </h:selectOneMenu>
+                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h:form>
+                </h:form>
+                <a href="#{request.contextPath}/faces/index.xhtml"><h:inputText value="#{msjGestec.volver}" class="btn btn-default form-control"></h:inputText></a>
+            </h:form>
+        </div>
+        </f:view>
+    </ui:define>
+
+</ui:composition>
+
+

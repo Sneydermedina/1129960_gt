@@ -5,6 +5,7 @@
  */
 package com.gestec.modelo.controladores;
 
+import com.gestec.model.Email;
 import com.gestec.modelo.entidades.Barrio;
 import com.gestec.modelo.entidades.Contactos;
 import com.gestec.modelo.entidades.Localidad;
@@ -23,6 +24,7 @@ import com.gestec.modelo.persistencia.UsuariosFacadeLocal;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,6 +80,9 @@ public class SesionController implements Serializable {
     private Contactos contacto;
     private String mensaje;
     private List<NotificacionCita> notCitas;
+    private String estados;
+    private String correo;
+    private List<Usuarios> listarUsuarios;
 
     private Locale idiomaSeleccionado;
     private List<Locale> idiomasSoportados;
@@ -195,6 +200,31 @@ public class SesionController implements Serializable {
     public void setNotificaciones(List<NotificacionUsuario> notificaciones) {
         this.notificaciones = notificaciones;
     }
+
+    public String getEstados() {
+        return estados;
+    }
+
+    public void setEstados(String estados) {
+        this.estados = estados;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public List<Usuarios> getListarUsuarios() {
+        return listarUsuarios;
+    }
+
+    public void setListarUsuarios(List<Usuarios> listarUsuarios) {
+        this.listarUsuarios = listarUsuarios;
+    }
+    
     
     
 
@@ -579,6 +609,33 @@ public class SesionController implements Serializable {
             nombreBarrios.add("Cualquier barrio");
         }
 
+    }
+    
+    public String validarUsuarioCorreo(){
+        
+        Usuarios usuarioLog = ufl.validarUsuariosCorreo(correo);
+        //this.listarUsuarios = ufl.listarUsuariosCorreo(correo);
+        
+        List<Usuarios> listar = new ArrayList();
+        
+        listar = ufl.listarUsuariosCorreo(usuarioLog.getCorreo());
+        if (!usuarioLog.getNombreUsuario().equals("No existe")) {
+            estados="2";
+            try {
+                Email miCorreo = new Email();
+                Email.send(listar, usuarioLog.getNombreUsuario(), "Envio masivo de correos");
+                System.out.println(listar+" "+estados);
+                //Email.sendBienvenido(usuarioLog.getCorreo(),usuarioLog.getNombreUsuario(),usuarioLog.getApellido(),usuarioLog.getContrasenaUsuario());
+                //Email.sendClaves(usuarioLog.getCorreo(), usuarioLog.getNombreUsuario(), usuarioLog.getNombreUsuario(), usuarioLog.getContrasenaUsuario());
+            } catch (Exception e) {
+                estados="4";
+            }
+        }else{
+            estados="3";
+        }
+        
+        
+        return "";
     }
 
 }

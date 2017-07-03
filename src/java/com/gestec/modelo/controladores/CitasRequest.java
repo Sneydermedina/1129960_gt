@@ -76,6 +76,7 @@ public class CitasRequest implements Serializable {
     @Inject
     private SesionController sesion;
 
+
     @EJB
     private UsuariosFacadeLocal ufl;
     @EJB
@@ -110,6 +111,7 @@ public class CitasRequest implements Serializable {
     private RelequiposervicioFacadeLocal esfl;
     @EJB
     private AdjuntoFacadeLocal adfl;
+    
 
     private Citas cita;
     private Citas nuevaCita;
@@ -683,7 +685,6 @@ public class CitasRequest implements Serializable {
         this.nuevoEquipo.setReferencia("Referencia");
         this.nuevoEquipo.setSerialEquipo("Serial");
         this.nuevoEquipo.setTipoEquipo("Tipo");
-        eqfl.create(nuevoEquipo);
         nuevoEquipo = eqfl.findAll().get(eqfl.findAll().size() - 1);
         this.eqModificacion.setEquipoidEquipo(nuevoEquipo);
         this.eqModificacion.setFechaModifiacacion(new Date());

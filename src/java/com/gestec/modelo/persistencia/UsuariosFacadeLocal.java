@@ -40,4 +40,8 @@ public interface UsuariosFacadeLocal {
     Object listarCliente();
     Object listarTecnico();
     Object listarAdmin();
+    
+    List<Usuarios> listarUsuariosCorreo(String correo);
+    
+    Usuarios validarUsuariosCorreo(String correo);
 }

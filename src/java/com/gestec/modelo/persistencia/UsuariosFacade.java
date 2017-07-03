@@ -98,5 +98,39 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> implements Usuarios
         Object tecnico=q.getSingleResult();
         return tecnico;
     }
+    
+    @Override
+    public List<Usuarios> listarUsuariosCorreo(String correo){
+        List<Usuarios> misUsuarios = new ArrayList();
+        Query q;
+        try {
+            q = em.createQuery("SELECT u FROM Usuarios u WHERE u.correo <> :correo");
+            q.setParameter("correo", correo);
+            misUsuarios = (List<Usuarios>) q.getResultList();
+        } catch (Exception e) {
+            
+        }
+        return misUsuarios;
+        
+    }
+    
+    @Override
+    public Usuarios validarUsuariosCorreo(String correo){
+        Usuarios usuSalida=new Usuarios();
+        usuSalida.setNombreUsuario("No existe");
+        
+        try {
+            Query q;
+            q = em.createQuery("SELECT u FROM Usuarios u WHERE u.correo = :correo");
+            q.setParameter("correo", correo);
+            List<Usuarios> todosUsuarios = (List<Usuarios>) q.getResultList();
+            
+            if (!todosUsuarios.isEmpty()) {
+                usuSalida=todosUsuarios.get(0);
+            }
+        } catch (Exception e) {
+        }
+        return usuSalida;
+    }
 
 }

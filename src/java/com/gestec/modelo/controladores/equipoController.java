@@ -1,14 +1,17 @@
 package com.gestec.modelo.controladores;
 
 import com.gestec.modelo.entidades.Equipo;
+import com.gestec.modelo.entidades.Usuarios;
 import com.gestec.modelo.persistencia.EquipoFacadeLocal;
 import com.gestec.modelo.persistencia.EquipoFacade;
+import com.gestec.modelo.persistencia.UsuariosFacadeLocal;
 import java.io.Serializable;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 
 @Named(value = "equipoController")
 @SessionScoped
@@ -19,12 +22,28 @@ public class equipoController implements Serializable{
     Equipo e;
     EquipoFacade ef;
     List<Equipo> equipos;
-
+    
+    private Usuarios u;
+    
+    @Inject
+    private SesionController sesion;
+    
+    
+    private UsuariosFacadeLocal ufl;
+    
     @PostConstruct
     public void equipoController() {
         this.e = new Equipo();
-        this.equipos = this.efl.findAll();
+        
+        this.equipos = this.efl.findByIdUsuario(sesion.getUsuario().getIdUsuario());
+        System.out.println("ID: "+efl.findByIdUsuario(sesion.getUsuario().getIdUsuario()));
+        
     }
+
+    public SesionController getSesion() {
+        return sesion;
+    }
+    
 
     public EquipoFacadeLocal getEfl() {
         return efl;
@@ -58,10 +77,27 @@ public class equipoController implements Serializable{
         this.ef = ef;
     }
 
+    public Usuarios getU() {
+        return u;
+    }
+
+    public void setU(Usuarios u) {
+        this.u = u;
+    }
+
+    public UsuariosFacadeLocal getUfl() {
+        return ufl;
+    }
+
+    public void setUfl(UsuariosFacadeLocal ufl) {
+        this.ufl = ufl;
+    }
+    
+
     public String insertarEquipo() {
         this.efl.create(this.e);
         this.e = new Equipo();
-        this.equipos = this.efl.findAll();
+        this.equipos = this.efl.findByIdUsuario(sesion.getUsuario().getIdUsuario());
         return "/faces/gestec/equipo/listaEquipos";
     }
 
@@ -82,6 +118,7 @@ public class equipoController implements Serializable{
 
     public void eliminar(){
         efl.remove(e);
+        this.equipos = efl.findByIdUsuario(sesion.getUsuario().getIdUsuario());
         
     }
 

@@ -87,7 +87,7 @@
                             PNG</a></li>
                 </ul>
             </div>
-            <a href="#{request.contextPath}/faces/gestec/equipo/formEquipo.xhtml" style="text-decoration: none;color:white;"><button class="btn btn-primary col-md-5 col-sm-4 col-xs-12" style="margin: 10px 0px;text-decoration: none;">&nbsp; #{msjGestec.nuevo}</button></a>
+            <a href="#{request.contextPath}/faces/gestec/equipo/cargarEquipos.xhtml" style="text-decoration: none;color:white;"><button class="btn btn-primary col-md-5 col-sm-4 col-xs-12" style="margin: 10px 0px;text-decoration: none;">&nbsp; #{msjGestec.nuevo}</button></a>
             <button class="btn btn-danger col-md-5 col-sm-4 col-xs-12" id="eliminar" style="margin: 10px 0px"><span class="fa fa-trash"></span> &nbsp;#{msjGestec.eliminar}</button>
         </div>
 
@@ -113,6 +113,7 @@
                     <c:forEach items="#{equipoController.equipos}" var="e">
                         <tr>
                             <td></td>
+                            
                             <td>#{e.descripcionEquipo}</td>
                             <td>#{e.marcaEquipo}</td>
                             <td>#{e.referencia}</td>
@@ -120,20 +121,18 @@
 
                             <td>#{e.tipoEquipo}</td>
                             <td>&nbsp;&nbsp;<h:commandLink action="#{equipoController.edit(e)}">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar el equipo"></i>
                                 </h:commandLink>
                                 &nbsp;&nbsp;<h:commandLink
                                     pt:data-toggle="modal" pt:data-target="#myModalEliminar"
-                                    ><i class="fa fa-times" aria-hidden="true">
+                                    ><i class="fa fa-times" aria-hidden="true" title="Eliminar el equipo">
                                         <f:ajax event="click" listener="#{equipoController.setE(e)}" 
                                                 render="nombreActualizar"></f:ajax>
                                     </i></h:commandLink>
                                 &nbsp;&nbsp;<h:commandLink action="#{equipoController.vista(e)}">
-                                    <i class="fa fa-eye" aria-hiddem="true"></i>
+                                    <i class="fa fa-eye" aria-hiddem="true" title="Detalles del equipo"></i>
                                 </h:commandLink>
-                                <h:commandLink action="#{equipoController.setE(e)}">
-                                    <i class="fa fa-times" aria-hiddem="true"></i>
-                                </h:commandLink>
+                                
                             </td>
                         </tr>
                     </c:forEach>

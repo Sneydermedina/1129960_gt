@@ -30,4 +30,7 @@ public interface EquipoFacadeLocal {
 
     int count();
     
+    List<Equipo> findByIdUsuario(Integer idCliente);
+    
+    int ingresarEquipoExcel(String[] equipo);
 }
