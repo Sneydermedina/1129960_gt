@@ -35,17 +35,6 @@
 
     <ui:define name="content">
         <f:view>
-            <div class="col-md-12 novedades">
-                <div class="col-md-12 encabezado_cita">
-                    <h3 style="margin: 0"><strong>#{msjGestec.novedades}</strong></h3>
-                </div>
-
-                <div class="col-md-12 contenido_cita">
-                    <h5 class="novedad">• #{msjGestec.novedad1}</h5>
-                    <h5 class="novedad">• #{msjGestec.novedad2}</h5>
-                    <h5 class="novedad">• #{msjGestec.novedad3}</h5>
-                </div>
-            </div>
             <c:if test="#{citasRequest.citas.size()!=0}">
 
                 <div class="col-md-12">

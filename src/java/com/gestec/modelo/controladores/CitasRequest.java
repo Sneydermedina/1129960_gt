@@ -76,7 +76,6 @@ public class CitasRequest implements Serializable {
     @Inject
     private SesionController sesion;
 
-
     @EJB
     private UsuariosFacadeLocal ufl;
     @EJB
@@ -111,7 +110,6 @@ public class CitasRequest implements Serializable {
     private RelequiposervicioFacadeLocal esfl;
     @EJB
     private AdjuntoFacadeLocal adfl;
-    
 
     private Citas cita;
     private Citas nuevaCita;
@@ -157,14 +155,13 @@ public class CitasRequest implements Serializable {
     private Equipomodificacion eqModificacion;
     private Adjunto adjunto;
     private byte[] archivoSolicitud;
-    private String dura;
     private String cos;
     private String descrip;
     private String nuevoMensaje;
     private Boolean citaEnviada;
     private String comentario;
     private Citas citaM;
-   
+
     public CitasRequest() {
         this.numeroBarrio = 0;
         this.numeroLocalidad = 0;
@@ -441,14 +438,6 @@ public class CitasRequest implements Serializable {
         this.descripcionEvento = descripcionEvento;
     }
 
-    public String getDura() {
-        return dura;
-    }
-
-    public void setDura(String dura) {
-        this.dura = dura;
-    }
-
     public String getCos() {
         return cos;
     }
@@ -472,7 +461,6 @@ public class CitasRequest implements Serializable {
     public void setNuevoMensaje(String nuevoMensaje) {
         this.nuevoMensaje = nuevoMensaje;
     }
-    
 
     public String getNTecnico() {
         if (this.tecnicoCita == null) {
@@ -496,7 +484,6 @@ public class CitasRequest implements Serializable {
     public void setCitaM(Citas mCita) {
         this.citaM = mCita;
     }
-    
 
     public List<Double> getCalificaciones(Usuarios tecnico) {
         List<Double> ptos = new ArrayList<>();
@@ -557,7 +544,6 @@ public class CitasRequest implements Serializable {
         this.citaEnviada = citaEnviada;
     }
 
-    
     public List<Citas> getPublicaciones() {
         return cfl.findAll();
     }
@@ -602,7 +588,7 @@ public class CitasRequest implements Serializable {
             return new DefaultStreamedContent(new ByteArrayInputStream(imagen));
         }
     }
-    
+
     public StreamedContent getImagenRespuesta() {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -794,7 +780,6 @@ public class CitasRequest implements Serializable {
         setCita(cita);
         return "detalle_cita.xhtml?faces-redirect=true";
     }
-    
 
     public void verDetalleNotificacion(Citas cita, NotificacionCita not) {
         setCita(cita);
@@ -837,7 +822,6 @@ public class CitasRequest implements Serializable {
 
     public String actualizarCita() {
         setCitaModificada(cita);
-        citaModificada.setDuracionCita(dura);
         citaModificada.setEstadoCita("Agendada");
         citaModificada.getEventoAgenda().setUsuariosidUsuario(tecnicoCita);
         citaModificada.getServicionoTiquet().setDescripcionServicio(descrip);
@@ -845,6 +829,21 @@ public class CitasRequest implements Serializable {
         cfl.edit(citaModificada);
         sefl.edit(citaModificada.getServicionoTiquet());
         return "";
+    }
+
+    public void actualizarDatosCita() {
+        FacesMessage msj;
+        try {
+            this.cfl.edit(citaM);
+            Servicio serv = citaM.getServicionoTiquet();
+            Eventoagenda even = citaM.getEventoAgenda();
+            this.sefl.edit(serv);
+            this.efl.edit(even);
+            msj = new FacesMessage(FacesMessage.SEVERITY_WARN, "Datos actualizados correctamente", "");
+        } catch (Exception e) {
+            msj = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error en la actualizacion de los datos", "");
+        }
+        FacesContext.getCurrentInstance().addMessage(null, msj);
     }
 
     private void redireccionar(String url) {
@@ -917,8 +916,8 @@ public class CitasRequest implements Serializable {
         servicio.setEstadoServicio("Oculta");
         sefl.edit(servicio);
     }
-    
-    public void enviarMensaje(){
+
+    public void enviarMensaje() {
         this.mensaje.setEstadoMensaje("Enviado");
         this.mensaje.setFechaMensaje(new Date());
         this.mensaje.setMensaje(getNuevoMensaje());
@@ -927,8 +926,8 @@ public class CitasRequest implements Serializable {
         this.nuevoMensaje = "";
         mfl.create(mensaje);
     }
-    
-    public void añadirComentario(Citas cita){
+
+    public void añadirComentario(Citas cita) {
         Relequiposervicio es = new Relequiposervicio();
         es.setComentario(comentario);
         es.setEquipoidEquipo(cita.getServicionoTiquet().getRelequiposervicioList().get(0).getEquipoidEquipo());

@@ -83,54 +83,84 @@
 
     <ui:define name="content">
         <f:view>
-            <h2><strong><center>#{msjGestec.citasDatosServicio}</center></strong></h2>
+            <h2 style="margin-bottom: 0"><strong><center>#{msjGestec.citasDatosServicio}</center></strong></h2>
 
 
             <h:form id="sddssd" prependId="false">
 
                 <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Cliente'}">
                     <div class="form-group col-md-12" style="margin-bottom: 0">
-                        <label for="nombre">#{msjGestec.citasDuracion} </label>
-                        <h:inputText id="nombre" class="form-control" value="#{citasRequest.citaM.duracionCita}"/>
+                        <label for="nombre">Descripción </label>
+                        <h:inputText id="nombre" 
+                                     class="form-control" 
+                                     value="#{citasRequest.citaM.eventoAgenda.descripcionEvento}"
+                                     required="true"
+                                     requiredMessage="Este campo no puede estar vacío"/>
+                        <h:message for="nombre" style="color: red"/>
                     </div>
-                    <div class="form-group col-md-12" style="margin-bottom: 0">
-                        <label for="apellido">#{msjGestec.citasCosto} </label>
-                        <h:inputText id="apellido" class="form-control" value="#{citasRequest.citaM.servicionoTiquet.costoServicio}"/>
-                    </div>
-                    <div class="form-group col-md-12" style="margin-bottom: 0">
-                        <label for="descripcion">#{msjGestec.citasDescripcion} </label>
-                        <h:inputTextarea id="descripcion" class="form-control" rows="2" value="#{citasRequest.citaM.servicionoTiquet.descripcionServicio}"></h:inputTextarea>
+                    <div class="col-md-12 form-group" style="margin-bottom: 0">
+                        <label for="datetime">Fecha de cita</label>
+                        <p:calendar id="datetime1" pattern="MM/dd/yyyy HH:mm" value="#{citasRequest.citaM.fechaCita}"
+                                    required="true"
+                                    requiredMessage="Este campo no puede estar vacío"/>
+                        <h:message for="datetime1" style="color: red"/>
                     </div>
                 </c:if>
 
                 <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
                     <div class="form-group col-md-12" style="margin-bottom: 0">
-                        <label>Descripción servicio: </label>
-                        <h:inputText class="form-control"/>
-                    </div>
-                    <div class="form-group col-md-12" style="margin-bottom: 0">
-                        <label>#{msjGestec.citasCosto} </label>
-                        <h:inputText class="form-control"/>
+                        <label style="margin-top: 0">#{msjGestec.citasCosto} </label>
+                        <h:inputText class="form-control" value="#{citasRequest.citaM.servicionoTiquet.costoServicio}"
+                                     id="costo"
+                                     required="true"
+                                     requiredMessage="Este campo no puede estar vacío"/>
+                        <h:message for="costo" style="color: red"/>
                     </div>
                     <div class="form-group col-md-12" style="margin-bottom: 0">
                         <label for="descripcion">#{msjGestec.citasDescripcion} </label>
-                        <h:inputTextarea class="form-control" rows="2" value="#{citasRequest.citaM.servicionoTiquet.descripcionServicio}"></h:inputTextarea>
+                        <h:inputText class="form-control" value="#{citasRequest.citaM.servicionoTiquet.descripcionServicio}"
+                                     required="true"
+                                     id="desc"
+                                     requiredMessage="Este campo no puede estar vacío"/>
+                        <h:message for="desc" style="color: red"/>
                     </div>
-                    <div class="col-md-12 form-group">
+                    <div class="col-md-12 form-group" style="margin-bottom: 0">
                         <label for="datetime">Fecha de servicio</label>
-                        <p:calendar id="datetime" pattern="MM/dd/yyyy HH:mm"/>
+                        <p:calendar id="datetime" pattern="MM/dd/yyyy HH:mm" value="#{citasRequest.citaM.servicionoTiquet.fechaServicio}"
+                                    required="true"
+                                    requiredMessage="Este campo no puede estar vacío"/>
+                        <h:message for="datetime" style="color: red"/>
+                    </div>
+                    <div class="form-group col-md-12" style="margin-bottom: 0">
+                        <label>Garantía: </label>
+                        <p:calendar pattern="MM/dd/yyyy HH:mm" value="#{citasRequest.citaM.servicionoTiquet.garantia}"
+                                    required="true"
+                                    id="gar"
+                                    requiredMessage="Este campo no puede estar vacío"/>
+                        <h:message for="gar" style="color: red"/>
+                    </div>
+                    <div class="form-group col-md-12" style="margin-bottom: 0">
+                        <label>Duración: </label>
+                        <h:inputText class="form-control" value="#{citasRequest.citaM.duracionCita}"
+                                     required="true"
+                                     id="dur"
+                                     requiredMessage="Este campo no puede estar vacío"/>
+                        <h:message for="dur" style="color: red"/>
                     </div>
                 </c:if> 
 
-                <div class="pull-right col-md-5">
+                <div style="margin-top: 10px;text-align: center">
+                    <h:messages globalOnly="true" showSummary="true" style="color: #2895cc;"/>
+                </div>
+                <div class="pull-right col-md-5" style="margin-top: 15px">
                     <div class="col-md-6" style="padding-right: 0">
                         <a href="#{request.contextPath}/faces/gestec/cita/citas.xhtml" class="btn btn-danger col-md-12">
                             <span class="fa fa-arrow-left"></span> Volver
                         </a>
                     </div>
                     <div class="col-md-6" style="padding-right: 0">
-                        <h:commandLink value="Guardar cambios" class="btn btn-primary col-md-12" 
-                                       action="#{citasRequest.actualizarCita()}"></h:commandLink>
+                        <h:commandLink id="d" value="Guardar cambios" class="btn btn-primary col-md-12" 
+                                       actionListener="#{citasRequest.actualizarDatosCita()}"></h:commandLink>
                     </div>
                 </div>
 
