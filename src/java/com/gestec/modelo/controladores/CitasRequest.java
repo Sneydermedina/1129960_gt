@@ -801,18 +801,18 @@ public class CitasRequest implements Serializable {
     public void cancelarCita() {
         citaModificada.setEstadoCita("Cancelada");
         cfl.edit(citaModificada);
-        this.notificacionUsuario.getIdNotificacion().setIdNotificacion(6);
-        Usuarios usuario = new Usuarios();
-        if (sesion.getUsuario().getTipoUsuario().equals("Tecnico")) {
-            usuario = citaModificada.getSolicitudIdsolicitud().getDireccionidDireccion().getUsuariosidUsuario();
-        } else if (sesion.getUsuario().getTipoUsuario().equals("Cliente")) {
-            usuario = citaModificada.getSolicitudIdsolicitud().getMensajeList().get(0).getUsuariosidUsuario();
-        }
-        this.notificacionUsuario.setIdUsuario(usuario);
-        this.notificacionUsuario.setEstadoNotificacion("Enviado");
-        this.notificacionUsuario.setFechaNotificacion(new Date());
-        nufl.create(notificacionUsuario);
-        this.citas = cfl.listarCitas("Agendada");
+//        this.notificacionUsuario.getIdNotificacion().setIdNotificacion(6);
+//        Usuarios usuario = new Usuarios();
+//        if (sesion.getUsuario().getTipoUsuario().equals("Tecnico")) {
+//            usuario = citaModificada.getSolicitudIdsolicitud().getDireccionidDireccion().getUsuariosidUsuario();
+//        } else if (sesion.getUsuario().getTipoUsuario().equals("Cliente")) {
+//            usuario = citaModificada.getSolicitudIdsolicitud().getMensajeList().get(0).getUsuariosidUsuario();
+//        }
+//        this.notificacionUsuario.setIdUsuario(usuario);
+//        this.notificacionUsuario.setEstadoNotificacion("Enviado");
+//        this.notificacionUsuario.setFechaNotificacion(new Date());
+//        nufl.create(notificacionUsuario);
+//        this.citas = cfl.listarCitas("Agendada");
     }
 
     public String editar(Citas cita) {
