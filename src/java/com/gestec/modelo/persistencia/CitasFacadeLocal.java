@@ -30,6 +30,6 @@ public interface CitasFacadeLocal {
 
     int count();
     
-    List<Citas> listarCitas();
+    List<Citas> listarCitas(String estado);
     
 }

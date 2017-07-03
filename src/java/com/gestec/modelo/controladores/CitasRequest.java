@@ -161,6 +161,7 @@ public class CitasRequest implements Serializable {
     private String nuevoMensaje;
     private Boolean citaEnviada;
     private String comentario;
+    private Citas citaM;
    
     public CitasRequest() {
         this.numeroBarrio = 0;
@@ -179,9 +180,10 @@ public class CitasRequest implements Serializable {
     @PostConstruct
     public void init() {
         this.mensaje = new Mensaje();
+        this.citaM = new Citas();
         this.tecnicosCita = ufl.listarTecnicosFiltro(numeroBarrio, numeroLocalidad,
                 nombreTecnico, orientacion, orden, operadorBarrio, operadorLocalidad);
-        this.citas = cfl.listarCitas();
+        this.citas = cfl.listarCitas("Agendada");
         this.servicio = new Servicio();
         this.nuevaSolicitud = new Solicitud();
         this.horaDisponibilidad = new Horadisponibilidad();
@@ -483,6 +485,14 @@ public class CitasRequest implements Serializable {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public Citas getCitaM() {
+        return citaM;
+    }
+
+    public void setCitaM(Citas mCita) {
+        this.citaM = mCita;
     }
     
 
@@ -816,11 +826,11 @@ public class CitasRequest implements Serializable {
         this.notificacionUsuario.setEstadoNotificacion("Enviado");
         this.notificacionUsuario.setFechaNotificacion(new Date());
         nufl.create(notificacionUsuario);
-        this.citas = cfl.listarCitas();
+        this.citas = cfl.listarCitas("Agendada");
     }
 
     public String editar(Citas cita) {
-        setCitaModificada(cita);
+        setCitaM(cita);
         return "formulario_citas.xhtml?faces-redirect=true";
     }
 

@@ -5,30 +5,40 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                template="./../../WEB-INF/template/template_principal.xhtml">
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="titulo">
         <f:view>
-        #{msjGestec.citasModificarCita}
+            #{msjGestec.citasModificarCita}
         </f:view>
     </ui:define>
 
     <ui:define name="head2">
+
         <style>
-            hr{
-                margin-top: 10px; 
-                margin-bottom: 10px;
-                border: 0;
-                border-top: 1px solid #aaa;
+            label{
+                margin-top: 10px;
             }
-            h2{
-                margin: 0;
+            .radio-inline{
+                padding-left: 0;
             }
-            input[type=checkbox]{
+            td,th{
+                padding-left: 10px;
+            }
+            input[type=radio]{
                 display: none;
+
             }
-            input[type=checkbox] + label{
+            input[type=radio] + label{
                 cursor: pointer;
+                padding: 10px;
+                margin-left: 10px;
+                border: 1px solid #337AB7;
+                color: #337AB7;
+                width: 100%;
+                text-align: center;
+                border-radius: 20px;
             }           
             .cuadro:before{
                 content: '';
@@ -37,39 +47,28 @@
                 border: 1px solid #aaa;
                 float: left;
             }
-            input[type=checkbox]:checked + .cuadro:before{
-                content: '';
+            input[type=radio]:checked + label{
                 background: #337AB7;
+
+                color: #fff;
                 border: 1px solid #337AB7;
             } 
-            .dia{
-                float: left;
+            .ui-inputfield{
+                width: 100%;
             }
-            .fila{
-                width: 12.8%;
-                margin-left: 5px;
-                float: left;
+            .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error{
+                border: 1px solid #ccc;
             }
-            .fila-hora{
-                width: 6%;
-                float: left;
-                margin-top: 20px;
-            }
-            .horas{
-                width: 90%;
-                text-align: center;
-                border-top: 1px solid transparent;
-                border-right: 1px solid transparent;
-                border-left: 1px solid transparent;
-                border-bottom: 1px solid #aaa;
-                float: left;
-                margin-bottom: 11px;
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
             }
         </style>
 
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
         <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
@@ -85,38 +84,97 @@
     <ui:define name="content">
         <f:view>
             <h2><strong><center>#{msjGestec.citasDatosServicio}</center></strong></h2>
-        <hr/>
-
-        
-        <h:form id="sddssd" prependId="false">
-
-            <div class="form-group col-md-12" style="margin-top: 10px">
-                <label for="nombre">#{msjGestec.citasDuracion} </label>
-                <h:inputText id="nombre" class="form-control" value="#{citasRequest.citaModificada.duracionCita}"/>
-            </div>
-            <div class="form-group col-md-12">
-                <label for="apellido">#{msjGestec.citasCosto} </label>
-                <h:inputText id="apellido" class="form-control" value="#{citasRequest.citaModificada.servicionoTiquet.costoServicio}"/>
-            </div>
-            <div class="form-group col-md-12">
-                <label for="descripcion">#{msjGestec.citasDescripcion} </label>
-                <h:inputTextarea id="descripcion" class="form-control" rows="2" value="#{citasRequest.citaModificada.servicionoTiquet.descripcionServicio}"></h:inputTextarea>
-            </div>
-
-            <div class="pull-right">
-                <a href="#{request.contextPath}/faces/gestec/cita/citas.xhtml" class="btn btn-danger"><span class="fa fa-arrow-left"></span> Volver</a>
-                <h:commandLink value="Guardar cambios" class="btn btn-primary" action="#{citasRequest.actualizarCita()}"></h:commandLink>
-            </div>
 
 
-        </h:form>
+            <h:form id="sddssd" prependId="false">
+
+                <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Cliente'}">
+                    <div class="form-group col-md-12" style="margin-bottom: 0">
+                        <label for="nombre">#{msjGestec.citasDuracion} </label>
+                        <h:inputText id="nombre" class="form-control" value="#{citasRequest.citaM.duracionCita}"/>
+                    </div>
+                    <div class="form-group col-md-12" style="margin-bottom: 0">
+                        <label for="apellido">#{msjGestec.citasCosto} </label>
+                        <h:inputText id="apellido" class="form-control" value="#{citasRequest.citaM.servicionoTiquet.costoServicio}"/>
+                    </div>
+                    <div class="form-group col-md-12" style="margin-bottom: 0">
+                        <label for="descripcion">#{msjGestec.citasDescripcion} </label>
+                        <h:inputTextarea id="descripcion" class="form-control" rows="2" value="#{citasRequest.citaM.servicionoTiquet.descripcionServicio}"></h:inputTextarea>
+                    </div>
+                </c:if>
+
+                <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
+                    <div class="form-group col-md-12" style="margin-bottom: 0">
+                        <label>Descripción servicio: </label>
+                        <h:inputText class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12" style="margin-bottom: 0">
+                        <label>#{msjGestec.citasCosto} </label>
+                        <h:inputText class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12" style="margin-bottom: 0">
+                        <label for="descripcion">#{msjGestec.citasDescripcion} </label>
+                        <h:inputTextarea class="form-control" rows="2" value="#{citasRequest.citaM.servicionoTiquet.descripcionServicio}"></h:inputTextarea>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label for="datetime">Fecha de servicio</label>
+                        <p:calendar id="datetime" pattern="MM/dd/yyyy HH:mm"/>
+                    </div>
+                </c:if> 
+
+                <div class="pull-right col-md-5">
+                    <div class="col-md-6" style="padding-right: 0">
+                        <a href="#{request.contextPath}/faces/gestec/cita/citas.xhtml" class="btn btn-danger col-md-12">
+                            <span class="fa fa-arrow-left"></span> Volver
+                        </a>
+                    </div>
+                    <div class="col-md-6" style="padding-right: 0">
+                        <h:commandLink value="Guardar cambios" class="btn btn-primary col-md-12" 
+                                       action="#{citasRequest.actualizarCita()}"></h:commandLink>
+                    </div>
+                </div>
+
+            </h:form>
+
         </f:view>
     </ui:define>
 
+    <script>
+        $('#ddd').click(function () {
+            $('#confirmacionSolicitud').modal('show');
+
+        });
+
+        PrimeFaces.locales['es'] = {
+            closeText: 'Cerrar',
+            prevText: 'Anterior',
+            nextText: 'Siguiente',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+            dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+            weekHeader: 'Semana',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            timeOnlyTitle: 'Sólo hora',
+            timeText: 'Tiempo',
+            hourText: 'Hora',
+            minuteText: 'Minuto',
+            secondText: 'Segundo',
+            currentText: 'Hoy',
+            ampm: false,
+            month: 'Mes',
+            week: 'Semana',
+            day: 'Día',
+            allDayText: 'Todo el día'
+        };
+
+    </script>
+
     <ui:define name="bottom"></ui:define>
-
-
-
 
 </ui:composition>
 

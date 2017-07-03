@@ -339,7 +339,7 @@ public class SesionController implements Serializable {
 
     public String formatearFechaNotificacion(Date fecha) {
         if (fecha != null) {
-            SimpleDateFormat formato = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy 'a las' hh:mm a", new Locale("es", "CO"));
+            SimpleDateFormat formato = new SimpleDateFormat("EEEEEEEEE dd 'de' MMMM 'de' yyyy 'a las' hh:mm a", new Locale("es", "CO"));
             String fechaF = formato.format(fecha);
             if (fechaF.equals("")) {
                 return "Sin fecha";

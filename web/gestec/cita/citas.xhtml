@@ -52,70 +52,72 @@
                     <div class="citas col-md-12" style="padding-right: 0">
                         <h:form prependId="false">
                             <c:forEach items="#{citasRequest.citas}" var="cita">
-                                <div class="row col-md-12" style="padding-right: 0">
-                                    <div class="col-md-12 encabezado_cita">
-                                        <strong>#{citasRequest.formatearFechaCita(cita.fechaCita)} - #{cita.servicionoTiquet.descripcionServicio}</strong>
-                                        <strong class="pull-right"><span class="fa fa-plus"></span> #{msjGestec.nuevo}</strong>
-                                    </div>
-                                    <div class="col-md-12 contenido_cita">
-                                        <div class="row">
-                                            <div class="col-md-5 col-sm-10 col-xs-10">
-                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>#{msjGestec.direccion}: </strong>
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.tipoVia} 
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.numeroVia}
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.complementoVia} 
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.numeroVia2} 
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.complementoVia2}-
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.numeroCasa} 
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.complemento}</p>
-                                                <br/>
-                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
-                                                    <strong>#{msjGestec.contacto}: </strong>
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
-                                                    #{cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}</p>
-                                            </div>
-                                            <div class="col-md-5 col-sm-10 col-xs-10">
-                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                        #{msjGestec.citasTiempo}: </strong>#{cita.duracionCita}</p>
-                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                        #{msjGestec.citasPosibleCosto}: </strong>$ #{cita.servicionoTiquet.costoServicio}</p>
-                                            </div>
-                                            <div class="col-md-2 col-sm-2 col-xs-2">
-                                                <div class="tiquet">
-                                                    <strong><center>#{msjGestec.citasNoTiquet}</center></strong>
-                                                    <p style="text-align: center;margin: 0">#{cita.servicionoTiquet.noTiquet}</p>
+
+                                <c:if test="#{cita.estadoCita != 'Cancelada'}">
+                                    <div class="row col-md-12" style="padding-right: 0">
+                                        <div class="col-md-12 encabezado_cita">
+                                            <strong>#{citasRequest.formatearFechaCita(cita.fechaCita)} - #{cita.servicionoTiquet.descripcionServicio}</strong>
+                                            <strong class="pull-right"><span class="fa fa-plus"></span> #{msjGestec.nuevo}</strong>
+                                        </div>
+                                        <div class="col-md-12 contenido_cita">
+                                            <div class="row">
+                                                <div class="col-md-5 col-sm-10 col-xs-10">
+                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>#{msjGestec.direccion}: </strong>
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.tipoVia} 
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.numeroVia}
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.complementoVia} 
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.numeroVia2} 
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.complementoVia2}-
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.numeroCasa} 
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.complemento}</p>
+                                                    <br/>
+                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
+                                                        <strong>#{msjGestec.contacto}: </strong>
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                                        #{cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}</p>
+                                                </div>
+                                                <div class="col-md-5 col-sm-10 col-xs-10">
+                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                            #{msjGestec.citasTiempo}: </strong>#{cita.duracionCita}</p>
+                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                            #{msjGestec.citasPosibleCosto}: </strong>$ #{cita.servicionoTiquet.costoServicio}</p>
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 col-xs-2">
+                                                    <div class="tiquet">
+                                                        <strong><center>#{msjGestec.citasNoTiquet}</center></strong>
+                                                        <p style="text-align: center;margin: 0">#{cita.servicionoTiquet.noTiquet}</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="col-md-12" style="margin-top: 10px;">
-                                            <div class="col-md-12">
-                                                <p style="text-align: left">
-                                                    #{cita.duracionCita}
-                                                </p>
+                                            <div class="col-md-12" style="margin-top: 10px;">
+                                                <div class="col-md-12">
+                                                    <p style="text-align: left">
+                                                        #{cita.duracionCita}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+                                            <c:if test="#{cita.estadoCita=='Agendada'}">
+                                                <h:commandLink id="botonValidar" class="btn btn-info" value="#{msjGestec.citasDetalle}" action="#{citasRequest.verDetalle(cita)}"
+                                                               ></h:commandLink>
+                                            </c:if>
+                                            <div class="pull-right">
+                                                <c:if test="#{cita.estadoCita=='Agendada'}">
+                                                    <h:commandButton class="btn btn-danger" value="#{msjGestec.citasCancelar}" 
+                                                                     pt:data-toggle="modal" pt:data-target="#confirmacionCancelar">
+                                                        <f:ajax event="click" render="mensaje" listener="#{citasRequest.setCitaModificada(cita)}"/>
+                                                    </h:commandButton>
+                                                    &nbsp;
+                                                    <h:commandLink class="btn btn-primary" 
+                                                                   value="#{msjGestec.citasModificar}" action="#{citasRequest.editar(cita)}">
+                                                    </h:commandLink>
+                                                </c:if>
                                             </div>
                                         </div>
-
-
-                                        <c:if test="#{cita.estadoCita=='Agendada'}">
-                                            <h:commandLink id="botonValidar" class="btn btn-info" value="#{msjGestec.citasDetalle}" action="#{citasRequest.verDetalle(cita)}"
-                                                           ></h:commandLink>
-                                        </c:if>
-                                        <div class="pull-right">
-                                            <c:if test="#{cita.estadoCita=='Agendada'}">
-                                                <h:commandButton class="btn btn-danger" value="#{msjGestec.citasCancelar}" 
-                                                                 pt:data-toggle="modal" pt:data-target="#confirmacionCancelar">
-                                                    <f:ajax event="click" render="mensaje" listener="#{citasRequest.setCitaModificada(cita)}"/>
-                                                </h:commandButton>
-                                            </c:if>
-                                            &nbsp;
-                                            <h:commandLink class="btn btn-primary" 
-                                                           value="#{msjGestec.citasModificar}" action="#{citasRequest.editar(cita)}">
-                                            </h:commandLink>
-                                        </div>
                                     </div>
-                                </div>
-
+                                </c:if>
 
                             </c:forEach>
 
