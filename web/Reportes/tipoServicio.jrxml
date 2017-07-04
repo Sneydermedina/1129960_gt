@@ -150,14 +150,14 @@ group by tipo.tiposervicio ;]]>
 				<reportElement x="86" y="7" width="638" height="1" uuid="b22c34b8-2bac-4aff-a6bd-91f5893aefd5"/>
 			</line>
 			<subreport>
-				<reportElement x="99" y="15" width="200" height="100" uuid="c4241e6c-4be7-42fd-bd06-12c43f6c5c83"/>
+				<reportElement x="93" y="14" width="200" height="100" uuid="8d38c1d6-7445-4496-87c9-cc823c02e9f4"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tipoServicio1_subreport1.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["C:\\Users\\Leider\\Desktop\\El Propio\\1129960_gt\\web\\Reportes\\tipoServicio1_subreport1.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="414" y="14" width="200" height="100" uuid="aee1eedf-9209-4584-b92f-8a7d1b8ae1ec"/>
+				<reportElement x="426" y="14" width="200" height="100" uuid="a6798750-d783-4afc-8c5b-8482d624de57"/>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tipoServicio1_subreport2.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["C:\\Users\\Leider\\Desktop\\El Propio\\1129960_gt\\web\\Reportes\\tipoServicio1_subreport2.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</summary>
