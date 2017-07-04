@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tipoServicios_subreport2" language="groovy" pageWidth="380" pageHeight="250" orientation="Landscape" columnWidth="380" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="29269fb1-579f-4236-82bf-a2de5a17bc84">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tipoServicio1_subreport2" language="groovy" pageWidth="380" pageHeight="250" orientation="Landscape" columnWidth="380" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2e2e77a2-5680-44a4-a8b7-56263ca51593">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -17,31 +17,34 @@ group by tp.tiposervicio;]]>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="22" y="10" width="126" height="60" uuid="d20ae4b8-5806-41a3-b8b1-4a09f12f2414"/>
+				<imageExpression><![CDATA["gestec.jpg"]]></imageExpression>
+			</image>
 			<staticText>
-				<reportElement x="174" y="14" width="142" height="44" uuid="c8b31faa-f5f7-4dca-b1cb-3b29feba2b0a"/>
+				<reportElement x="163" y="11" width="142" height="44" uuid="1afa3dca-5e44-45e9-8869-daa09ab5683f"/>
 				<textElement textAlignment="Justified">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Conteo de tipos de servicios sin citas]]></text>
 			</staticText>
-			<image>
-				<reportElement x="34" y="13" width="126" height="60" uuid="c84fb7d1-8b61-40c5-ae2b-2ccccf3cebba"/>
-				<imageExpression><![CDATA["gestec.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
 	<summary>
-		<band height="155" splitType="Stretch">
+		<band height="165" splitType="Stretch">
 			<stackedBar3DChart>
 				<chart>
-					<reportElement x="28" y="6" width="274" height="139" uuid="5b5f872f-2e6e-4ad1-aee5-12bca9af02ba"/>
+					<reportElement x="78" y="15" width="227" height="135" uuid="31c9fb57-0bc0-4d29-8f95-ca08680b962e"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<categoryDataset>
 					<categorySeries>
-						<seriesExpression><![CDATA["Tipos de servicios"]]></seriesExpression>
+						<seriesExpression><![CDATA["Conteo de servicios"]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{tiposervicio}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{Cantidad}]]></valueExpression>
 					</categorySeries>
