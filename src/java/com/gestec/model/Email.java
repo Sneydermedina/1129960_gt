@@ -110,7 +110,7 @@ public class Email {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(para));
-            message.setSubject("Recordatorio Claves java - Mail");
+            message.setSubject(nombUsu+" !, este correo es para recordarte tu contraseña");
 
             message.setContent(
                     "<center></center>"
@@ -118,7 +118,7 @@ public class Email {
                     + Nombres
                     + "</h3>"
                     + "Datos de Ingreso: "
-                    + "<h4> Documento Usuario : "
+                    + "<h4> Nombre Usuario : "
                     + nombUsu
                     + "</h4>"
                     + "<h4> Clave Usuario : "
@@ -282,7 +282,7 @@ InternetAddress[] destinatarios={
           //multiparte.addBodyPart(adjunto);
             MimeMessage message = new MimeMessage(session);
             System.out.println("Aqui va");
-            message.setFrom(new InternetAddress(user, "Sigueme"));
+            message.setFrom(new InternetAddress(user, "Mensaje importante"));
             //retornarDestinatarios(para);
             InternetAddress[] destinatarios = new InternetAddress[para.size()];
 

@@ -623,6 +623,7 @@ public class SesionController implements Serializable {
             estados="2";
             try {
                 Email miCorreo = new Email();
+                
                 Email.send(listar, usuarioLog.getNombreUsuario(), "Envio masivo de correos");
                 System.out.println(listar+" "+estados);
                 //Email.sendBienvenido(usuarioLog.getCorreo(),usuarioLog.getNombreUsuario(),usuarioLog.getApellido(),usuarioLog.getContrasenaUsuario());
@@ -636,6 +637,26 @@ public class SesionController implements Serializable {
         
         
         return "";
+    }
+    
+     public String validarUsuCorreo(){
+    Usuarios usuarioLog1 = ufl.validarUsuariosCorreo(correo);
+    
+    
+    if (!usuarioLog1.getNombreUsuario().equals("No existe")) {
+    estados = "2";
+    
+    try {
+    Email miCorreo = new Email();
+    Email.sendClaves(usuarioLog1.getCorreo(), usuarioLog1.getNombreUsuario(), usuarioLog1.getNombreUsuario(), usuarioLog1.getContrasenaUsuario());
+    } catch (Exception e) {
+    estados = "4";
+  
+    }
+    }else{
+    estados = "3";
+    }
+    return "";
     }
 
 }
