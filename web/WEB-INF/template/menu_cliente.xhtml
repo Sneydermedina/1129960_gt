@@ -233,10 +233,11 @@
 
 
 
-                        
-                            <c:forEach items="#{sesionGestec.notificacionesCitaCliente}" var="nc">
-                                <c:if test="#{nc.idCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
-                                      <c:if test="#{nc.estadoNotificacion=='Visto'}">
+
+                        <c:forEach items="#{sesionGestec.notificacionesCitaCliente}" var="nc">
+                            <c:if test="#{nc.idCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
+                                <c:if test="#{nc.idNotificacion.idNotificacion==7}">
+                                    <c:if test="#{nc.estadoNotificacion=='Visto'}">
                                         <c:if test="#{nc.idNotificacion.idNotificacion==2}">
                                             <div class="notMensajes" style="background: #fff">
                                                 <div>
@@ -302,8 +303,9 @@
                                         </c:if>
                                     </c:if>
                                 </c:if>
-                            </c:forEach>
-                     
+                            </c:if>
+                        </c:forEach>
+
 
                         <c:if test="#{sesionGestec.validarCantNotificaciones()}">
                             <center style="padding: 30px 0 5px 0">
