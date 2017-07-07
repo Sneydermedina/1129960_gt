@@ -161,8 +161,10 @@ public class CitasRequest implements Serializable {
     private Boolean citaEnviada;
     private String comentario;
     private Citas citaM;
+    private int coincidencias;
 
     public CitasRequest() {
+        this.coincidencias = 0;
         this.numeroBarrio = 0;
         this.numeroLocalidad = 0;
         this.tecnicos = 1;
@@ -399,7 +401,28 @@ public class CitasRequest implements Serializable {
     }
 
     public void setTecnicoCita(Usuarios tecnicoCita) {
+        this.coincidencias = 0;
         this.tecnicoCita = tecnicoCita;
+        List<Eventoagenda> ea = tecnicoCita.getEventoagendaList();
+        for (Eventoagenda evTecnico : ea) {
+            for (Citas c : evTecnico.getCitasList()) {
+                for (Horadisponibilidad hd : c.getSolicitudIdsolicitud().getHoradisponibilidadList()) {
+                    if (hd.getHoraInicio().compareTo(this.horaInicio) <= 0
+                            && hd.getHoraFin().compareTo(this.horaFin) >= 0) {
+                        this.coincidencias++;
+                    }
+                }
+            }
+        }
+    }
+    
+    public String formatearFechaHora(Integer opcion, Date fecha){
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("EEEEEEEEE dd 'de' MMMM", new Locale("es", "CO"));
+        SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm", new Locale("es", "CO"));
+        if (opcion.equals(1)) {
+            return formatoFecha.format(fecha);            
+        }
+        return formatoHora.format(fecha);
     }
 
     public Usuarios getTecnicoCita() {
@@ -483,6 +506,14 @@ public class CitasRequest implements Serializable {
 
     public void setCitaM(Citas mCita) {
         this.citaM = mCita;
+    }
+
+    public int getCoincidencias() {
+        return coincidencias;
+    }
+
+    public void setCoincidencias(int coincidencias) {
+        this.coincidencias = coincidencias;
     }
 
     public List<Double> getCalificaciones(Usuarios tecnico) {
@@ -690,6 +721,7 @@ public class CitasRequest implements Serializable {
     }
 
     public void ingresarSolicitud() {
+        
         FacesContext fc = FacesContext.getCurrentInstance();
         FacesMessage msj = new FacesMessage();
 
@@ -711,6 +743,7 @@ public class CitasRequest implements Serializable {
     }
 
     public void agendarCita() {
+
         registrarCita();
         this.notificacionCita.setIdCita(citaEvento);
         this.notificacionCita.setIdNotificacion(this.notificacion);
@@ -727,6 +760,7 @@ public class CitasRequest implements Serializable {
         this.evento.setTipoEvento("Solicitud");
         efl.edit(evento);
         this.citaEnviada = true;
+
     }
 
     public void setServicioTecnico(Servicio servicio, Usuarios tecnico, Citas cita) {
@@ -823,11 +857,18 @@ public class CitasRequest implements Serializable {
     public String actualizarCita() {
         setCitaModificada(cita);
         citaModificada.setEstadoCita("Agendada");
-        citaModificada.getEventoAgenda().setUsuariosidUsuario(tecnicoCita);
         citaModificada.getServicionoTiquet().setDescripcionServicio(descrip);
         citaModificada.getServicionoTiquet().setCostoServicio(cos);
+        citaModificada.getEventoAgenda().setTipoEvento("Servicio");
+        citaModificada.getEventoAgenda().setUsuariosidUsuario(sesion.getUsuario());
         cfl.edit(citaModificada);
+        efl.edit(citaModificada.getEventoAgenda());
         sefl.edit(citaModificada.getServicionoTiquet());
+        this.notificacionCita.setIdCita(citaModificada);
+        this.notificacionCita.setIdNotificacion(nfl.find(7));
+        this.notificacionCita.setEstadoNotificacion("Enviado");
+        this.notificacionCita.setFechaNotificacion(new Date());
+        ncfl.create(notificacionCita);
         return "";
     }
 

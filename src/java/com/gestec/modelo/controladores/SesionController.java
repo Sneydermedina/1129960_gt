@@ -224,22 +224,24 @@ public class SesionController implements Serializable {
     public void setListarUsuarios(List<Usuarios> listarUsuarios) {
         this.listarUsuarios = listarUsuarios;
     }
-    
-    
-    
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
-        
-        List<NotificacionCita> nots = new ArrayList<>();
-        for (NotificacionCita not : this.notCitas) {
-            if (not.getIdCita().getSolicitudIdsolicitud().getMensajeList().size() > 0) {
-                List<Mensaje> mensajes = mfl.listarMensajesUsuario(not.getIdCita().getSolicitudIdsolicitud().getMensajeList().get(0).getUsuariosidUsuario().getIdUsuario());
-                if (mensajes.get(0).getUsuariosidUsuario().getIdUsuario().equals(getUsuario().getIdUsuario())) {
-                    nots.add(not);
+
+        if (getUsuario().getTipoUsuario().equals("Tecnico")) {
+            List<NotificacionCita> nots = new ArrayList<>();
+            for (NotificacionCita not : this.notCitas) {
+                if (not.getIdCita().getSolicitudIdsolicitud().getMensajeList().size() > 0) {
+                    List<Mensaje> mensajes = mfl.listarMensajesUsuario(not.getIdCita().getSolicitudIdsolicitud().getMensajeList().get(0).getUsuariosidUsuario().getIdUsuario());
+                    if (mensajes.get(0).getUsuariosidUsuario().getIdUsuario().equals(getUsuario().getIdUsuario())) {
+                        nots.add(not);
+                    }
                 }
             }
+            if (getUsuario().getTipoUsuario().equals("Cliente")) {
+                nots = this.notCitas;
+            }
+            this.notCitas = nots;
         }
-        this.notCitas = nots;
         return this.notCitas;
     }
 
@@ -333,7 +335,10 @@ public class SesionController implements Serializable {
 
         }
     }
-    
+
+    public List<NotificacionCita> getNotificacionesCitaCliente() {
+        return notCitas;
+    }
 
     public StreamedContent getImagenContactoExterno() throws IOException, SQLException {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -361,7 +366,6 @@ public class SesionController implements Serializable {
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
-    
 
     public Boolean validarCantNotificaciones() {
         return getNotificacionesCitaUsuario().isEmpty() && getUsuario().getNotificacionUsuarioList().isEmpty();
@@ -610,53 +614,51 @@ public class SesionController implements Serializable {
         }
 
     }
-    
-    public String validarUsuarioCorreo(){
-        
+
+    public String validarUsuarioCorreo() {
+
         Usuarios usuarioLog = ufl.validarUsuariosCorreo(correo);
         //this.listarUsuarios = ufl.listarUsuariosCorreo(correo);
-        
+
         List<Usuarios> listar = new ArrayList();
-        
+
         listar = ufl.listarUsuariosCorreo(usuarioLog.getCorreo());
         if (!usuarioLog.getNombreUsuario().equals("No existe")) {
-            estados="2";
+            estados = "2";
             try {
                 Email miCorreo = new Email();
-                
+
                 Email.send(listar, usuarioLog.getNombreUsuario(), "Envio masivo de correos");
-                System.out.println(listar+" "+estados);
+                System.out.println(listar + " " + estados);
                 //Email.sendBienvenido(usuarioLog.getCorreo(),usuarioLog.getNombreUsuario(),usuarioLog.getApellido(),usuarioLog.getContrasenaUsuario());
                 //Email.sendClaves(usuarioLog.getCorreo(), usuarioLog.getNombreUsuario(), usuarioLog.getNombreUsuario(), usuarioLog.getContrasenaUsuario());
             } catch (Exception e) {
-                estados="4";
+                estados = "4";
             }
-        }else{
-            estados="3";
+        } else {
+            estados = "3";
         }
-        
-        
+
         return "";
     }
-    
-     public String validarUsuCorreo(){
-    Usuarios usuarioLog1 = ufl.validarUsuariosCorreo(correo);
-    
-    
-    if (!usuarioLog1.getNombreUsuario().equals("No existe")) {
-    estados = "2";
-    
-    try {
-    Email miCorreo = new Email();
-    Email.sendClaves(usuarioLog1.getCorreo(), usuarioLog1.getNombreUsuario(), usuarioLog1.getNombreUsuario(), usuarioLog1.getContrasenaUsuario());
-    } catch (Exception e) {
-    estados = "4";
-  
-    }
-    }else{
-    estados = "3";
-    }
-    return "";
+
+    public String validarUsuCorreo() {
+        Usuarios usuarioLog1 = ufl.validarUsuariosCorreo(correo);
+
+        if (!usuarioLog1.getNombreUsuario().equals("No existe")) {
+            estados = "2";
+
+            try {
+                Email miCorreo = new Email();
+                Email.sendClaves(usuarioLog1.getCorreo(), usuarioLog1.getNombreUsuario(), usuarioLog1.getNombreUsuario(), usuarioLog1.getContrasenaUsuario());
+            } catch (Exception e) {
+                estados = "4";
+
+            }
+        } else {
+            estados = "3";
+        }
+        return "";
     }
 
 }

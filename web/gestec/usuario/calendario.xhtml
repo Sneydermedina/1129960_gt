@@ -47,7 +47,7 @@
                     </div>
 
                 </div>
-                <div class="inicio col-md-12" style="padding:10px;margin-top: 10px">
+                <h:panelGroup id="evs" class="inicio col-md-12" style="padding:10px;margin-top: 10px">
 
                     <strong style="font-size: 20px;"><center>#{msjGestec.eventosProximos}</center></strong>
                     <hr style="margin: 5px 0;border-top-color: #ddd"/>
@@ -76,7 +76,7 @@
                     </c:if>
 
 
-                </div>
+                </h:panelGroup>
 
                 <div class="inicio col-md-12" style="padding:10px;margin-top: 10px">
 
@@ -85,14 +85,14 @@
                     <hr style="margin: 5px 0;border-top-color: #ddd"/>
 
                     <div class="col-md-12" style="margin: 3px 0;">
-                        <div class="eventoAgenda" 
-                             style="padding: 5px;width: 10px;border-radius: 50%;float: left;margin-top: 5px;"></div>
-                             &nbsp;&nbsp;#{msjGestec.solicitudesSinContirmar}    
-                    </div>
-                    <div class="col-md-12" style="margin: 3px 0;">
                         <div class="eventoSolicitud" 
                              style="padding: 5px;width: 10px;border-radius: 50%;float: left;margin-top: 5px;"></div>
-                             &nbsp;&nbsp;#{msjGestec.citasAgendadas}   
+                             &nbsp;&nbsp;#{msjGestec.solicitudesSinContirmar}   
+                    </div>
+                    <div class="col-md-12" style="margin: 3px 0;">
+                        <div class="eventoAgenda" 
+                             style="padding: 5px;width: 10px;border-radius: 50%;float: left;margin-top: 5px;"></div>
+                             &nbsp;&nbsp;#{msjGestec.citasAgendadas}    
                     </div>
                     <div class="col-md-12" style="margin: 3px 0;">
                         <div class="eventoPersonal" 
@@ -137,7 +137,7 @@
                         <p:commandButton type="reset" value="Limpiar" />
                         <p:commandButton id="addButton" value="Guardar" actionListener="#{calendarioView.addEvent}"
                                          oncomplete="PF('myschedule').update();PF('eventDialog').hide();" >
-
+                            <f:ajax render="evs" event="click"/>
                         </p:commandButton>
                     </h:panelGrid>
                 </p:dialog>    
@@ -317,12 +317,12 @@
                 background: red;
                 cursor: pointer;
             }
-            .fc-button-prev{
+            /*.fc-button-prev{
                 display: none;
             }
             .fc-button-next{
                 display: none;
-            }
+            }*/
 
         </style>
     </ui:define>
