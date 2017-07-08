@@ -103,8 +103,6 @@
                     <th data-align="left" data-sortable="true" data-field="estado">#{msjGestec.estadoServicio}</th>
                     <th data-align="left" data-sortable="true" data-field="costo" data-visible="false">#{msjGestec.costoServicio}</th>
                     <th data-align="left" data-sortable="true" data-field="fechaS" data-visible="true">#{msjGestec.fechaServicio}</th>
-                    <th data-align="left" data-sortable="true" data-field="fechaS" data-visible="true">#{msjGestec.fechaGarantia}</th>
-
                     <th data-align="left" data-sortable="true" data-field="fechaG" data-visible="true">Acciones</th>
                 </tr>
             </thead>
@@ -112,13 +110,13 @@
                 <tbody>
                     <c:forEach items="#{servicioControl.listaServicios}" var="s">
                         <tr>
-                            <td>#{s.noTiquet}</td>
                             <td></td>
+                            <td>#{s.noTiquet}</td>
                             <td>#{s.descripcionServicio}</td>
                             <td>#{s.estadoServicio}</td>
                             <td>#{s.costoServicio}</td>
                             <td>#{citasRequest.formatearFechaCita(s.fechaServicio)}</td>
-                            <td>#{citasRequest.formatearFechaCita(s.garantia)}</td>
+                           
                             <td>&nbsp;&nbsp;<h:commandLink action="#{servicioControl.editarServicio(s)}">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                      </h:commandLink>
