@@ -800,9 +800,9 @@ public class CitasRequest implements Serializable {
         }
     }
 
-    public List<Mensaje> mensajes(Citas cita) {
-        List<Mensaje> mensajes = cita.getSolicitudIdsolicitud().getMensajeList();
-        return mensajes;
+    public List<Mensaje> mensajes(Integer idSolicitud) {
+        List<Mensaje> mensajes = mfl.listarMensajesCita(idSolicitud);
+         return mensajes;
     }
 
     public String ultimoMensaje(Citas cita) {

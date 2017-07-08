@@ -289,8 +289,8 @@ span.icono-menu-lateral{
     overflow:auto;
 }
 .conversaciones{
-    max-height: 500px;
-    padding: 0;
+    max-height: 380px;
+    padding: 0px;
     background: #fff;
     border: 1px solid #ccc;
     overflow: auto;

@@ -37,5 +37,12 @@ public class MensajeFacade extends AbstractFacade<Mensaje> implements MensajeFac
         q.setParameter("idUsuario", idUsuario);
         return q.getResultList();
     }
+
+    @Override
+    public List<Mensaje> listarMensajesCita(Integer idSolicitud) {
+        TypedQuery<Mensaje> q = getEntityManager().createNamedQuery("Mensaje.findByCita", Mensaje.class);
+        q.setParameter("idSolicitud", idSolicitud);
+        return q.getResultList();
+    }
     
 }

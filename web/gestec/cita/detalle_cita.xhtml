@@ -60,8 +60,14 @@
         </c:if>
         <c:if test="#{citasRequest.cita.estadoCita=='Agendada'}">
             Detalle cita 
-            #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
-            #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
+            <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
+                #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
+            </c:if>
+            <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Cliente'}">
+                #{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.nombreUsuario}
+                #{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.apellido}
+            </c:if>
         </c:if>
     </ui:define>
 
@@ -71,6 +77,7 @@
 
 
     <ui:define name="content">
+
 
         <c:if test="#{citasRequest.cita.estadoCita=='Agendada'}">
             <h:form prependId="false">
@@ -155,15 +162,26 @@
 
                                     <h:commandLink class="enlace-perfil" target="_blank"
                                                    actionListener="#{sesionGestec.verPerfil(citasRequest.obtenerContacto())}">
-                                        <strong>#{citasRequest.contacto()}</strong>
+                                        <c:if test="#{sesionGestec.usuario.tipoUsuario=='Tecnico'}">
+                                            <strong>#{citasRequest.contacto()}</strong>
+                                        </c:if>
+                                        <c:if test="#{sesionGestec.usuario.tipoUsuario=='Cliente'}">
+                                            <strong>#{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.nombreUsuario}</strong>
+                                            <strong>#{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.apellido}</strong>
+                                        </c:if>
                                     </h:commandLink>
                                     <h5 class='tiempoMensaje' style="padding: 3px 5px"><strong>Vive en: </strong> 
-                                        #{citasRequest.obtenerContacto().direccionList.get(0).idBarrio.nombreBarrio} #{citasRequest.obtenerContacto().direccionList.get(0).idBarrio.idLocalidad.nombreLocalidad}
+                                        <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
+                                            #{citasRequest.obtenerContacto().direccionList.get(0).idBarrio.nombreBarrio} #{citasRequest.obtenerContacto().direccionList.get(0).idBarrio.idLocalidad.nombreLocalidad}
+                                        </c:if>
+                                        <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Cliente'}">
+                                            #{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.direccionList.get(0).idBarrio.nombreBarrio} #{citasRequest.obtenerContacto().direccionList.get(0).idBarrio.idLocalidad.nombreLocalidad}
+                                        </c:if>
                                     </h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 conversaciones" 
+                        <div id="tudiv" class="col-md-12 conversaciones" 
                              style="padding-left: 15px;padding-right: 15px;padding-bottom: 15px;
                              border-top: 0;padding-top: 20px;">
                             <h:panelGroup id="mnsj">
@@ -175,54 +193,61 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="#{citasRequest.mensajes(citasRequest.cita)}" var="mns"> 
+                                        <c:forEach items="#{citasRequest.mensajes(citasRequest.cita.solicitudIdsolicitud.idsolicitud)}" var="mns"> 
                                             <c:if test="#{mns.usuariosidUsuario.idUsuario != sesionGestec.usuario.idUsuario}">
                                                 <tr>
 
                                                     <td>
                                                         <div class='notMensajesVistos' style="border:none">
-                                                            <div class='notificacionMensaje'>
-                                                                <img src='#{request.contextPath}/resources/img/tecnico1.jpg' alt='' class='imagenNotificacion'/>
-                                                            </div>
                                                             <div>
                                                                 <div class="row" style="margin: 0">
-                                                                    <h5 class='mensajeCorto' style="padding:15px;background:#2895cc;color:#fff;border-radius: 0 10px 0 10px;margin-top:5px">#{mns.mensaje}</h5>
-                                                                </div>
-                                                                <div class="row" style="margin: 0">
-                                                                    <h5 class='tiempoMensaje pull-right'>#{sesionGestec.formatearFechaNotificacion(mns.fechaMensaje)}</h5>
+                                                                    <h5 class='mensajeCorto pull-left' style="max-width: 500px;padding:8px 15px;background:#ddd;border-radius: 10px 0 10px 0">
+                                                                        #{mns.mensaje}
+                                                                        <div class="row" style="margin: 0">
+                                                                            <h5 class='tiempoMensaje pull-right' style="color: #999">#{sesionGestec.formatearFechaNotificacion(mns.fechaMensaje)}</h5>
+                                                                        </div>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
+
                                                         </div>
                                                     </td>
                                                 </tr>
                                             </c:if>
                                             <c:if test="#{mns.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
+
                                                 <tr>
 
                                                     <td>
                                                         <div class='notMensajesVistos' style="border:none">
                                                             <div>
                                                                 <div class="row" style="margin: 0">
-                                                                    <h5 class='mensajeCorto pull-right' style="padding:15px;background:#ddd;border-radius: 10px 0 10px 0">#{mns.mensaje}</h5>
-                                                                </div>
-                                                                <div class="row" style="margin: 0">
-                                                                    <h5 class='tiempoMensaje pull-right'>#{sesionGestec.formatearFechaNotificacion(mns.fechaMensaje)}</h5>
+                                                                    <h5 class='mensajeCorto pull-right' style="max-width: 500px;padding:8px 15px;background:#ddd;border-radius: 10px 0 10px 0;background: #2895cc;color: #fff">
+                                                                        #{mns.mensaje}
+                                                                        <div class="row" style="margin: 0">
+                                                                            <h5 style="color: #ddd" class='tiempoMensaje pull-right'>#{sesionGestec.formatearFechaNotificacion(mns.fechaMensaje)}</h5>
+                                                                        </div>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
 
                                                         </div>
                                                     </td>
                                                 </tr>
+
                                             </c:if>
                                         </c:forEach>
+
                                     </tbody>
                                 </table>
                             </h:panelGroup>
                             <div class="col-md-12" style="padding:0">
                                 <h:inputText class="form-control" value="#{citasRequest.nuevoMensaje}" />
 
+
                                 <h:commandLink value="Enviar mensaje" class="btn btn-success pull-right col-md-3"
-                                               style="margin-top:5px" actionListener="#{citasRequest.enviarMensaje}"> </h:commandLink>
+                                               style="margin-top:5px" actionListener="#{citasRequest.enviarMensaje}"> 
+                                </h:commandLink>
                             </div>
                         </div>
                     </div>
@@ -299,7 +324,7 @@
 
                             <h:form id="sddssd" prependId="false">
 
-                                
+
                                 <label for="apellido">#{msjGestec.citasCosto} </label>
                                 <div class="form-group col-md-6" style="padding-left: 0">
                                     <div class="input-group">
@@ -341,6 +366,15 @@
                 </div>
             </h:form>
         </c:if>
+
+        <script>
+            function scrollDiv() {
+
+                var div = document.getElementById('tudiv');
+                div.scrollTop = '9999';
+
+            }
+        </script>
 
 
     </ui:define>

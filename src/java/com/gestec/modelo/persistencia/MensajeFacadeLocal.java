@@ -32,4 +32,6 @@ public interface MensajeFacadeLocal {
     
     List<Mensaje> listarMensajesUsuario(Integer idUsuario);
     
+    List<Mensaje> listarMensajesCita(Integer idSolicitud);
+    
 }

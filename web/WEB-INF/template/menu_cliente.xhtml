@@ -161,7 +161,7 @@
 
                 <li class="dropdown">               
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <c:if test="#{sesionGestec.cantidadNotificaciones != 0}">
+                        <c:if test="#{sesionGestec.cantidadNotificaciones > 0}">
                             <span class="top-label label label-danger" style="z-index: 100">
                                 #{sesionGestec.cantidadNotificaciones}
                             </span> 
