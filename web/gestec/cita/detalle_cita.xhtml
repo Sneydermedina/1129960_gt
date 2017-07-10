@@ -12,6 +12,7 @@
     <ui:define name="head2">
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/css/admin.css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/css/alertify.css"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
 
         <style>
@@ -45,12 +46,15 @@
         </style>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+
+        <script src="#{request.contextPath}/resources/js/alertify.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
         <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
         <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
         <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>  
-        <script src="#{request.contextPath}/resources/js/mensajes.js" defer=""></script>  
+        <script src="#{request.contextPath}/resources/js/mensajes.js" defer=""></script> 
+
 
     </ui:define>
 
@@ -71,13 +75,16 @@
         </c:if>
     </ui:define>
 
+    <ui:define name="msj">
+        #{citasRequest.validarMensaje()}
+    </ui:define>
+
     <ui:define name="menu">
         <ui:include src="#{sesionGestec.dibujarMenu()}"/>
     </ui:define>
 
 
     <ui:define name="content">
-
 
         <c:if test="#{citasRequest.cita.estadoCita=='Agendada'}">
 
@@ -191,16 +198,16 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                             <li>
-                                                    <a data-toggle="modal" 
-                                                                   data-target="#confirmacionSolicitud">
-                                                        <span class="fa fa-trash-o"></span> Eliminar conversación                                                        
-                                                    </a>
+                                                <a data-toggle="modal" 
+                                                   data-target="#confirmacionSolicitud">
+                                                    <span class="fa fa-trash-o"></span> Eliminar conversación                                                        
+                                                </a>
                                             </li>
                                             <li role="separator" class="divider"></li>
                                             <li>
-                                                    <a>
-                                                        <span class="fa fa-ban"></span> Bloquear usuario
-                                                    </a>
+                                                <a>
+                                                    <span class="fa fa-ban"></span> Bloquear usuario
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
@@ -233,72 +240,74 @@
                     <div id="tudiv" class="col-md-12 conversaciones" 
                          style="padding-left: 0;padding-right: 0;padding-bottom: 15px;
                          border-top: 0;padding-top: 0;">
-                        <h:panelGroup id="mnsj">
+                        <h:form>
+                            <h:panelGroup id="mnsj">
+                                <p:poll interval="1" update="mnsj"/>
 
-                            <div style="border:none;margin-bottom: 15px;">
-                                <div>
-                                    <div class="row" style="margin: 0;">
-                                        <h5 style="padding:8px 15px;font-size: 16px;background:transparent;padding: 20px;border-bottom: 1px solid #ddd">
-                                            <span class="fa fa-book"></span>               
-                                            #{citasRequest.getPrimerMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud)}                                                
+                                <div style="border:none;margin-bottom: 15px;">
+                                    <div>
+                                        <div class="row" style="margin: 0;">
+                                            <h5 style="padding:8px 15px;font-size: 16px;background:transparent;padding: 20px;border-bottom: 1px solid #ddd">
+                                                <span class="fa fa-book"></span>               
+                                                #{citasRequest.getPrimerMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud)}                                                
+                                            </h5>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <c:if test="#{citasRequest.getCantidadMensajes(citasRequest.cita.solicitudIdsolicitud.idsolicitud)==1}">
+
+                                    <div style="text-align: center">
+                                        <span class='fa fa-envelope-o' style='color:#ccc;font-size:100px'></span>
+                                        <h4><strong>No hay mensajes</strong></h4>
+                                        <h5>No hay mensajes en esta conversación, seleccione otro usuario o
+                                            <h4> Inicie la conversación</h4> 
+                                            <span class='fa fa-arrow-down fa-1x'></span>
                                         </h5>
                                     </div>
-                                </div>
-
-                            </div>
-
-                            <c:if test="#{citasRequest.getCantidadMensajes(citasRequest.cita.solicitudIdsolicitud.idsolicitud)==1}">
-
-                                <div style="text-align: center">
-                                    <span class='fa fa-envelope-o' style='color:#ccc;font-size:100px'></span>
-                                    <h4><strong>No hay mensajes</strong></h4>
-                                    <h5>No hay mensajes en esta conversación, seleccione otro usuario o
-                                        <h4> Inicie la conversación</h4> 
-                                        <span class='fa fa-arrow-down fa-1x'></span>
-                                    </h5>
-                                </div>
-
-                            </c:if>
-                            <c:forEach items="#{citasRequest.mensajes(citasRequest.cita.solicitudIdsolicitud.idsolicitud)}" var="mns"> 
-
-
-                                <c:if test="#{mns.usuariosidUsuario.idUsuario != sesionGestec.usuario.idUsuario}">
-                                    <div class='notMensajesVistos' style="border:none">
-                                        <div>
-                                            <div class="row" style="margin: 0">
-
-                                                <h5 class='mensajeCorto pull-left' style="max-width: 500px;padding:8px 15px;overflow: auto;background:#ddd;border-radius: 10px 0 10px 0">
-                                                    #{mns.mensaje}
-                                                    <div class="row" style="margin: 0">
-                                                        <h5 class='tiempoMensaje pull-right' style="color: #999">#{sesionGestec.formatearFechaNotificacion(mns.fechaMensaje)}</h5>
-                                                    </div>
-                                                </h5>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </c:if>
-                                <c:if test="#{mns.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
-
-                                    <div class='notMensajesVistos' style="border:none">
-                                        <div>
-                                            <div class="row" style="margin: 0">
-                                                <h5 class='mensajeCorto pull-right' style="max-width: 500px;padding:8px 15px;background:#ddd;overflow: auto;border-radius: 10px 0 10px 0;background: #2895cc;color: #fff">
-                                                    #{mns.mensaje}
-                                                    <div class="row" style="margin: 0">
-                                                        <h5 style="color: #ddd" class='tiempoMensaje pull-right'>#{sesionGestec.formatearFechaNotificacion(mns.fechaMensaje)}</h5>
-                                                    </div>
-                                                </h5>
-                                            </div>
-                                        </div>
-
-                                    </div>
 
                                 </c:if>
+                                <c:forEach items="#{citasRequest.mensajes(citasRequest.cita.solicitudIdsolicitud.idsolicitud)}" var="mns"> 
 
-                            </c:forEach>
-                        </h:panelGroup>
 
+                                    <c:if test="#{mns.usuariosidUsuario.idUsuario != sesionGestec.usuario.idUsuario}">
+                                        <div class='notMensajesVistos' style="border:none">
+                                            <div>
+                                                <div class="row" style="margin: 0">
+
+                                                    <h5 class='mensajeCorto pull-left' style="max-width: 500px;padding:8px 15px;overflow: auto;background:#ddd;border-radius: 10px 0 10px 0">
+                                                        #{mns.mensaje}
+                                                        <div class="row" style="margin: 0">
+                                                            <h5 class='tiempoMensaje pull-right' style="color: #999">#{sesionGestec.formatearFechaNotificacion(mns.fechaMensaje)}</h5>
+                                                        </div>
+                                                    </h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </c:if>
+                                    <c:if test="#{mns.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
+
+                                        <div class='notMensajesVistos' style="border:none">
+                                            <div>
+                                                <div class="row" style="margin: 0">
+                                                    <h5 class='mensajeCorto pull-right' style="max-width: 500px;padding:8px 15px;background:#ddd;overflow: auto;border-radius: 10px 0 10px 0;background: #2895cc;color: #fff">
+                                                        #{mns.mensaje}
+                                                        <div class="row" style="margin: 0">
+                                                            <h5 style="color: #ddd" class='tiempoMensaje pull-right'>#{sesionGestec.formatearFechaNotificacion(mns.fechaMensaje)}</h5>
+                                                        </div>
+                                                    </h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </c:if>
+
+                                </c:forEach>
+                            </h:panelGroup>
+                        </h:form>
 
                         <h:form>
                             <div class="col-md-12" style="padding:10px 10px 0 10px">
@@ -431,15 +440,13 @@
             </h:form>
         </c:if>
 
-
-
         <script>
+            
             function scrollDiv() {
-
                 var div = document.getElementById('tudiv');
                 div.scrollTop = '9999';
-
             }
+        
         </script>
 
 

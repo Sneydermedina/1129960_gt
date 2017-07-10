@@ -416,12 +416,12 @@ public class CitasRequest implements Serializable {
             }
         }
     }
-    
-    public String formatearFechaHora(Integer opcion, Date fecha){
+
+    public String formatearFechaHora(Integer opcion, Date fecha) {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("EEEEEEEEE dd 'de' MMMM", new Locale("es", "CO"));
         SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm", new Locale("es", "CO"));
         if (opcion.equals(1)) {
-            return formatoFecha.format(fecha);            
+            return formatoFecha.format(fecha);
         }
         return formatoHora.format(fecha);
     }
@@ -722,7 +722,7 @@ public class CitasRequest implements Serializable {
     }
 
     public void ingresarSolicitud() {
-        
+
         FacesContext fc = FacesContext.getCurrentInstance();
         FacesMessage msj = new FacesMessage();
 
@@ -802,17 +802,17 @@ public class CitasRequest implements Serializable {
     }
 
     public List<Mensaje> mensajes(Integer idSolicitud) {
-         mensajes = mfl.listarMensajesCita(idSolicitud);
-         mensajes.remove(0);
-         return mensajes;
+        mensajes = mfl.listarMensajesCita(idSolicitud);
+        mensajes.remove(0);
+        return mensajes;
     }
-    
-    public String getPrimerMensaje(Integer idSolicitud){
+
+    public String getPrimerMensaje(Integer idSolicitud) {
         List<Mensaje> msjs = mfl.listarMensajesCita(idSolicitud);
         return msjs.get(0).getMensaje();
     }
-        
-    public Integer getCantidadMensajes(Integer idSolicitud){
+
+    public Integer getCantidadMensajes(Integer idSolicitud) {
         List<Mensaje> msjs = mfl.listarMensajesCita(idSolicitud);
         return msjs.size();
     }
@@ -988,11 +988,11 @@ public class CitasRequest implements Serializable {
         es.setUsuario(sesion.getUsuario());
         esfl.create(es);
     }
-    
-    public void eliminarConversacion(){
-        for (Mensaje mensaje : this.mensajes) {
-            mfl.remove(mensaje);
-        }
+
+    public void eliminarConversacion() {
+        this.mensajes.stream().forEach((mnsj) -> {
+            mfl.remove(mnsj);
+        });
     }
 
 }
