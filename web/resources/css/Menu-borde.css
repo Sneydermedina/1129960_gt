@@ -293,7 +293,8 @@ span.icono-menu-lateral{
     padding: 0px;
     background: #fff;
     border: 1px solid #ccc;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .busqueda-mensaje{
     background: #fff;

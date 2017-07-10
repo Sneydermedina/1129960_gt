@@ -162,6 +162,7 @@ public class CitasRequest implements Serializable {
     private String comentario;
     private Citas citaM;
     private int coincidencias;
+    private List<Mensaje> mensajes;
 
     public CitasRequest() {
         this.coincidencias = 0;
@@ -801,8 +802,19 @@ public class CitasRequest implements Serializable {
     }
 
     public List<Mensaje> mensajes(Integer idSolicitud) {
-        List<Mensaje> mensajes = mfl.listarMensajesCita(idSolicitud);
+         mensajes = mfl.listarMensajesCita(idSolicitud);
+         mensajes.remove(0);
          return mensajes;
+    }
+    
+    public String getPrimerMensaje(Integer idSolicitud){
+        List<Mensaje> msjs = mfl.listarMensajesCita(idSolicitud);
+        return msjs.get(0).getMensaje();
+    }
+        
+    public Integer getCantidadMensajes(Integer idSolicitud){
+        List<Mensaje> msjs = mfl.listarMensajesCita(idSolicitud);
+        return msjs.size();
     }
 
     public String ultimoMensaje(Citas cita) {
@@ -975,6 +987,12 @@ public class CitasRequest implements Serializable {
         es.setServicionoTiquet(cita.getServicionoTiquet());
         es.setUsuario(sesion.getUsuario());
         esfl.create(es);
+    }
+    
+    public void eliminarConversacion(){
+        for (Mensaje mensaje : this.mensajes) {
+            mfl.remove(mensaje);
+        }
     }
 
 }
