@@ -108,13 +108,23 @@
                         </h:form>
 
                     </span></li>
+                
+                
                 <li class="dropdown">               
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-success">5</span> 
+                        <span class="top-label label label-danger">#{sesionGestec.cantidadMensajes}</span> 
                         <i class="fa fa-envelope-o fa-2x contNot"></i>                      
                     </a>                
                     <ul class="dropdown-menu dropdown-messages" style="width: 300px;left: -150px;margin-top: 15px;min-height:10px;max-height: 390px;overflow: auto">              
 
+                        <div class="row" style="border-bottom: 1px solid #ccc;padding: 3px 0 1px 0;margin: 0">
+                            <h:form>
+                                <h:commandLink class="enlace-perfil pull-right" 
+                                               style="padding: 2px 5px 0 0" 
+                                               value=" marcar todas como leídas"/> 
+                            </h:form>
+                        </div>
+                        
                         <a href="#{request.contextPath}/faces/gestec/usuario/mensajes.xhtml" style="text-decoration: none">
                             <div class="notMensajesVistos">
                                 <div class="notificacionMensaje">
@@ -158,7 +168,7 @@
 
                     </ul>
                 </li> <li class="dropdown"></li>
-
+                
                 <li class="dropdown">               
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <c:if test="#{sesionGestec.cantidadNotificaciones > 0}">
@@ -180,7 +190,9 @@
                                                value=" marcar todas como leídas"/> 
                             </h:form>
                         </div>
-                        <c:forEach items="#{sesionGestec.notificaciones}" var="n">
+                        
+                        <c:if test="#{sesionGestec.cantNot != 0}">
+                            <c:forEach items="#{sesionGestec.notificaciones}" var="n">
                             <c:if test="#{n.idUsuario==sesionGestec.usuario}">
                                 <c:if test="#{n.estadoNotificacion=='Visto'}">
                                     <c:if test="#{n.idNotificacion.idNotificacion==2}">
@@ -232,9 +244,7 @@
                         </c:forEach>
 
 
-
-
-                        <c:forEach items="#{sesionGestec.notificacionesCitaCliente}" var="nc">
+                        <c:forEach items="#{sesionGestec.notificacionesCitaUsuario}" var="nc">
                             <c:if test="#{nc.idCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
                                 <c:if test="#{nc.idNotificacion.idNotificacion==7}">
                                     <c:if test="#{nc.estadoNotificacion=='Visto'}">
@@ -305,9 +315,10 @@
                                 </c:if>
                             </c:if>
                         </c:forEach>
+                        </c:if>
 
 
-                        <c:if test="#{sesionGestec.validarCantNotificaciones()}">
+                        <c:if test="#{sesionGestec.cantNot == 0}">
                             <center style="padding: 30px 0 5px 0">
                                 <span class="fa fa-newspaper-o" style="font-size: 150px"></span>
                                 <h4>No tienes novedades</h4>
@@ -316,11 +327,6 @@
                     </ul>
 
                 </li>
-
-
-
-
-
 
                 <li class="dropdown" style="width: 80px"> 
 

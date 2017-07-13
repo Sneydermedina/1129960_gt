@@ -32,4 +32,7 @@ public interface SolicitudFacadeLocal {
     
     Object contarTipoSolicitud(String tipo);
     
+    List<Solicitud> listarSolicitudesCliente(Integer idDireccion);
+    
+    List<Solicitud> listarSolicitudesTecnico(Integer idSolicitud);
 }

@@ -13,6 +13,7 @@ import com.gestec.modelo.entidades.Mensaje;
 import com.gestec.modelo.entidades.NotificacionCita;
 import com.gestec.modelo.entidades.NotificacionUsuario;
 import com.gestec.modelo.entidades.Relcalificacionusuarios;
+import com.gestec.modelo.entidades.Solicitud;
 import com.gestec.modelo.entidades.Usuarios;
 import com.gestec.modelo.persistencia.BarrioFacadeLocal;
 import com.gestec.modelo.persistencia.CalificacionFacadeLocal;
@@ -24,6 +25,7 @@ import com.gestec.modelo.persistencia.MensajeFacadeLocal;
 import com.gestec.modelo.persistencia.NotificacionCitaFacadeLocal;
 import com.gestec.modelo.persistencia.NotificacionUsuarioFacadeLocal;
 import com.gestec.modelo.persistencia.RelcalificacionusuariosFacadeLocal;
+import com.gestec.modelo.persistencia.SolicitudFacadeLocal;
 import com.gestec.modelo.persistencia.TelefonoFacadeLocal;
 import com.gestec.modelo.persistencia.UsuariosFacadeLocal;
 import java.io.ByteArrayInputStream;
@@ -61,6 +63,8 @@ public class SesionController implements Serializable {
     private UsuariosFacadeLocal ufl;
     @EJB
     private MensajeFacadeLocal mfl;
+    @EJB
+    private SolicitudFacadeLocal sfl;
     @EJB
     private LocalidadFacadeLocal lfl;
     @EJB
@@ -100,6 +104,7 @@ public class SesionController implements Serializable {
     private String estados;
     private String correo;
     private List<Usuarios> listarUsuarios;
+    private List<Solicitud> solicitudesUsuario;
 
     private Locale idiomaSeleccionado;
     private List<Locale> idiomasSoportados;
@@ -249,6 +254,9 @@ public class SesionController implements Serializable {
         this.listarUsuarios = listarUsuarios;
     }
     
+    public Integer getCantNot(){
+        return this.notificaciones.size();
+    }
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
 
@@ -282,6 +290,17 @@ public class SesionController implements Serializable {
             if (notUsu.getEstadoNotificacion().equals("Enviado")) {
                 cantidad++;
             }
+        }
+        return cantidad;
+    }
+    
+    public Integer getCantidadMensajes(){
+        Integer cantidad=0;
+        if (getUsuario().getTipoUsuario().equals("Cliente")) {
+            
+        }
+        if (getUsuario().getTipoUsuario().equals("Tecnico")) {
+            
         }
         return cantidad;
     }

@@ -6,10 +6,12 @@
 package com.gestec.modelo.persistencia;
 
 import com.gestec.modelo.entidades.Solicitud;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -40,5 +42,21 @@ public class SolicitudFacade extends AbstractFacade<Solicitud> implements Solici
         Object tipos = q.getSingleResult();
         return tipos;
     }
+
+    @Override
+    public List<Solicitud> listarSolicitudesCliente(Integer idDireccion) {
+        TypedQuery<Solicitud> q = getEntityManager().createNamedQuery("Solicitud.findByUsuario", Solicitud.class);
+        q.setParameter("idDireccion", idDireccion);
+        return q.getResultList();
+    }
+    
+    @Override
+    public List<Solicitud> listarSolicitudesTecnico(Integer idSolicitud) {
+        TypedQuery<Solicitud> q = getEntityManager().createNamedQuery("Solicitud.findByIdsolicitud", Solicitud.class);
+        q.setParameter("idSolicitud", idSolicitud);
+        return q.getResultList();
+    }
+    
+    
     
 }

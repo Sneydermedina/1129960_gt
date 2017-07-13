@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Solicitud.findAll", query = "SELECT s FROM Solicitud s"),
     @NamedQuery(name = "Solicitud.findByIdsolicitud", query = "SELECT s FROM Solicitud s WHERE s.idsolicitud = :idsolicitud"),
-    @NamedQuery(name = "Solicitud.findBySolicitudFecha", query = "SELECT s FROM Solicitud s WHERE s.solicitudFecha = :solicitudFecha")})
+    @NamedQuery(name = "Solicitud.findBySolicitudFecha", query = "SELECT s FROM Solicitud s WHERE s.solicitudFecha = :solicitudFecha"),
+    @NamedQuery(name = "Solicitud.findByUsuario", query = "SELECT s FROM Solicitud s WHERE s.direccionidDireccion.idDireccion = :idDireccion")})
 public class Solicitud implements Serializable {
 
     private static final long serialVersionUID = 1L;
