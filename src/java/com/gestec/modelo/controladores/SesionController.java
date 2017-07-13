@@ -85,9 +85,7 @@ public class SesionController implements Serializable {
     private RelcalificacionusuariosFacadeLocal relcu;
     @EJB
     private TelefonoFacadeLocal telfl;
-    
-    
-    
+
     private String nombreUsuario;
     private String contrasena;
     private List<Localidad> localidades;
@@ -105,6 +103,7 @@ public class SesionController implements Serializable {
     private String correo;
     private List<Usuarios> listarUsuarios;
     private List<Solicitud> solicitudesUsuario;
+    private Mensaje ultimoMensaje;
 
     private Locale idiomaSeleccionado;
     private List<Locale> idiomasSoportados;
@@ -122,7 +121,6 @@ public class SesionController implements Serializable {
         this.cfl.findAll();
         this.telfl.findAll();
         this.solicitudesUsuario = new ArrayList<>();
-        
 
         FacesContext fc = FacesContext.getCurrentInstance();
         idiomaSeleccionado = new Locale("es");
@@ -254,10 +252,14 @@ public class SesionController implements Serializable {
     public void setListarUsuarios(List<Usuarios> listarUsuarios) {
         this.listarUsuarios = listarUsuarios;
     }
-    
-    public Integer getCantNot(){
+
+    public Integer getCantNot() {
         return this.notificaciones.size();
     }
+
+    public Mensaje getUltimoMensaje() {
+        return ultimoMensaje;
+    }  
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
 
@@ -294,16 +296,16 @@ public class SesionController implements Serializable {
         }
         return cantidad;
     }
-    
-    public Integer getCantidadMensajes(){
-        Integer cantidad=0;
+
+    public Integer getCantidadMensajes() {
+        Integer cantidad = 0;
         if (getUsuario().getTipoUsuario().equals("Cliente")) {
             this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
             for (Solicitud solicitud : this.solicitudesUsuario) {
                 List<Mensaje> mensajes = mfl.listarMensajesCita(solicitud.getIdsolicitud());
                 int tam = mensajes.size() - 1;
                 if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado")) {
-                    cantidad ++;
+                    cantidad++;
                 }
             }
         }
@@ -317,11 +319,32 @@ public class SesionController implements Serializable {
                 List<Mensaje> mensajesT = mfl.listarMensajesCita(sol.getIdsolicitud());
                 int tam = mensajesT.size() - 1;
                 if (!mensajesT.isEmpty() && mensajesT.get(tam).getEstadoMensaje().equals("Enviado")) {
-                    cantidad ++;
+                    cantidad++;
                 }
             }
         }
         return cantidad;
+    }
+
+    public List<Solicitud> getMensajes() {
+        if (getUsuario().getTipoUsuario().equals("Cliente")) {
+            this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
+        }
+        if (getUsuario().getTipoUsuario().equals("Tecnico")) {
+            List<Mensaje> mensajes;
+            this.solicitudesUsuario.clear();
+            mensajes = mfl.listarMensajesUsuario(getUsuario().getIdUsuario());
+            for (Mensaje mnsj : mensajes) {
+                this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
+            }
+        }
+        return solicitudesUsuario;
+    }
+    
+    public void setUltimoMensaje(Solicitud solicitud){
+        List<Mensaje> mnsjs = mfl.listarMensajesCita(solicitud.getIdsolicitud());
+        int tam = mnsjs.size() - 1;
+        this.ultimoMensaje = mnsjs.get(tam);
     }
 
     public StreamedContent getImagenPerfil() throws IOException, SQLException {
@@ -526,6 +549,16 @@ public class SesionController implements Serializable {
     public String formatearFechaCumpleañosPerfil() {
         SimpleDateFormat formato = new SimpleDateFormat("dd 'de' MMMM", new Locale("es", "CO"));
         String fechaF = formato.format(getPerfil().getFechaNacimiento());
+        if (fechaF.equals("")) {
+            return "Sin fecha";
+        } else {
+            return fechaF;
+        }
+    }
+    
+    public String formatearFechaMensaje(Date fecha) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd 'de' MMMM hh:mm a", new Locale("es", "CO"));
+        String fechaF = formato.format(fecha);
         if (fechaF.equals("")) {
             return "Sin fecha";
         } else {
