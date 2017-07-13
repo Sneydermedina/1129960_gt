@@ -15,11 +15,16 @@ import com.gestec.modelo.entidades.NotificacionUsuario;
 import com.gestec.modelo.entidades.Relcalificacionusuarios;
 import com.gestec.modelo.entidades.Usuarios;
 import com.gestec.modelo.persistencia.BarrioFacadeLocal;
+import com.gestec.modelo.persistencia.CalificacionFacadeLocal;
 import com.gestec.modelo.persistencia.ContactosFacadeLocal;
+import com.gestec.modelo.persistencia.DireccionFacadeLocal;
+import com.gestec.modelo.persistencia.EspecialidadFacadeLocal;
 import com.gestec.modelo.persistencia.LocalidadFacadeLocal;
 import com.gestec.modelo.persistencia.MensajeFacadeLocal;
 import com.gestec.modelo.persistencia.NotificacionCitaFacadeLocal;
 import com.gestec.modelo.persistencia.NotificacionUsuarioFacadeLocal;
+import com.gestec.modelo.persistencia.RelcalificacionusuariosFacadeLocal;
+import com.gestec.modelo.persistencia.TelefonoFacadeLocal;
 import com.gestec.modelo.persistencia.UsuariosFacadeLocal;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -66,7 +71,19 @@ public class SesionController implements Serializable {
     private NotificacionUsuarioFacadeLocal nfl;
     @EJB
     private NotificacionCitaFacadeLocal ncfl;
-
+    @EJB
+    private DireccionFacadeLocal dfl;
+    @EJB
+    private CalificacionFacadeLocal calfl;
+    @EJB
+    private EspecialidadFacadeLocal efl;
+    @EJB
+    private RelcalificacionusuariosFacadeLocal relcu;
+    @EJB
+    private TelefonoFacadeLocal telfl;
+    
+    
+    
     private String nombreUsuario;
     private String contrasena;
     private List<Localidad> localidades;
@@ -93,6 +110,13 @@ public class SesionController implements Serializable {
         this.localidades = lfl.findAll();
         this.barrios = bfl.findAll();
         this.notCitas = ncfl.findAll();
+        this.dfl.findAll();
+        this.efl.findAll();
+        this.relcu.findAll();
+        this.calfl.findAll();
+        this.cfl.findAll();
+        this.telfl.findAll();
+        
 
         FacesContext fc = FacesContext.getCurrentInstance();
         idiomaSeleccionado = new Locale("es");
@@ -224,6 +248,7 @@ public class SesionController implements Serializable {
     public void setListarUsuarios(List<Usuarios> listarUsuarios) {
         this.listarUsuarios = listarUsuarios;
     }
+    
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
 

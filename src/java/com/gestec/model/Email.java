@@ -31,8 +31,8 @@ import javax.mail.internet.MimeMultipart;
 public class Email {
     
     public static void sendModificacion(String para, String Nombres, String nombUsu, String clave) {
-        final String user = "";//cambiará en consecuencia al servidor utilizado
-        final String pass = "";
+        final String user = "gestec1129960@gmail.com";//cambiará en consecuencia al servidor utilizado
+        final String pass = "1129960_gt";
 
 //1st paso) Obtener el objeto de sesión
         Properties props = new Properties();
@@ -55,19 +55,19 @@ public class Email {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(para));
-            message.setSubject("Actualizacion de datos en Banco-Pedagogico");
+            message.setSubject("Bienvenido a nuestra comunidad Gestec!");
             java.util.Date fecha = new Date();
 
             message.setContent(
-                    "<center><img src='http://fs5.directupload.net/images/160530/khs5cmdc.jpg' title='Banco Pedagogico'></center>"
-                    + "<h3> Actualizacion de datos en Banco-Pedagogico. "
+                    "<center><h2>Gestec</h2></center>"
+                    + "<h3> Bienvenido:  "
                     + Nombres
-                    + "</h3>"
-                    + "Datos de Ingreso: "
+                    + " esperamos que disfrutes de esta experiencia</h3>"
+                    + "Datos para ingresar: "
                     + "<h4> Nombre Usuario : "
                     + nombUsu
                     + "</h4>"
-                    + "<h4> Documento Usuario : "
+                    + "<h4> Contraseña Usuario : "
                     + clave
                     + " </h4>"
                     + "Ultima Modificacion"
@@ -80,6 +80,7 @@ public class Email {
             System.out.println("Done");
 
         } catch (MessagingException e) {
+            System.out.println("Sera..");
             throw new RuntimeException(e);
         }
 
@@ -164,7 +165,7 @@ public class Email {
             message.setSubject("Bienvenido Banco-Pedagogico");
 
             message.setContent(
-                    "<center><img src='http://fs5.directupload.net/images/160530/khs5cmdc.jpg' title='Banco Pedagogico'></center>"
+                    "<center>GESTEC</center>"
                     + "<h3> Bienvenido. "
                     + Nombres
                     + "</h3>"
@@ -189,8 +190,8 @@ public class Email {
 
    /* public static void send(String para, String sujeto, String mensaje) throws UnsupportedEncodingException{
 
-       final String user = "leidergiovannyparada@gmail.com";//cambiará en consecuencia al servidor utilizado
-        final String pass = "adivinala1234";
+       final String user = "gestec1129960@gmail.com";//cambiará en consecuencia al servidor utilizado
+        final String pass ="1129960_gt";
 
 //1st paso) Obtener el objeto de sesión
         Properties props = new Properties();

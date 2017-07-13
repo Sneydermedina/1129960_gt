@@ -30,4 +30,5 @@ public interface EspecialidadFacadeLocal {
 
     int count();
     
+    Object sumarId();
 }

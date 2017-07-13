@@ -6,7 +6,8 @@
                  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                  xmlns:f = "http://java.sun.com/jsf/core"
-                 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+                 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                 xmlns:p="http://primefaces.org/ui">
 
 
     <ui:define name="head2">
@@ -15,10 +16,42 @@
         <link href="#{request.contextPath}/resources/css/estilosPerfil.css" rel="stylesheet"/>
         <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
         <link href="#{request.contextPath}/resources/css/bootstrap-table.css" rel="stylesheet"/>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        
+        
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        
+            
+            
+                  <style>
+          
+                    
+           
+           
+            .ui-inputfield{
+                width: 100%;
+            }
+            input:invalid{
+                border: 1px solid red;
+            }
+            .ui-inputfield:invalid{
+                border: 1px solid red;
+            }
+          
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+            }
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield:invalid {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+                border: 1px solid #C1C1C1;
+            }
+        </style>
     </ui:define> 
 
 
@@ -34,94 +67,102 @@
     </ui:define>
 
     <ui:define name="content">
-        <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+        <!--<f:view locale="#{sesionGestec.idiomaSeleccionado}">-->
+        <f:view>
+            
+                    <c:if test="#{userController.nuevoUsuario==false}">           
         <div style="padding: 100px; ">
-            <h:form id="form" class="form-horizontal">
-                <div class="col-md-12 inicio">
-                    
+                
+                <h:form>
+                <div class="col-md-12 col-xs-12 inicio">
                 <h3 style="text-align: center">Registro de usuarios</h3>
                     <hr/>
-                    <div class="container">
-                        
-                        <div class="col-md-6">
-                            <div class="col-md-5">
+                    
+                    <div class="container col-xs-12">
+                        <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <div class="col-md-5 col-xs-12">
                             <h4>Nombre de usuario</h4>
                             </div>
-                            <div class="col-md-7">
-                                <h:inputText value="" pt:placeholder="Ingrese nombre de usuario" class="form-control"/>
+                            <div class="col-md-7 col-xs-12">
+                                <h:inputText id="nombreUsu" value="#{userController.usuarios.nombreUsuario}" 
+                                             pt:placeholder="Ingrese nombre de usuario" class="form-control"
+                                             
+                                             validator="#{userController.validarNombre}"></h:inputText>
+                                             
+                                <h:message for="nombreUsu" style="color:red" styleClass="error"/>
                             </div>
                         </div>
-                        
-                        <div class="col-md-6">
+                <div class="col-md-6">
                             <div class="col-md-5">
                             <h4>Apellido Usuario</h4>
                             </div>
                             <div class="col-md-7">
-                                <h:inputText value="" pt:placeholder="Ingrese sus apellidos" class="form-control"/>
+                                <h:inputText id="apellido" value="#{userController.usuarios.apellido}" 
+                                             pt:placeholder="Ingrese sus apellidos" class="form-control"
+                                             required="true"
+                                             requiredMessage="Ingrese un apellido"
+                                             validatorMessage="No numeros ni caracteres especiales">
+                                             <f:validateRegex pattern="[a-zA-Z]{1,15}"/>
+                                             
+                                             </h:inputText>
+                    <h:message for="apellido" style="color:red" styleClass="error"/>
                             </div>
                         </div>
+                         </div>
                         
+                        
+                        <div class="row">
                         <div class="col-md-6 ">
                             <div class="col-md-5 inputs">
                             <h4>Tipo de documento</h4>
                             </div>
-                            <div class="col-md-7">
-                                <h:selectOneMenu value="" class="form-control">
+                            <div class="col-md-7 ">
+                                <h:selectOneMenu  id="documen" value="#{userController.usuarios.tipoDocumento}" class="form-control"
+                                                 required="true" 
+                                                 requiredMessage="Seleccione un documento">
                                     <f:selectItem itemLabel="Seleccione tipo de documento" class="form-horizontal"/>
-                                    <f:selectItem itemValue="1" itemLabel="CC" class="form-horizontal"/>
-                                    <f:selectItem itemValue="2" itemLabel="CE" class="form-horizontal"/>
-                                    <f:selectItem itemValue="2" itemLabel="TI" class="form-horizontal"/>
-                                    <f:selectItem itemValue="2" itemLabel="Otro" class="form-horizontal"/>
+                                    <f:selectItem itemValue="CC" itemLabel="Cedula de ciudadania" class="form-horizontal"/>
+                                    <f:selectItem itemValue="CE" itemLabel="Cedula extranjera" class="form-horizontal"/>     
+                                    <f:selectItem itemValue="Otro" itemLabel="Otro" class="form-horizontal"/>
+                               
                                 </h:selectOneMenu>
+                                <h:message for="documen" style="color:Red" styleClass="error"/>
                             </div>
                         </div>
                         
                         <div class="col-md-6 inputs">
-                            <div class="col-md-5">
+                            <div class="col-md-5 ">
                             <h4>Documento num:</h4>
                             </div>
                             <div class="col-md-7">
-                                <h:inputText value="" pt:placeholder="Ingrese numero de documento" class="form-control"/>
+                                <h:inputText id="num" value="#{userController.usuarios.documento}" 
+                                             pt:placeholder="Ingrese numero de documento" class="form-control"
+                                             
+                                             validator="#{userController.validarDocumento}"
+                                             validatorMessage="Numero de documento no valido">
+                                    <f:validateLength minimum="8" maximum="12"/>
+                                </h:inputText>
+                                <h:message for="num" style="color:Red" styleClass="error"/>
                             </div>
                         </div>
-                        
-                        
-                        <div class="col-md-6 ">
-                            <div class="col-md-5 inputs">
-                            <h4>Tipo de usuario</h4>
-                            </div>
-                            <div class="col-md-7">
-                                <h:selectOneMenu value="" class="form-control">
-                                    <f:selectItem itemLabel="Seleccione el tipo de usuario" class="form-horizontal"/>
-                                    <f:selectItem itemValue="1" itemLabel="Tecnico" class="form-horizontal"/>
-                                    <f:selectItem itemValue="2" itemLabel="Cliente" class="form-horizontal"/>
-                                 
-                                </h:selectOneMenu>
-                            </div>
                         </div>
-                        
-                        <div class="col-md-6 ">
-                            <div class="col-md-5 inputs">
-                            <h4>Genero:</h4>
-                            </div>
-                            <div class="col-md-7">
-                                <h:selectOneMenu value="" class="form-control">
-                                    <f:selectItem itemLabel="Seleccione su genero" class="form-horizontal"/>
-                                    <f:selectItem itemValue="1" itemLabel="Masculino" class="form-horizontal"/>
-                                    <f:selectItem itemValue="2" itemLabel="Femenino" class="form-horizontal"/>
-                                    <f:selectItem itemValue="2" itemLabel="Prefiero no decirlo" class="form-horizontal"/>
-                                    <f:selectItem itemValue="2" itemLabel="Otro" class="form-horizontal"/>
-                                 
-                                </h:selectOneMenu>
-                            </div>
-                        </div>
-                        
+                        <div class="row">
                         <div class="col-md-6 inputs" >
                             <div class="col-md-5">
                             <h4>Contraseña</h4>
                             </div>
                             <div class="col-md-7">
-                                <h:inputSecret value="" pt:placeholder="Contraseña" class="form-control"/>
+                                <h:inputSecret id="contra" value="#{userController.con}" 
+                                               pt:placeholder="Contraseña" class="form-control"
+                                               required="true"
+                                               requiredMessage="Digite su contraseña">
+                                                                   <f:ajax event="change" 
+                                                                   listener="#{userController.valContra}"
+                                                                           execute="contra"/>                             
+                                                               </h:inputSecret>
+                                
+                                <h:message for="contra" style="color:Red" styleClass="error"/>
                             </div>
                         </div>
                         
@@ -130,64 +171,153 @@
                             <h4>Confirmar Contraseña</h4>
                             </div>
                             <div class="col-md-7">
-                                <h:inputSecret value="" pt:placeholder="Confirmar contraseña" class="form-control"/>
+                                <h:inputSecret id="confirmar" value="#{userController.confirmarContra}" 
+                                               pt:placeholder="Confirmar contraseña" 
+                                               class="form-control"
+                                               
+                                               validator="#{userController.validarContrasena}"/>
+                                <h:messages for="confirmar" style="color:red" styleClass="error"/>
+                            </div>
+                        </div>
+                            </div>
+                        <div class="row">
+                        <div class="col-md-6 ">
+                            <div class="col-md-5 inputs">
+                            <h4>Tipo de usuario</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:selectOneMenu id="tipoU" value="#{userController.usuarios.tipoUsuario}" class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Seleccione tipo de usuario">
+                                    <f:selectItem itemLabel="Seleccione el tipo de usuario" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Tecnico" itemLabel="Tecnico" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Cliente" itemLabel="Cliente" class="form-horizontal"/>
+                                 
+                                </h:selectOneMenu>
+                                <h:message for="tipoU" style="color:red" styleClass="error"/>
                             </div>
                         </div>
                         
-                        
-                         <div class="col-md-6 ">
-                        <hr/>
+                        <div class="col-md-6 ">
                             <div class="col-md-5 inputs">
-                            <h4>Tipo de telefono</h4>
+                            <h4>Genero:</h4>
                             </div>
                             <div class="col-md-7">
-                               
-                                <h:selectOneMenu value="" class="form-control">
-                                    <f:selectItem itemLabel="Seleccione tipo de telefono" class="form-horizontal"/>
-                                    <f:selectItem itemValue="1" itemLabel="Telefono Movil" class="form-horizontal"/>
-                                    <f:selectItem itemValue="2" itemLabel="Telefono Fijo" class="form-horizontal"/>
-                                    <f:selectItem itemValue="3" itemLabel="Otro" class="form-horizontal"/>              
+                                <h:selectOneMenu id="genero" value="#{userController.usuarios.sexo}" class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Indique su genero">
+                                    <f:selectItems value="#{userController.genero()}"/>
+                                 
                                 </h:selectOneMenu>
+                                <h:message for="genero" style="color:red" styleClass="error"/>
                             </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        
+                        <div class="col-md-6 inputs" >
+                            <div class="col-md-5">
+                            <h4>Fecha de nacimiento</h4>
+                            </div>
+                            <div class="col-md-7">
+                                            
+                                    
+                                                 <!--<h:inputText id="calendario" value="#{userController.confirmarContra}"
+                                                         class="tcal form-control"
+                                                         pt:placeholder="Seleccione una fecha"
+                                                         required="true"
+                                                         requiredMessage="Seleccione una fecha"/>-->
+                                                         
+                                       <p:calendar id="calendario" value="#{userController.date2}" pattern="yyyy-MM-dd"  
+                                        style="width: 100%"
+                                        validator="#{userController.validarFecha}"
+                                        placeholder="Ingrese su fecha de nacimiento"/>
+                                
+                            <h:message for="calendario" style="color:Red" styleClass="error" />
+                                
+
+                                </div>
                         </div>
                         
                         <div class="col-md-6 inputs">
-                            <hr/>
                             <div class="col-md-5">
-                            <h4>Numero de telefono:</h4>
+                            <h4>Discapacidad</h4>
                             </div>
                             <div class="col-md-7">
-                                <h:inputText value="" pt:placeholder="Ingrese numero de telefonos" class="form-control"/>
+                                <h:inputText id="disc" value="#{userController.usuarios.discapacidad}" 
+                                               pt:placeholder="Indique si tiene alguna discapacidad" 
+                                               class="form-control"
+                                               required="true"
+                                               requiredMessage="Escriba si tiene o no una discapacidad"
+                                               validatorMessage="No numeros ni caracteres especiales">
+                                <f:validateRegex pattern="[a-zA-Z]{1,15}"/> 
+                                                   </h:inputText>               
+                                <h:message for="disc" style="color:red" styleClass="error"/>                
                             </div>
                         </div>
-                        
+                            </div>
+                        <!-- Telefono -->
+                        <div class="row">
                         <div class="col-md-6 inputs">
                             <div class="col-md-5">
                             <h4>Direccion de correo electronico</h4>
                             </div>
                             <div class="col-md-7">
-                                <h:inputText value="" pt:placeholder="Correo electronico" class="form-control"/>
+                                <h:inputText id="correo"
+                                             value="#{userController.usuarios.correo}" 
+                                             pt:placeholder="Correo electronico" class="form-control"                                                    
+                                             validatorMessage="Escriba un correo electronico valido"
+                                             validator="#{userController.validarCorreo}">
+                                     <f:validateRegex
+                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                </h:inputText>
+                                <h:message for="correo" style="color:Red" styleClass="error"/>
                             </div>
                         </div>
-                       
-                            
-                        <div class="col-md-6 inputs" >
-                            <div class="col-md-5">
-                            <h4>Barrio</h4>
+                            <div class="col-md-6"></div>
+                       </div>
+                        <div class="row">
+                            <hr/>
+                      <div class="col-md-6 ">
+                        
+                            <div class="col-md-5 inputs">
+                            <h4>Tipo de telefono</h4>
                             </div>
                             <div class="col-md-7">
-                                
-                                <h:selectOneMenu id="barrio" class="form-control"
-                                                 style="margin-top:0px"
-                                                 value="#{sesionGestec.barrios}">
-                                    <c:forEach items="#{sesionGestec.barrios}" var="b">
-                                        <f:selectItem itemLabel="#{b.nombreBarrio}" itemValue="#{b.idBarrio}"/>
-                                    </c:forEach>
+                               
+                                <h:selectOneMenu id="telefono" value="#{userController.telefono.tipoTelefono}" 
+                                                 class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Seleccione un tipo de telefono">
+                                    <f:selectItem itemLabel="Seleccione tipo de telefono" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Movil" itemLabel="Telefono Movil" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Fijo" itemLabel="Telefono Fijo" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Otro" itemLabel="Otro" class="form-horizontal"/>              
                                 </h:selectOneMenu>
+                                <h:message for="telefono" style="color:red" styleClass="error"/>
                             </div>
                         </div>
                         
                         <div class="col-md-6 inputs">
+                            
+                            <div class="col-md-5">
+                            <h4>Numero de telefono:</h4>
+                            </div>
+                            <div class="col-md-7">
+                                <h:inputText id="numTel" value="#{userController.telefono.numeroTelefono}" 
+                                             pt:placeholder="Ingrese numero de telefonos" 
+                                             class="form-control"
+                                             required="true"
+                                             requiredMessage="Ingrese un numero de telefono"
+                                             validatorMessage="El numero no es valido">
+                                    <f:validateLength minimum="7" maximum="12"/>
+                                </h:inputText>
+                                <h:message for="numTel" style="color:red" />
+                            </div>
+                        </div>
+                        </div> 
+                        <div class="row">
+                             <div class="col-md-6 inputs" >
                             <div class="col-md-5">
                             <h4>Localidad</h4>
                             </div>
@@ -196,40 +326,204 @@
                             <h:selectOneMenu id="localidad" 
                                              class="form-control" 
                                              style="margin-top:0"
-                                             value="#{sesionGestec.numeroLocalidad}">
+                                             value="#{userController.numeroLocalidad}"
+                                             required="true"
+                                             requiredMessage="Seleccione una localidad">
                              
-                                <c:forEach items="#{sesionGestec.localidades}" var="l">
+                                <c:forEach items="#{userController.localidades}" var="l">
                                     <f:selectItem itemLabel="#{l.nombreLocalidad}" itemValue="#{l.idLocalidad}"/>
                                 </c:forEach>
-                                <f:ajax event="change" listener="#{sesionGestec.llenarBarrios}" render="barrio"
+                                <f:ajax event="change" listener="#{userController.llenarBarrios}" render="barrio"
                                         execute="@this"/>
                             </h:selectOneMenu>
-                    
+                                <h:message for="localidad" style="color:Red" styleClass="error"/>
+                               </div>
+                        </div>
+                        
+                        <div class="col-md-6 inputs">
+                            <div class="col-md-5">
+                            <h4>Barrio</h4>
                             </div>
+                            <div class="col-md-7">
+                                
+                                
+                                
+                            <h:selectOneMenu id="barrio" 
+                                             class="form-control" 
+                                             style="margin-top:0"
+                                             value="#{userController.barrio.nombreBarrio}">
+                                             
+                                
+                                <f:selectItems value="#{userController.barrioss}"/>
+
+                            </h:selectOneMenu>
+                                <h:message for="barrio" style="color:red" styleClass="error"/>
+                                
+                        
+                            </div>
+                            
                         </div>
                         <div class="col-md-6 inputs">
                         <div class="col-md-5">
                             <h4>Indique un tipo de especialidad</h4>
                         </div>
                         <div class="col-md-7">
-                            <h:selectOneMenu class="form-control">
-                                <f:selectItem itemLabel="Con que especialidad se identifica" />
-                                <f:selectItem itemValue="1" itemLabel="Instalacion"/>
-                                <f:selectItem itemValue="2" itemLabel="Mantenimiento"/>
-                                <f:selectItem itemValue="3" itemLabel="Diagnostico"/>
+                            <h:selectOneMenu id="especialidad" class="form-control" 
+                                             value="#{userController.especialidad.especialidad}"
+                                             required="true"
+                                             requiredMessage="Seleccione una especialidad">
                                 
+                                <f:selectItems value="#{userController.especialidad()}"/>
                             </h:selectOneMenu>
+                            <h:message for="especialidad" style="color:red" styleClass="error"/>
                         </div>
                             </div>
+                        <div class="col-md-6">
+                           
+                        </div>
+                        
+                        </div>
+                        <div class="row">
+                            <hr/>
+                            <div class="col-md-12">
+                                <center><h4>Información general de dirección</h4></center>
+                                <br/>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-3">
+                                    <h:inputText id="tipoVia" value="#{userController.direccion.tipoVia}" 
+                                                 pt:placeholder="Tipo Via Ej:Calle" 
+                                                 class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Campo Obligatorio"
+                                                 validatorMessage="No valido">
+                                    <f:validateRegex pattern="[a-zA-Z]{1,15}"/>
+                                    </h:inputText>
+                                    <h:message for="tipoVia" style="color:red" styleClass="error"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:inputText id="numeroVia" value="#{userController.direccion.numeroVia}" 
+                                                 pt:placeholder="Numero de via" 
+                                                 class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Campo Obligatorio"
+                                                 validatorMessage="numero no valido">
+            <f:validateLength minimum="1" maximum="1000"/>
+                                    </h:inputText>
+                                    <h:message for="numeroVia" style="color:Red" styleClass="error"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:inputText id="complementoVia" value="#{userController.direccion.complementoVia}" 
+                                                 pt:placeholder="Complemento via ej:A" class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Campo obligatorio"/>
+                                    <h:message for="complementoVia" style="color:Red" styleClass="error"/>
+                                </div>
+                                <div class="col-md-3">
+                                    <h:inputText id="numeroVia2" value="#{userController.direccion.numeroVia2}" 
+                                                 pt:placeholder="Numero via 2" class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Campo Obligatorio"
+                                                 validatorMessage="Numero no valido">
+                                         <f:validateLength minimum="1" maximum="1000"/>
+                                         </h:inputText>
+                                    <h:message for="numeroVia2" style="color:red" styleClass="error"/>
+                                </div>
+                                
+                                
+                            </div>
+                            
+                             <div class="col-md-12 inputs">
+                                <div class="col-md-4">
+                                    <h:inputText id="complementoVia2" value="#{userController.direccion.complementoVia2}" 
+                                                 pt:placeholder="Complemento via 2 ej:B" class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Campo obligatorio"/>
+                                    <h:message for="complementoVia2" style="color:Red" styleClass="error"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <h:inputText id="numeroCasaa" value="#{userController.direccion.numeroCasa}" 
+                                                 pt:placeholder="Numero de casa" class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Campo obligatorio"
+                                                 validatorMessage="Numero no valido">
+                                                 <f:validateLength minimum="1" maximum="1000"/>
+                                    </h:inputText>
+                                    <h:message for="numeroCasaa" style="color:red" styleClass="error"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <h:inputText id="complemento" value="#{userController.direccion.complemento}" 
+                                                 pt:placeholder="Complemento ej:Sur" class="form-control"
+                                                 required="true"
+                                                 requiredMessage="Campo obligatorio"
+                                                 validatorMessage="No valido">
+                                        <f:validateRegex pattern="[a-zA-Z]{1,18}"/>
+                                    </h:inputText>
+                                    <h:message for="complemento" style="color:red" styleClass="error"/>
+                                </div>
+                                
+                            <hr/>
+                            <br/>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                    
                 
-                <h:form>
+                <p:dialog modal="true" resizable="false" 
+                              header="values"
+                              widgetVar="dlg"
+                              showEffect="fold">
+                        <p:panelGrid id="display" columns="2" columnClasses="label,value">
+                            <h:outputText value="popup: "/>
+                            <h:outputText value="#{userController.date2}">
+                                <f:convertDateTime pattern="yyyy-MM-dd"/>
+                            </h:outputText>
+                        </p:panelGrid>
+                    </p:dialog>
+               
+                 <h:commandButton actionListener="#{userController.registrarUsuario()}" value="Registrar" class="btn btn-primary form-control"/>
+               
                 </h:form>
-                <a href="#{request.contextPath}/faces/index.xhtml"><h:inputText value="#{msjGestec.volver}" class="btn btn-default form-control"></h:inputText></a>
-            </h:form>
+                 <a href="#{request.contextPath}/faces/index.xhtml"><h:inputText value="#{msjGestec.volver}" class="btn btn-default form-control"></h:inputText></a>
+                     
+                
         </div>
+               </c:if>
+            <c:if test="#{userController.nuevoUsuario==true}">
+            
+                 <div style="padding: 100px;margin-bottom: 25%;margin-top: 5%;">
+                <div>
+                    
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h:form style="border-radius: 25px;border: 1px solid gray">
+                        <div style="padding: 10px 20px;">
+                            <center><h3><h:graphicImage width="100" library="img" name="gestec.jpg"/>
+                                    Registro Completado exitosamente!</h3></center>
+                            <hr style="border: 1px solid black"/>
+                            <div class="row">
+                            <div class="col-md-6">
+                                <br/>
+                                <center><h:graphicImage width="100" library="img" name="buena.png"/></center>
+                            </div>
+                                <div class="col-md-6">
+                                    <h3>Te hemos enviado un correo con la información de accesso</h3>
+                                </div>
+                            </div>
+                            <hr style="border: 1px solid black"/>
+                            <h:commandButton actionListener="#{userController.salir()}" class="btn btn-default form-control" value="salir"/>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            </c:if>
+          
         </f:view>
+        
+        
     </ui:define>
 
 </ui:composition>
