@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        
+        <ui:include src="/WEB-INF/template/head.xhtml"/>
+        <ui:insert name="head2"/>
+    </h:head>
+
+    <h:body>
+
+
+        <div id="top">           
+            <ui:insert name="top"> 
+                <ui:include src="/WEB-INF/template/top_2.xhtml"/>
+            </ui:insert>
+        </div>
+
+        <div id="menu">           
+            <ui:insert name="menu"/>
+        </div>
+        
+        
+        <div id="content2" class="">
+
+             
+            <ui:insert name="content2">
+
+                <img  src="#{request.contextPath}/resources/img/icono-gestec.png" alt="Gestec"/>
+
+            </ui:insert>
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <ui:include src="/WEB-INF/template/bottom.xhtml"/>
+            </ui:insert>
+        </div>
+        
+
+    </h:body>
+
+</html>

@@ -33,6 +33,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -447,7 +449,8 @@ public class UserController implements Serializable{
     public void validarNombre(FacesContext context,UIComponent toValidate,Object value){
         context = FacesContext.getCurrentInstance();
         String texto = (String) value;
-        
+        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msj");
+        FacesMessage msj=null;
         if (texto.isEmpty()) {
             ((UIInput)toValidate).setValid(false);
             context.addMessage(toValidate.getClientId(context), new FacesMessage("Nombre de usuario obligatorio"));
@@ -457,8 +460,10 @@ public class UserController implements Serializable{
             
             if (texto.equals(users.getNombreUsuario())) {
                 ((UIInput)toValidate).setValid(false);
-                context.addMessage(toValidate.getClientId(context), new FacesMessage("El nombre de usuario ya existe"));
+                //msj = new FacesMessage(bundle.getLocale().getLanguage().concat());
+                context.addMessage(toValidate.getClientId(context), new FacesMessage("El nombre de usuario ya existe!"));
                 texto="";
+                
             }
         }
     }

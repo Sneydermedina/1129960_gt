@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition  xmlns="http://www.w3.org/1999/xhtml"
                  xmlns:h="http://xmlns.jcp.org/jsf/html"
-                 template="./../../WEB-INF/template/template_index.xhtml"
+                 template="./../../WEB-INF/template/template_sin_menu2.xhtml"
                  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                  xmlns:f = "http://java.sun.com/jsf/core"
@@ -11,11 +11,11 @@
 
 
     <ui:define name="head2">
-        <title>Mis Equipos</title>
+        <title>Nuevo Usuario</title>
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
-        <link href="#{request.contextPath}/resources/css/estilosPerfil.css" rel="stylesheet"/>
+        
         <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
-        <link href="#{request.contextPath}/resources/css/bootstrap-table.css" rel="stylesheet"/>
+        
         
         
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
@@ -57,36 +57,33 @@
 
     <ui:define name="titulo">
         <f:view locale="#{sesionGestec.idiomaSeleccionado}">
-            #{msjGestec.formRegistro}
+            #{msjGestec.registroUsuarios}
         </f:view>
     </ui:define>
 
-    <ui:define name="titulo2"><f:view locale="#{sesionGestec.idiomaSeleccionado}">
-            #{msjGestec.formEquipo}
-        </f:view>
-    </ui:define>
+  
 
-    <ui:define name="content">
-        <!--<f:view locale="#{sesionGestec.idiomaSeleccionado}">-->
-        <f:view>
+    <ui:define name="content2">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+        
             
                     <c:if test="#{userController.nuevoUsuario==false}">           
         <div style="padding: 100px; ">
                 
                 <h:form>
                 <div class="col-md-12 col-xs-12 inicio">
-                <h3 style="text-align: center">Registro de usuarios</h3>
+                    <h3 style="text-align: center">#{msjGestec.registroUsuarios}</h3>
                     <hr/>
                     
                     <div class="container col-xs-12">
                         <div class="row">
                         <div class="col-md-6 col-xs-12">
                             <div class="col-md-5 col-xs-12">
-                            <h4>Nombre de usuario</h4>
+                                <h4>#{msjGestec.nombreUsuario}</h4>
                             </div>
                             <div class="col-md-7 col-xs-12">
                                 <h:inputText id="nombreUsu" value="#{userController.usuarios.nombreUsuario}" 
-                                             pt:placeholder="Ingrese nombre de usuario" class="form-control"
+                                             pt:placeholder="#{msjGestec.ingreseNombreUser}" class="form-control"
                                              
                                              validator="#{userController.validarNombre}"></h:inputText>
                                              
@@ -95,14 +92,14 @@
                         </div>
                 <div class="col-md-6">
                             <div class="col-md-5">
-                            <h4>Apellido Usuario</h4>
+                                <h4>#{msjGestec.apellidoUsuario}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:inputText id="apellido" value="#{userController.usuarios.apellido}" 
-                                             pt:placeholder="Ingrese sus apellidos" class="form-control"
+                                             pt:placeholder="#{msjGestec.ingreseApellidos}" class="form-control"
                                              required="true"
-                                             requiredMessage="Ingrese un apellido"
-                                             validatorMessage="No numeros ni caracteres especiales">
+                                             requiredMessage="#{msjGestec.ingreseApellidos}"
+                                             validatorMessage="#{msjGestec.noNumerosEsp}">
                                              <f:validateRegex pattern="[a-zA-Z]{1,15}"/>
                                              
                                              </h:inputText>
@@ -115,16 +112,16 @@
                         <div class="row">
                         <div class="col-md-6 ">
                             <div class="col-md-5 inputs">
-                            <h4>Tipo de documento</h4>
+                                <h4>#{msjGestec.tipoDocumento}</h4>
                             </div>
                             <div class="col-md-7 ">
                                 <h:selectOneMenu  id="documen" value="#{userController.usuarios.tipoDocumento}" class="form-control"
                                                  required="true" 
-                                                 requiredMessage="Seleccione un documento">
-                                    <f:selectItem itemLabel="Seleccione tipo de documento" class="form-horizontal"/>
-                                    <f:selectItem itemValue="CC" itemLabel="Cedula de ciudadania" class="form-horizontal"/>
-                                    <f:selectItem itemValue="CE" itemLabel="Cedula extranjera" class="form-horizontal"/>     
-                                    <f:selectItem itemValue="Otro" itemLabel="Otro" class="form-horizontal"/>
+                                                 requiredMessage="#{msjGestec.seleccioneDocumento}">
+                                    <f:selectItem itemLabel="#{msjGestec.seleccioneDocumento}" class="form-horizontal"/>
+                                    <f:selectItem itemValue="CC" itemLabel="#{msjGestec.cedulaCiudadania}" class="form-horizontal"/>
+                                    <f:selectItem itemValue="CE" itemLabel="#{msjGestec.cedulaExtranjera}" class="form-horizontal"/>     
+                                    <f:selectItem itemValue="Otro" itemLabel="#{msjGestec.otro}" class="form-horizontal"/>
                                
                                 </h:selectOneMenu>
                                 <h:message for="documen" style="color:Red" styleClass="error"/>
@@ -133,14 +130,14 @@
                         
                         <div class="col-md-6 inputs">
                             <div class="col-md-5 ">
-                            <h4>Documento num:</h4>
+                                <h4>#{msjGestec.documentoNum}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:inputText id="num" value="#{userController.usuarios.documento}" 
-                                             pt:placeholder="Ingrese numero de documento" class="form-control"
+                                             pt:placeholder="#{msjGestec.ingreseNumeroDoc}" class="form-control"
                                              
                                              validator="#{userController.validarDocumento}"
-                                             validatorMessage="Numero de documento no valido">
+                                             validatorMessage="#{msjGestec.documentoNoValido}">
                                     <f:validateLength minimum="8" maximum="12"/>
                                 </h:inputText>
                                 <h:message for="num" style="color:Red" styleClass="error"/>
@@ -150,13 +147,13 @@
                         <div class="row">
                         <div class="col-md-6 inputs" >
                             <div class="col-md-5">
-                            <h4>Contraseña</h4>
+                                <h4>#{msjGestec.contra}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:inputSecret id="contra" value="#{userController.con}" 
-                                               pt:placeholder="Contraseña" class="form-control"
+                                               pt:placeholder="#{msjGestec.contra}" class="form-control"
                                                required="true"
-                                               requiredMessage="Digite su contraseña">
+                                               requiredMessage="#{msjGestec.digiteContra}">
                                                                    <f:ajax event="change" 
                                                                    listener="#{userController.valContra}"
                                                                            execute="contra"/>                             
@@ -168,11 +165,11 @@
                         
                         <div class="col-md-6 inputs">
                             <div class="col-md-5">
-                            <h4>Confirmar Contraseña</h4>
+                                <h4>#{msjGestec.confirmarContra}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:inputSecret id="confirmar" value="#{userController.confirmarContra}" 
-                                               pt:placeholder="Confirmar contraseña" 
+                                               pt:placeholder="#{msjGestec.confirmarContra}" 
                                                class="form-control"
                                                
                                                validator="#{userController.validarContrasena}"/>
@@ -183,15 +180,15 @@
                         <div class="row">
                         <div class="col-md-6 ">
                             <div class="col-md-5 inputs">
-                            <h4>Tipo de usuario</h4>
+                                <h4>#{msjGestec.tipoUser}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:selectOneMenu id="tipoU" value="#{userController.usuarios.tipoUsuario}" class="form-control"
                                                  required="true"
-                                                 requiredMessage="Seleccione tipo de usuario">
-                                    <f:selectItem itemLabel="Seleccione el tipo de usuario" class="form-horizontal"/>
-                                    <f:selectItem itemValue="Tecnico" itemLabel="Tecnico" class="form-horizontal"/>
-                                    <f:selectItem itemValue="Cliente" itemLabel="Cliente" class="form-horizontal"/>
+                                                 requiredMessage="#{msjGestec.seleccioneTipoUser}">
+                                    <f:selectItem itemLabel="#{msjGestec.seleccioneTipoUser}" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Tecnico" itemLabel="#{msjGestec.tecnico}" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Cliente" itemLabel="#{msjGestec.cliente}" class="form-horizontal"/>
                                  
                                 </h:selectOneMenu>
                                 <h:message for="tipoU" style="color:red" styleClass="error"/>
@@ -200,12 +197,12 @@
                         
                         <div class="col-md-6 ">
                             <div class="col-md-5 inputs">
-                            <h4>Genero:</h4>
+                                <h4>#{msjGestec.genero}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:selectOneMenu id="genero" value="#{userController.usuarios.sexo}" class="form-control"
                                                  required="true"
-                                                 requiredMessage="Indique su genero">
+                                                 requiredMessage="#{msjGestec.indiqueGenero}">
                                     <f:selectItems value="#{userController.genero()}"/>
                                  
                                 </h:selectOneMenu>
@@ -217,7 +214,7 @@
                         
                         <div class="col-md-6 inputs" >
                             <div class="col-md-5">
-                            <h4>Fecha de nacimiento</h4>
+                                <h4>#{msjGestec.fechaNacimiento}</h4>
                             </div>
                             <div class="col-md-7">
                                             
@@ -231,7 +228,7 @@
                                        <p:calendar id="calendario" value="#{userController.date2}" pattern="yyyy-MM-dd"  
                                         style="width: 100%"
                                         validator="#{userController.validarFecha}"
-                                        placeholder="Ingrese su fecha de nacimiento"/>
+                                        placeholder="#{msjGestec.ingreseFechaNac}"/>
                                 
                             <h:message for="calendario" style="color:Red" styleClass="error" />
                                 
@@ -241,15 +238,15 @@
                         
                         <div class="col-md-6 inputs">
                             <div class="col-md-5">
-                            <h4>Discapacidad</h4>
+                                <h4>#{msjGestec.discapacidad}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:inputText id="disc" value="#{userController.usuarios.discapacidad}" 
-                                               pt:placeholder="Indique si tiene alguna discapacidad" 
+                                             pt:placeholder="#{msjGestec.indiqueDiscapacidad}" 
                                                class="form-control"
                                                required="true"
-                                               requiredMessage="Escriba si tiene o no una discapacidad"
-                                               validatorMessage="No numeros ni caracteres especiales">
+                                               requiredMessage="#{msjGestec.escribaSiNoDisc}"
+                                               validatorMessage="#{msjGestec.noNumerosEsp}">
                                 <f:validateRegex pattern="[a-zA-Z]{1,15}"/> 
                                                    </h:inputText>               
                                 <h:message for="disc" style="color:red" styleClass="error"/>                
@@ -260,13 +257,13 @@
                         <div class="row">
                         <div class="col-md-6 inputs">
                             <div class="col-md-5">
-                            <h4>Direccion de correo electronico</h4>
+                                <h4>#{msjGestec.direccionCorreo}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:inputText id="correo"
                                              value="#{userController.usuarios.correo}" 
-                                             pt:placeholder="Correo electronico" class="form-control"                                                    
-                                             validatorMessage="Escriba un correo electronico valido"
+                                             pt:placeholder="#{msjGestec.correoElectronico}" class="form-control"                                                    
+                                             validatorMessage="#{msjGestec.escribaCorreoValido}"
                                              validator="#{userController.validarCorreo}">
                                      <f:validateRegex
                     pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
@@ -281,18 +278,18 @@
                       <div class="col-md-6 ">
                         
                             <div class="col-md-5 inputs">
-                            <h4>Tipo de telefono</h4>
+                                <h4>#{msjGestec.tipoTelefono}</h4>
                             </div>
                             <div class="col-md-7">
                                
                                 <h:selectOneMenu id="telefono" value="#{userController.telefono.tipoTelefono}" 
                                                  class="form-control"
                                                  required="true"
-                                                 requiredMessage="Seleccione un tipo de telefono">
-                                    <f:selectItem itemLabel="Seleccione tipo de telefono" class="form-horizontal"/>
-                                    <f:selectItem itemValue="Movil" itemLabel="Telefono Movil" class="form-horizontal"/>
-                                    <f:selectItem itemValue="Fijo" itemLabel="Telefono Fijo" class="form-horizontal"/>
-                                    <f:selectItem itemValue="Otro" itemLabel="Otro" class="form-horizontal"/>              
+                                                 requiredMessage="#{msjGestec.seleccioneTipoTelefono}">
+                                    <f:selectItem itemLabel="#{msjGestec.seleccioneTipoTelefono}" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Movil" itemLabel="#{msjGestec.telefonoMovil}" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Fijo" itemLabel="#{msjGestec.telefonoFijo}" class="form-horizontal"/>
+                                    <f:selectItem itemValue="Otro" itemLabel="#{msjGestec.otro}" class="form-horizontal"/>              
                                 </h:selectOneMenu>
                                 <h:message for="telefono" style="color:red" styleClass="error"/>
                             </div>
@@ -301,15 +298,15 @@
                         <div class="col-md-6 inputs">
                             
                             <div class="col-md-5">
-                            <h4>Numero de telefono:</h4>
+                                <h4>#{msjGestec.numeroTelefono}</h4>
                             </div>
                             <div class="col-md-7">
                                 <h:inputText id="numTel" value="#{userController.telefono.numeroTelefono}" 
-                                             pt:placeholder="Ingrese numero de telefonos" 
+                                             pt:placeholder="#{msjGestec.ingreseTelefono}" 
                                              class="form-control"
                                              required="true"
-                                             requiredMessage="Ingrese un numero de telefono"
-                                             validatorMessage="El numero no es valido">
+                                             requiredMessage="#{msjGestec.ingreseTelefono}"
+                                             validatorMessage="#{msjGestec.numeroNoValido}">
                                     <f:validateLength minimum="7" maximum="12"/>
                                 </h:inputText>
                                 <h:message for="numTel" style="color:red" />
@@ -319,7 +316,7 @@
                         <div class="row">
                              <div class="col-md-6 inputs" >
                             <div class="col-md-5">
-                            <h4>Localidad</h4>
+                                <h4>#{msjGestec.localidad}</h4>
                             </div>
                             <div class="col-md-7">
                                
@@ -328,7 +325,7 @@
                                              style="margin-top:0"
                                              value="#{userController.numeroLocalidad}"
                                              required="true"
-                                             requiredMessage="Seleccione una localidad">
+                                             requiredMessage="#{msjGestec.seleccioneLocalidad}">
                              
                                 <c:forEach items="#{userController.localidades}" var="l">
                                     <f:selectItem itemLabel="#{l.nombreLocalidad}" itemValue="#{l.idLocalidad}"/>
@@ -342,7 +339,7 @@
                         
                         <div class="col-md-6 inputs">
                             <div class="col-md-5">
-                            <h4>Barrio</h4>
+                                <h4>#{msjGestec.barrio}</h4>
                             </div>
                             <div class="col-md-7">
                                 
@@ -365,13 +362,13 @@
                         </div>
                         <div class="col-md-6 inputs">
                         <div class="col-md-5">
-                            <h4>Indique un tipo de especialidad</h4>
+                            <h4>#{msjGestec.indiqueEspecialidad}</h4>
                         </div>
                         <div class="col-md-7">
                             <h:selectOneMenu id="especialidad" class="form-control" 
                                              value="#{userController.especialidad.especialidad}"
                                              required="true"
-                                             requiredMessage="Seleccione una especialidad">
+                                             requiredMessage="#{msjGestec.indiqueEspecialidad}">
                                 
                                 <f:selectItems value="#{userController.especialidad()}"/>
                             </h:selectOneMenu>
@@ -386,45 +383,45 @@
                         <div class="row">
                             <hr/>
                             <div class="col-md-12">
-                                <center><h4>Información general de dirección</h4></center>
+                                <center><h4>#{msjGestec.informacionDireccion}</h4></center>
                                 <br/>
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-3">
                                     <h:inputText id="tipoVia" value="#{userController.direccion.tipoVia}" 
-                                                 pt:placeholder="Tipo Via Ej:Calle" 
+                                                 pt:placeholder="#{msjGestec.tipoVia}" 
                                                  class="form-control"
                                                  required="true"
-                                                 requiredMessage="Campo Obligatorio"
-                                                 validatorMessage="No valido">
+                                                 requiredMessage="#{msjGestec.campoObligatorio}"
+                                                 validatorMessage="#{msjGestec.noValido}">
                                     <f:validateRegex pattern="[a-zA-Z]{1,15}"/>
                                     </h:inputText>
                                     <h:message for="tipoVia" style="color:red" styleClass="error"/>
                                 </div>
                                 <div class="col-md-3">
                                     <h:inputText id="numeroVia" value="#{userController.direccion.numeroVia}" 
-                                                 pt:placeholder="Numero de via" 
+                                                 pt:placeholder="#{msjGestec.numeroVia}" 
                                                  class="form-control"
                                                  required="true"
-                                                 requiredMessage="Campo Obligatorio"
-                                                 validatorMessage="numero no valido">
+                                                 requiredMessage="#{msjGestec.campoObligatorio}"
+                                                 validatorMessage="#{msjGestec.noValido}">
             <f:validateLength minimum="1" maximum="1000"/>
                                     </h:inputText>
                                     <h:message for="numeroVia" style="color:Red" styleClass="error"/>
                                 </div>
                                 <div class="col-md-3">
                                     <h:inputText id="complementoVia" value="#{userController.direccion.complementoVia}" 
-                                                 pt:placeholder="Complemento via ej:A" class="form-control"
+                                                 pt:placeholder="#{msjGestec.complementoVia}" class="form-control"
                                                  required="true"
-                                                 requiredMessage="Campo obligatorio"/>
+                                                 requiredMessage="#{msjGestec.campoObligatorio}"/>
                                     <h:message for="complementoVia" style="color:Red" styleClass="error"/>
                                 </div>
                                 <div class="col-md-3">
                                     <h:inputText id="numeroVia2" value="#{userController.direccion.numeroVia2}" 
-                                                 pt:placeholder="Numero via 2" class="form-control"
+                                                 pt:placeholder="#{msjGestec.numeroVia} 2" class="form-control"
                                                  required="true"
-                                                 requiredMessage="Campo Obligatorio"
-                                                 validatorMessage="Numero no valido">
+                                                 requiredMessage="#{msjGestec.campoObligatorio}"
+                                                 validatorMessage="#{msjGestec.noValido}">
                                          <f:validateLength minimum="1" maximum="1000"/>
                                          </h:inputText>
                                     <h:message for="numeroVia2" style="color:red" styleClass="error"/>
@@ -436,27 +433,27 @@
                              <div class="col-md-12 inputs">
                                 <div class="col-md-4">
                                     <h:inputText id="complementoVia2" value="#{userController.direccion.complementoVia2}" 
-                                                 pt:placeholder="Complemento via 2 ej:B" class="form-control"
+                                                 pt:placeholder="#{msjGestec.complementoVia2}" class="form-control"
                                                  required="true"
-                                                 requiredMessage="Campo obligatorio"/>
+                                                 requiredMessage="#{msjGestec.campoObligatorio}"/>
                                     <h:message for="complementoVia2" style="color:Red" styleClass="error"/>
                                 </div>
                                 <div class="col-md-4">
                                     <h:inputText id="numeroCasaa" value="#{userController.direccion.numeroCasa}" 
-                                                 pt:placeholder="Numero de casa" class="form-control"
+                                                 pt:placeholder="#{msjGestec.numeroCasa}" class="form-control"
                                                  required="true"
-                                                 requiredMessage="Campo obligatorio"
-                                                 validatorMessage="Numero no valido">
+                                                 requiredMessage="#{msjGestec.campoObligatorio}"
+                                                 validatorMessage="#{msjGestec.noValido}">
                                                  <f:validateLength minimum="1" maximum="1000"/>
                                     </h:inputText>
                                     <h:message for="numeroCasaa" style="color:red" styleClass="error"/>
                                 </div>
                                 <div class="col-md-4">
                                     <h:inputText id="complemento" value="#{userController.direccion.complemento}" 
-                                                 pt:placeholder="Complemento ej:Sur" class="form-control"
+                                                 pt:placeholder="#{msjGestec.complemento}" class="form-control"
                                                  required="true"
-                                                 requiredMessage="Campo obligatorio"
-                                                 validatorMessage="No valido">
+                                                 requiredMessage="#{msjGestec.campoObligatorio}"
+                                                 validatorMessage="#{msjGestec.noValido}">
                                         <f:validateRegex pattern="[a-zA-Z]{1,18}"/>
                                     </h:inputText>
                                     <h:message for="complemento" style="color:red" styleClass="error"/>
@@ -482,7 +479,7 @@
                         </p:panelGrid>
                     </p:dialog>
                
-                 <h:commandButton actionListener="#{userController.registrarUsuario()}" value="Registrar" class="btn btn-primary form-control"/>
+                    <h:commandButton actionListener="#{userController.registrarUsuario()}" value="#{msjGestec.registrar1}" class="btn btn-primary form-control"/>
                
                 </h:form>
                  <a href="#{request.contextPath}/faces/index.xhtml"><h:inputText value="#{msjGestec.volver}" class="btn btn-default form-control"></h:inputText></a>
@@ -492,7 +489,7 @@
                </c:if>
             <c:if test="#{userController.nuevoUsuario==true}">
             
-                 <div style="padding: 100px;margin-bottom: 25%;margin-top: 5%;">
+                 <div style="padding: 100px;margin-bottom: 25%;">
                 <div>
                     
                 </div>
@@ -501,7 +498,7 @@
                     <h:form style="border-radius: 25px;border: 1px solid gray">
                         <div style="padding: 10px 20px;">
                             <center><h3><h:graphicImage width="100" library="img" name="gestec.jpg"/>
-                                    Registro Completado exitosamente!</h3></center>
+                                    #{msjGestec.registroCompletado}!</h3></center>
                             <hr style="border: 1px solid black"/>
                             <div class="row">
                             <div class="col-md-6">
@@ -509,11 +506,11 @@
                                 <center><h:graphicImage width="100" library="img" name="buena.png"/></center>
                             </div>
                                 <div class="col-md-6">
-                                    <h3>Te hemos enviado un correo con la información de accesso</h3>
+                                    <h3>#{msjGestec.correoEnviado}</h3>
                                 </div>
                             </div>
                             <hr style="border: 1px solid black"/>
-                            <h:commandButton actionListener="#{userController.salir()}" class="btn btn-default form-control" value="salir"/>
+                            <h:commandButton actionListener="#{userController.salir()}" class="btn btn-default form-control" value="#{msjGestec.salir}"/>
                         </div>
                     </h:form>
                 </div>
