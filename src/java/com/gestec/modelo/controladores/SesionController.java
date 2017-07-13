@@ -259,7 +259,7 @@ public class SesionController implements Serializable {
 
     public Mensaje getUltimoMensaje() {
         return ultimoMensaje;
-    }  
+    }
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
 
@@ -304,8 +304,10 @@ public class SesionController implements Serializable {
             for (Solicitud solicitud : this.solicitudesUsuario) {
                 List<Mensaje> mensajes = mfl.listarMensajesCita(solicitud.getIdsolicitud());
                 int tam = mensajes.size() - 1;
-                if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado")) {
-                    cantidad++;
+                if (!getUsuario().getIdUsuario().equals(mensajes.get(tam).getUsuariosidUsuario().getIdUsuario())) {
+                    if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado")) {
+                        cantidad++;
+                    }
                 }
             }
         }
@@ -318,8 +320,10 @@ public class SesionController implements Serializable {
             for (Solicitud sol : this.solicitudesUsuario) {
                 List<Mensaje> mensajesT = mfl.listarMensajesCita(sol.getIdsolicitud());
                 int tam = mensajesT.size() - 1;
-                if (!mensajesT.isEmpty() && mensajesT.get(tam).getEstadoMensaje().equals("Enviado")) {
-                    cantidad++;
+                if (!getUsuario().getIdUsuario().equals(mensajesT.get(tam).getUsuariosidUsuario().getIdUsuario())) {
+                    if (!mensajesT.isEmpty() && mensajesT.get(tam).getEstadoMensaje().equals("Enviado")) {
+                        cantidad++;
+                    }
                 }
             }
         }
@@ -340,8 +344,8 @@ public class SesionController implements Serializable {
         }
         return solicitudesUsuario;
     }
-    
-    public void setUltimoMensaje(Solicitud solicitud){
+
+    public void setUltimoMensaje(Solicitud solicitud) {
         List<Mensaje> mnsjs = mfl.listarMensajesCita(solicitud.getIdsolicitud());
         int tam = mnsjs.size() - 1;
         this.ultimoMensaje = mnsjs.get(tam);
@@ -382,6 +386,13 @@ public class SesionController implements Serializable {
             return new DefaultStreamedContent(new ByteArrayInputStream(image));
 
         }
+    }
+
+    public String getEstiloMensaje() {
+        if (this.ultimoMensaje.getEstadoMensaje().equals("Visto")) {
+            return "notMensajesVistos";
+        }
+        return "notMensajes";
     }
 
     public StreamedContent getImagenPerfilExterno() throws IOException, SQLException {
@@ -555,7 +566,7 @@ public class SesionController implements Serializable {
             return fechaF;
         }
     }
-    
+
     public String formatearFechaMensaje(Date fecha) {
         SimpleDateFormat formato = new SimpleDateFormat("dd 'de' MMMM hh:mm a", new Locale("es", "CO"));
         String fechaF = formato.format(fecha);

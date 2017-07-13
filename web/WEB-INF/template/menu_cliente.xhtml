@@ -112,7 +112,9 @@
 
                 <li class="dropdown">               
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-danger">#{sesionGestec.cantidadMensajes}</span> 
+                        <c:if test="#{sesionGestec.cantidadMensajes!=0}">
+                            <span class="top-label label label-danger">#{sesionGestec.cantidadMensajes}</span> 
+                        </c:if>
                         <i class="fa fa-envelope-o fa-2x contNot"></i>                      
                     </a>                
                     <ul class="dropdown-menu dropdown-messages" style="width: 300px;left: -150px;margin-top: 15px;min-height:10px;max-height: 390px;overflow: auto">              
@@ -127,12 +129,11 @@
 
                         <c:forEach items="#{sesionGestec.mensajes}" var="msn">
                             #{sesionGestec.setUltimoMensaje(msn)}
-                            <c:if test="#{sesionGestec.ultimoMensaje.estadoMensaje!='Enviado'}">
-                                <div class="notMensajesVistos" style="padding: 10px;">
+                            <div class="#{sesionGestec.estiloMensaje}" style="padding: 10px;">
                             
                                 <div class="notificacionMensaje">
-                                    <p:graphicImage value="#{sesionGestec.imagenPerfil}" class="imagenNotificacion">
-                                        <f:param name="pid" value="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario}"/>
+                                    <p:graphicImage value="#{sesionGestec.imagenPerfil2}" class="imagenNotificacion">
+                                        <f:param name="pid2" value="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario}"/>
                                     </p:graphicImage>
                                 </div>
                                 <div>
@@ -143,45 +144,14 @@
                                     <br/><br/>
                                     <h:form>
                                         <h:commandLink style="margin-left: 10px;color: #045491"
-                                            value="#{sesionGestec.ultimoMensaje.mensaje}"/>
+                                            value="#{sesionGestec.ultimoMensaje.mensaje}"
+                                            action="#{citasRequest.verDetalleMensaje(msn)}"/>
                                     </h:form>
                                     <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaMensaje(sesionGestec.ultimoMensaje.fechaMensaje)}</h5>
                                 </div>
                             </div>
-                            </c:if>
-                            <c:if test="#{sesionGestec.ultimoMensaje.estadoMensaje=='Enviado'}">
-                                <div class="notMensajes" style="padding: 10px;">
                             
-                                <div class="notificacionMensaje">
-                                    <p:graphicImage value="#{sesionGestec.imagenPerfil}" class="imagenNotificacion">
-                                        <f:param name="pid" value="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario}"/>
-                                    </p:graphicImage>
-                                </div>
-                                <div>
-                                    <strong><span class=" label label-info">
-                                            #{sesionGestec.ultimoMensaje.usuariosidUsuario.nombreUsuario}
-                                            #{sesionGestec.ultimoMensaje.usuariosidUsuario.apellido}
-                                        </span></strong>
-                                    <br/><br/>
-                                    <h:form>
-                                        <h:commandLink style="margin-left: 10px;color: #045491"
-                                            value="#{sesionGestec.ultimoMensaje.mensaje}"/>
-                                    </h:form>
-                                    <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaMensaje(sesionGestec.ultimoMensaje.fechaMensaje)}</h5>
-                                </div>
-                            </div>
-                            </c:if>
                         </c:forEach>            
-                        <div class="notMensajes">
-                            <div class="notificacionMensaje">
-                                <img src="#{request.contextPath}/resources/img/tecnico5.jpg" alt="" class="imagenNotificacion"/>
-                            </div>
-                            <div>
-                                <strong><span class=" label label-info">Natalia ramirez</span></strong>
-                                <br/><br/><h5 class="mensajeCorto">#{msjGestec.men1}</h5>
-                                <h5 class="tiempoMensaje pull-right">#{msjGestec.tiempo2}</h5>
-                            </div>
-                        </div> 
 
                     </ul>
                 </li> <li class="dropdown"></li>

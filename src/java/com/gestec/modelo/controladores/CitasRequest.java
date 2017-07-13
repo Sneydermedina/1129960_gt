@@ -833,6 +833,16 @@ public class CitasRequest implements Serializable {
         ncfl.edit(not);
         redireccionar("/faces/gestec/cita/detalle_cita.xhtml?faces-redirect=true");
     }
+    
+    public void verDetalleMensaje(Solicitud solicitud) {
+        setCita(solicitud.getCitasList().get(0));
+        List<Mensaje> msjs = mfl.listarMensajesCita(solicitud.getIdsolicitud());
+        int t = msjs.size() - 1;
+        Mensaje m = msjs.get(t);
+        m.setEstadoMensaje("Visto");
+        mfl.edit(m);
+        redireccionar("/faces/gestec/cita/detalle_cita.xhtml?faces-redirect=true");
+    }
 
     public String contacto() {
         this.contacto = cita.getSolicitudIdsolicitud().getDireccionidDireccion().getUsuariosidUsuario().getNombreUsuario()
