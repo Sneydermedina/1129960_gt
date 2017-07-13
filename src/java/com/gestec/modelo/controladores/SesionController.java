@@ -297,10 +297,24 @@ public class SesionController implements Serializable {
     public Integer getCantidadMensajes(){
         Integer cantidad=0;
         if (getUsuario().getTipoUsuario().equals("Cliente")) {
-            
+            this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
+            for (Solicitud solicitud : this.solicitudesUsuario) {
+                List<Mensaje> mensajes = mfl.listarMensajesCita(solicitud.getIdsolicitud());
+                int tam = mensajes.size() - 1;
+                if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado")) {
+                    cantidad ++;
+                }
+            }
         }
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
-            
+            this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
+            for (Solicitud solicitud : this.solicitudesUsuario) {
+                List<Mensaje> mensajes = mfl.listarMensajesCita(solicitud.getIdsolicitud());
+                int tam = mensajes.size() - 1;
+                if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado")) {
+                    cantidad ++;
+                }
+            }
         }
         return cantidad;
     }
