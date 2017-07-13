@@ -121,6 +121,7 @@ public class SesionController implements Serializable {
         this.calfl.findAll();
         this.cfl.findAll();
         this.telfl.findAll();
+        this.solicitudesUsuario = new ArrayList<>();
         
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -307,11 +308,15 @@ public class SesionController implements Serializable {
             }
         }
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
-            this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
-            for (Solicitud solicitud : this.solicitudesUsuario) {
-                List<Mensaje> mensajes = mfl.listarMensajesCita(solicitud.getIdsolicitud());
-                int tam = mensajes.size() - 1;
-                if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado")) {
+            this.solicitudesUsuario.clear();
+            List<Mensaje> mensajes = mfl.listarMensajesUsuario(getUsuario().getIdUsuario());
+            for (Mensaje mnsj : mensajes) {
+                this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
+            }
+            for (Solicitud sol : this.solicitudesUsuario) {
+                List<Mensaje> mensajesT = mfl.listarMensajesCita(sol.getIdsolicitud());
+                int tam = mensajesT.size() - 1;
+                if (!mensajesT.isEmpty() && mensajesT.get(tam).getEstadoMensaje().equals("Enviado")) {
                     cantidad ++;
                 }
             }
