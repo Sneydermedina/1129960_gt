@@ -13,7 +13,8 @@
 
     <h:body onload="scrollDiv();">
 
-        <div id="top">           
+        <div id="top">  
+            #{sesionGestec.setPagina(0)}
             <ui:insert name="top"> 
                 <ui:include src="/WEB-INF/template/top.xhtml"/>
             </ui:insert>

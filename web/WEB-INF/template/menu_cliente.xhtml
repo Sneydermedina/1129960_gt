@@ -129,28 +129,51 @@
 
                         <c:forEach items="#{sesionGestec.mensajes}" var="msn">
                             #{sesionGestec.setUltimoMensaje(msn)}
-                            <div class="#{sesionGestec.estiloMensaje}" style="padding: 10px;">
-                            
-                                <div class="notificacionMensaje">
-                                    <p:graphicImage value="#{sesionGestec.imagenPerfil2}" class="imagenNotificacion">
-                                        <f:param name="pid2" value="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario}"/>
-                                    </p:graphicImage>
+                            <c:if test="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario != sesionGestec.usuario.idUsuario}">
+                                <div class="#{sesionGestec.estiloMensaje}" style="padding: 10px;">
+
+                                    <div class="notificacionMensaje">
+                                        <p:graphicImage value="#{sesionGestec.imagenPerfil2}" class="imagenNotificacion">
+                                            <f:param name="pid2" value="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario}"/>
+                                        </p:graphicImage>
+                                    </div>
+                                    <div>
+                                        <strong><span class=" label label-info">
+                                                #{sesionGestec.ultimoMensaje.usuariosidUsuario.nombreUsuario}
+                                                #{sesionGestec.ultimoMensaje.usuariosidUsuario.apellido}
+                                            </span></strong>
+                                        <br/><br/>
+                                        <h:form>
+                                            <h:commandLink style="margin-left: 10px;color: #045491"
+                                                           value="#{sesionGestec.ultimoMensaje.mensaje}"
+                                                           action="#{citasRequest.verDetalleMensaje(msn)}"/>
+                                        </h:form>
+                                        <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaMensaje(sesionGestec.ultimoMensaje.fechaMensaje)}</h5>
+                                    </div>
                                 </div>
-                                <div>
-                                    <strong><span class=" label label-info">
-                                            #{sesionGestec.ultimoMensaje.usuariosidUsuario.nombreUsuario}
-                                            #{sesionGestec.ultimoMensaje.usuariosidUsuario.apellido}
-                                        </span></strong>
-                                    <br/><br/>
-                                    <h:form>
-                                        <h:commandLink style="margin-left: 10px;color: #045491"
-                                            value="#{sesionGestec.ultimoMensaje.mensaje}"
-                                            action="#{citasRequest.verDetalleMensaje(msn)}"/>
-                                    </h:form>
-                                    <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaMensaje(sesionGestec.ultimoMensaje.fechaMensaje)}</h5>
+                            </c:if>
+
+                            <c:if test="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
+                                <div class="notMensajesVistos" style="padding: 10px;">
+
+                                    <div>
+                                        <div class="row" style="margin: 0">
+                                            <div class="col-md-1">
+                                                <strong><span class=" label label-info">Yo</span>
+                                                </strong>
+                                            </div>
+                                        <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaMensaje(sesionGestec.ultimoMensaje.fechaMensaje)}</h5>
+                                        </div>
+                                            <div class="col-md-12" style="padding: 0">
+                                                <h:form>
+                                                    <h:commandLink style="margin-top: 5px;margin-left: 10px;color: #045491;float: left"
+                                                                   value="#{sesionGestec.ultimoMensaje.mensaje}"
+                                                                   action="#{citasRequest.verDetalleMensaje(msn)}"/>
+                                                </h:form>
+                                            </div>
+                                    </div>
                                 </div>
-                            </div>
-                            
+                            </c:if>
                         </c:forEach>            
 
                     </ul>

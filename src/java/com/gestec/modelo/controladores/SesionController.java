@@ -104,6 +104,7 @@ public class SesionController implements Serializable {
     private List<Usuarios> listarUsuarios;
     private List<Solicitud> solicitudesUsuario;
     private Mensaje ultimoMensaje;
+    private Integer pagina;
 
     private Locale idiomaSeleccionado;
     private List<Locale> idiomasSoportados;
@@ -261,6 +262,15 @@ public class SesionController implements Serializable {
         return ultimoMensaje;
     }
 
+    public Integer getPagina() {
+        return pagina;
+    }
+
+    public void setPagina(Integer pagina) {
+        this.pagina = pagina;
+    }
+    
+
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
 
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
@@ -296,6 +306,7 @@ public class SesionController implements Serializable {
         }
         return cantidad;
     }
+    
 
     public Integer getCantidadMensajes() {
         Integer cantidad = 0;

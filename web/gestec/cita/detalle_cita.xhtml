@@ -10,6 +10,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="head2">
+        #{sesionGestec.setPagina(1)}
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/css/admin.css"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/css/alertify.css"/>
@@ -75,9 +76,6 @@
         </c:if>
     </ui:define>
 
-    <ui:define name="msj">
-        #{citasRequest.validarMensaje()}
-    </ui:define>
 
     <ui:define name="menu">
         <ui:include src="#{sesionGestec.dibujarMenu()}"/>
@@ -85,6 +83,7 @@
 
 
     <ui:define name="content">
+        
 
         <c:if test="#{citasRequest.cita.estadoCita=='Agendada'}">
 
@@ -242,7 +241,7 @@
                          border-top: 0;padding-top: 0;">
                         <h:form>
                             <h:panelGroup id="mnsj">
-                                <p:poll interval="1" update="mnsj"/>
+                                <p:poll interval="2" update="mnsj"/>
 
                                 <div style="border:none;margin-bottom: 15px;">
                                     <div>
