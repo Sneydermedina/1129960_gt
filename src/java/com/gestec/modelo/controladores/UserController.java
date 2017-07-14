@@ -407,22 +407,29 @@ public class UserController implements Serializable{
     }
     public ArrayList<SelectItem> genero(){
         ArrayList lista = new ArrayList();
-        
-        lista.add(new SelectItem(null,"Seleccione su genero"));
-        lista.add(new SelectItem("Masculino","Masculino"));
-        lista.add(new SelectItem("Femenino", "Femenino"));
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ResourceBundle bundle = fc.getApplication().getResourceBundle(fc, "msjGestec");
+        String msjGestec = null;
+        msjGestec = bundle.getString("indiqueGenero");
+        lista.add(new SelectItem(null,msjGestec));
+        lista.add(new SelectItem("Masculino",bundle.getString("masculino")));
+        lista.add(new SelectItem("Femenino", bundle.getString("femenino")));
 
-        lista.add(new SelectItem("Otro","Otro"));
+        lista.add(new SelectItem("Otro",bundle.getString("otro")));
         
         return lista;
     }
     public ArrayList<SelectItem> especialidad(){
         ArrayList lista = new ArrayList();
-        lista.add(new SelectItem(null,"Con que especialidad se identifica"));
-        lista.add(new SelectItem("Diagnostico","Diagnostico"));
-        lista.add(new SelectItem("Instalacion","Instalacion"));
-        lista.add(new SelectItem("Mantenimiento","Mantenimiento"));
-        lista.add(new SelectItem("Ninguna","Ninguna"));
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ResourceBundle bundle = fc.getApplication().getResourceBundle(fc, "msjGestec");
+        String msjGestec = null;
+        msjGestec = bundle.getString("seleccioneEspecialidad");
+        lista.add(new SelectItem(null,msjGestec));
+        lista.add(new SelectItem("Diagnostico",bundle.getString("diagnostico")));
+        lista.add(new SelectItem("Instalacion",bundle.getString("instalacion")));
+        lista.add(new SelectItem("Mantenimiento",bundle.getString("mantenimiento")));
+        lista.add(new SelectItem("Ninguna",bundle.getString("ninguna")));
         
         return lista;
     }
@@ -432,28 +439,36 @@ public class UserController implements Serializable{
     public void validarCorreo(FacesContext context,UIComponent toValidate,Object value){
         context = FacesContext.getCurrentInstance();
         String texto=(String) value;
+        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msjGestec");
+        FacesMessage msjGestec=null;
         
         if (texto.isEmpty()) {
             ((UIInput)toValidate).setValid(false);
-            context.addMessage(toValidate.getClientId(context),new FacesMessage("Direccion de correo electronica obligatoria"));
+            msjGestec = new FacesMessage(bundle.getString("bundle4"));
+            context.addMessage(toValidate.getClientId(context),msjGestec);
         }
         
         for (Usuarios correos : ufl.findAll()) {
             correos.getCorreo();
+            msjGestec = new FacesMessage(bundle.getString("bundle3"));
             if (texto.equals(correos.getCorreo())) {
                 ((UIInput)toValidate).setValid(false);
-                context.addMessage(toValidate.getClientId(context), new FacesMessage("El correo electronico ya existe"));
+                context.addMessage(toValidate.getClientId(context),msjGestec);
             }
         }
     }
     public void validarNombre(FacesContext context,UIComponent toValidate,Object value){
         context = FacesContext.getCurrentInstance();
         String texto = (String) value;
-        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msj");
-        FacesMessage msj=null;
+        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msjGestec");
+        
+        FacesMessage msjGestec=null;
+    
+        
         if (texto.isEmpty()) {
             ((UIInput)toValidate).setValid(false);
-            context.addMessage(toValidate.getClientId(context), new FacesMessage("Nombre de usuario obligatorio"));
+            msjGestec=new FacesMessage(bundle.getString("bundle2"));
+            context.addMessage(toValidate.getClientId(context), msjGestec);
         }
         for (Usuarios users : ufl.findAll()) {
             users.getNombreUsuario();
@@ -461,8 +476,10 @@ public class UserController implements Serializable{
             if (texto.equals(users.getNombreUsuario())) {
                 ((UIInput)toValidate).setValid(false);
                 //msj = new FacesMessage(bundle.getLocale().getLanguage().concat());
-                context.addMessage(toValidate.getClientId(context), new FacesMessage("El nombre de usuario ya existe!"));
+                msjGestec = new FacesMessage(bundle.getString("bundle1"));
+                context.addMessage(toValidate.getClientId(context), msjGestec);
                 texto="";
+               // msjGestec = new FacesMessage(FacesMessage.SEVERITY_INFO,bundle.getString("registrar"),texto); 
                 
             }
         }
@@ -471,15 +488,19 @@ public class UserController implements Serializable{
     public void validarContrasena(FacesContext context, UIComponent toValidate, Object value){
         context = FacesContext.getCurrentInstance();
         String texto = (String) value;
+        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msjGestec");
+        FacesMessage msjGestec=null;
         
         if (texto.isEmpty()) {
             ((UIInput)toValidate).setValid(false);
-            context.addMessage(toValidate.getClientId(context), new FacesMessage("Este campo es obligatorio"));
+            msjGestec = new FacesMessage(bundle.getString("bundle5"));
+            context.addMessage(toValidate.getClientId(context), msjGestec);
         }
         
         else if (!texto.equals(con2)) {
             ((UIInput)toValidate).setValid(false);
-            context.addMessage(toValidate.getClientId(context), new FacesMessage("Las contraseña no coincide"));
+            msjGestec = new FacesMessage(bundle.getString("bundle6"));
+            context.addMessage(toValidate.getClientId(context), msjGestec);
         }
         
         
@@ -487,16 +508,20 @@ public class UserController implements Serializable{
     public void validarDocumento(FacesContext context,UIComponent toValidate,Object value){
         context = FacesContext.getCurrentInstance();
         String texto = (String) value;
+        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msjGestec");
         
+        FacesMessage msjGestec=null;
         if (texto.isEmpty()) {
             ((UIInput)toValidate).setValid(false);
-            context.addMessage(toValidate.getClientId(context), new FacesMessage("Este campo es requerido"));
+            msjGestec = new FacesMessage(bundle.getString("bundle5"));
+            context.addMessage(toValidate.getClientId(context), msjGestec);
         }
         for (Usuarios doc : ufl.findAll()) {
             doc.getDocumento();
             if (texto.equals(doc.getDocumento())) {
+                msjGestec = new FacesMessage(bundle.getString("bundle7"));
                 ((UIInput)toValidate).setValid(false);
-                context.addMessage(toValidate.getClientId(context), new FacesMessage("El documento ya existe!"));
+                context.addMessage(toValidate.getClientId(context), msjGestec);
             }
         }
     }
@@ -506,14 +531,18 @@ public class UserController implements Serializable{
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date fecha = sdf.parse("2000-01-01");
+        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msjGestec");
         
+        FacesMessage msjGestec = null;
         if (texto == null){
             ((UIInput)toValidate).setValid(false);
-            context.addMessage(toValidate.getClientId(context), new FacesMessage("Seleccione una fecha"));
+            msjGestec = new FacesMessage(bundle.getString("bundle8"));
+            context.addMessage(toValidate.getClientId(context), msjGestec);
         }
         else if (texto.after(fecha)) {
             ((UIInput)toValidate).setValid(false);
-            context.addMessage(toValidate.getClientId(context), new FacesMessage("La fecha debe ser inferior a 2000-01-01"));
+            msjGestec = new FacesMessage(bundle.getString("bundle9"));
+            context.addMessage(toValidate.getClientId(context), msjGestec);
         }
     }
     /*    public void validarCorreo(FacesContext context, UIComponent toValidate, Object value){

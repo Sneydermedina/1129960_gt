@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -496,9 +497,11 @@ public class SesionController implements Serializable {
 
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
+        ResourceBundle bundle = fc.getApplication().getResourceBundle(fc, "msjGestec");
         FacesMessage msj = new FacesMessage();
         String url = "";
-
+        String msjGestec = null;
+        
         if (this.nombreUsuario != null && !this.nombreUsuario.equals("")
                 && this.contrasena != null && !this.contrasena.equals("")) {
             this.usuario = ufl.iniciarSesion(nombreUsuario, contrasena);
@@ -518,10 +521,10 @@ public class SesionController implements Serializable {
                         break;
                 }
             } else {
-                msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Datos incorrectos", "Confirme que sus datos sean correctos");
+                msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("datosIncorrectos"), "Confirme que sus datos sean correctos");
             }
         } else {
-            msj = new FacesMessage(FacesMessage.SEVERITY_WARN, "Todos los campos son obligatorios", "Debe ingresar todos los campos");
+            msj = new FacesMessage(FacesMessage.SEVERITY_WARN, bundle.getString("camposObligatorios"), "Debe ingresar todos los campos");
 
         }
         fc.addMessage(null, msj);
