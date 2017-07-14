@@ -133,7 +133,6 @@
                             </h:form>
                         </div>
                         
-                        <h:form>
                             <c:forEach items="#{sesionGestec.mensajes}" var="msn">
                             #{sesionGestec.setUltimoMensaje(msn)}
                             <c:if test="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario != sesionGestec.usuario.idUsuario}">
@@ -182,7 +181,6 @@
                                 </div>
                             </c:if>
                         </c:forEach>
-                        </h:form>
                         
                     </ul>
                 </li> <li class="dropdown"></li>

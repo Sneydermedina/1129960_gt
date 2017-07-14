@@ -111,6 +111,7 @@
                             <h:inputText id="cantEquipos"
                                          class="form-control" 
                                          maxlength="4"
+                                         onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
                                          required="true"
                                          requiredMessage="Mínimo 1 equipo"
                                          value="#{citasRequest.cantidadEquipos}"/>

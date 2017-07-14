@@ -213,16 +213,21 @@
                                 </h5>
 
                                 <h:form>
+                                    <c:if test="#{sesionGestec.usuario.tipoUsuario=='Cliente'}">
                                     <h:commandLink class="enlace-perfil" style="margin-left: 10px" target="_blank"
-                                                   actionListener="#{sesionGestec.verPerfil(citasRequest.obtenerContacto())}">
-                                        <c:if test="#{sesionGestec.usuario.tipoUsuario=='Tecnico'}">
-                                            <strong>#{citasRequest.contacto()}</strong>
-                                        </c:if>
-                                        <c:if test="#{sesionGestec.usuario.tipoUsuario=='Cliente'}">
+                                                   actionListener="#{sesionGestec.verPerfil(citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario)}">
                                             <strong>#{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.nombreUsuario}</strong>
                                             <strong>#{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.apellido}</strong>
-                                        </c:if>
                                     </h:commandLink>
+                                        </c:if>
+                                    <c:if test="#{sesionGestec.usuario.tipoUsuario=='Tecnico'}">
+                                        <h:commandLink class="enlace-perfil" style="margin-left: 10px" target="_blank"
+                                                       actionListener="#{sesionGestec.verPerfil(citasRequest.obtenerContacto())}">
+                                            <strong>#{citasRequest.obtenerContacto().nombreUsuario}</strong>                                 
+                                            <strong>#{citasRequest.obtenerContacto().apellido}</strong>                                 
+                                        </h:commandLink>
+                                    </c:if>
+                                    
                                 </h:form>
                                 <h5 class='tiempoMensaje' style="padding: 3px 5px;margin-left: 7px"><strong>Vive en: </strong> 
                                     <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
