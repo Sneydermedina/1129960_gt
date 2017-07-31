@@ -270,7 +270,6 @@ public class SesionController implements Serializable {
     public void setPagina(Integer pagina) {
         this.pagina = pagina;
     }
-    
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
 
@@ -297,7 +296,12 @@ public class SesionController implements Serializable {
         this.notificaciones = nfl.listarMisNotificaciones(getUsuario().getIdUsuario());
         for (NotificacionCita not : getNotificacionesCitaUsuario()) {
             if (not.getEstadoNotificacion().equals("Enviado")) {
-                cantidad++;
+                if (getUsuario().getTipoUsuario().equals("Cliente") && not.getIdNotificacion().getIdNotificacion().equals(7)) {
+                    cantidad++;
+                }
+                if (getUsuario().getTipoUsuario().equals("Tecnico") && not.getIdNotificacion().getIdNotificacion().equals(5)) {
+                    cantidad++;
+                }
             }
         }
         for (NotificacionUsuario notUsu : this.notificaciones) {
@@ -307,7 +311,6 @@ public class SesionController implements Serializable {
         }
         return cantidad;
     }
-    
 
     public Integer getCantidadMensajes() {
         Integer cantidad = 0;
@@ -318,6 +321,7 @@ public class SesionController implements Serializable {
                 int tam = mensajes.size() - 1;
                 if (!getUsuario().getIdUsuario().equals(mensajes.get(tam).getUsuariosidUsuario().getIdUsuario())) {
                     if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado")) {
+
                         cantidad++;
                     }
                 }
@@ -354,6 +358,7 @@ public class SesionController implements Serializable {
             for (Mensaje mnsj : mensajes) {
                 this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
             }
+
         }
         return solicitudesUsuario;
     }
@@ -502,7 +507,7 @@ public class SesionController implements Serializable {
         FacesMessage msj = new FacesMessage();
         String url = "";
         String msjGestec = null;
-        
+
         if (this.nombreUsuario != null && !this.nombreUsuario.equals("")
                 && this.contrasena != null && !this.contrasena.equals("")) {
             this.usuario = ufl.iniciarSesion(nombreUsuario, contrasena);
