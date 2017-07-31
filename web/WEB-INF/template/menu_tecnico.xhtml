@@ -268,16 +268,7 @@
                         <c:if test="#{sesionGestec.notificacionesCitaUsuario.size()>0}">
                             <c:forEach items="#{sesionGestec.notificacionesCitaUsuario}" var="nc">
                                 <c:if test="#{nc.estadoNotificacion=='Visto'}">
-                                    <c:if test="#{nc.idNotificacion.idNotificacion==2}">
-                                        <div class="notMensajes" style="background: #fff">
-                                            <div>
-                                                <br/><br/><h5 class="mensajeCorto">#{nc.idNotificacion.notificacion}</h5>
-                                                <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(nc.fechaNotificacion)}</h5>
-                                            </div>
-                                        </div>
-
-                                    </c:if>
-                                    <c:if test="#{nc.idNotificacion.idNotificacion!=2}">
+                                    <c:if test="#{nc.idNotificacion.idNotificacion==5}">
                                         <div class="notMensajes" style="background: #fff">
                                             <div class="notificacionMensaje">
                                                 <img src="#{request.contextPath}/resources/img/tecnico5.jpg" alt="" class="imagenNotificacion"/>
@@ -298,21 +289,7 @@
                                     </c:if>
                                 </c:if>
                                 <c:if test="#{nc.estadoNotificacion=='Enviado'}">
-                                    <c:if test="#{nc.idNotificacion.idNotificacion==2}">
-                                        <div class="notMensajes" style="background: #ddd">
-                                            <div>
-                                                <br/><br/><h5 class="mensajeCorto">
-                                                    <h:form>
-                                                        <h:commandLink actionListener="#{citasRequest.verDetalleNotificacion(nc.idCita,nc)}"
-                                                                       class="enlace-perfil"
-                                                                       value="#{nc.idNotificacion.notificacion}"/>
-                                                    </h:form>
-                                                </h5>
-                                            </div>
-                                        </div>
-
-                                    </c:if>
-                                    <c:if test="#{nc.idNotificacion.idNotificacion!=2}">
+                                    <c:if test="#{nc.idNotificacion.idNotificacion==5}">
                                         <div class="notMensajes" style="background: #ddd">
                                             <div class="notificacionMensaje">
                                                 <img src="#{request.contextPath}/resources/img/tecnico5.jpg" alt="" class="imagenNotificacion"/>
