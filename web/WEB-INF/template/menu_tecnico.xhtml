@@ -114,16 +114,13 @@
                     </span></li>
 
                 <li class="dropdown">               
-                    <h:form>
-                        <p:poll interval="2" update="etMensajes"/>
-                        <h:panelGroup id="etMensajes">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="top-label label label-danger">#{sesionGestec.cantidadMensajes}</span> 
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <c:if test="#{sesionGestec.cantidadMensajes!=0}">
+                            <span class="top-label label label-danger">#{sesionGestec.cantidadMensajes}</span> 
+                        </c:if>
                         <i class="fa fa-envelope-o fa-2x contNot"></i>                      
-                    </a> 
-                    </h:panelGroup>   
-                    </h:form>            
-                    <ul class="dropdown-menu dropdown-messages" style="width: 300px;left: -150px;margin-top: 15px">              
+                    </a>                
+                    <ul class="dropdown-menu dropdown-messages" style="width: 300px;left: -150px;margin-top: 15px;min-height:10px;max-height: 390px;overflow: auto">              
 
                         <div class="row" style="border-bottom: 1px solid #ccc;padding: 3px 0 1px 0;margin: 0">
                             <h:form>
@@ -132,7 +129,8 @@
                                                value=" marcar todas como leídas"/> 
                             </h:form>
                         </div>
-                        
+
+                        <c:if test="#{sesionGestec.cantidadMensajes != 0}">
                             <c:forEach items="#{sesionGestec.mensajes}" var="msn">
                             #{sesionGestec.setUltimoMensaje(msn)}
                             <c:if test="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario != sesionGestec.usuario.idUsuario}">
@@ -180,8 +178,16 @@
                                     </div>
                                 </div>
                             </c:if>
-                        </c:forEach>
+                        </c:forEach>            
+                        </c:if>
                         
+                        <c:if test="#{sesionGestec.cantidadMensajes==0}">
+                            <center style="padding: 10px 0 5px 0">
+                                <span class="fa fa-envelope-o" style="font-size: 150px"></span>
+                                <h4>No tienes mensajes</h4>
+                            </center>
+                        </c:if>
+
                     </ul>
                 </li> <li class="dropdown"></li>
 

@@ -54,7 +54,6 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
-import sun.util.logging.PlatformLogger;
 
 
 /**

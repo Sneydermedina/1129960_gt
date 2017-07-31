@@ -127,7 +127,8 @@
                             </h:form>
                         </div>
 
-                        <c:forEach items="#{sesionGestec.mensajes}" var="msn">
+                        <c:if test="#{sesionGestec.cantidadMensajes != 0}">
+                            <c:forEach items="#{sesionGestec.mensajes}" var="msn">
                             #{sesionGestec.setUltimoMensaje(msn)}
                             <c:if test="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario != sesionGestec.usuario.idUsuario}">
                                 <div class="#{sesionGestec.estiloMensaje}" style="padding: 10px;">
@@ -175,6 +176,14 @@
                                 </div>
                             </c:if>
                         </c:forEach>            
+                        </c:if>
+                        
+                        <c:if test="#{sesionGestec.cantidadMensajes==0}">
+                            <center style="padding: 20px 0 5px 0">
+                                <span class="fa fa-envelope-o" style="font-size: 150px"></span>
+                                <h4>No tienes mensajes</h4>
+                            </center>
+                        </c:if>
 
                     </ul>
                 </li> <li class="dropdown"></li>

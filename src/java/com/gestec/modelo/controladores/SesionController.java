@@ -350,6 +350,7 @@ public class SesionController implements Serializable {
             List<Mensaje> mensajes;
             this.solicitudesUsuario.clear();
             mensajes = mfl.listarMensajesUsuario(getUsuario().getIdUsuario());
+            mensajes.remove(0);
             for (Mensaje mnsj : mensajes) {
                 this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
             }
