@@ -839,7 +839,9 @@ public class CitasRequest implements Serializable {
         List<Mensaje> msjs = mfl.listarMensajesCita(solicitud.getIdsolicitud());
         int t = msjs.size() - 1;
         Mensaje m = msjs.get(t);
-        m.setEstadoMensaje("Visto");
+        if (!m.getUsuariosidUsuario().getIdUsuario().equals(sesion.getUsuario().getIdUsuario())) {      
+            m.setEstadoMensaje("Visto");
+        }
         mfl.edit(m);
         redireccionar("/faces/gestec/cita/detalle_cita.xhtml?faces-redirect=true");
     }
