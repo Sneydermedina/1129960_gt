@@ -12,6 +12,8 @@
     <ui:define name="head2">
         <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        
+        <script type="text/javascript" src="#{request.contextPath}/resources/js/jquery.js" ></script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
@@ -38,10 +40,10 @@
 
     <ui:define name="content2">
 
-        <h:form prependId="false">
             <div class="container">
-
                 <div class="db" style="margin-bottom: 20px">
+        <h:form prependId="false">
+
                     <h3 style="text-align: center"><strong>#{msjGestec.datos1}</strong></h3>
                     <hr style="border-top-color: #999 "/>
                     <div class="form-group col-md-6">
@@ -226,6 +228,8 @@
                                      requiredMessage="#{msjGestec.editarp9}"/>
                         <h:message for="nombreU" style="color:red"  styleClass="error"></h:message>
                     </div>
+                    
+                    </h:form>
                     <h4 class="col-md-12" style="margin-top: 20px"><strong>#{msjGestec.contra}: </strong></h4>
                     <hr class="col-md-12" style="border-top-color: #999"/>
                     <div class="form-group col-md-12">
@@ -360,11 +364,21 @@
 
 
 
-
+                <h:form prependId="false">
                 <h3 style="text-align: center;margin-bottom: 0" class="col-md-12 col-sm-12 col-xs-12"><strong>#{msjGestec.zonaRoja}</strong></h3>
                 <hr class="col-md-12" style="border-top-color: #999"/>
-
-                <button class="btn btn-danger col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px"><span class="fa fa-lock"></span> &nbsp;#{msjGestec.desactivarCuenta}</button>
+                
+                <button type="button" class="btn btn-danger col-md-12 col-sm-12 col-xs-12" 
+                        style="margin-bottom: 10px"
+                        data-toggle="modal" data-target="#MyModalBloquear"><span class="fa fa-lock"></span> 
+                    <f:ajax event="click" listener="#{sesionGestec.setUsuario(usuario)}" render="nombreActualizar"/>&nbsp;#{msjGestec.desactivarCuenta}
+                    
+                </button>
+                
+              
+                
+                </h:form>
+                
                 <label for="contrasena" class="col-md-12 col-sm-12 col-xs-12">#{msjGestec.reportarQueja}</label>
                 <textarea placeholder="#{msjGestec.escribasuquejaoreclamo}" class="col-md-12 col-sm-12 col-xs-12 form-control" ></textarea>
 
@@ -380,10 +394,34 @@
 
                     </div>
                 </div>
+                
+                <div id="MyModalBloquear" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Desactivar Cuenta</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h:panelGroup id="nombreActualizar">
+                                    <p>¿Esta seguro que desea desactivar su cuenta?
+                                        <br/>Puede comunicarse con el administrador para re activar su cuenta</p> 
+                                </h:panelGroup>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                <h:form>
+                                    <h:commandButton actionListener="#{sesionGestec.bloquearCuenta()}" value="Desactivar Cuenta"
+                                                     class="btn btn-danger pull-right"/>
+                                </h:form>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
 
+                
             </div> 
-        </h:form>
-
+        
     </ui:define>
 
 </ui:composition>

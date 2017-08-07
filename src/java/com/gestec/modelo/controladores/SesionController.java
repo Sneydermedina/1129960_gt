@@ -106,6 +106,7 @@ public class SesionController implements Serializable {
     private List<Solicitud> solicitudesUsuario;
     private Mensaje ultimoMensaje;
     private Integer pagina;
+    private String estado;
 
     private Locale idiomaSeleccionado;
     private List<Locale> idiomasSoportados;
@@ -269,6 +270,17 @@ public class SesionController implements Serializable {
 
     public void setPagina(Integer pagina) {
         this.pagina = pagina;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    public void estado(){
+        this.estado=usuario.getEstadoUsuario();
     }
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
@@ -511,6 +523,10 @@ public class SesionController implements Serializable {
                 && this.contrasena != null && !this.contrasena.equals("")) {
             this.usuario = ufl.iniciarSesion(nombreUsuario, contrasena);
             if (usuario != null) {
+                estado();
+                if (estado.equals("1")){
+                
+                
                 ec.getSessionMap().put("user", usuario);
                 switch (usuario.getTipoUsuario()) {
                     case "Administrador":
@@ -524,6 +540,11 @@ public class SesionController implements Serializable {
                         break;
                     default:
                         break;
+                }
+                }else{
+                    msj = new FacesMessage(FacesMessage.SEVERITY_WARN,bundle.getString("userInactivo"),"Usuario no disponible");
+                    usuario.setNombreUsuario("");
+                    usuario.setContrasenaUsuario("");
                 }
             } else {
                 msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, bundle.getString("datosIncorrectos"), "Confirme que sus datos sean correctos");
@@ -786,5 +807,11 @@ public class SesionController implements Serializable {
         }
         return "";
     }
-
+    public void bloquearCuenta(){
+        this.usuario.setEstadoUsuario("0");
+        this.ufl.edit(usuario);
+        redireccionar("/faces/index.xhtml?faces-redirect=true");
+    }
+    
+   
 }

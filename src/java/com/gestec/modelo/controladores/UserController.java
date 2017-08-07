@@ -669,4 +669,6 @@ public class UserController implements Serializable{
     public void mensaje(){
         System.out.println("Buena");
     }
+    
+    
 }
