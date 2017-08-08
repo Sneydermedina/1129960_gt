@@ -8,6 +8,7 @@ package com.gestec.modelo.persistencia;
 import com.gestec.modelo.entidades.Calificacion;
 import java.util.List;
 import javax.ejb.Local;
+import com.gestec.modelo.entidades.Usuarios;
 
 /**
  *
@@ -30,4 +31,5 @@ public interface CalificacionFacadeLocal {
 
     int count();
     
+   Object findByUser(int idUser);
 }

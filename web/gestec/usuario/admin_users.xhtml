@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"               
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head2">
+        #{sesionGestec.bloquearCliente()}
+        #{sesionGestec.bloquearTecnico()}
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>     
+    </ui:define>
+
+    <ui:define name="titulo">
+
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">Gestion de usuarios</f:view>
+
+    </ui:define>
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="col-md-12 inicio">
+            <div class="col-md-12 encabezado">
+             
+                <table id="table" data-click-to-select="true" class="table" data-toggle="table" data-show-refresh="true" 
+               data-sort-name="Numero" data-sort-order="desc" data-show-toggle="true" data-show-columns="true" 
+               data-show-pagination-switch="true" data-search="true" data-pagination="true" 
+               data-detail-formatter="detailFormatter" style="border-left:1px solid#ccc;border-right:1px solid#ccc">
+                    <thead>
+                <tr>
+                    <th data-checkbox="true"></th>
+                    <th data-align="left" data-sortable="true" data-field="numero">Nombre de usuario</th>
+                    <th data-align="left" data-sortable="true" data-field="id" data-switchable="false">Apellido Usuario</th>
+                    <th data-align="left" data-sortable="true" data-field="apellido">Correo electronico</th>
+                    <th data-align="left" data-sortable="true" data-field="nombre" data-visible="false">Tipo rol</th>
+
+                    <th data-align="left" data-sortable="true" data-field="telefono" data-visible="true">Calificacion</th>
+
+                    <th data-align="left" data-sortable="true" data-field="true" data-visible="true">Estado</th>
+                </tr>
+            </thead>
+                    
+                    <tbody>
+                        <c:forEach items="#{userController.listarUsuarios}" var="u">
+                            <tr>
+                                <td></td>
+                                <td>#{u.nombreUsuario}</td>
+                                <td>#{u.apellido}</td>
+                                <td>#{u.correo}</td>
+                                <td>#{u.tipoUsuario}</td>
+                                
+                                <td>
+                                    #{userController.cal(u.idUsuario)}
+                                <c:if test="#{cal==5}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </c:if>
+                                <c:if test="#{cal==4.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-half-empty"></span>
+                                </c:if>
+                                <c:if test="#{cal==4}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==3.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-half-empty"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==3}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==2.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-half-empty"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==2}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==1.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-half-empty"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==1}">
+                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==0.5}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star-half-empty"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                                <c:if test="#{cal==0}">
+                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                    <span class="fa fa-star-o"></span>
+                                </c:if>
+                           
+                                    </td>
+                                
+                                <td>
+                                    <c:if test="#{u.estadoUsuario==1}">
+                                        <h:form prependId="false">
+                                        <h:commandButton class="btn btn-success" value="Activo"/>
+                                        <h:commandButton class="btn btn-default" value="Inactivo"/>
+                                        </h:form>                        
+                                    </c:if>
+                                    <c:if test="#{u.estadoUsuario==0}">
+                                        <h:form prependId="false">
+                                            <h:commandButton class="btn btn-default" value="Activo" actionListener="#{sesionGestec.activar(u)}"/>
+                                        <h:commandButton class="btn btn-danger" value="Inactivo"/>
+                                        </h:form>
+                                    </c:if>    
+                                        
+                                </td>
+                                
+                            </tr>
+                        </c:forEach>
+                        
+                    </tbody>
+                        
+                    <tfoot>
+                        
+                    </tfoot>
+                </table>
+                
+            </div>
+            
+        </div>
+        
+
+    </ui:define>
+
+    <ui:define name="bottom">
+
+    </ui:define>
+
+
+
+</ui:composition>
+

@@ -812,6 +812,12 @@ public class SesionController implements Serializable {
         this.ufl.edit(usuario);
         redireccionar("/faces/index.xhtml?faces-redirect=true");
     }
-    
+     public void activar(Usuarios u){
+        this.usuario.setEstadoUsuario("1");
+        System.out.println(usuario.getIdUsuario()+" "+usuario.getEstadoUsuario());
+        this.ufl.edit(usuario);
+        System.out.println(usuario.getEstadoUsuario());
+        redireccionar("/faces/gestec/usuario/admin_users.xhtml?faces-redirect=true");
+    }
    
 }

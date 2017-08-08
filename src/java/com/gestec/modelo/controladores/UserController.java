@@ -105,6 +105,8 @@ public class UserController implements Serializable{
     private String con;
     private String con2;
     private Boolean nuevoUsuario;
+    private List<Usuarios> listarUsuarios;
+    private double cali;
 
     @PostConstruct
     public void init(){
@@ -129,6 +131,8 @@ public class UserController implements Serializable{
         this.contactos.setIdUsuario(new Usuarios());
         this.contactos.setIdContacto(new Usuarios());
         this.nuevoUsuario=false;
+        this.listarUsuarios = ufl.findAll();
+        this.cali = 1;
     }
     public UsuariosFacadeLocal getUfl() {
         return ufl;
@@ -361,6 +365,23 @@ public class UserController implements Serializable{
     public void setNuevoUsuario(Boolean nuevoUsuario) {
         this.nuevoUsuario = nuevoUsuario;
     }
+
+    public List<Usuarios> getListarUsuarios() {
+        return listarUsuarios;
+    }
+
+    public void setListarUsuarios(List<Usuarios> listarUsuarios) {
+        this.listarUsuarios = listarUsuarios;
+    }
+
+    public double getCali() {
+        return cali;
+    }
+
+    public void setCali(double cali) {
+        this.cali = cali;
+    }
+    
     
 
 
@@ -670,5 +691,29 @@ public class UserController implements Serializable{
         System.out.println("Buena");
     }
     
+    public double cal(int usuario){
+        this.cali=(Integer)calfl.findByUser(usuario);
+        System.out.println(calfl.findByUser(usuario));
+        return cali;
+    }
     
+    /*public List<Double> getCalificaciones() {
+        
+        List<Double> puntos = new ArrayList<>();
+        List<Relcalificacionusuarios> calificaciones = getUsuarios().getRelcalificacionusuariosList();
+        for (Relcalificacionusuarios calificacion : calificaciones) {
+            puntos.add(calificacion.getCalificacionIdcalificacion().getCalificacion());
+        }
+        return puntos;
+    }*/
+    
+    public void activar(Usuarios u){
+        this.usuarios.setEstadoUsuario("1");
+        System.out.println(usuarios.getIdUsuario()+" "+usuarios.getEstadoUsuario());
+        this.ufl.edit(usuarios);
+        System.out.println(usuarios.getEstadoUsuario());
+        redireccionar("/faces/gestec/usuario/admin_users?faces-redirect=true");
+    }
+    
+  
 }

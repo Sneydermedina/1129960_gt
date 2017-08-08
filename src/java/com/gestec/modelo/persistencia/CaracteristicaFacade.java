@@ -29,4 +29,5 @@ public class CaracteristicaFacade extends AbstractFacade<Caracteristica> impleme
         super(Caracteristica.class);
     }
     
+    
 }
