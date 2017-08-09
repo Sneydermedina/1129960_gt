@@ -105,8 +105,9 @@ public class UserController implements Serializable{
     private String con;
     private String con2;
     private Boolean nuevoUsuario;
-    private List<Usuarios> listarUsuarios;
+    
     private double cali;
+    private List<Relcalificacionusuarios> listarGeneral;
 
     @PostConstruct
     public void init(){
@@ -131,8 +132,9 @@ public class UserController implements Serializable{
         this.contactos.setIdUsuario(new Usuarios());
         this.contactos.setIdContacto(new Usuarios());
         this.nuevoUsuario=false;
-        this.listarUsuarios = ufl.findAll();
+        
         this.cali = 1;
+        this.listarGeneral = relcu.findAll();
     }
     public UsuariosFacadeLocal getUfl() {
         return ufl;
@@ -366,13 +368,7 @@ public class UserController implements Serializable{
         this.nuevoUsuario = nuevoUsuario;
     }
 
-    public List<Usuarios> getListarUsuarios() {
-        return listarUsuarios;
-    }
-
-    public void setListarUsuarios(List<Usuarios> listarUsuarios) {
-        this.listarUsuarios = listarUsuarios;
-    }
+   
 
     public double getCali() {
         return cali;
@@ -380,6 +376,14 @@ public class UserController implements Serializable{
 
     public void setCali(double cali) {
         this.cali = cali;
+    }
+
+    public List<Relcalificacionusuarios> getListarGeneral() {
+        return listarGeneral;
+    }
+
+    public void setListarGeneral(List<Relcalificacionusuarios> listarGeneral) {
+        this.listarGeneral = listarGeneral;
     }
     
     
@@ -708,12 +712,35 @@ public class UserController implements Serializable{
     }*/
     
     public void activar(Usuarios u){
+        
+        //this.rel.getUsuariosidUsuario().setEstadoUsuario("1");
+        this.usuarios = u;
+        
+        
         this.usuarios.setEstadoUsuario("1");
+        //Object s = (Object)u;
+        //int d = (int)s;
+        //this.listarGeneral.get(u).getUsuariosidUsuario().setEstadoUsuario("1");
         System.out.println(usuarios.getIdUsuario()+" "+usuarios.getEstadoUsuario());
-        this.ufl.edit(usuarios);
+        System.out.println(this.usuarios);
+        System.out.println(rel.getUsuariosidUsuario().getIdUsuario());
+        this.ufl.edit(this.usuarios);
+        //this.relcu.edit(rel);
         System.out.println(usuarios.getEstadoUsuario());
-        redireccionar("/faces/gestec/usuario/admin_users?faces-redirect=true");
+        redireccionar("/faces/gestec/usuario/admin_users.xhtml?faces-redirect=true");
     }
-    
+    public void desactivar(Usuarios u){
+        this.usuarios = u;
+        FacesMessage msj = new FacesMessage();
+        if (!usuarios.getTipoUsuario().equals("Administrador")){
+            this.usuarios.setEstadoUsuario("0");
+            this.ufl.edit(usuarios);
+            redireccionar("/faces/gestec/usuario/admin_users.xhtml?faces-redirect=true"); 
+        }else{
+            msj = new FacesMessage(FacesMessage.SEVERITY_INFO,"No puede bloquear administradores","Prohibido");
+        }
+        
+    }
   
+    
 }

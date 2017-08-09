@@ -230,25 +230,54 @@
                     </div>
                     
                     </h:form>
+                    
+                    
+                    <div id="sesionContra">
                     <h4 class="col-md-12" style="margin-top: 20px"><strong>#{msjGestec.contra}: </strong></h4>
                     <hr class="col-md-12" style="border-top-color: #999"/>
+                    <h:form prependId="false">
+                       
+                        
+                        
                     <div class="form-group col-md-12">
                         <label for="contrasena">#{msjGestec.contraAntigua}</label>
-                        <h:inputSecret id="contrasena" class="form-control"/>
+                        <h:inputSecret id="contrasena" class="form-control" value="#{sesionGestec.usuario.contrasenaUsuario}" validator="#{sesionGestec.validarContraAntigua}"/>
+                        <h:message for="contrasena" style="color:red" styleClass="error"/>               
                     </div>
+                        
                     <div class="form-group col-md-6">
                         <label for="contrasenaN">#{msjGestec.contraNueva}</label>
-                        <h:inputSecret id="contrasenaN" class="form-control"/>
+                        <h:inputSecret id="contrasenaN" class="form-control" value="#{sesionGestec.con}" validator="#{sesionGestec.contraNueva}">
+                            <f:ajax event="change" listener="#{sesionGestec.confirmarContras}" execute="contrasenaN"/>
+                        </h:inputSecret>
+                        <h:message for="contrasenaN" style="color:Red" styleClass="error"/>
                     </div>
+                        
                     <div class="form-group col-md-6">
                         <label for="contrasenaR">#{msjGestec.repetirContra}</label>
-                        <h:inputSecret id="contrasenaR" class="form-control" value="#{sesionGestec.usuario.contrasenaUsuario}"/>
+                        <h:inputSecret id="contrasenaR" class="form-control" value="#{sesionGestec.confirmarContra}" validator="#{sesionGestec.validarContraNueva}"/>
+                        <h:message for="contrasenaR" style="color:red" styleClass="error"/>
                     </div>
-
+                        
+                            <div class="col-md-6 col-xs-12">
+                                
+                                <h:commandButton id="actualizarC" value="Actualizar Contraseña" class="btn btn-primary col-md-12" 
+                                                 actionListener="#{sesionGestec.actualizarContra()}"/>
+                                <h:message for="actualizarC" style="color:green" styleClass="error"/>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                         <input type="reset" value="Borrar" class="btn btn-default col-md-12"/>
+                         </div>
+                         
+                    </h:form>
+                        </div>
+                       
+                    
+                    
 
                 </div>
 
-
+                <h:form>
                 <h3 style="text-align: center;margin-bottom: 0" class="col-md-12"><strong>#{msjGestec.perfil1}</strong></h3>
                 <hr class="col-md-12" style="border-top-color: #999"/>
 
@@ -322,7 +351,9 @@
                         <h:commandButton class="btn btn-danger col-md-offset-6 col-md-6" value="#{msjGestec.eliminarCertificado}"/>
                     </div>
                 </c:forEach>
-
+                </h:form>
+                
+                <h:form>
                 <h4 class="col-md-12"><strong>#{msjGestec.experiencia}</strong></h4>
                 <c:forEach items="#{sesionGestec.usuario.certificadotrabajoList}" var="tra">
                     <button class="btn btn-default col-md-12 col-sm-12 col-xs-12 btn-archivo" style="position: relative;margin-bottom: 10px">
@@ -362,7 +393,7 @@
                     </div>
                 </c:forEach>
 
-
+                </h:form>
 
                 <h:form prependId="false">
                 <h3 style="text-align: center;margin-bottom: 0" class="col-md-12 col-sm-12 col-xs-12"><strong>#{msjGestec.zonaRoja}</strong></h3>

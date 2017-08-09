@@ -44,4 +44,6 @@ public interface UsuariosFacadeLocal {
     List<Usuarios> listarUsuariosCorreo(String correo);
     
     Usuarios validarUsuariosCorreo(String correo);
+    
+    
 }

@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import com.gestec.modelo.entidades.Usuarios;
+import java.util.List;
 
 /**
  *
@@ -41,4 +42,6 @@ public class CalificacionFacade extends AbstractFacade<Calificacion> implements 
         Object id = q.getFirstResult();
         return id;
     }
+    
+   
 }

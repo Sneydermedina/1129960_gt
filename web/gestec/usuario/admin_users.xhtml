@@ -57,98 +57,98 @@
             </thead>
                     
                     <tbody>
-                        <c:forEach items="#{userController.listarUsuarios}" var="u">
+                        <c:forEach items="#{userController.listarGeneral}"  var="u" >
+                                   
                             <tr>
                                 <td></td>
-                                <td>#{u.nombreUsuario}</td>
-                                <td>#{u.apellido}</td>
-                                <td>#{u.correo}</td>
-                                <td>#{u.tipoUsuario}</td>
-                                
+                                <td>#{u.usuariosidUsuario.nombreUsuario}</td>
+                                <td>#{u.usuariosidUsuario.apellido}</td>
+                                <td>#{u.usuariosidUsuario.correo}</td>
+                                <td>#{u.usuariosidUsuario.tipoUsuario}</td>                 
                                 <td>
-                                    #{userController.cal(u.idUsuario)}
-                                <c:if test="#{cal==5}">
-                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                    
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==5.0}">
+                                     
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                 </c:if>
-                                <c:if test="#{cal==4.5}">
-                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==4.5}">
+                                     
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-half-empty"></span>
                                 </c:if>
-                                <c:if test="#{cal==4}">
-                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==4.0}">
+                                     
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-o"></span>
                                 </c:if>
-                                <c:if test="#{cal==3.5}">
-                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==3.5}">
+                                    
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-half-empty"></span>
                                     <span class="fa fa-star-o"></span>
                                 </c:if>
-                                <c:if test="#{cal==3}">
-                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==3.0}">
+                                     
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                 </c:if>
-                                <c:if test="#{cal==2.5}">
-                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==2.5}">
+                                    
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-half-empty"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                 </c:if>
-                                <c:if test="#{cal==2}">
-                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==2.0}">
+                                    
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                 </c:if>
-                                <c:if test="#{cal==1.5}">
-                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==1.5}">
+                                     
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-half-empty"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                 </c:if>
-                                <c:if test="#{cal==1}">
-                                    <strong>#{cal.intValue()} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==1.0}">
+                                    
                                     <span class="fa fa-star"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                 </c:if>
-                                <c:if test="#{cal==0.5}">
-                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==0.5}">
+                                    
                                     <span class="fa fa-star-half-empty"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                 </c:if>
-                                <c:if test="#{cal==0}">
-                                    <strong>#{cal} #{msjGestec.puntos}</strong><br/> 
+                                <c:if test="#{u.calificacionIdcalificacion.calificacion==0.0}">
+                                     
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
                                     <span class="fa fa-star-o"></span>
@@ -159,16 +159,36 @@
                                     </td>
                                 
                                 <td>
-                                    <c:if test="#{u.estadoUsuario==1}">
+                                    
+                                    <c:if test="#{u.usuariosidUsuario.tipoUsuario=='Administrador' and u.usuariosidUsuario.estadoUsuario==1}">
                                         <h:form prependId="false">
-                                        <h:commandButton class="btn btn-success" value="Activo"/>
-                                        <h:commandButton class="btn btn-default" value="Inactivo"/>
+                                            <h:commandButton class="btn btn-success" value="Activo" actionListener="#{userController.activar(u.usuariosidUsuario)}" 
+                                                             disabled="true" title="No puede activar administradores"/>
+                                            <h:commandButton class="btn btn-default" value="Inactivo" actionListener="#{userController.desactivar(u.usuariosidUsuario)}" 
+                                                             disabled="true" title="No puede bloquear administradores"/>
+                                        </h:form> 
+                                    </c:if>
+                                    
+                                    <c:if test="#{u.usuariosidUsuario.estadoUsuario==1 and u.usuariosidUsuario.tipoUsuario!='Administrador'}">
+                                        
+                                        <h:form prependId="false">
+                                            <h:commandButton class="btn btn-success" value="Activo" actionListener="#{userController.activar(u.usuariosidUsuario)}"/>
+                                        <h:commandButton class="btn btn-default" value="Inactivo" actionListener="#{userController.desactivar(u.usuariosidUsuario)}"/>
                                         </h:form>                        
                                     </c:if>
-                                    <c:if test="#{u.estadoUsuario==0}">
+                                    <c:if test="#{u.usuariosidUsuario.tipoUsuario=='Administrador' and u.usuariosidUsuario.estadoUsuario==0}">
                                         <h:form prependId="false">
-                                            <h:commandButton class="btn btn-default" value="Activo" actionListener="#{sesionGestec.activar(u)}"/>
-                                        <h:commandButton class="btn btn-danger" value="Inactivo"/>
+                                            <h:commandButton class="btn btn-default" value="Activo" actionListener="#{userController.activar(u.usuariosidUsuario)}" 
+                                                             disabled="true" title="No puede activar administradores"/>
+                                            <h:commandButton class="btn btn-danger" value="Inactivo" actionListener="#{userController.desactivar(u.usuariosidUsuario)}" 
+                                                             disabled="true" title="No puede bloquear administradores"/>
+                                        </h:form> 
+                                    </c:if>
+                                    <c:if test="#{u.usuariosidUsuario.estadoUsuario==0 and u.usuariosidUsuario.tipoUsuario!='Administrador'}">
+                                        
+                                        <h:form prependId="false">
+                                            <h:commandButton class="btn btn-default" value="Activo" actionListener="#{userController.activar(u.usuariosidUsuario)}"/>
+                                            <h:commandButton class="btn btn-danger" value="Inactivo" actionListener="#{userController.desactivar(u.usuariosidUsuario)}"/>
                                         </h:form>
                                     </c:if>    
                                         

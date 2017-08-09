@@ -47,6 +47,8 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -107,6 +109,9 @@ public class SesionController implements Serializable {
     private Mensaje ultimoMensaje;
     private Integer pagina;
     private String estado;
+    private String con;
+    private String con2;
+    private String confirmarContra;
 
     private Locale idiomaSeleccionado;
     private List<Locale> idiomasSoportados;
@@ -282,6 +287,31 @@ public class SesionController implements Serializable {
     public void estado(){
         this.estado=usuario.getEstadoUsuario();
     }
+
+    public String getCon() {
+        return con;
+    }
+
+    public void setCon(String con) {
+        this.con = con;
+    }
+
+    public String getCon2() {
+        return con2;
+    }
+
+    public void setCon2(String con2) {
+        this.con2 = con2;
+    }
+
+    public String getConfirmarContra() {
+        return confirmarContra;
+    }
+
+    public void setConfirmarContra(String confirmarContra) {
+        this.confirmarContra = confirmarContra;
+    }
+    
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
 
@@ -812,12 +842,63 @@ public class SesionController implements Serializable {
         this.ufl.edit(usuario);
         redireccionar("/faces/index.xhtml?faces-redirect=true");
     }
-     public void activar(Usuarios u){
-        this.usuario.setEstadoUsuario("1");
-        System.out.println(usuario.getIdUsuario()+" "+usuario.getEstadoUsuario());
+    
+    public void validarContraAntigua(FacesContext context,UIComponent toValidate,Object value){
+        context = FacesContext.getCurrentInstance();
+        String texto = (String) value;
+        FacesMessage msj = null;
+        
+        if (texto.isEmpty()) {
+            ((UIInput)toValidate).setValid(false);
+            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este campo es obligatorio", "No puede ser null");
+            context.addMessage(toValidate.getClientId(context), msj);
+        }
+        
+        if (!usuario.getContrasenaUsuario().equals(texto)) {
+            ((UIInput)toValidate).setValid(false);
+            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña incorrecta", "Error de contraseña");
+            context.addMessage(toValidate.getClientId(context),msj);
+        }
+    }
+    public void contraNueva(FacesContext context,UIComponent toValidate,Object value){
+        context = FacesContext.getCurrentInstance();
+        String texto = (String) value;
+        FacesMessage msj = null;
+        
+        if (texto.isEmpty()) {
+            ((UIInput)toValidate).setValid(false);
+            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Campo obligatorio","Campo obligatorio");
+            context.addMessage(toValidate.getClientId(context), msj);
+        }
+    }
+    
+    public void confirmarContras(AjaxBehaviorEvent e){
+        this.con2 = con;
+    }
+    public void validarContraNueva(FacesContext context,UIComponent toValidate,Object value){
+        context = FacesContext.getCurrentInstance();
+        String texto = (String) value;
+        FacesMessage msj = new FacesMessage();
+        
+        if (texto.isEmpty()) {
+            ((UIInput)toValidate).setValid(false);
+            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR,"No puede ser nulo","No puede ser vacio");
+            context.addMessage(toValidate.getClientId(context), msj);
+        }
+        if (!texto.equals(con2)) {
+            ((UIInput)toValidate).setValid(false);
+            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Campos incorrectos","Las contraseñas no coinciden");
+            context.addMessage(toValidate.getClientId(context), msj);
+        }
+    }
+    
+    public void actualizarContra(){
+        FacesContext fc = FacesContext.getCurrentInstance();
+        FacesMessage msj = null;
+        this.usuario.setContrasenaUsuario(confirmarContra);
         this.ufl.edit(usuario);
-        System.out.println(usuario.getEstadoUsuario());
-        redireccionar("/faces/gestec/usuario/admin_users.xhtml?faces-redirect=true");
+        msj = new FacesMessage(FacesMessage.SEVERITY_INFO,"Contraseña cambiada exitosamente!","Contraseña cambiada exitosamente!");
+        fc.addMessage(null, msj);
     }
    
 }
