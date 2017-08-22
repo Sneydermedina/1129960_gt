@@ -12,16 +12,23 @@
     <ui:define name="head2">
         #{sesionGestec.bloquearCliente()}
         #{sesionGestec.bloquearTecnico()}
-        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+      <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
-        
-        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
-        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
-        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
-        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
-        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script>     
-    </ui:define>
+        <script type="text/javascript" src="#{request.contextPath}/resources/js/jquery.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" ></script> 
+        <script src="#{request.contextPath}/resources/js/Menu.js" ></script> 
+        <script src="#{request.contextPath}/resources/js/admin.js" ></script>
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" ></script> 
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/js-xlsx/xlsx.core.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/FileSaver/FileSaver.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/jsPDF/jspdf.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/libs/html2canvas/html2canvas.min.js"></script>
+        <script type="text/javascript" src="#{request.contextPath}/resources/plugins/tableExport/tableExport.js"></script>
+         </ui:define>
 
     <ui:define name="titulo">
 
@@ -35,9 +42,61 @@
     </ui:define>
 
     <ui:define name="content">
+        
+        
         <div class="col-md-12 inicio">
             <div class="col-md-12 encabezado">
-             
+             <div class="col-md-5">
+            <div class="dropdown col-md-2" style="margin: 10px 0px;padding:0">
+                <button class="btn btn-default dropdown-toggle" title="Exportar" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <span class="fa fa-download"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#" id="pdf">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            PDF</a>
+                    </li>
+                    <li><a href="#" id="word">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/word_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            WORD
+                        </a></li>
+                    <li><a href="#" id="excel">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xls_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            EXCEL</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" id="json">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/json_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            JSON</a></li>
+                    <li><a href="#" id="xml">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xml_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            XML</a></li>
+                    <li><a href="#" id="txt">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/txt_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            TXT</a></li>
+                    <li><a href="#" id="sql">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/sql_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            SQL</a></li>
+                    <li><a href="#" id="csv">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            CSV</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" id="png">
+                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/png_2.png"
+                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                            PNG</a></li>
+                </ul>
+            </div>
+        </div>
                 <table id="table" data-click-to-select="true" class="table" data-toggle="table" data-show-refresh="true" 
                data-sort-name="Numero" data-sort-order="desc" data-show-toggle="true" data-show-columns="true" 
                data-show-pagination-switch="true" data-search="true" data-pagination="true" 

@@ -8,6 +8,7 @@ package com.gestec.modelo.controladores;
 import com.gestec.model.Email;
 import com.gestec.modelo.entidades.Barrio;
 import com.gestec.modelo.entidades.Contactos;
+import com.gestec.modelo.entidades.Direccion;
 import com.gestec.modelo.entidades.Localidad;
 import com.gestec.modelo.entidades.Mensaje;
 import com.gestec.modelo.entidades.NotificacionCita;
@@ -112,12 +113,21 @@ public class SesionController implements Serializable {
     private String con;
     private String con2;
     private String confirmarContra;
-
+    private Direccion dire;
     private Locale idiomaSeleccionado;
     private List<Locale> idiomasSoportados;
+    private Boolean ac;
+    private Boolean db;
+    private Localidad localidad;
+    private Barrio barrio;
+    private Integer barrioId;
+    private Boolean infor;
 
     @PostConstruct
     public void init() {
+        this.ac = false;
+        this.db = false;
+        this.infor = false;
         this.contacto = new Contactos();
         this.localidades = lfl.findAll();
         this.barrios = bfl.findAll();
@@ -311,6 +321,64 @@ public class SesionController implements Serializable {
     public void setConfirmarContra(String confirmarContra) {
         this.confirmarContra = confirmarContra;
     }
+
+    public Boolean getAc() {
+        return ac;
+    }
+
+    public void setAc(Boolean ac) {
+        this.ac = ac;
+    }
+
+    public Boolean getDb() {
+        return db;
+    }
+
+    public void setDb(Boolean db) {
+        this.db = db;
+    }
+
+    public Direccion getDire() {
+        return dire;
+    }
+
+    public void setDire(Direccion dire) {
+        this.dire = dire;
+    }
+
+    public Localidad getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
+
+    public Barrio getBarrio() {
+        return barrio;
+    }
+
+    public void setBarrio(Barrio barrio) {
+        this.barrio = barrio;
+    }
+
+    public Integer getBarrioId() {
+        return barrioId;
+    }
+
+    public void setBarrioId(Integer barrioId) {
+        this.barrioId = barrioId;
+    }
+
+    public Boolean getInfor() {
+        return infor;
+    }
+
+    public void setInfor(Boolean infor) {
+        this.infor = infor;
+    }
+    
+    
     
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
@@ -783,7 +851,7 @@ public class SesionController implements Serializable {
 
             for (Barrio barrio : barrios) {
                 nombreBarrios.add(barrio.getNombreBarrio());
-
+                barrioId = barrio.getIdBarrio();
             }
         } else {
             nombreBarrios = new ArrayList<>();
@@ -893,12 +961,42 @@ public class SesionController implements Serializable {
     }
     
     public void actualizarContra(){
+        this.ac = true;
         FacesContext fc = FacesContext.getCurrentInstance();
         FacesMessage msj = null;
         this.usuario.setContrasenaUsuario(confirmarContra);
         this.ufl.edit(usuario);
         msj = new FacesMessage(FacesMessage.SEVERITY_INFO,"Contraseña cambiada exitosamente!","Contraseña cambiada exitosamente!");
         fc.addMessage(null, msj);
+        
     }
-   
+    public void actuzalizarPerfil(){
+        ufl.edit(usuario);
+        this.db = true;
+        
+    }
+    public void volverPerfil(){
+        this.db=false;
+        this.ac=false;
+        this.infor=false;
+        redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
+    }
+   public void actualizarResidencia(){
+       System.out.println("entro");
+       this.dire = usuario.getDireccionList().get(0);
+       this.localidad = usuario.getDireccionList().get(0).getIdBarrio().getIdLocalidad();
+       this.barrio = usuario.getDireccionList().get(0).getIdBarrio();
+
+       lfl.edit(localidad);
+       barrio.setIdLocalidad(localidad);
+       
+       //bfl.edit(barrio);
+
+       dire.setIdBarrio(bfl.find(barrioId));
+       dfl.edit(dire);
+       this.infor=true;
+
+       
+   }
+  
 }

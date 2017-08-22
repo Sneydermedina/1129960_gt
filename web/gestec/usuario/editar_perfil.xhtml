@@ -13,9 +13,7 @@
         <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
         
-        <script type="text/javascript" src="#{request.contextPath}/resources/js/jquery.js" ></script>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+       
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
         <script src="#{request.contextPath}/resources/js/tecnicoEmpresa.js" defer=""></script>
@@ -28,6 +26,24 @@
             }
             .progress{
                 height: 10px;
+            }
+            .ui-inputfield{
+                width: 100%;
+            }
+          
+          
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+            }
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield:invalid {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+                border: 1px solid #C1C1C1;
             }
         </style>
 
@@ -47,7 +63,7 @@
                     <h3 style="text-align: center"><strong>#{msjGestec.datos1}</strong></h3>
                     <hr style="border-top-color: #999 "/>
                     <div class="form-group col-md-6">
-                        <label for="nombre">#{msjGestec.nombre} </label>
+                        <label for="nombre">#{msjGestec.nombreUser} </label>
                         <h:inputText id="nombre" class="form-control" 
                                      pt:placeholder="#{msjGestec.ingreseNombres}" 
                                      value="#{sesionGestec.usuario.nombreUsuario}"
@@ -70,6 +86,68 @@
                                      requiredMessage="#{msjGestec.editarp3}"/>
                         <h:message for="apellido" style="color:red"  styleClass="error"></h:message>
                     </div>
+                    
+
+
+                    <div class="form-group col-md-6">
+                        <c:forEach items="#{sesionGestec.usuario.telefonoList}" var="tel">
+                            <label for="telefono">#{msjGestec.telefono} #{tel.tipoTelefono}</label>
+                            <h:inputText id="telefono" class="form-control" value="#{tel.numeroTelefono}"
+                                         required="true"
+                                         size="20"
+                                         maxlength="11"
+                                         validatorMessage="#{msjGestec.editarp1}"
+                                         requiredMessage="#{msjGestec.editarp5}"/>
+                            <h:message for="telefono" style="color:red"  styleClass="error"></h:message>
+                        </c:forEach>
+                    </div>
+                    
+                    <div class="form-group col-md-6">
+                        <label for="fechaN">#{msjGestec.fechaNacimiento} </label>
+                        <p:calendar id="calendario" value="#{sesionGestec.usuario.fechaNacimiento}" pattern="yyyy-MM-dd"  
+                                       
+                                        validator="#{userController.validarFecha}"/>
+                                        
+                                
+                            <h:message for="calendario" style="color:Red" styleClass="error" />
+                    </div>
+                    <hr class="col-md-12" style="border-top-color: #C1C1C1"/>
+                    <div class="form-group col-md-6">
+                        <label for="correo">#{msjGestec.corre} </label>
+                        <h:inputText id="correo" class="form-control" value="#{sesionGestec.usuario.correo}"
+                                     required="true"
+                                     size="20"
+                                     maxlength="50"
+                                     validatorMessage="#{msjGestec.editarp1}"
+                                     requiredMessage="#{msjGestec.editarp8}"/>
+                        <h:message for="correo" style="color:red"  styleClass="error"></h:message>
+                    </div>
+                      
+                    <div class="form-group col-md-6">
+                        <label for="nombreU">Pagina web: </label>
+                        <h:inputText id="nombreU" class="form-control" value="#{sesionGestec.usuario.web}"
+                                     required="true"
+                                     size="20"
+                                     maxlength="25"
+                                     validatorMessage="#{msjGestec.editarp1}"
+                                     requiredMessage="#{msjGestec.editarp9}"/>
+                        <h:message for="nombreU" style="color:red"  styleClass="error"></h:message>
+                    </div>
+                    <c:if test="#{sesionGestec.db==true}">
+                    <div class="col-md-12 col-xs-12">
+                        <p style="color:blue">Datos básicos actualizados</p>
+                    </div>
+                    </c:if>
+                    <div class="col-md-6 col-xs-12">
+                        <h:commandButton value="Guardar cambios" actionListener="#{sesionGestec.actuzalizarPerfil()}" class="col-md-12 col-xs-12 btn btn-primary"/>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <h:commandButton value="Salir" actionListener="#{sesionGestec.volverPerfil()}" class="col-md-12 col-xs-12 btn btn-default"/>
+                    </div>
+        </h:form>
+                      <h:form prependId="false">
+                    <h4 class="col-md-12" style="margin-top: 20px"><strong>Información de residencia: </strong></h4>
+                    <hr class="col-md-12" style="border-top-color: #999"/>
                     <div class="form-group col-md-6">
                         <label for="localidad">#{msjGestec.localidad} </label>
                         <c:forEach items="#{sesionGestec.usuario.direccionList}" var="localidad">
@@ -95,15 +173,16 @@
                             <h:selectOneMenu id="barrio" 
                                              class="form-control" 
                                              style="margin-top:0"
-                                             value="#{barrio.idBarrio.nombreBarrio}">
+                                             value="#{barrio.idBarrio.nombreBarrio}"
+                                             validatorMessage="Selecciona barrio y localidad">
                                 <!--<f:selectItem itemLabel="#{barrio.idBarrio.nombreBarrio}" 
                                               itemValue="#{barrio.idBarrio.idBarrio}"/>-->
                                 <f:selectItems value="#{sesionGestec.nombreBarrios}"/>
-
-                            </h:selectOneMenu>
+                                
+                            </h:selectOneMenu><h:message for="barrio" styleClass="error" style="color:Red"/>
                         </c:forEach>
                     </div>
-
+                     
                     <c:forEach items="#{sesionGestec.usuario.direccionList}" var="dir">
                         <div class="col-md-12" style="margin-bottom: 15px;">
                             <label for="direccion" class="col-md-12">#{msjGestec.direccion} </label>
@@ -115,13 +194,13 @@
                                                  required="true"
                                                  validatorMessage="#{msjGestec.editarp1}"
                                                  requiredMessage="#{msjGestec.editarp4}"
-                                                 value="#{barrio.idBarrio.nombreBarrio}">
+                                                 value="#{dir.tipoVia}">
                                     <f:selectItem itemLabel="#{dir.tipoVia}"/>
-                                    <f:selectItem itemLabel="#{msjGestec.barrio1}"/>
-                                    <f:selectItem itemLabel="#{msjGestec.barrio2}"/>
-                                    <f:selectItem itemLabel="#{msjGestec.barrio3}"/>
-                                    <f:selectItem itemLabel="#{msjGestec.barrio4}"/>
-                                    <f:selectItem itemLabel="#{msjGestec.barrio5}"/>
+                                    <f:selectItem itemLabel="#{msjGestec.barrio1}" itemValue="Av Calle"/>
+                                    <f:selectItem itemLabel="#{msjGestec.barrio2}" itemValue="Av Carrera"/>
+                                    <f:selectItem itemLabel="#{msjGestec.barrio3}" itemValue="Transversal"/>
+                                    <f:selectItem itemLabel="#{msjGestec.barrio4}" itemValue="Calle"/>
+                                    <f:selectItem itemLabel="#{msjGestec.barrio5}" itemValue="Carrera"/>
                                 </h:selectOneMenu>
                             </div>
 
@@ -175,61 +254,27 @@
                                 <h:selectOneMenu id="complemento"
                                                  class="form-control" 
                                                  style="margin-top:0"
-                                                 value="#{barrio.idBarrio.nombreBarrio}">
+                                                 value="#{dir.complemento}">
                                     <f:selectItem itemLabel="#{dir.complemento}"/>
-                                    <f:selectItem itemLabel="#{msjGestec.barrio6}"/>
-                                    <f:selectItem itemLabel="#{msjGestec.barrio7}"/>
-                                    <f:selectItem itemLabel="#{msjGestec.barrio8}"/>
+                                    <f:selectItem itemLabel="#{msjGestec.barrio6}" itemValue="Sur"/>
+                                    <f:selectItem itemLabel="#{msjGestec.barrio7}" itemValue="Norte"/>
+                                    <f:selectItem itemLabel="#{msjGestec.barrio8}" itemValue="Occidente"/>
                                 </h:selectOneMenu>
                             </div>
                         </div>
                     </c:forEach>
-
-
-                    <div class="form-group col-md-6">
-                        <c:forEach items="#{sesionGestec.usuario.telefonoList}" var="tel">
-                            <label for="telefono">#{msjGestec.telefono} #{tel.tipoTelefono}</label>
-                            <h:inputText id="telefono" class="form-control" value="#{tel.numeroTelefono}"
-                                         required="true"
-                                         size="20"
-                                         maxlength="11"
-                                         validatorMessage="#{msjGestec.editarp1}"
-                                         requiredMessage="#{msjGestec.editarp5}"/>
-                            <h:message for="telefono" style="color:red"  styleClass="error"></h:message>
-                        </c:forEach>
+                    <c:if test="#{sesionGestec.infor==true}">
+                        <div class="col-md-12 col-xs-12">
+                        <center><p style="color:blue;">Información de residencia actualizada</p></center>
+                        </div>
+                    </c:if>
+                    <div class="col-md-6 col-xs-12">
+                        <h:commandButton value="Actualizar residencia" actionListener="#{sesionGestec.actualizarResidencia()}" class="col-md-12 col-xs-12 btn btn-primary"/>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="fechaN">#{msjGestec.fechaNacimiento} </label>
-                        <h:inputText id="fechaN" class="form-control" value="#{sesionGestec.formatearFechaNacimiento()}"
-                                     required="true"
-                                     size="20"
-                                     maxlength="10"
-                                     validatorMessage="#{msjGestec.editarp1}"
-                                     requiredMessage="#{msjGestec.editarp6}"/>
-                        <h:message for="fechaN" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="correo">#{msjGestec.corre} </label>
-                        <h:inputText id="correo" class="form-control" value="#{sesionGestec.usuario.correo}"
-                                     required="true"
-                                     size="20"
-                                     maxlength="50"
-                                     validatorMessage="#{msjGestec.editarp1}"
-                                     requiredMessage="#{msjGestec.editarp8}"/>
-                        <h:message for="correo" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="nombreU">#{msjGestec.nombreUser} </label>
-                        <h:inputText id="nombreU" class="form-control" value="#{sesionGestec.usuario.nombreUsuario}"
-                                     required="true"
-                                     size="20"
-                                     maxlength="25"
-                                     validatorMessage="#{msjGestec.editarp1}"
-                                     requiredMessage="#{msjGestec.editarp9}"/>
-                        <h:message for="nombreU" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    
                     </h:form>
+                    <div class="col-md-6 col-xs-12">
+                        <h:commandButton value="Volver" actionListener="#{sesionGestec.volverPerfil()}" class="col-md-12 col-xs-12 btn btn-default"/>
+                    </div>
                     
                     
                     <div id="sesionContra">
@@ -258,7 +303,13 @@
                         <h:inputSecret id="contrasenaR" class="form-control" value="#{sesionGestec.confirmarContra}" validator="#{sesionGestec.validarContraNueva}"/>
                         <h:message for="contrasenaR" style="color:red" styleClass="error"/>
                     </div>
-                        
+                        <c:if test="#{sesionGestec.ac==true}">
+                        <div class="col-md-12 col-xs-12">
+                            <center>
+                                <p style="color:blue">Contraseña actualizada exitosamente</p>
+                            </center>
+                        </div>
+                        </c:if>
                             <div class="col-md-6 col-xs-12">
                                 
                                 <h:commandButton id="actualizarC" value="Actualizar Contraseña" class="btn btn-primary col-md-12" 
