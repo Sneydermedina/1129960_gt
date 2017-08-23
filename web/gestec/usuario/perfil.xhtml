@@ -45,9 +45,11 @@
                         <h3 style="margin-top: 10px;margin-bottom: 0">
                             <span class="fa fa-info-circle"></span>&nbsp;
                             <strong>#{msjGestec.acerca}</strong>
-                            <a href="#{request.contextPath}/faces/gestec/usuario/editar_perfil.xhtml" class="btn btn-default pull-right" style="margin-right: 10px" title="Editar perfil">
-                                <span class="fa fa-pencil"></span>
-                            </a>
+                            <h:commandLink class="btn btn-default pull-right" style="margin-right: 10px" title="Editar perfil" 
+                                           actionListener="#{sesionGestec.estadoCertificado1()}">
+                            <span class="fa fa-pencil"></span>
+                            </h:commandLink>
+                            
                         </h3>
                         <hr/>
                   

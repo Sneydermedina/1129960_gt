@@ -7,6 +7,7 @@ package com.gestec.modelo.controladores;
 
 import com.gestec.model.Email;
 import com.gestec.modelo.entidades.Barrio;
+import com.gestec.modelo.entidades.Certificadoestudio;
 import com.gestec.modelo.entidades.Contactos;
 import com.gestec.modelo.entidades.Direccion;
 import com.gestec.modelo.entidades.Localidad;
@@ -122,7 +123,8 @@ public class SesionController implements Serializable {
     private Barrio barrio;
     private Integer barrioId;
     private Boolean infor;
-
+    private Boolean certificado1;
+   private Boolean certificado2;
     @PostConstruct
     public void init() {
         this.ac = false;
@@ -138,6 +140,10 @@ public class SesionController implements Serializable {
         this.calfl.findAll();
         this.cfl.findAll();
         this.telfl.findAll();
+       
+        
+      
+        //this.estadoCertificado1();
         this.solicitudesUsuario = new ArrayList<>();
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -377,6 +383,24 @@ public class SesionController implements Serializable {
     public void setInfor(Boolean infor) {
         this.infor = infor;
     }
+
+    public Boolean getCertificado1() {
+        return certificado1;
+    }
+
+    public void setCertificado1(Boolean certificado1) {
+        this.certificado1 = certificado1;
+    }
+
+    public Boolean getCertificado2() {
+        return certificado2;
+    }
+
+    public void setCertificado2(Boolean certificado2) {
+        this.certificado2 = certificado2;
+    }
+
+    
     
     
     
@@ -997,6 +1021,22 @@ public class SesionController implements Serializable {
        this.infor=true;
 
        
+   }
+   public void estadoCertificado1(){
+         if (usuario.getCertificadoestudioList().isEmpty()) {
+          this.certificado1=false;
+           
+       }else{
+         this.certificado1=true;
+           
+       }
+         
+         if (usuario.getCertificadotrabajoList().isEmpty()) {
+           this.certificado2=false;
+       }else{
+             this.certificado2=true;
+         }
+       redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
    }
   
 }
