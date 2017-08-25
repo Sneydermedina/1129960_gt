@@ -43,5 +43,16 @@ public class CalificacionFacade extends AbstractFacade<Calificacion> implements 
         return id;
     }
     
+    
+     public List<Calificacion> listarPorUser(int id){
+        Query q;
+        q = em.createNativeQuery("select calificacion.* from calificacion join relcalificacionusuarios on \n" +
+"calificacion.idcalificacion=relcalificacionusuarios.calificacion_idcalificacion join usuarios on\n" +
+"relcalificacionusuarios.usuarios_idusuario=usuarios.idusuario where \n" +
+"relcalificacionusuarios.usuarios_idusuario=?1",Calificacion.class);
+        q.setParameter("1", id);
+        List<Calificacion> list = q.getResultList();
+        return list;
+    }
    
 }

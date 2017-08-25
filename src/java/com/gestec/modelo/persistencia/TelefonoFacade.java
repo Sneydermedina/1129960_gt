@@ -6,9 +6,11 @@
 package com.gestec.modelo.persistencia;
 
 import com.gestec.modelo.entidades.Telefono;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,12 @@ public class TelefonoFacade extends AbstractFacade<Telefono> implements Telefono
         super(Telefono.class);
     }
     
+    @Override
+    public List<Telefono> listarPorUser(int id){
+        Query q;
+        q = em.createNativeQuery("SELECT telefono.* FROM telefono JOIN usuarios ON telefono.idTelefono=usuarios.idusuario WHERE telefono.idusuario=?1",Telefono.class);
+        q.setParameter("1", id);
+        List<Telefono> list = q.getResultList();
+        return list;
+    }
 }

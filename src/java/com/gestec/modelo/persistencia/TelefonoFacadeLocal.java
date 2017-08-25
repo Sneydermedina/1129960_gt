@@ -30,4 +30,5 @@ public interface TelefonoFacadeLocal {
 
     int count();
     
+    public List<Telefono> listarPorUser(int id);
 }
