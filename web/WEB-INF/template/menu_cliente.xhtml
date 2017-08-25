@@ -127,7 +127,7 @@
                             </h:form>
                         </div>
 
-                        <c:if test="#{sesionGestec.mensajes.size() != 0}">
+                        <c:if test="#{sesionGestec.mensajes.size() > 0}">
                             <c:forEach items="#{sesionGestec.mensajes}" var="msn">
                                 #{sesionGestec.setUltimoMensaje(msn)}
                                 <c:if test="#{sesionGestec.ultimoMensaje.usuariosidUsuario.idUsuario != sesionGestec.usuario.idUsuario}">

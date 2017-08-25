@@ -422,9 +422,9 @@ public class SesionController implements Serializable {
     
 
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
-
+        List<NotificacionCita> nots;
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
-            List<NotificacionCita> nots = new ArrayList<>();
+            nots = new ArrayList<>();
             for (NotificacionCita not : this.notCitas) {
                 if (not.getIdCita().getSolicitudIdsolicitud().getMensajeList().size() > 0) {
                     List<Mensaje> mensajes = mfl.listarMensajesUsuario(not.getIdCita().getSolicitudIdsolicitud().getMensajeList().get(0).getUsuariosidUsuario().getIdUsuario());
@@ -433,11 +433,11 @@ public class SesionController implements Serializable {
                     }
                 }
             }
+            this.notCitas = nots;
+        }
             if (getUsuario().getTipoUsuario().equals("Cliente")) {
                 nots = this.notCitas;
             }
-            this.notCitas = nots;
-        }
         return this.notCitas;
     }
 
