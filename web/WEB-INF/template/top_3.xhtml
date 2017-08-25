@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:fragment
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <style>
+        #facebook:hover{
+            color: #3b5998;
+        }
+        .twitter:hover{
+            color: #1dcaff;
+        }
+        .google:hover{
+            color: #d34836;
+        }
+    </style>
+
+<f:view locale="#{sesionGestec.idiomaSeleccionado}">
+    <header>
+        <h:form prependId="false">
+            <div class="container-fluid">
+                <div class="row">
+                    <h:commandLink actionListener="#" title="Inicio">
+                        <div  class="col-xs-5 col-sm-3 col-md-2" style="background: white">
+                            <img class="img-responsive" src="#{request.contextPath}/resources/img/icono-gestec.png" alt="Gestec"/>
+                        </div>  
+                    </h:commandLink>
+
+                    <div class="col-xs-7 col-sm-9 col-md-10 "  id="degrade">   
+                        <ul class="list-inline pull-right">
+                            <li class="hidden-xs">  <h6 class="recomiendanos">#{msjGestec.recomiendanos}</h6></li>
+                            <li><a id="facebook" class="social" href="https://www.facebook.com/">
+                                    <i class="fa fa-facebook-square fa-2x" ></i>             
+                                </a></li>
+                            <li> <a class="social twitter" href="https://twitter.com/">
+                                    <i class="fa fa-twitter-square fa-2x" ></i>             
+                                </a></li>
+                            <li> <a class="social google" href="https://plus.google.com/collections/featured">
+                                    <i class="fa fa-google-plus-square fa-2x" ></i>             
+                                </a>&nbsp;</li>
+                            <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            style="margin-bottom: 10px;">
+                        #{msjGestec[sesionGestec.idiomaSeleccionado.language]} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <c:forEach items="#{sesionGestec.idiomasSoportados}" var="idioma">
+                            <li><h:commandLink actionListener="#{sesionGestec.cambiarIdioma(idioma)}" value="#{msjGestec[idioma.language]}"/></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+                        </ul>           
+                    </div>
+                </div>  
+            </div>
+        </h:form>
+    </header>
+</f:view>
+</ui:fragment> 

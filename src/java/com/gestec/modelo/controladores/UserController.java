@@ -83,7 +83,7 @@ public class UserController implements Serializable{
     private CalificacionFacadeLocal calfl;
     @EJB
     private EspecialidadFacadeLocal efl;
-    
+    private List<Usuarios> listarUsuarios;
     private Usuarios usuarios;
     private Contactos contactos;
     private Direccion direccion;
@@ -111,8 +111,7 @@ public class UserController implements Serializable{
 
     @PostConstruct
     public void init(){
-        this.localidades=lfl.findAll();
-        this.barrios=bfl.findAll();
+        
         this.telefono=new Telefono();
         this.usuarios=new Usuarios();
         this.telefono.setIdUsuario(new Usuarios());
@@ -133,8 +132,12 @@ public class UserController implements Serializable{
         this.contactos.setIdContacto(new Usuarios());
         this.nuevoUsuario=false;
         
-        this.cali = 1;
         this.listarGeneral = relcu.findAll();
+        this.listarUsuarios = ufl.findAll();
+        this.localidades=lfl.findAll();
+        this.barrios=bfl.findAll();
+        this.cali = 1;
+       
     }
     public UsuariosFacadeLocal getUfl() {
         return ufl;
@@ -192,6 +195,14 @@ public class UserController implements Serializable{
         this.relcu = relcu;
     }
 
+    public List<Usuarios> getListarUsuarios() {
+        return listarUsuarios;
+    }
+
+    public void setListarUsuarios(List<Usuarios> listarUsuarios) {
+        this.listarUsuarios = listarUsuarios;
+    }
+    
     public CalificacionFacadeLocal getCalfl() {
         return calfl;
     }
@@ -684,6 +695,8 @@ public class UserController implements Serializable{
         this.bfl.findAll();
         this.lfl.findAll();
         this.cfl.findAll();
+        this.relcu.findAll();
+        this.listarGeneral = relcu.findAll();
         enviarCorreo();
         System.out.println("Correo");
         this.nuevoUsuario=true;

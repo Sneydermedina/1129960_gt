@@ -125,12 +125,16 @@ public class SesionController implements Serializable {
     private Boolean infor;
     private Boolean certificado1;
    private Boolean certificado2;
+   private List<Direccion> listarDireccion;
     @PostConstruct
     public void init() {
         this.ac = false;
         this.db = false;
         this.infor = false;
         this.contacto = new Contactos();
+        //this.dire = new Direccion();
+       
+        this.usuario = new Usuarios();
         this.localidades = lfl.findAll();
         this.barrios = bfl.findAll();
         this.notCitas = ncfl.findAll();
@@ -140,6 +144,10 @@ public class SesionController implements Serializable {
         this.calfl.findAll();
         this.cfl.findAll();
         this.telfl.findAll();
+        
+        //this.usuario.getDireccionList().set(0, dire);
+        //this.dire.setUsuariosidUsuario(new Usuarios());
+        //this.listarUsuarios = (List)efl.findAll();
        
         
       
@@ -157,6 +165,14 @@ public class SesionController implements Serializable {
 
     }
 
+    public List<Direccion> getListarDireccion() {
+        return listarDireccion;
+    }
+
+    public void setListarDireccion(List<Direccion> listarDireccion) {
+        this.listarDireccion = listarDireccion;
+    }
+    
     public Locale getIdiomaSeleccionado() {
         return idiomaSeleccionado;
     }
