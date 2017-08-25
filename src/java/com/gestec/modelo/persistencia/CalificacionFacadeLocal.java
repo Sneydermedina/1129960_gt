@@ -32,4 +32,6 @@ public interface CalificacionFacadeLocal {
     int count();
     
    Object findByUser(int idUser);
+   
+   public List<Calificacion> listarPorUser(int id);
 }

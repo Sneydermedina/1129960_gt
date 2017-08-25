@@ -8,10 +8,12 @@ package com.gestec.modelo.controladores;
 import com.gestec.model.Email;
 import com.gestec.modelo.entidades.Barrio;
 import com.gestec.modelo.entidades.Certificadoestudio;
+import com.gestec.modelo.entidades.Calificacion;
 import com.gestec.modelo.entidades.Contactos;
 import com.gestec.modelo.entidades.Direccion;
 import com.gestec.modelo.entidades.Localidad;
 import com.gestec.modelo.entidades.Mensaje;
+import com.gestec.modelo.entidades.Telefono;
 import com.gestec.modelo.entidades.NotificacionCita;
 import com.gestec.modelo.entidades.NotificacionUsuario;
 import com.gestec.modelo.entidades.Relcalificacionusuarios;
@@ -126,6 +128,8 @@ public class SesionController implements Serializable {
     private Boolean certificado1;
    private Boolean certificado2;
    private List<Direccion> listarDireccion;
+   private List<Telefono> listarTelefono;
+   private List<Calificacion> listarCalificacion;
     @PostConstruct
     public void init() {
         this.ac = false;
@@ -181,6 +185,14 @@ public class SesionController implements Serializable {
         this.idiomaSeleccionado = idiomaSeleccionado;
     }
 
+    public List<Telefono> getListarTelefono() {
+        return listarTelefono;
+    }
+
+    public void setListarTelefono(List<Telefono> listarTelefono) {
+        this.listarTelefono = listarTelefono;
+    }
+    
     public List<Locale> getIdiomasSoportados() {
         return idiomasSoportados;
     }
@@ -1052,7 +1064,14 @@ public class SesionController implements Serializable {
        }else{
              this.certificado2=true;
          }
+         
        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+   }
+   public void irPerfil(){
+       this.listarTelefono= telfl.listarPorUser(usuario.getIdUsuario());
+       this.listarDireccion = dfl.listarPorUser(usuario.getIdUsuario());
+       this.listarCalificacion = calfl.listarPorUser(usuario.getIdUsuario());
+       redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
    }
   
 }

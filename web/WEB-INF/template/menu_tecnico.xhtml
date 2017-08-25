@@ -348,8 +348,9 @@
                         </div>
                         <h:form prependId="false">
                             <div style="padding: 5px">
-                                <a href="#{request.contextPath}/faces/gestec/usuario/perfil.xhtml" class="btn btn-primary">
-                                    <span class="fa fa-user"></span>#{msjGestec.miCuenta}</a>
+                                <h:commandLink actionListener="#{sesionGestec.irPerfil()}" class="btn btn-primary">
+                                
+                                    <span class="fa fa-user"></span>#{msjGestec.miCuenta}</h:commandLink>
                                 <h:commandButton actionListener="#{sesionGestec.cerrarSesion()}" 
                                                  class="btn btn-primary fa fa-sign-out pull-right" 
                                                  value="#{msjGestec.salir}"/>

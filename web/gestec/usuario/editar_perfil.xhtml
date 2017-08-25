@@ -91,7 +91,7 @@
 
 
                     <div class="form-group col-md-6">
-                        <c:forEach items="#{sesionGestec.usuario.telefonoList}" var="tel">
+                        <c:forEach items="#{sesionGestec.listarTelefono}" var="tel">
                             <label for="telefono">#{msjGestec.telefono} #{tel.tipoTelefono}</label>
                             <h:inputText id="telefono" class="form-control" value="#{tel.numeroTelefono}"
                                          required="true"
@@ -151,7 +151,7 @@
                     <hr class="col-md-12" style="border-top-color: #999"/>
                     <div class="form-group col-md-6">
                         <label for="localidad">#{msjGestec.localidad} </label>
-                        <c:forEach items="#{sesionGestec.usuario.direccionList}" var="localidad">
+                        <c:forEach items="#{sesionGestec.listarDireccion}" var="localidad">
                             <h:selectOneMenu id="localidad" 
                                              class="form-control" 
                                              style="margin-top:0"
@@ -168,7 +168,7 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="barrio">#{msjGestec.barrio} </label>
-                        <c:forEach items="#{sesionGestec.usuario.direccionList}" var="barrio">
+                        <c:forEach items="#{sesionGestec.listarDireccion}" var="barrio">
                             <f:selectItem itemLabel="#{barrio.idBarrio.nombreBarrio}" 
                                           itemValue="#{barrio.idBarrio.idBarrio}"/>
                             <h:selectOneMenu id="barrio" 
@@ -184,7 +184,7 @@
                         </c:forEach>
                     </div>
                      
-                    <c:forEach items="#{sesionGestec.usuario.direccionList}" var="dir">
+                    <c:forEach items="#{sesionGestec.listarDireccion}" var="dir">
                         <div class="col-md-12" style="margin-bottom: 15px;">
                             <label for="direccion" class="col-md-12">#{msjGestec.direccion} </label>
                             <hr class="col-md-12" style="border-top-color: #999"/>

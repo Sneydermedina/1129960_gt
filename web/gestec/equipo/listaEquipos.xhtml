@@ -90,7 +90,7 @@
             <a href="#{request.contextPath}/faces/gestec/equipo/cargarEquipos.xhtml" style="text-decoration: none;color:white;"><button class="btn btn-primary col-md-5 col-sm-4 col-xs-12" style="margin: 10px 0px;text-decoration: none;">&nbsp; #{msjGestec.nuevo}</button></a>
             <button class="btn btn-danger col-md-5 col-sm-4 col-xs-12" id="eliminar" style="margin: 10px 0px"><span class="fa fa-trash"></span> &nbsp;#{msjGestec.eliminar}</button>
         </div>
-
+        <h:form prependId="false">
         <table id="table" data-click-to-select="true" class="table" data-toggle="table" data-show-refresh="true" 
                data-sort-name="Numero" data-sort-order="desc" data-show-toggle="true" data-show-columns="true" 
                data-show-pagination-switch="true" data-search="true" data-pagination="true" 
@@ -141,7 +141,7 @@
             <tfoot>
             </tfoot>
         </table>
-
+        </h:form>
 
 
         <div id="myModalEliminar" class="modal fade" role="dialog">

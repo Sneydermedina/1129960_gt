@@ -6,10 +6,12 @@
 package com.gestec.modelo.persistencia;
 
 import com.gestec.modelo.entidades.Direccion;
+import com.gestec.modelo.entidades.Telefono;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -37,6 +39,14 @@ public class DireccionFacade extends AbstractFacade<Direccion> implements Direcc
         q.setParameter("idBarrio", idBarrio);
         List<Direccion> direcciones = q.getResultList();
         return direcciones;
+    }
+    @Override
+    public List<Direccion> listarPorUser(int id){
+        Query q;
+        q = em.createNativeQuery("SELECT direccion.* FROM direccion JOIN usuarios ON direccion.iddireccion=usuarios.idusuario WHERE direccion.usuarios_idusuario=?1",Direccion.class);
+        q.setParameter("1", id);
+        List<Direccion> list = q.getResultList();
+        return list;
     }
     
 }

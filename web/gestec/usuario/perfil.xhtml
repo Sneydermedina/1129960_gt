@@ -184,17 +184,17 @@
                         <hr/>
 
                         <h5><strong>#{msjGestec.vivienda}</strong> &nbsp;
-                            <c:forEach items="#{sesionGestec.usuario.direccionList}" var="d">
+                            <c:forEach items="#{sesionGestec.listarDireccion}" var="d">
                                 #{d.idBarrio.idLocalidad.nombreLocalidad} #{d.idBarrio.nombreBarrio}
                             </c:forEach>
                         </h5><br/>
                         <h5><strong>#{msjGestec.cumpleaños}</strong> &nbsp;#{sesionGestec.formatearFechaCumpleaños()}</h5><br/>
-                        <c:forEach items="#{sesionGestec.usuario.telefonoList}" var="t">
+                        <c:forEach items="#{sesionGestec.listarTelefono}" var="t">
                             <h5><strong>#{msjGestec.contacto}</strong> &nbsp;#{t.numeroTelefono}</h5><br/>
                         </c:forEach>
 
                         <h5><strong>#{msjGestec.negoci}</strong> &nbsp;PC Redes</h5><br/>
-                        <c:forEach items="#{sesionGestec.usuario.direccionList}" var="d">
+                        <c:forEach items="#{sesionGestec.listarDireccion}" var="d">
                             <h5><strong>#{msjGestec.direccion}</strong> &nbsp; #{d.tipoVia} #{d.numeroVia}#{d.complementoVia} 
                                 ##{d.numeroVia2} #{d.complementoVia2}-#{d.numeroCasa} #{d.complemento}</h5><br/>
                         </c:forEach>

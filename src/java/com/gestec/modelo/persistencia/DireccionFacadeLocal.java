@@ -32,4 +32,5 @@ public interface DireccionFacadeLocal {
     
     List<Direccion> buscarPorBarrio(Integer idBarrio);
     
+    public List<Direccion> listarPorUser(int id);
 }
