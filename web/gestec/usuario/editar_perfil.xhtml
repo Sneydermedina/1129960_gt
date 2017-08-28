@@ -10,11 +10,11 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="head2">
-       
+
         <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
-        
-       
+
+
         <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
         <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
         <script src="#{request.contextPath}/resources/js/tecnicoEmpresa.js" defer=""></script>
@@ -31,8 +31,8 @@
             .ui-inputfield{
                 width: 100%;
             }
-          
-          
+
+
             .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
                 background: #ffffff;
                 -moz-box-shadow: inset 0 2px 2px transparent;
@@ -57,9 +57,9 @@
 
     <ui:define name="content2">
 
-            <div class="container">
-                <div class="db" style="margin-bottom: 20px">
-        <h:form prependId="false">
+        <div class="container">
+            <div class="db" style="margin-bottom: 20px">
+                <h:form prependId="false" enctype="multipart/form-data">
 
                     <h3 style="text-align: center"><strong>#{msjGestec.datos1}</strong></h3>
                     <hr style="border-top-color: #999 "/>
@@ -87,7 +87,7 @@
                                      requiredMessage="#{msjGestec.editarp3}"/>
                         <h:message for="apellido" style="color:red"  styleClass="error"></h:message>
                     </div>
-                    
+
 
 
                     <div class="form-group col-md-6">
@@ -102,16 +102,33 @@
                             <h:message for="telefono" style="color:red"  styleClass="error"></h:message>
                         </c:forEach>
                     </div>
-                    
+
                     <div class="form-group col-md-6">
                         <label for="fechaN">#{msjGestec.fechaNacimiento} </label>
                         <p:calendar id="calendario" value="#{sesionGestec.usuario.fechaNacimiento}" pattern="yyyy-MM-dd"  
-                                       
-                                        validator="#{userController.validarFecha}"/>
-                                        
-                                
-                            <h:message for="calendario" style="color:Red" styleClass="error" />
+
+                                    validator="#{userController.validarFecha}"/>
+
+
+                        <h:message for="calendario" style="color:Red" styleClass="error" />
                     </div>
+                    
+                    <div class="col-md-12">
+                        <p:fileUpload id="imgSol"
+                                      fileUploadListener="#{sesionGestec.cambiarFoto}" mode="advanced" dragDropSupport="false"
+                                          update="messages" sizeLimit="64000" fileLimit="1" 
+                                          allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
+                                          cancelLabel="#{msjGestec.cancelar}"
+                                          uploadLabel="#{msjGestec.subir}"
+                                          label="#{msjGestec.examinar}"
+                                          fileLimitMessage="Sólo un archivo"
+                                          invalidFileMessage="Sólo archivos de imagen"
+                                          invalidSizeMessage="El archivo es demasiado grande"/>
+
+                            <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
+                                        style="padding: 10px 0; color: #337AB7"/>
+                    </div>
+                    
                     <hr class="col-md-12" style="border-top-color: #C1C1C1"/>
                     <div class="form-group col-md-6">
                         <label for="correo">#{msjGestec.corre} </label>
@@ -123,7 +140,7 @@
                                      requiredMessage="#{msjGestec.editarp8}"/>
                         <h:message for="correo" style="color:red"  styleClass="error"></h:message>
                     </div>
-                      
+
                     <div class="form-group col-md-6">
                         <label for="nombreU">Pagina web: </label>
                         <h:inputText id="nombreU" class="form-control" value="#{sesionGestec.usuario.web}"
@@ -135,9 +152,9 @@
                         <h:message for="nombreU" style="color:red"  styleClass="error"></h:message>
                     </div>
                     <c:if test="#{sesionGestec.db==true}">
-                    <div class="col-md-12 col-xs-12">
-                        <p style="color:blue">Datos básicos actualizados</p>
-                    </div>
+                        <div class="col-md-12 col-xs-12">
+                            <p style="color:blue">Datos básicos actualizados</p>
+                        </div>
                     </c:if>
                     <div class="col-md-6 col-xs-12">
                         <h:commandButton value="Guardar cambios" actionListener="#{sesionGestec.actuzalizarPerfil()}" class="col-md-12 col-xs-12 btn btn-primary"/>
@@ -145,8 +162,8 @@
                     <div class="col-md-6 col-xs-12">
                         <h:commandButton value="Salir" actionListener="#{sesionGestec.volverPerfil()}" class="col-md-12 col-xs-12 btn btn-default"/>
                     </div>
-        </h:form>
-                      <h:form prependId="false">
+                </h:form>
+                <h:form prependId="false">
                     <h4 class="col-md-12" style="margin-top: 20px"><strong>Información de residencia: </strong></h4>
                     <hr class="col-md-12" style="border-top-color: #999"/>
                     <div class="form-group col-md-6">
@@ -179,11 +196,11 @@
                                 <!--<f:selectItem itemLabel="#{barrio.idBarrio.nombreBarrio}" 
                                               itemValue="#{barrio.idBarrio.idBarrio}"/>-->
                                 <f:selectItems value="#{sesionGestec.nombreBarrios}"/>
-                                
+
                             </h:selectOneMenu><h:message for="barrio" styleClass="error" style="color:Red"/>
                         </c:forEach>
                     </div>
-                     
+
                     <c:forEach items="#{sesionGestec.listarDireccion}" var="dir">
                         <div class="col-md-12" style="margin-bottom: 15px;">
                             <label for="direccion" class="col-md-12">#{msjGestec.direccion} </label>
@@ -266,312 +283,312 @@
                     </c:forEach>
                     <c:if test="#{sesionGestec.infor==true}">
                         <div class="col-md-12 col-xs-12">
-                        <center><p style="color:blue;">Información de residencia actualizada</p></center>
+                            <center><p style="color:blue;">Información de residencia actualizada</p></center>
                         </div>
                     </c:if>
                     <div class="col-md-6 col-xs-12">
                         <h:commandButton value="Actualizar residencia" actionListener="#{sesionGestec.actualizarResidencia()}" class="col-md-12 col-xs-12 btn btn-primary"/>
                     </div>
-                    </h:form>
-                    <div class="col-md-6 col-xs-12">
-                        <h:commandButton value="Volver" actionListener="#{sesionGestec.volverPerfil()}" class="col-md-12 col-xs-12 btn btn-default"/>
-                    </div>
-                    
-                    
-                    <div id="sesionContra">
+                </h:form>
+                <div class="col-md-6 col-xs-12">
+                    <h:commandButton value="Volver" actionListener="#{sesionGestec.volverPerfil()}" class="col-md-12 col-xs-12 btn btn-default"/>
+                </div>
+
+
+                <div id="sesionContra">
                     <h4 class="col-md-12" style="margin-top: 20px"><strong>#{msjGestec.contra}: </strong></h4>
                     <hr class="col-md-12" style="border-top-color: #999"/>
                     <h:form prependId="false">
-                       
-                        
-                        
-                    <div class="form-group col-md-12">
-                        <label for="contrasena">#{msjGestec.contraAntigua}</label>
-                        <h:inputSecret id="contrasena" class="form-control" value="#{sesionGestec.usuario.contrasenaUsuario}" validator="#{sesionGestec.validarContraAntigua}"/>
-                        <h:message for="contrasena" style="color:red" styleClass="error"/>               
-                    </div>
-                        
-                    <div class="form-group col-md-6">
-                        <label for="contrasenaN">#{msjGestec.contraNueva}</label>
-                        <h:inputSecret id="contrasenaN" class="form-control" value="#{sesionGestec.con}" validator="#{sesionGestec.contraNueva}">
-                            <f:ajax event="change" listener="#{sesionGestec.confirmarContras}" execute="contrasenaN"/>
-                        </h:inputSecret>
-                        <h:message for="contrasenaN" style="color:Red" styleClass="error"/>
-                    </div>
-                        
-                    <div class="form-group col-md-6">
-                        <label for="contrasenaR">#{msjGestec.repetirContra}</label>
-                        <h:inputSecret id="contrasenaR" class="form-control" value="#{sesionGestec.confirmarContra}" validator="#{sesionGestec.validarContraNueva}"/>
-                        <h:message for="contrasenaR" style="color:red" styleClass="error"/>
-                    </div>
-                        <c:if test="#{sesionGestec.ac==true}">
-                        <div class="col-md-12 col-xs-12">
-                            <center>
-                                <p style="color:blue">Contraseña actualizada exitosamente</p>
-                            </center>
-                        </div>
-                        </c:if>
-                            <div class="col-md-6 col-xs-12">
-                                
-                                <h:commandButton id="actualizarC" value="Actualizar Contraseña" class="btn btn-primary col-md-12" 
-                                                 actionListener="#{sesionGestec.actualizarContra()}"/>
-                                <h:message for="actualizarC" style="color:green" styleClass="error"/>
-                            </div>
-                            <div class="col-md-6 col-xs-12">
-                         <input type="reset" value="Borrar" class="btn btn-default col-md-12"/>
-                         </div>
-                         
-                    </h:form>
-                        </div>
-                       
-                    
-                    
 
+
+
+                        <div class="form-group col-md-12">
+                            <label for="contrasena">#{msjGestec.contraAntigua}</label>
+                            <h:inputSecret id="contrasena" class="form-control" value="#{sesionGestec.usuario.contrasenaUsuario}" validator="#{sesionGestec.validarContraAntigua}"/>
+                            <h:message for="contrasena" style="color:red" styleClass="error"/>               
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="contrasenaN">#{msjGestec.contraNueva}</label>
+                            <h:inputSecret id="contrasenaN" class="form-control" value="#{sesionGestec.con}" validator="#{sesionGestec.contraNueva}">
+                                <f:ajax event="change" listener="#{sesionGestec.confirmarContras}" execute="contrasenaN"/>
+                            </h:inputSecret>
+                            <h:message for="contrasenaN" style="color:Red" styleClass="error"/>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="contrasenaR">#{msjGestec.repetirContra}</label>
+                            <h:inputSecret id="contrasenaR" class="form-control" value="#{sesionGestec.confirmarContra}" validator="#{sesionGestec.validarContraNueva}"/>
+                            <h:message for="contrasenaR" style="color:red" styleClass="error"/>
+                        </div>
+                        <c:if test="#{sesionGestec.ac==true}">
+                            <div class="col-md-12 col-xs-12">
+                                <center>
+                                    <p style="color:blue">Contraseña actualizada exitosamente</p>
+                                </center>
+                            </div>
+                        </c:if>
+                        <div class="col-md-6 col-xs-12">
+
+                            <h:commandButton id="actualizarC" value="Actualizar Contraseña" class="btn btn-primary col-md-12" 
+                                             actionListener="#{sesionGestec.actualizarContra()}"/>
+                            <h:message for="actualizarC" style="color:green" styleClass="error"/>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <input type="reset" value="Borrar" class="btn btn-default col-md-12"/>
+                        </div>
+
+                    </h:form>
                 </div>
 
-                
-                
-                <c:if test="#{sesionGestec.certificado1==false}">
-                    
-                    <h:form>
+
+
+
+            </div>
+
+
+
+            <c:if test="#{sesionGestec.certificado1==false}">
+
+                <h:form>
                     <h3 style="text-align: center;margin-bottom: 0" class="col-md-12"><strong>#{msjGestec.perfil1}</strong></h3>
-                <hr class="col-md-12" style="border-top-color: #999"/>
+                    <hr class="col-md-12" style="border-top-color: #999"/>
 
-                <h4 class="col-md-12"><strong>#{msjGestec.descripcionPerfil}</strong></h4>
-                <h:inputText id="perfilU"
-                             value="#{sesionGestec.usuario.perfil}"
-                             class="form-control col-md-12" style="margin-top: 10px;margin-bottom: 10px"
-                             required="true"
-                             size="20"
-                             maxlength="100"
-                             validatorMessage="#{msjGestec.editarp1}"
-                             requiredMessage="#{msjGestec.editarp10}"/>
-                <h:message for="perfilU" style="color:red"  styleClass="error"></h:message>
+                    <h4 class="col-md-12"><strong>#{msjGestec.descripcionPerfil}</strong></h4>
+                    <h:inputText id="perfilU"
+                                 value="#{sesionGestec.usuario.perfil}"
+                                 class="form-control col-md-12" style="margin-top: 10px;margin-bottom: 10px"
+                                 required="true"
+                                 size="20"
+                                 maxlength="100"
+                                 validatorMessage="#{msjGestec.editarp1}"
+                                 requiredMessage="#{msjGestec.editarp10}"/>
+                    <h:message for="perfilU" style="color:red"  styleClass="error"></h:message>
                     <h4 class="col-md-12"><strong>#{msjGestec.estudios}</strong></h4>
-                    
-                        
-                            <button class="col-md-12 col-xs-12 btn btn-primary"
-                                    data-toggle="modal" data-target="#ModalEstudio">
-                                
-                                
-                           <f:ajax event="click" listener="#{sesionGestec.setUsuario(usuario)}" render="nombreEstudio"/>&nbsp;Agregar certificado de estudio
 
-                            </button>
-                        
-                   
-                    </h:form>
-                  </c:if>
-                <c:if test="#{sesionGestec.certificado1==true}">
-                    <h:form>
-                         <h3 style="text-align: center;margin-bottom: 0" class="col-md-12"><strong>#{msjGestec.perfil1}</strong></h3>
-                <hr class="col-md-12" style="border-top-color: #999"/>
 
-                <h4 class="col-md-12"><strong>#{msjGestec.descripcionPerfil}</strong></h4>
-                <h:inputText id="perfilU"
-                             value="#{sesionGestec.usuario.perfil}"
-                             class="form-control col-md-12" style="margin-top: 10px;margin-bottom: 10px"
-                             required="true"
-                             size="20"
-                             maxlength="100"
-                             validatorMessage="#{msjGestec.editarp1}"
-                             requiredMessage="#{msjGestec.editarp10}"/>
-                <h:message for="perfilU" style="color:red"  styleClass="error"></h:message>
-                    
-                <h4 class="col-md-12"><strong>#{msjGestec.estudios}</strong></h4>
-                <c:forEach items="#{sesionGestec.usuario.certificadoestudioList}" var="est">
-                    <button class="btn btn-default col-md-12 col-sm-12 col-xs-12 btn-archivo" 
-                            style="position: relative;margin-bottom: 15px;">
-                        <span class="fa fa-upload"></span> #{msjGestec.seleccionarArchivo}
-                        <input multiple="true" type="file" class="form-control archivo" 
-                               style="position: absolute;width: 100%;height: 100%;top: 0;left: 0;opacity: 0;cursor: pointer"/>
+                    <button class="col-md-12 col-xs-12 btn btn-primary"
+                            data-toggle="modal" data-target="#ModalEstudio">
+
+
+                        <f:ajax event="click" listener="#{sesionGestec.setUsuario(usuario)}" render="nombreEstudio"/>&nbsp;Agregar certificado de estudio
+
                     </button>
 
-                    <div class="col-md-6" style="padding-left: 0">
-                        <label class="col-md-12">#{msjGestec.centroEducativo}</label>
-                        <h:inputText value="#{est.centroEducativo}"
-                                     required="true"
-                                     requiredMessage="#{msjGestec.editarp11}"
-                                     maxlength="100"
-                                     class="col-md-6 col-sm-12 col-xs-12 form-control" 
-                                     style="margin-top: 10px;margin-bottom: 10px"/>
-                        <h:message for="fechaCE" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    <div class="col-md-6" style="padding-left: 0">
-                        <label class="col-md-12">#{msjGestec.nivelEstudios}</label>
-                        <h:inputText id="nivelE"
-                                     value="#{est.nivelEstudios}"
-                                     required="true"
-                                     requiredMessage="#{msjGestec.editarp12}"
-                                     maxlength="30"
-                                     class="col-md-6 col-sm-12 col-xs-12 form-control" 
-                                     style="margin-top: 10px;margin-bottom: 10px"/>
-                        <h:message for="nivelE" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    <div class="col-md-6" style="padding-left: 0">
-                        <label class="col-md-12">#{msjGestec.titulo}</label>
-                        <h:inputText id="titulo"
-                                     value="#{est.titulo}"
-                                     required="true"
-                                     requiredMessage="#{msjGestec.editarp12}"
-                                     maxlength="70"
-                                     class="col-md-6 col-sm-12 col-xs-12 form-control" 
-                                     style="margin-top: 10px;margin-bottom: 10px"/>
-                        <h:message for="titulo" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    <div class="col-md-6" style="padding-left: 0">
-                        <label class="col-md-12" >#{msjGestec.fecha}</label>
-                        <h:inputText id="fechaCE"
-                                     value="#{sesionGestec.formatearFecha(est.fechaCertificado)}"
-                                     required="true"
-                                     requiredMessage="#{msjGestec.editarp11}"
-                                     maxlength="10"
-                                     class="col-md-6 col-sm-12 col-xs-12 form-control" 
-                                     style="margin-top: 10px;margin-bottom: 10px"/>
-                        <h:message for="fechaCE" style="color:red"  styleClass="error"></h:message>
-                    </div>
 
-
-                    <div class="col-md-offset-6 col-md-6">
-                        <h:commandButton class="btn btn-danger col-md-offset-6 col-md-6" value="#{msjGestec.eliminarCertificado}"/>
-                    </div>
-                </c:forEach>
                 </h:form>
-                </c:if>
-                
-                <c:if test="#{sesionGestec.certificado2==false}">
-                    <h:form>
+            </c:if>
+            <c:if test="#{sesionGestec.certificado1==true}">
+                <h:form>
+                    <h3 style="text-align: center;margin-bottom: 0" class="col-md-12"><strong>#{msjGestec.perfil1}</strong></h3>
+                    <hr class="col-md-12" style="border-top-color: #999"/>
+
+                    <h4 class="col-md-12"><strong>#{msjGestec.descripcionPerfil}</strong></h4>
+                    <h:inputText id="perfilU"
+                                 value="#{sesionGestec.usuario.perfil}"
+                                 class="form-control col-md-12" style="margin-top: 10px;margin-bottom: 10px"
+                                 required="true"
+                                 size="20"
+                                 maxlength="100"
+                                 validatorMessage="#{msjGestec.editarp1}"
+                                 requiredMessage="#{msjGestec.editarp10}"/>
+                    <h:message for="perfilU" style="color:red"  styleClass="error"></h:message>
+
+                    <h4 class="col-md-12"><strong>#{msjGestec.estudios}</strong></h4>
+                    <c:forEach items="#{sesionGestec.usuario.certificadoestudioList}" var="est">
+                        <button class="btn btn-default col-md-12 col-sm-12 col-xs-12 btn-archivo" 
+                                style="position: relative;margin-bottom: 15px;">
+                            <span class="fa fa-upload"></span> #{msjGestec.seleccionarArchivo}
+                            <input multiple="true" type="file" class="form-control archivo" 
+                                   style="position: absolute;width: 100%;height: 100%;top: 0;left: 0;opacity: 0;cursor: pointer"/>
+                        </button>
+
+                        <div class="col-md-6" style="padding-left: 0">
+                            <label class="col-md-12">#{msjGestec.centroEducativo}</label>
+                            <h:inputText value="#{est.centroEducativo}"
+                                         required="true"
+                                         requiredMessage="#{msjGestec.editarp11}"
+                                         maxlength="100"
+                                         class="col-md-6 col-sm-12 col-xs-12 form-control" 
+                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                            <h:message for="fechaCE" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                        <div class="col-md-6" style="padding-left: 0">
+                            <label class="col-md-12">#{msjGestec.nivelEstudios}</label>
+                            <h:inputText id="nivelE"
+                                         value="#{est.nivelEstudios}"
+                                         required="true"
+                                         requiredMessage="#{msjGestec.editarp12}"
+                                         maxlength="30"
+                                         class="col-md-6 col-sm-12 col-xs-12 form-control" 
+                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                            <h:message for="nivelE" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                        <div class="col-md-6" style="padding-left: 0">
+                            <label class="col-md-12">#{msjGestec.titulo}</label>
+                            <h:inputText id="titulo"
+                                         value="#{est.titulo}"
+                                         required="true"
+                                         requiredMessage="#{msjGestec.editarp12}"
+                                         maxlength="70"
+                                         class="col-md-6 col-sm-12 col-xs-12 form-control" 
+                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                            <h:message for="titulo" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                        <div class="col-md-6" style="padding-left: 0">
+                            <label class="col-md-12" >#{msjGestec.fecha}</label>
+                            <h:inputText id="fechaCE"
+                                         value="#{sesionGestec.formatearFecha(est.fechaCertificado)}"
+                                         required="true"
+                                         requiredMessage="#{msjGestec.editarp11}"
+                                         maxlength="10"
+                                         class="col-md-6 col-sm-12 col-xs-12 form-control" 
+                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                            <h:message for="fechaCE" style="color:red"  styleClass="error"></h:message>
+                        </div>
+
+
+                        <div class="col-md-offset-6 col-md-6">
+                            <h:commandButton class="btn btn-danger col-md-offset-6 col-md-6" value="#{msjGestec.eliminarCertificado}"/>
+                        </div>
+                    </c:forEach>
+                </h:form>
+            </c:if>
+
+            <c:if test="#{sesionGestec.certificado2==false}">
+                <h:form>
                     <h4 class="col-md-12"><strong>#{msjGestec.experiencia}</strong></h4>
                     <button class="col-md-12 col-xs-12 btn btn-primary">
                         Agregar certificado de trabajo
                     </button>
-                    </h:form>
-                 </c:if>
-                <c:if test="#{sesionGestec.certificado2==true}">
+                </h:form>
+            </c:if>
+            <c:if test="#{sesionGestec.certificado2==true}">
                 <h:form>
-                <h4 class="col-md-12"><strong>#{msjGestec.experiencia}</strong></h4>
-                <c:forEach items="#{sesionGestec.usuario.certificadotrabajoList}" var="tra">
-                    <button class="btn btn-default col-md-12 col-sm-12 col-xs-12 btn-archivo" style="position: relative;margin-bottom: 10px">
-                        <span class="fa fa-upload"></span> #{msjGestec.seleccionarArchivo}
-                        <input multiple="true" type="file" name="contacts['value'][]" class="form-control archivo" placeholder="Nombres" style="position: absolute;width: 100%;height: 100%;top: 0;left: 0;opacity: 0;cursor: pointer"/>
-                    </button>
+                    <h4 class="col-md-12"><strong>#{msjGestec.experiencia}</strong></h4>
+                    <c:forEach items="#{sesionGestec.usuario.certificadotrabajoList}" var="tra">
+                        <button class="btn btn-default col-md-12 col-sm-12 col-xs-12 btn-archivo" style="position: relative;margin-bottom: 10px">
+                            <span class="fa fa-upload"></span> #{msjGestec.seleccionarArchivo}
+                            <input multiple="true" type="file" name="contacts['value'][]" class="form-control archivo" placeholder="Nombres" style="position: absolute;width: 100%;height: 100%;top: 0;left: 0;opacity: 0;cursor: pointer"/>
+                        </button>
 
-                    <div class="col-md-6" style="padding-left: 0">
-                        <h:inputText id="empresa"
-                                     class="form-control" value="#{tra.empresa}"
-                                     required="true"
-                                     requiredMessage="#{msjGestec.editarp12}"
-                                     maxlength="40"
-                                     style="margin-top: 10px;margin-bottom: 10px"/>
-                        <h:message for="empresa" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    <div class="col-md-6" style="padding-right: 0">
-                        <h:inputText id="servicios"
-                                     class="form-control" value="#{tra.fechaCertificado}"
-                                     required="true"
-                                     requiredMessage="#{msjGestec.editarp12}"
-                                     maxlength="20"
-                                     style="margin-top: 10px;margin-bottom: 10px"/>
-                        <h:message for="servicios" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    <div class="col-md-12" style="padding-right: 0;padding-left: 0">
-                        <h:inputText id="servicios"
-                                     class="form-control" value="#{tra.serviciosPrestados}"
-                                     required="true"
-                                     requiredMessage="#{msjGestec.editarp12}"
-                                     maxlength="20"
-                                     style="margin-top: 10px;margin-bottom: 10px"/>
-                        <h:message for="servicios" style="color:red"  styleClass="error"></h:message>
-                    </div>
-                    <div class="col-md-offset-6 col-md-6">
-                        <h:commandButton class="btn btn-danger col-md-offset-6 col-md-6" value="#{msjGestec.eliminarCertificado}"/>
-                    </div>
-                </c:forEach>
+                        <div class="col-md-6" style="padding-left: 0">
+                            <h:inputText id="empresa"
+                                         class="form-control" value="#{tra.empresa}"
+                                         required="true"
+                                         requiredMessage="#{msjGestec.editarp12}"
+                                         maxlength="40"
+                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                            <h:message for="empresa" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                        <div class="col-md-6" style="padding-right: 0">
+                            <h:inputText id="servicios"
+                                         class="form-control" value="#{tra.fechaCertificado}"
+                                         required="true"
+                                         requiredMessage="#{msjGestec.editarp12}"
+                                         maxlength="20"
+                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                            <h:message for="servicios" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                        <div class="col-md-12" style="padding-right: 0;padding-left: 0">
+                            <h:inputText id="servicios"
+                                         class="form-control" value="#{tra.serviciosPrestados}"
+                                         required="true"
+                                         requiredMessage="#{msjGestec.editarp12}"
+                                         maxlength="20"
+                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                            <h:message for="servicios" style="color:red"  styleClass="error"></h:message>
+                        </div>
+                        <div class="col-md-offset-6 col-md-6">
+                            <h:commandButton class="btn btn-danger col-md-offset-6 col-md-6" value="#{msjGestec.eliminarCertificado}"/>
+                        </div>
+                    </c:forEach>
 
                 </h:form>
-                </c:if>    
-                    
-                    
-                <h:form prependId="false">
+            </c:if>    
+
+
+            <h:form prependId="false">
                 <h3 style="text-align: center;margin-bottom: 0" class="col-md-12 col-sm-12 col-xs-12"><strong>#{msjGestec.zonaRoja}</strong></h3>
                 <hr class="col-md-12" style="border-top-color: #999"/>
-                
+
                 <button type="button" class="btn btn-danger col-md-12 col-sm-12 col-xs-12" 
                         style="margin-bottom: 10px"
                         data-toggle="modal" data-target="#MyModalBloquear"><span class="fa fa-lock"></span> 
                     <f:ajax event="click" listener="#{sesionGestec.setUsuario(usuario)}" render="nombreActualizar"/>&nbsp;#{msjGestec.desactivarCuenta}
-                    
+
                 </button>
-                
-              
-                
-                </h:form>
-                
-                <label for="contrasena" class="col-md-12 col-sm-12 col-xs-12">#{msjGestec.reportarQueja}</label>
-                <textarea placeholder="#{msjGestec.escribasuquejaoreclamo}" class="col-md-12 col-sm-12 col-xs-12 form-control" ></textarea>
 
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 15px 0">
-                        <div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 0">
-                            <a href="#{request.contextPath}/faces/gestec/usuario/perfil.xhtml" class="btn btn-default col-md-12 col-sm-12 col-xs-12">#{msjGestec.volver}</a>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6" style="padding-right: 0">
-                            <h:commandButton class="btn btn-primary col-md-12 col-sm-12 col-xs-12"
-                                             value="#{msjGestec.citasGuardar}" actionListener="#{sesionGestec.irAlInicio()}"/>
-                        </div>
 
+
+            </h:form>
+
+            <label for="contrasena" class="col-md-12 col-sm-12 col-xs-12">#{msjGestec.reportarQueja}</label>
+            <textarea placeholder="#{msjGestec.escribasuquejaoreclamo}" class="col-md-12 col-sm-12 col-xs-12 form-control" ></textarea>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 15px 0">
+                    <div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 0">
+                        <a href="#{request.contextPath}/faces/gestec/usuario/perfil.xhtml" class="btn btn-default col-md-12 col-sm-12 col-xs-12">#{msjGestec.volver}</a>
                     </div>
-                </div>
-                
-                <div id="MyModalBloquear" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Desactivar Cuenta</h4>
-                            </div>
-                            <div class="modal-body">
-                                <h:panelGroup id="nombreActualizar">
-                                    <p>¿Esta seguro que desea desactivar su cuenta?
-                                        <br/>Puede comunicarse con el administrador para re activar su cuenta</p> 
-                                </h:panelGroup>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                                <h:form>
-                                    <h:commandButton actionListener="#{sesionGestec.bloquearCuenta()}" value="Desactivar Cuenta"
-                                                     class="btn btn-danger pull-right"/>
-                                </h:form>
-                            </div>
-                        </div> 
+                    <div class="col-md-6 col-sm-6 col-xs-6" style="padding-right: 0">
+                        <h:commandButton class="btn btn-primary col-md-12 col-sm-12 col-xs-12"
+                                         value="#{msjGestec.citasGuardar}" actionListener="#{sesionGestec.irAlInicio()}"/>
                     </div>
+
                 </div>
-                
-                <div id="ModalEstudio" class="modal fade" role="dialog">
+            </div>
+
+            <div id="MyModalBloquear" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Desactivar Cuenta</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:panelGroup id="nombreActualizar">
+                                <p>¿Esta seguro que desea desactivar su cuenta?
+                                    <br/>Puede comunicarse con el administrador para re activar su cuenta</p> 
+                            </h:panelGroup>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                            <h:form>
+                                <h:commandButton actionListener="#{sesionGestec.bloquearCuenta()}" value="Desactivar Cuenta"
+                                                 class="btn btn-danger pull-right"/>
+                            </h:form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+            <div id="ModalEstudio" class="modal fade" role="dialog">
                 <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Modal Header</h4>
-      </div>
-      <div class="modal-body">
-        <h:panelGroup id="nombreEstudio">
-                                    <p>¿Esta seguro que desea desactivar su cuenta?
-                                        <br/>Puede comunicarse con el administrador para re activar su cuenta</p> 
-                                </h:panelGroup>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:panelGroup id="nombreEstudio">
+                                <p>¿Esta seguro que desea desactivar su cuenta?
+                                    <br/>Puede comunicarse con el administrador para re activar su cuenta</p> 
+                            </h:panelGroup>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
 
-  </div>
                 </div>
+            </div>
 
-                
-            </div> 
-        
+
+        </div> 
+
     </ui:define>
 
 </ui:composition>

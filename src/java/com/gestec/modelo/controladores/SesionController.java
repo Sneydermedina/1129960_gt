@@ -58,6 +58,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.PhaseId;
 import javax.inject.Named;
+import org.apache.commons.io.IOUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -126,10 +128,12 @@ public class SesionController implements Serializable {
     private Integer barrioId;
     private Boolean infor;
     private Boolean certificado1;
-   private Boolean certificado2;
-   private List<Direccion> listarDireccion;
-   private List<Telefono> listarTelefono;
-   private List<Calificacion> listarCalificacion;
+    private Boolean certificado2;
+    private List<Direccion> listarDireccion;
+    private List<Telefono> listarTelefono;
+    private List<Calificacion> listarCalificacion;
+    private byte[] foto;
+
     @PostConstruct
     public void init() {
         this.ac = false;
@@ -137,7 +141,7 @@ public class SesionController implements Serializable {
         this.infor = false;
         this.contacto = new Contactos();
         //this.dire = new Direccion();
-       
+
         this.usuario = new Usuarios();
         this.localidades = lfl.findAll();
         this.barrios = bfl.findAll();
@@ -148,13 +152,10 @@ public class SesionController implements Serializable {
         this.calfl.findAll();
         this.cfl.findAll();
         this.telfl.findAll();
-        
+
         //this.usuario.getDireccionList().set(0, dire);
         //this.dire.setUsuariosidUsuario(new Usuarios());
         //this.listarUsuarios = (List)efl.findAll();
-       
-        
-      
         //this.estadoCertificado1();
         this.solicitudesUsuario = new ArrayList<>();
 
@@ -176,7 +177,7 @@ public class SesionController implements Serializable {
     public void setListarDireccion(List<Direccion> listarDireccion) {
         this.listarDireccion = listarDireccion;
     }
-    
+
     public Locale getIdiomaSeleccionado() {
         return idiomaSeleccionado;
     }
@@ -192,7 +193,7 @@ public class SesionController implements Serializable {
     public void setListarTelefono(List<Telefono> listarTelefono) {
         this.listarTelefono = listarTelefono;
     }
-    
+
     public List<Locale> getIdiomasSoportados() {
         return idiomasSoportados;
     }
@@ -328,8 +329,9 @@ public class SesionController implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    public void estado(){
-        this.estado=usuario.getEstadoUsuario();
+
+    public void estado() {
+        this.estado = usuario.getEstadoUsuario();
     }
 
     public String getCon() {
@@ -428,11 +430,6 @@ public class SesionController implements Serializable {
         this.certificado2 = certificado2;
     }
 
-    
-    
-    
-    
-
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
         List<NotificacionCita> nots;
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
@@ -445,11 +442,11 @@ public class SesionController implements Serializable {
                     }
                 }
             }
-            this.notCitas = nots;
-        }
             if (getUsuario().getTipoUsuario().equals("Cliente")) {
                 nots = this.notCitas;
             }
+            this.notCitas = nots;
+        }
         return this.notCitas;
     }
 
@@ -558,7 +555,7 @@ public class SesionController implements Serializable {
             String id = context.getExternalContext().getRequestParameterMap()
                     .get("pid2");
             Integer idF = Integer.valueOf(id);
-            byte[] image = ufl.find(idF).getFotoPerfil();
+            byte[] image = this.usuario.getFotoPerfil();
             if (image == null) {
                 return new DefaultStreamedContent(new ByteArrayInputStream(ufl.find(1).getFotoPerfil()));
             }
@@ -674,25 +671,24 @@ public class SesionController implements Serializable {
             this.usuario = ufl.iniciarSesion(nombreUsuario, contrasena);
             if (usuario != null) {
                 estado();
-                if (estado.equals("1")){
-                
-                
-                ec.getSessionMap().put("user", usuario);
-                switch (usuario.getTipoUsuario()) {
-                    case "Administrador":
-                        url = "/faces/gestec/usuario/admin.xhtml?faces-redirect=true";
-                        break;
-                    case "Cliente":
-                        url = "/faces/gestec/usuario/cliente.xhtml?faces-redirect=true";
-                        break;
-                    case "Tecnico":
-                        url = "/faces/gestec/usuario/tecnico.xhtml?faces-redirect=true";
-                        break;
-                    default:
-                        break;
-                }
-                }else{
-                    msj = new FacesMessage(FacesMessage.SEVERITY_WARN,bundle.getString("userInactivo"),"Usuario no disponible");
+                if (estado.equals("1")) {
+
+                    ec.getSessionMap().put("user", usuario);
+                    switch (usuario.getTipoUsuario()) {
+                        case "Administrador":
+                            url = "/faces/gestec/usuario/admin.xhtml?faces-redirect=true";
+                            break;
+                        case "Cliente":
+                            url = "/faces/gestec/usuario/cliente.xhtml?faces-redirect=true";
+                            break;
+                        case "Tecnico":
+                            url = "/faces/gestec/usuario/tecnico.xhtml?faces-redirect=true";
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    msj = new FacesMessage(FacesMessage.SEVERITY_WARN, bundle.getString("userInactivo"), "Usuario no disponible");
                     usuario.setNombreUsuario("");
                     usuario.setContrasenaUsuario("");
                 }
@@ -957,121 +953,134 @@ public class SesionController implements Serializable {
         }
         return "";
     }
-    public void bloquearCuenta(){
+
+    public void bloquearCuenta() {
         this.usuario.setEstadoUsuario("0");
         this.ufl.edit(usuario);
         redireccionar("/faces/index.xhtml?faces-redirect=true");
     }
-    
-    public void validarContraAntigua(FacesContext context,UIComponent toValidate,Object value){
+
+    public void validarContraAntigua(FacesContext context, UIComponent toValidate, Object value) {
         context = FacesContext.getCurrentInstance();
         String texto = (String) value;
         FacesMessage msj = null;
-        
+
         if (texto.isEmpty()) {
-            ((UIInput)toValidate).setValid(false);
+            ((UIInput) toValidate).setValid(false);
             msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Este campo es obligatorio", "No puede ser null");
             context.addMessage(toValidate.getClientId(context), msj);
         }
-        
+
         if (!usuario.getContrasenaUsuario().equals(texto)) {
-            ((UIInput)toValidate).setValid(false);
+            ((UIInput) toValidate).setValid(false);
             msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña incorrecta", "Error de contraseña");
-            context.addMessage(toValidate.getClientId(context),msj);
+            context.addMessage(toValidate.getClientId(context), msj);
         }
     }
-    public void contraNueva(FacesContext context,UIComponent toValidate,Object value){
+
+    public void contraNueva(FacesContext context, UIComponent toValidate, Object value) {
         context = FacesContext.getCurrentInstance();
         String texto = (String) value;
         FacesMessage msj = null;
-        
+
         if (texto.isEmpty()) {
-            ((UIInput)toValidate).setValid(false);
-            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Campo obligatorio","Campo obligatorio");
+            ((UIInput) toValidate).setValid(false);
+            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campo obligatorio", "Campo obligatorio");
             context.addMessage(toValidate.getClientId(context), msj);
         }
     }
-    
-    public void confirmarContras(AjaxBehaviorEvent e){
+
+    public void confirmarContras(AjaxBehaviorEvent e) {
         this.con2 = con;
     }
-    public void validarContraNueva(FacesContext context,UIComponent toValidate,Object value){
+
+    public void validarContraNueva(FacesContext context, UIComponent toValidate, Object value) {
         context = FacesContext.getCurrentInstance();
         String texto = (String) value;
         FacesMessage msj = new FacesMessage();
-        
+
         if (texto.isEmpty()) {
-            ((UIInput)toValidate).setValid(false);
-            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR,"No puede ser nulo","No puede ser vacio");
+            ((UIInput) toValidate).setValid(false);
+            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, "No puede ser nulo", "No puede ser vacio");
             context.addMessage(toValidate.getClientId(context), msj);
         }
         if (!texto.equals(con2)) {
-            ((UIInput)toValidate).setValid(false);
-            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Campos incorrectos","Las contraseñas no coinciden");
+            ((UIInput) toValidate).setValid(false);
+            msj = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Campos incorrectos", "Las contraseñas no coinciden");
             context.addMessage(toValidate.getClientId(context), msj);
         }
     }
-    
-    public void actualizarContra(){
+
+    public void actualizarContra() {
         this.ac = true;
         FacesContext fc = FacesContext.getCurrentInstance();
         FacesMessage msj = null;
         this.usuario.setContrasenaUsuario(confirmarContra);
         this.ufl.edit(usuario);
-        msj = new FacesMessage(FacesMessage.SEVERITY_INFO,"Contraseña cambiada exitosamente!","Contraseña cambiada exitosamente!");
+        msj = new FacesMessage(FacesMessage.SEVERITY_INFO, "Contraseña cambiada exitosamente!", "Contraseña cambiada exitosamente!");
         fc.addMessage(null, msj);
-        
+
     }
-    public void actuzalizarPerfil(){
+
+    public void actuzalizarPerfil() {
+        this.usuario.setFotoPerfil(this.foto);
         ufl.edit(usuario);
+        Integer id = usuario.getIdUsuario();
+        this.usuario = null;
+        this.usuario = ufl.find(id);
         this.db = true;
-        
     }
-    public void volverPerfil(){
-        this.db=false;
-        this.ac=false;
-        this.infor=false;
+
+    public void volverPerfil() {
+        this.db = false;
+        this.ac = false;
+        this.infor = false;
         redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
     }
-   public void actualizarResidencia(){
-       System.out.println("entro");
-       this.dire = usuario.getDireccionList().get(0);
-       this.localidad = usuario.getDireccionList().get(0).getIdBarrio().getIdLocalidad();
-       this.barrio = usuario.getDireccionList().get(0).getIdBarrio();
 
-       lfl.edit(localidad);
-       barrio.setIdLocalidad(localidad);
-       
-       //bfl.edit(barrio);
+    public void actualizarResidencia() {
+        System.out.println("entro");
+        this.dire = usuario.getDireccionList().get(0);
+        this.localidad = usuario.getDireccionList().get(0).getIdBarrio().getIdLocalidad();
+        this.barrio = usuario.getDireccionList().get(0).getIdBarrio();
 
-       dire.setIdBarrio(bfl.find(barrioId));
-       dfl.edit(dire);
-       this.infor=true;
+        lfl.edit(localidad);
+        barrio.setIdLocalidad(localidad);
 
-       
-   }
-   public void estadoCertificado1(){
-         if (usuario.getCertificadoestudioList().isEmpty()) {
-          this.certificado1=false;
-           
-       }else{
-         this.certificado1=true;
-           
-       }
-         
-         if (usuario.getCertificadotrabajoList().isEmpty()) {
-           this.certificado2=false;
-       }else{
-             this.certificado2=true;
-         }
-         
-       redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
-   }
-   public void irPerfil(){
-       this.listarTelefono= telfl.listarPorUser(usuario.getIdUsuario());
-       this.listarDireccion = dfl.listarPorUser(usuario.getIdUsuario());
-       this.listarCalificacion = calfl.listarPorUser(usuario.getIdUsuario());
-       redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
-   }
-  
+        //bfl.edit(barrio);
+        dire.setIdBarrio(bfl.find(barrioId));
+        dfl.edit(dire);
+        this.infor = true;
+
+    }
+
+    public void estadoCertificado1() {
+        if (usuario.getCertificadoestudioList().isEmpty()) {
+            this.certificado1 = false;
+
+        } else {
+            this.certificado1 = true;
+
+        }
+
+        if (usuario.getCertificadotrabajoList().isEmpty()) {
+            this.certificado2 = false;
+        } else {
+            this.certificado2 = true;
+        }
+
+        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+    }
+
+    public void irPerfil() {
+        this.listarTelefono = telfl.listarPorUser(usuario.getIdUsuario());
+        this.listarDireccion = dfl.listarPorUser(usuario.getIdUsuario());
+        this.listarCalificacion = calfl.listarPorUser(usuario.getIdUsuario());
+        redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
+    }
+    
+    public void cambiarFoto(FileUploadEvent evento) throws IOException{
+        this.foto = IOUtils.toByteArray(evento.getFile().getInputstream());     
+    }
+
 }
