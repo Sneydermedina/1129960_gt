@@ -527,24 +527,6 @@ public class SesionController implements Serializable {
         this.ultimoMensaje = mnsjs.get(tam);
     }
 
-    public StreamedContent getImagenPerfil() throws IOException, SQLException {
-        FacesContext context = FacesContext.getCurrentInstance();
-
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
-            return new DefaultStreamedContent();
-        } else {
-            String id = context.getExternalContext().getRequestParameterMap()
-                    .get("pid");
-            Integer idF = Integer.valueOf(id);
-            byte[] image = ufl.find(idF).getFotoPerfil();
-            if (image == null) {
-                return new DefaultStreamedContent(new ByteArrayInputStream(ufl.find(1).getFotoPerfil()));
-            }
-            return new DefaultStreamedContent(new ByteArrayInputStream(image));
-
-        }
-    }
-
     public StreamedContent getImagenPerfil2() throws IOException, SQLException {
         FacesContext context = FacesContext.getCurrentInstance();
 

@@ -53,9 +53,10 @@
                         </h3>
                         <hr/>
                   
-                        <p:graphicImage value="#{sesionGestec.imagenPerfil2}" class="img-circle" style="width: 130px;height: 130px;">
-                            <f:param name="pid2" value="#{sesionGestec.usuario.idUsuario}"/>
+                        <p:graphicImage value="#{fotosController.fto}" class="img-circle" style="width: 130px;height: 130px;">
+                            <f:param name="pif" value="#{sesionGestec.usuario.idUsuario}"/>
                         </p:graphicImage>
+
                         <h4 style="padding: 10px"><strong>#{sesionGestec.usuario.nombreUsuario} #{sesionGestec.usuario.apellido}</strong></h4>
                         <h4>#{sesionGestec.usuario.tipoUsuario}</h4>
 
