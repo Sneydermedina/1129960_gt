@@ -6,9 +6,11 @@
 package com.gestec.modelo.persistencia;
 
 import com.gestec.modelo.entidades.Localidad;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -38,4 +40,13 @@ public class LocalidadFacade extends AbstractFacade<Localidad> implements Locali
         return barriosLocalidad;
     }
     
+    @Override
+    public List<Localidad> listarLocalidad(int id){
+        Query q;
+        q = em.createNativeQuery("select l.* from localidad l join barrio b on l.idLocalidad=b.idLocalidad join direccion d on b.idbarrio=d.idbarrio\n" +
+"join usuarios u on d.usuarios_idusuario=u.idusuario where u.idusuario = ?1",Localidad.class);
+        q.setParameter("1", id);
+        List<Localidad> local = q.getResultList();
+        return local;
+    }
 }

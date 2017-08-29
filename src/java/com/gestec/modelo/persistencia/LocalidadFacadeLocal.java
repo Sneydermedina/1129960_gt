@@ -32,4 +32,5 @@ public interface LocalidadFacadeLocal {
     
     Localidad llenarBarriosLocalidad(Integer idLocalidad);
     
+    List<Localidad> listarLocalidad(int id);
 }

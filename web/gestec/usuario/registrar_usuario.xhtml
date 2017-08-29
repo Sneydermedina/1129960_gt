@@ -189,7 +189,9 @@
                                     <f:selectItem itemLabel="#{msjGestec.seleccioneTipoUser}" class="form-horizontal"/>
                                     <f:selectItem itemValue="Tecnico" itemLabel="#{msjGestec.tecnico}" class="form-horizontal"/>
                                     <f:selectItem itemValue="Cliente" itemLabel="#{msjGestec.cliente}" class="form-horizontal"/>
-                                 
+                                                                 
+                                   
+                                
                                 </h:selectOneMenu>
                                 <h:message for="tipoU" style="color:red" styleClass="error"/>
                             </div>
@@ -360,25 +362,7 @@
                             </div>
                             
                         </div>
-                        <div class="col-md-6 inputs">
-                        <div class="col-md-5">
-                            <h4>#{msjGestec.indiqueEspecialidad}</h4>
-                        </div>
-                        <div class="col-md-7">
-                            <h:selectOneMenu id="especialidad" class="form-control" 
-                                             value="#{userController.especialidad.especialidad}"
-                                             required="true"
-                                             requiredMessage="#{msjGestec.indiqueEspecialidad}">
-                                
-                                <f:selectItems value="#{userController.especialidad()}"/>
-                            </h:selectOneMenu>
-                            <h:message for="especialidad" style="color:red" styleClass="error"/>
-                        </div>
-                            </div>
-                        <div class="col-md-6">
                            
-                        </div>
-                        
                         </div>
                         <div class="row">
                             <hr/>

@@ -364,9 +364,26 @@
                                  validatorMessage="#{msjGestec.editarp1}"
                                  requiredMessage="#{msjGestec.editarp10}"/>
                     <h:message for="perfilU" style="color:red"  styleClass="error"></h:message>
+                    
+                    <c:if test="#{sesionGestec.usuario.tipoUsuario.equals('Tecnico')}">
+                    <h4 class="col-md-12 col-xs-12"><strong>Especialidad</strong></h4>
+                    <c:forEach items="#{sesionGestec.usuario.especialidadList}" var="esp">
+                        <h:selectOneMenu id="especialidad" value="#{esp.especialidad}" class="form-control">
+                            <f:selectItem itemValue="#{esp.especialidad}"/>
+                            <f:selectItem itemValue="Mantenimiento" itemLabel="Mantenimiento"/>
+                            <f:selectItem itemValue="Diagnostico" itemLabel="Diagnostico"/>
+                            <f:selectItem itemValue="Instalación" itemLabel="Instalación"/>
+                        </h:selectOneMenu>
+                    </c:forEach>
+                    </c:if>
+                    <br/>
+                    <h:commandButton class="btn btn-primary col-md-12 col-xs-12" value="Actualizar Perfil" actionListener="#{sesionGestec.actualizarPerfil1()}"/>
+                    </h:form>
+                                    <h:form>
+                                        
+                                        
                     <h4 class="col-md-12"><strong>#{msjGestec.estudios}</strong></h4>
-
-
+                    
                     <button class="col-md-12 col-xs-12 btn btn-primary"
                             data-toggle="modal" data-target="#ModalEstudio">
 
@@ -393,6 +410,23 @@
                                  validatorMessage="#{msjGestec.editarp1}"
                                  requiredMessage="#{msjGestec.editarp10}"/>
                     <h:message for="perfilU" style="color:red"  styleClass="error"></h:message>
+
+                    <c:if test="#{sesionGestec.usuario.tipoUsuario.equals('Tecnico')}">
+                    <h4 class="col-md-12 col-xs-12"><strong>Especialidad</strong></h4>
+                    <c:forEach items="#{sesionGestec.usuario.especialidadList}" var="esp">
+                        <h:selectOneMenu id="especialidad" value="#{esp.especialidad}" class="form-control">
+                            <f:selectItem itemValue="#{esp.especialidad}"/>
+                            <f:selectItem itemValue="Mantenimiento" itemLabel="Mantenimiento"/>
+                            <f:selectItem itemValue="Diagnostico" itemLabel="Diagnostico"/>
+                            <f:selectItem itemValue="Instalación" itemLabel="Instalación"/>
+                        </h:selectOneMenu>
+                    </c:forEach>
+                    </c:if>
+                    <br/>
+                    
+                    <h:commandButton class="btn btn-primary col-md-12 col-xs-12" value="Actualizar Perfil" actionListener="#{sesionGestec.actualizarPerfil1()}"/>
+                </h:form>
+                                    <h:form>
 
                     <h4 class="col-md-12"><strong>#{msjGestec.estudios}</strong></h4>
                     <c:forEach items="#{sesionGestec.usuario.certificadoestudioList}" var="est">

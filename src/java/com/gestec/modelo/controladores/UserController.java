@@ -105,13 +105,14 @@ public class UserController implements Serializable{
     private String con;
     private String con2;
     private Boolean nuevoUsuario;
+    private Boolean tipoUser;
     
     private double cali;
     private List<Relcalificacionusuarios> listarGeneral;
 
     @PostConstruct
     public void init(){
-        
+        this.tipoUser=false;
         this.telefono=new Telefono();
         this.usuarios=new Usuarios();
         this.telefono.setIdUsuario(new Usuarios());
@@ -396,6 +397,14 @@ public class UserController implements Serializable{
     public void setListarGeneral(List<Relcalificacionusuarios> listarGeneral) {
         this.listarGeneral = listarGeneral;
     }
+
+    public Boolean getTipoUser() {
+        return tipoUser;
+    }
+
+    public void setTipoUser(Boolean tipoUser) {
+        this.tipoUser = tipoUser;
+    }
     
     
 
@@ -471,6 +480,7 @@ public class UserController implements Serializable{
     public void valContra(AjaxBehaviorEvent event){
         this.con2=con;
     }
+  
     public void validarCorreo(FacesContext context,UIComponent toValidate,Object value){
         context = FacesContext.getCurrentInstance();
         String texto=(String) value;
@@ -671,6 +681,7 @@ public class UserController implements Serializable{
         int num2 = (int) num;
         this.especialidad.setIdespecialidad(num2);
         this.especialidad.setUsuariosidUsuario(usu);
+        this.especialidad.setEspecialidad("N/A");
         efl.create(especialidad);
         System.out.println("Vamos!");
        

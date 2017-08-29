@@ -11,6 +11,7 @@ import com.gestec.modelo.entidades.Certificadoestudio;
 import com.gestec.modelo.entidades.Calificacion;
 import com.gestec.modelo.entidades.Contactos;
 import com.gestec.modelo.entidades.Direccion;
+import com.gestec.modelo.entidades.Especialidad;
 import com.gestec.modelo.entidades.Localidad;
 import com.gestec.modelo.entidades.Mensaje;
 import com.gestec.modelo.entidades.Telefono;
@@ -132,8 +133,10 @@ public class SesionController implements Serializable {
     private List<Direccion> listarDireccion;
     private List<Telefono> listarTelefono;
     private List<Calificacion> listarCalificacion;
+    private List<Localidad> listarLocalidad;
     private byte[] foto;
-
+    private Especialidad esp;
+    
     @PostConstruct
     public void init() {
         this.ac = false;
@@ -430,6 +433,22 @@ public class SesionController implements Serializable {
         this.certificado2 = certificado2;
     }
 
+    public List<Localidad> getListarLocalidad() {
+        return listarLocalidad;
+    }
+
+    public void setListarLocalidad(List<Localidad> listarLocalidad) {
+        this.listarLocalidad = listarLocalidad;
+    }
+
+    public Especialidad getEsp() {
+        return esp;
+    }
+
+    public void setEsp(Especialidad esp) {
+        this.esp = esp;
+    }
+    
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
         List<NotificacionCita> nots;
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
@@ -1044,14 +1063,14 @@ public class SesionController implements Serializable {
         this.localidad = usuario.getDireccionList().get(0).getIdBarrio().getIdLocalidad();
         this.barrio = usuario.getDireccionList().get(0).getIdBarrio();
 
-        lfl.edit(localidad);
-        barrio.setIdLocalidad(localidad);
+      
+       
 
         //bfl.edit(barrio);
         dire.setIdBarrio(bfl.find(barrioId));
         dfl.edit(dire);
         this.infor = true;
-
+        this.listarLocalidad = lfl.listarLocalidad(usuario.getIdUsuario());
     }
 
     public void estadoCertificado1() {
@@ -1076,11 +1095,18 @@ public class SesionController implements Serializable {
         this.listarTelefono = telfl.listarPorUser(usuario.getIdUsuario());
         this.listarDireccion = dfl.listarPorUser(usuario.getIdUsuario());
         this.listarCalificacion = calfl.listarPorUser(usuario.getIdUsuario());
+                this.listarLocalidad = lfl.listarLocalidad(usuario.getIdUsuario());
+
         redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
     }
     
     public void cambiarFoto(FileUploadEvent evento) throws IOException{
         this.foto = IOUtils.toByteArray(evento.getFile().getInputstream());     
     }
-
+    public void actualizarPerfil1(){
+        this.esp = usuario.getEspecialidadList().get(0);
+        ufl.edit(usuario);
+        efl.edit(esp);
+        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+    }
 }
