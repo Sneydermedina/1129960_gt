@@ -6,9 +6,11 @@
 package com.gestec.modelo.persistencia;
 
 import com.gestec.modelo.entidades.Relequiposervicio;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +29,13 @@ public class RelequiposervicioFacade extends AbstractFacade<Relequiposervicio> i
 
     public RelequiposervicioFacade() {
         super(Relequiposervicio.class);
+    }
+    
+    @Override
+    public List<Relequiposervicio> listarComentarios(Integer idServicio){
+        TypedQuery<Relequiposervicio> q = getEntityManager().createNamedQuery("Relequiposervicio.comentarios", Relequiposervicio.class);
+        q.setParameter("noTiquet", idServicio);
+        return q.getResultList();
     }
     
 }

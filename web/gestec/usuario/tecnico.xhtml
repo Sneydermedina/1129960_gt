@@ -191,32 +191,32 @@
                                                                     <c:if test="#{comentario.comentario != 'Comentario'}">
                                                                         <div class="row" style="margin-left: 0;margin-top: 15px">
                                                                             <div class="media-left">
-                                                                            <p:graphicImage value="#{citasRequest.fotoComentario}" class="media-object img-circle">
-                                                                                <f:param name="imgComentario" value="#{comentario.usuario.idUsuario}"/>
-                                                                            </p:graphicImage>
+                                                                                <p:graphicImage value="#{citasRequest.fotoComentario}" class="media-object img-circle">
+                                                                                    <f:param name="imgComentario" value="#{comentario.usuario.idUsuario}"/>
+                                                                                </p:graphicImage>
 
-                                                                        </div>
-                                                                        <div class="media-body">
-                                                                            <h5 class="media-heading">
-                                                                                <h:commandLink class="enlace-perfil" target="_blank"
-                                                                                               value="#{comentario.usuario.nombreUsuario} #{comentario.usuario.apellido}"
-                                                                                               actionListener="#{sesionGestec.verPerfil(comentario.usuario)}"/>
-                                                                            </h5>
-                                                                            #{comentario.comentario}
-                                                                        </div>
-                                                                        <c:if test="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
-                                                                            <div class="col-md-12" style="padding: 10px 0">
-                                                                                <h:commandLink styleClass="col-md-4 col-md-offset-1 btn btn-primary fa fa-calendar-check-o"
-                                                                                               title="Agendar cita"
-                                                                                               pt:data-toggle="modal" pt:data-target="#confirmacionSolicitud" >
-                                                                                    <f:ajax event="click" render="mensaje"
-                                                                                            listener="#{citasRequest.setServicioTecnico(comentario.servicionoTiquet, comentario.usuario, comentario.servicionoTiquet.citasList.get(0))}"></f:ajax>
-                                                                                </h:commandLink>
-
-                                                                                <h:commandLink title="Denegar solicitud"
-                                                                                               styleClass="col-md-4 col-md-offset-1 btn btn-danger fa fa-times"/>
                                                                             </div>
-                                                                        </c:if>
+                                                                            <div class="media-body">
+                                                                                <h5 class="media-heading">
+                                                                                    <h:commandLink class="enlace-perfil" target="_blank"
+                                                                                                   value="#{comentario.usuario.nombreUsuario} #{comentario.usuario.apellido}"
+                                                                                                   actionListener="#{sesionGestec.verPerfil(comentario.usuario)}"/>
+                                                                                </h5>
+                                                                                #{comentario.comentario}
+                                                                            </div>
+                                                                            <c:if test="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
+                                                                                <div class="col-md-12" style="padding: 10px 0">
+                                                                                    <h:commandLink styleClass="col-md-4 col-md-offset-1 btn btn-primary fa fa-calendar-check-o"
+                                                                                                   title="Agendar cita"
+                                                                                                   pt:data-toggle="modal" pt:data-target="#confirmacionSolicitud" >
+                                                                                        <f:ajax event="click" render="mensaje"
+                                                                                                listener="#{citasRequest.setServicioTecnico(comentario.servicionoTiquet, comentario.usuario, comentario.servicionoTiquet.citasList.get(0))}"></f:ajax>
+                                                                                    </h:commandLink>
+
+                                                                                    <h:commandLink title="Denegar solicitud"
+                                                                                                   styleClass="col-md-4 col-md-offset-1 btn btn-danger fa fa-times"/>
+                                                                                </div>
+                                                                            </c:if>
                                                                         </div>
                                                                     </c:if>
                                                                 </c:forEach>
@@ -227,13 +227,17 @@
                                                         </ul>
                                                         <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
                                                             <div class="col-md-12" style="padding: 0">
-                                                                <h:inputText pt:placeholder="Realiza una cotización..." class="col-md-9"
-                                                                             maxlength="254"
-                                                                             value="#{citasRequest.comentario}"
-                                                                             style="padding: 5px;border: 1px solid #ddd"/>
-                                                                <h:commandLink styleClass="fa fa-paper-plane btn btn-primary col-md-2"
-                                                                               title="Enviar"
-                                                                               actionListener="#{citasRequest.añadirComentario(pub)}"/>
+                                                                <h:form>
+                                                                    <h:inputText pt:placeholder="Realiza una cotización..." class="col-md-9"
+                                                                                 maxlength="254"
+                                                                                 value="#{citasRequest.comentario}"
+                                                                                 style="padding: 5px;border: 1px solid #ddd"/>
+                                                                    <h:commandButton class="btn btn-primary col-md-2"
+                                                                                     title="Enviar"
+                                                                                     value="✈"
+                                                                                     style="font-size: 15px;padding: 3px"
+                                                                                     actionListener="#{citasRequest.añadirComentario(pub)}"/>
+                                                                </h:form>
                                                             </div>
                                                         </c:if>
                                                     </div>

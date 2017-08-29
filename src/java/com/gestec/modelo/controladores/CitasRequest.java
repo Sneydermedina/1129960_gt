@@ -637,7 +637,8 @@ public class CitasRequest implements Serializable {
     }
 
     public List<Relequiposervicio> getComentarios(Citas cita) {
-        return cita.getServicionoTiquet().getRelequiposervicioList();
+        List<Relequiposervicio> comentarios = esfl.listarComentarios(cita.getServicionoTiquet().getNoTiquet());
+        return comentarios;
     }
 
     public Integer validarFiltro() {
