@@ -18,33 +18,33 @@
         }
     </style>
 
-<f:view locale="#{sesionGestec.idiomaSeleccionado}">
-    <header style="position: fixed;z-index: 100;width: 100%;">
-        <h:form prependId="false">
-            <div class="container-fluid">
-                <div class="row">
-                    <h:commandLink actionListener="#{sesionGestec.irAlInicio()}" title="Inicio">
-                        <div  class="col-xs-5 col-sm-3 col-md-2" style="background: white">
-                            <img class="img-responsive" src="#{request.contextPath}/resources/img/icono-gestec.png" alt="Gestec"/>
-                        </div>  
-                    </h:commandLink>
-                    <div class="col-xs-7 col-sm-9 col-md-10 "  id="degrade">   
-                        <ul class="list-inline pull-right">
-                            <li class="hidden-xs">  <h6 class="recomiendanos">#{msjGestec.recomiendanos}</h6></li>
-                            <li><a id="facebook" class="social" href="https://www.facebook.com/">
-                                    <i class="fa fa-facebook-square fa-2x" ></i>             
-                                </a></li>
-                            <li> <a class="social twitter" href="https://twitter.com/">
-                                    <i class="fa fa-twitter-square fa-2x" ></i>             
-                                </a></li>
-                            <li> <a class="social google" href="https://plus.google.com/collections/featured">
-                                    <i class="fa fa-google-plus-square fa-2x" ></i>             
-                                </a>&nbsp;</li>
-                        </ul>           
-                    </div>
-                </div>  
-            </div>
-        </h:form>
-    </header>
-</f:view>
+    <f:view locale="#{sesionGestec.idiomaSeleccionado}">
+        <header style="position: fixed;z-index: 100;width: 100%;">
+            <h:form prependId="false">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h:commandLink actionListener="#{sesionGestec.irAlInicio()}" title="Inicio">
+                            <div  class="col-xs-5 col-sm-3 col-md-2" style="background: white">
+                                <img class="img-responsive" src="#{request.contextPath}/resources/img/icono-gestec.png" alt="Gestec"/>
+                            </div>  
+                        </h:commandLink>
+                        <div class="col-xs-7 col-sm-9 col-md-10 "  id="degrade">   
+                            <ul class="list-inline pull-right">
+                                <li class="hidden-xs">  <h6 class="recomiendanos">#{msjGestec.recomiendanos}</h6></li>
+                                <li><a id="facebook" class="social" href="https://www.facebook.com/">
+                                        <i class="fa fa-facebook-square fa-2x" ></i>             
+                                    </a></li>
+                                <li> <a class="social twitter" href="https://twitter.com/">
+                                        <i class="fa fa-twitter-square fa-2x" ></i>             
+                                    </a></li>
+                                <li> <a class="social google" href="https://plus.google.com/collections/featured">
+                                        <i class="fa fa-google-plus-square fa-2x" ></i>             
+                                    </a>&nbsp;</li>
+                            </ul>           
+                        </div>
+                    </div>  
+                </div>
+            </h:form>
+        </header>
+    </f:view>
 </ui:fragment>    
