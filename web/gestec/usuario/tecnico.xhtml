@@ -227,17 +227,53 @@
                                                         </ul>
                                                         <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
                                                             <div class="col-md-12" style="padding: 0">
-                                                                <h:form>
-                                                                    <h:inputText pt:placeholder="Realiza una cotización..." class="col-md-9"
-                                                                                 maxlength="254"
-                                                                                 value="#{citasRequest.comentario}"
-                                                                                 style="padding: 5px;border: 1px solid #ddd"/>
-                                                                    <h:commandButton class="btn btn-primary col-md-2"
-                                                                                     title="Enviar"
-                                                                                     value="✈"
-                                                                                     style="font-size: 15px;padding: 3px"
-                                                                                     actionListener="#{citasRequest.añadirComentario(pub)}"/>
-                                                                </h:form>
+
+                                                                <h:commandButton value="Cotizar" pt:data-toggle="modal" pt:data-target="#agregarComentario">
+                                                                    <f:ajax event="click" render="com" listener="#{citasRequest.setComCita(pub)}"/>
+                                                                </h:commandButton>
+
+                                                                <div id="agregarComentario" class="modal fade bs-example-modal-sm" tabindex="-1" 
+                                                                     role="dialog" aria-labelledby="mySmallModalLabel"
+                                                                     style="margin-top: 100px;">
+                                                                    <div class="modal-dialog modal-sm" role="document" style="width: 400px">
+                                                                            
+                                                                        <div class="modal-content" style="background-color: #ddd;">
+                                                                            <div class="modal-header">
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                <h4 class="modal-title" id="myModalLabel">Realiza una cotización</h4>
+                                                                            </div>
+                                                                            <div class="modal-body">
+
+                                                                                <h:panelGroup id="com">
+
+                                                                                    <p style="color: #eee">Aquí puedes realizar una cotización a la solicitud de 
+                                                                                        #{citasRequest.comCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                                                                        #{citasRequest.comCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
+
+                                                                                        <br/>
+                                                                                    </p>
+                                                                                </h:panelGroup>
+                                                                                    <h:form>
+                                                                                    <h:inputText pt:placeholder="Realiza una cotización..." class="form-control"
+                                                                                                 maxlength="254"
+                                                                                                 value="#{citasRequest.comentario}"
+                                                                                                 style="padding: 5px;border: 1px solid #ddd"/>
+                                                                                    <h:commandButton class="btn btn-primary col-md-2 pull-right"
+                                                                                                     value="Enviar"
+                                                                                                     style="font-size: 15px;padding: 3px"
+                                                                                                     actionListener="#{citasRequest.añadirComentario()}"/>
+                                                                                    </h:form>
+
+
+                                                                            </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                                                                    
+                                                                                </div>
+                                                                        </div>
+                                                                            
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </c:if>
                                                     </div>

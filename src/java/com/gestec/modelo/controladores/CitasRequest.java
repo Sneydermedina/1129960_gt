@@ -163,6 +163,7 @@ public class CitasRequest implements Serializable {
     private Citas citaM;
     private int coincidencias;
     private List<Mensaje> mensajes;
+    private Citas comCita;
 
     public CitasRequest() {
         this.coincidencias = 0;
@@ -260,6 +261,15 @@ public class CitasRequest implements Serializable {
     public void setNuevaCita(Citas nuevaCita) {
         this.nuevaCita = nuevaCita;
     }
+
+    public Citas getComCita() {
+        return comCita;
+    }
+
+    public void setComCita(Citas comCita) {
+        this.comCita = comCita;
+    }
+    
 
     public Integer getTipoServicio() {
         return tipoServicio;
@@ -993,13 +1003,15 @@ public class CitasRequest implements Serializable {
         mfl.create(mensaje);
     }
 
-    public void añadirComentario(Citas cita) {
+    public void añadirComentario() {
+        Citas cita = this.comCita;
         Relequiposervicio es = new Relequiposervicio();
         es.setComentario(comentario);
         es.setEquipoidEquipo(cita.getServicionoTiquet().getRelequiposervicioList().get(0).getEquipoidEquipo());
         es.setServicionoTiquet(cita.getServicionoTiquet());
         es.setUsuario(sesion.getUsuario());
         esfl.create(es);
+        this.comentario = "";
     }
 
     public void eliminarConversacion() {
