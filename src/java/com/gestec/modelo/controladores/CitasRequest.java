@@ -643,7 +643,9 @@ public class CitasRequest implements Serializable {
             return new DefaultStreamedContent();
         } else {
             String parametro = context.getExternalContext().getRequestParameterMap().get("imgRespuesta");
-            byte[] imagen = cfl.find(Integer.valueOf(parametro)).getServicionoTiquet().getAdjuntoList().get(0).getAdjunto();
+            Citas ct = cfl.find(Integer.valueOf(parametro));
+            List<Adjunto> adj = adfl.listarPorSolicitud(ct.getSolicitudIdsolicitud().getIdsolicitud());
+            byte[] imagen = adj.get(0).getAdjunto();
             if (imagen == null) {
                 return new DefaultStreamedContent(new ByteArrayInputStream(imagen));
             }
