@@ -32,4 +32,6 @@ public interface CitasFacadeLocal {
     
     List<Citas> listarCitas(String estado);
     
+    List<Citas> listarCitasSolicitud(Integer idSolicitud);
+    
 }

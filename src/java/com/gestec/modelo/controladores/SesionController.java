@@ -9,6 +9,7 @@ import com.gestec.model.Email;
 import com.gestec.modelo.entidades.Barrio;
 import com.gestec.modelo.entidades.Certificadoestudio;
 import com.gestec.modelo.entidades.Calificacion;
+import com.gestec.modelo.entidades.Citas;
 import com.gestec.modelo.entidades.Contactos;
 import com.gestec.modelo.entidades.Direccion;
 import com.gestec.modelo.entidades.Especialidad;
@@ -22,6 +23,7 @@ import com.gestec.modelo.entidades.Solicitud;
 import com.gestec.modelo.entidades.Usuarios;
 import com.gestec.modelo.persistencia.BarrioFacadeLocal;
 import com.gestec.modelo.persistencia.CalificacionFacadeLocal;
+import com.gestec.modelo.persistencia.CitasFacadeLocal;
 import com.gestec.modelo.persistencia.ContactosFacadeLocal;
 import com.gestec.modelo.persistencia.DireccionFacadeLocal;
 import com.gestec.modelo.persistencia.EspecialidadFacadeLocal;
@@ -71,6 +73,8 @@ public class SesionController implements Serializable {
 
     @EJB
     private UsuariosFacadeLocal ufl;
+    @EJB
+    private CitasFacadeLocal ctfl;
     @EJB
     private MensajeFacadeLocal mfl;
     @EJB
@@ -136,7 +140,7 @@ public class SesionController implements Serializable {
     private List<Localidad> listarLocalidad;
     private byte[] foto;
     private Especialidad esp;
-    private Integer num;
+    private Integer num; 
 
     @PostConstruct
     public void init() {
@@ -534,7 +538,8 @@ public class SesionController implements Serializable {
             List<Solicitud> solMens = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
             this.solicitudesUsuario.clear();
             for (Solicitud solic : solMens) {
-                if (solic.getCitasList().get(0).getEstadoCita().equals("Agendada")) {
+                List<Citas> citasSolicitud = ctfl.listarCitasSolicitud(solic.getIdsolicitud());
+                if (citasSolicitud.get(0).getEstadoCita().equals("Agendada")) {
                     this.solicitudesUsuario.add(solic);
                 }
             }
@@ -544,7 +549,8 @@ public class SesionController implements Serializable {
             this.solicitudesUsuario.clear();
             mensajes = mfl.listarMensajesUsuario(getUsuario().getIdUsuario());
             for (Mensaje mnsj : mensajes) {
-                if (mnsj.getSolicitudIdsolicitud().getCitasList().get(0).getEstadoCita().equals("Agendada")) {   
+                List<Citas> ctSol = ctfl.listarCitasSolicitud(mnsj.getSolicitudIdsolicitud().getIdsolicitud());
+                if (ctSol.get(0).getEstadoCita().equals("Agendada")) {   
                     this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
                 }
             }
