@@ -463,8 +463,9 @@ public class SesionController implements Serializable {
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
             nots = new ArrayList<>();
             for (NotificacionCita not : this.notCitas) {
-                if (not.getIdCita().getSolicitudIdsolicitud().getMensajeList().size() > 0) {
-                    List<Mensaje> mensajes = mfl.listarMensajesUsuario(not.getIdCita().getSolicitudIdsolicitud().getMensajeList().get(0).getUsuariosidUsuario().getIdUsuario());
+                List<Mensaje> msjss = mfl.listarMensajesCita(not.getIdCita().getSolicitudIdsolicitud().getIdsolicitud());
+                if (msjss.size() > 0) {
+                    List<Mensaje> mensajes = mfl.listarMensajesUsuario(msjss.get(0).getUsuariosidUsuario().getIdUsuario());
                     if (mensajes.get(0).getUsuariosidUsuario().getIdUsuario().equals(getUsuario().getIdUsuario())) {
                         nots.add(not);
                     }
@@ -549,8 +550,8 @@ public class SesionController implements Serializable {
             this.solicitudesUsuario.clear();
             mensajes = mfl.listarMensajesUsuario(getUsuario().getIdUsuario());
             for (Mensaje mnsj : mensajes) {
-                List<Citas> ctSol = ctfl.listarCitasSolicitud(mnsj.getSolicitudIdsolicitud().getIdsolicitud());
-                if (ctSol.get(0).getEstadoCita().equals("Agendada")) {   
+                List<Citas> citSol = ctfl.listarCitasSolicitud(mnsj.getSolicitudIdsolicitud().getIdsolicitud());
+                if (citSol.get(0).getEstadoCita().equals("Agendada")) {   
                     this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
                 }
             }
