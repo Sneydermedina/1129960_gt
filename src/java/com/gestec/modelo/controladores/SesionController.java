@@ -136,7 +136,8 @@ public class SesionController implements Serializable {
     private List<Localidad> listarLocalidad;
     private byte[] foto;
     private Especialidad esp;
-    
+    private Integer num;
+
     @PostConstruct
     public void init() {
         this.ac = false;
@@ -191,6 +192,10 @@ public class SesionController implements Serializable {
 
     public List<Telefono> getListarTelefono() {
         return listarTelefono;
+    }
+
+    public Integer getNum() {
+        return num;
     }
 
     public void setListarTelefono(List<Telefono> listarTelefono) {
@@ -448,7 +453,7 @@ public class SesionController implements Serializable {
     public void setEsp(Especialidad esp) {
         this.esp = esp;
     }
-    
+
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
         List<NotificacionCita> nots;
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
@@ -526,17 +531,26 @@ public class SesionController implements Serializable {
 
     public List<Solicitud> getMensajes() {
         if (getUsuario().getTipoUsuario().equals("Cliente")) {
-            this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
+            List<Solicitud> solMens = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
+            this.solicitudesUsuario.clear();
+            for (Solicitud solic : solMens) {
+                if (solic.getCitasList().get(0).getEstadoCita().equals("Agendada")) {
+                    this.solicitudesUsuario.add(solic);
+                }
+            }
         }
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
             List<Mensaje> mensajes;
             this.solicitudesUsuario.clear();
             mensajes = mfl.listarMensajesUsuario(getUsuario().getIdUsuario());
             for (Mensaje mnsj : mensajes) {
-                this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
+                if (mnsj.getSolicitudIdsolicitud().getCitasList().get(0).getEstadoCita().equals("Agendada")) {   
+                    this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
+                }
             }
-
+            
         }
+        
         return solicitudesUsuario;
     }
 
@@ -1011,7 +1025,7 @@ public class SesionController implements Serializable {
             context.addMessage(toValidate.getClientId(context), msj);
         }
     }
-    
+
     public StreamedContent getImagenPerfil() throws IOException, SQLException {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -1063,9 +1077,6 @@ public class SesionController implements Serializable {
         this.localidad = usuario.getDireccionList().get(0).getIdBarrio().getIdLocalidad();
         this.barrio = usuario.getDireccionList().get(0).getIdBarrio();
 
-      
-       
-
         //bfl.edit(barrio);
         dire.setIdBarrio(bfl.find(barrioId));
         dfl.edit(dire);
@@ -1095,15 +1106,16 @@ public class SesionController implements Serializable {
         this.listarTelefono = telfl.listarPorUser(usuario.getIdUsuario());
         this.listarDireccion = dfl.listarPorUser(usuario.getIdUsuario());
         this.listarCalificacion = calfl.listarPorUser(usuario.getIdUsuario());
-                this.listarLocalidad = lfl.listarLocalidad(usuario.getIdUsuario());
+        this.listarLocalidad = lfl.listarLocalidad(usuario.getIdUsuario());
 
         redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
     }
-    
-    public void cambiarFoto(FileUploadEvent evento) throws IOException{
-        this.foto = IOUtils.toByteArray(evento.getFile().getInputstream());     
+
+    public void cambiarFoto(FileUploadEvent evento) throws IOException {
+        this.foto = IOUtils.toByteArray(evento.getFile().getInputstream());
     }
-    public void actualizarPerfil1(){
+
+    public void actualizarPerfil1() {
         this.esp = usuario.getEspecialidadList().get(0);
         ufl.edit(usuario);
         efl.edit(esp);
