@@ -501,35 +501,40 @@ public class SesionController implements Serializable {
     }
 
     public Integer getCantidadMensajes() {
-        Integer cantidad = 0;
-        if (getUsuario().getTipoUsuario().equals("Cliente")) {
-            this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
-            for (Solicitud solicitud : this.solicitudesUsuario) {
-                List<Mensaje> mensajes = mfl.listarMensajesCita(solicitud.getIdsolicitud());
-                int tam = mensajes.size() - 1;
-                if (!getUsuario().getIdUsuario().equals(mensajes.get(tam).getUsuariosidUsuario().getIdUsuario())) {
-                    if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado")) {
-
-                        cantidad++;
+        Integer cantidad = null;
+        try {
+            cantidad = 0;
+            if (getUsuario().getTipoUsuario().equals("Cliente")) {
+                this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
+                for (Solicitud solicitud : this.solicitudesUsuario) {
+                    List<Mensaje> mensajes = mfl.listarMensajesCita(solicitud.getIdsolicitud());
+                    int tam = mensajes.size() - 1;
+                    if (!getUsuario().getIdUsuario().equals(mensajes.get(tam).getUsuariosidUsuario().getIdUsuario())) {
+                        List<Citas> ciSol = ctfl.listarCitasSolicitud(mensajes.get(tam).getSolicitudIdsolicitud().getIdsolicitud());
+                        if (!mensajes.isEmpty() && mensajes.get(tam).getEstadoMensaje().equals("Enviado") &&
+                             ciSol.get(0).getEstadoCita().equals("Agendada")) {
+                            cantidad++;
+                        }
                     }
                 }
             }
-        }
-        if (getUsuario().getTipoUsuario().equals("Tecnico")) {
-            this.solicitudesUsuario.clear();
-            List<Mensaje> mensajes = mfl.listarMensajesUsuario(getUsuario().getIdUsuario());
-            for (Mensaje mnsj : mensajes) {
-                this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
-            }
-            for (Solicitud sol : this.solicitudesUsuario) {
-                List<Mensaje> mensajesT = mfl.listarMensajesCita(sol.getIdsolicitud());
-                int tam = mensajesT.size() - 1;
-                if (!getUsuario().getIdUsuario().equals(mensajesT.get(tam).getUsuariosidUsuario().getIdUsuario())) {
-                    if (!mensajesT.isEmpty() && mensajesT.get(tam).getEstadoMensaje().equals("Enviado")) {
-                        cantidad++;
+            if (getUsuario().getTipoUsuario().equals("Tecnico")) {
+                this.solicitudesUsuario.clear();
+                List<Mensaje> mensajes = mfl.listarMensajesUsuario(getUsuario().getIdUsuario());
+                for (Mensaje mnsj : mensajes) {
+                    this.solicitudesUsuario.add(mnsj.getSolicitudIdsolicitud());
+                }
+                for (Solicitud sol : this.solicitudesUsuario) {
+                    List<Mensaje> mensajesT = mfl.listarMensajesCita(sol.getIdsolicitud());
+                    int tam = mensajesT.size() - 1;
+                    if (!getUsuario().getIdUsuario().equals(mensajesT.get(tam).getUsuariosidUsuario().getIdUsuario())) {
+                        if (!mensajesT.isEmpty() && mensajesT.get(tam).getEstadoMensaje().equals("Enviado")) {
+                            cantidad++;
+                        }
                     }
                 }
             }
+        } catch (Exception e) {
         }
         return cantidad;
     }

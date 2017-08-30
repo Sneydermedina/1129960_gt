@@ -179,10 +179,16 @@
                                                 <div class="col-md-4 comentarios-publicacion" style="border-left: 0;border-bottom: 0">
 
                                                     <div class="col-md-12 oferta">
-                                                        <h5><strong>#{msjGestec.postulaciones} (#{pub.servicionoTiquet.relequiposervicioList.size()})</strong></h5>
+                                                        <h5><strong>#{msjGestec.postulaciones} (#{citasRequest.getComentarios(pub).size() - 1})</strong></h5>
                                                     </div>
 
                                                     <div class="col-md-12">
+                                                        <c:if test="#{citasRequest.getComentarios(pub).size() ==1}">
+                                                            <center style="margin-top: 30px">
+                                                            <span class="fa fa-comments-o" style="font-size: 120px"></span>
+                                                            <h4>No hay postulaciones para esta solicitud, realiza una cotización</h4>
+                                                        </center>
+                                                        </c:if>
                                                         <ul class="media-list">
                                                             <li class="media">
 
@@ -228,7 +234,8 @@
                                                         <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
                                                             <div class="col-md-12" style="padding: 0">
 
-                                                                <h:commandButton value="Cotizar" pt:data-toggle="modal" pt:data-target="#agregarComentario">
+                                                                <h:commandButton value="Cotizar" pt:data-toggle="modal" pt:data-target="#agregarComentario"
+                                                                                 class="btn btn-primary">
                                                                     <f:ajax event="click" render="com" listener="#{citasRequest.setComCita(pub)}"/>
                                                                 </h:commandButton>
 
