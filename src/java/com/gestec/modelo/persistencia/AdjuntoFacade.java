@@ -6,9 +6,11 @@
 package com.gestec.modelo.persistencia;
 
 import com.gestec.modelo.entidades.Adjunto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +29,13 @@ public class AdjuntoFacade extends AbstractFacade<Adjunto> implements AdjuntoFac
 
     public AdjuntoFacade() {
         super(Adjunto.class);
+    }
+
+    @Override
+    public List<Adjunto> listarPorSolicitud(Integer idSolicitud) {
+        TypedQuery<Adjunto> q = getEntityManager().createNamedQuery("Adjunto.listarPorSolicitud", Adjunto.class);
+        q.setParameter("idSolicitud", idSolicitud);
+        return q.getResultList();
     }
     
 }

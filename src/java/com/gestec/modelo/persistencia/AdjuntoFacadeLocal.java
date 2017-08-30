@@ -27,6 +27,8 @@ public interface AdjuntoFacadeLocal {
     List<Adjunto> findAll();
 
     List<Adjunto> findRange(int[] range);
+    
+    List<Adjunto> listarPorSolicitud(Integer idSolicitud);
 
     int count();
     
