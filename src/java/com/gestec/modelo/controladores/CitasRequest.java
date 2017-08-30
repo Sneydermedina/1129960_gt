@@ -178,6 +178,7 @@ public class CitasRequest implements Serializable {
         this.operadorLocalidad = "<>";
         this.nuevoMensaje = "";
         this.citaEnviada = false;
+        this.tecnicoCita = new Usuarios();
     }
 
     @PostConstruct
@@ -775,12 +776,12 @@ public class CitasRequest implements Serializable {
 
     }
 
-    public void setServicioTecnico(Servicio servicio, Usuarios tecnico, Citas cita) {
-        setTecnicoCita(tecnico);
-        setServicio(servicio);
-        this.citaEvento = cita;
-        setDescripcionEvento(cita.getEventoAgenda().getDescripcionEvento());
-        this.solicitud = cita.getSolicitudIdsolicitud();
+    public void setServicioTecnico(Relequiposervicio rel) {
+        this.tecnicoCita = rel.getUsuario();
+        this.servicio = rel.getServicionoTiquet();
+        this.citaEvento = rel.getServicionoTiquet().getCitasList().get(0);
+        this.descripcionEvento = rel.getServicionoTiquet().getCitasList().get(0).getEventoAgenda().getDescripcionEvento();
+        this.solicitud = rel.getServicionoTiquet().getCitasList().get(0).getSolicitudIdsolicitud();
     }
 
     public void agendarCitaPublicacion() {

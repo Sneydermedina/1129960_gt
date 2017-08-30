@@ -157,8 +157,6 @@
                                                             <div class="col-md-12 col-sm-10 col-xs-10">
                                                                 <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
                                                                         Fecha: </strong>#{pub.fechaCita}</p>
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                                        Posible costo: </strong>$ #{pub.servicionoTiquet.costoServicio}</p>
                                                             </div>
                                                             <div class="col-md-12 col-sm-10 col-xs-10">
                                                                 <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
@@ -185,9 +183,9 @@
                                                     <div class="col-md-12">
                                                         <c:if test="#{citasRequest.getComentarios(pub).size() ==1}">
                                                             <center style="margin-top: 30px">
-                                                            <span class="fa fa-comments-o" style="font-size: 120px"></span>
-                                                            <h4>No hay postulaciones para esta solicitud, realiza una cotización</h4>
-                                                        </center>
+                                                                <span class="fa fa-comments-o" style="font-size: 120px"></span>
+                                                                <h4>No hay postulaciones para esta solicitud, realiza una cotización</h4>
+                                                            </center>
                                                         </c:if>
                                                         <ul class="media-list">
                                                             <li class="media">
@@ -235,7 +233,7 @@
                                                             <div class="col-md-12" style="padding: 0">
 
                                                                 <h:commandButton value="Cotizar" pt:data-toggle="modal" pt:data-target="#agregarComentario"
-                                                                                 class="btn btn-primary">
+                                                                                 class="btn btn-primary col-md-12">
                                                                     <f:ajax event="click" render="com" listener="#{citasRequest.setComCita(pub)}"/>
                                                                 </h:commandButton>
 
@@ -243,7 +241,7 @@
                                                                      role="dialog" aria-labelledby="mySmallModalLabel"
                                                                      style="margin-top: 100px;">
                                                                     <div class="modal-dialog modal-sm" role="document" style="width: 400px">
-                                                                            
+
                                                                         <div class="modal-content" style="background-color: #ddd;">
                                                                             <div class="modal-header">
                                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -260,7 +258,7 @@
                                                                                         <br/>
                                                                                     </p>
                                                                                 </h:panelGroup>
-                                                                                    <h:form>
+                                                                                <h:form>
                                                                                     <h:inputText pt:placeholder="Realiza una cotización..." class="form-control"
                                                                                                  maxlength="254"
                                                                                                  value="#{citasRequest.comentario}"
@@ -269,16 +267,16 @@
                                                                                                      value="Enviar cotización"
                                                                                                      style="margin-top: 30px"
                                                                                                      actionListener="#{citasRequest.añadirComentario()}"/>
-                                                                                    </h:form>
+                                                                                </h:form>
 
 
                                                                             </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                                                                                    
-                                                                                </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+
+                                                                            </div>
                                                                         </div>
-                                                                            
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -852,8 +850,6 @@
                                                             <div class="col-md-12 col-sm-10 col-xs-10">
                                                                 <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
                                                                         Fecha: </strong>#{pubIm.fechaCita}</p>
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                                        Posible costo: </strong>$ #{pubIm.servicionoTiquet.costoServicio}</p>
                                                             </div>
                                                             <div class="col-md-12 col-sm-10 col-xs-10">
                                                                 <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
