@@ -37,5 +37,12 @@ public class RelequiposervicioFacade extends AbstractFacade<Relequiposervicio> i
         q.setParameter("noTiquet", idServicio);
         return q.getResultList();
     }
+
+    @Override
+    public List<Relequiposervicio> buscarComPorTiquet(Integer noTiquet) {
+        TypedQuery<Relequiposervicio> q = getEntityManager().createNamedQuery("Relequiposervicio.listarComentariosPorTiquet", Relequiposervicio.class);
+        q.setParameter("noTiquet", noTiquet);
+        return q.getResultList();
+    }
     
 }

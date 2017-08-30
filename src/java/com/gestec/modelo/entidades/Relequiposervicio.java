@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Relequiposervicio.findAll", query = "SELECT r FROM Relequiposervicio r"),
+    @NamedQuery(name = "Relequiposervicio.listarComentariosPorTiquet", query = "SELECT r FROM Relequiposervicio r WHERE r.servicionoTiquet.noTiquet = :noTiquet"),
     @NamedQuery(name = "Relequiposervicio.comentarios", query = "SELECT r FROM Relequiposervicio r WHERE r.servicionoTiquet.noTiquet = :noTiquet"),
     @NamedQuery(name = "Relequiposervicio.findByIdrelEquipoServicio", query = "SELECT r FROM Relequiposervicio r WHERE r.idrelEquipoServicio = :idrelEquipoServicio")})
 public class Relequiposervicio implements Serializable {

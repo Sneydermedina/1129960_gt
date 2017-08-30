@@ -164,6 +164,7 @@ public class CitasRequest implements Serializable {
     private int coincidencias;
     private List<Mensaje> mensajes;
     private Citas comCita;
+    private List<Citas> publicaciones;
 
     public CitasRequest() {
         this.coincidencias = 0;
@@ -221,6 +222,7 @@ public class CitasRequest implements Serializable {
         this.adjunto.setEquipoModificacionidequipoActas(new Equipomodificacion());
         this.adjunto.setServicionoTiquet(new Servicio());
         this.adjunto.setSolicitudIdsolicitud(new Solicitud());
+        this.publicaciones = cfl.findAll();
     }
 
     public Citas getCita() {
@@ -588,7 +590,7 @@ public class CitasRequest implements Serializable {
     }
 
     public List<Citas> getPublicaciones() {
-        return cfl.findAll();
+        return this.publicaciones;
     }
 
     public StreamedContent getImagenPublicacion() {
@@ -747,6 +749,7 @@ public class CitasRequest implements Serializable {
             try {
                 registrarCita();
                 this.citaEnviada = true;
+                this.publicaciones = cfl.findAll();
             } catch (Exception e) {
                 msj = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error al registrar la cita", "");
             }
@@ -779,7 +782,7 @@ public class CitasRequest implements Serializable {
         this.evento.setTipoEvento("Solicitud");
         efl.edit(evento);
         this.citaEnviada = true;
-
+        this.publicaciones = cfl.findAll();
     }
 
     public void setServicioTecnico(Relequiposervicio rel) {
@@ -1011,14 +1014,16 @@ public class CitasRequest implements Serializable {
     }
 
     public void añadirComentario() {
-        Citas cita = this.comCita;
+        Citas cit = this.comCita;
         Relequiposervicio es = new Relequiposervicio();
         es.setComentario(comentario);
-        es.setEquipoidEquipo(cita.getServicionoTiquet().getRelequiposervicioList().get(0).getEquipoidEquipo());
-        es.setServicionoTiquet(cita.getServicionoTiquet());
+        List<Relequiposervicio> comSer = esfl.buscarComPorTiquet(cit.getServicionoTiquet().getNoTiquet());
+        es.setEquipoidEquipo(comSer.get(0).getEquipoidEquipo());
+        es.setServicionoTiquet(cit.getServicionoTiquet());
         es.setUsuario(sesion.getUsuario());
         esfl.create(es);
         this.comentario = "";
+        
     }
 
     public void eliminarConversacion() {

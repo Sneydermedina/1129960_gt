@@ -29,6 +29,8 @@ public interface RelequiposervicioFacadeLocal {
     List<Relequiposervicio> findRange(int[] range);
     
     List<Relequiposervicio> listarComentarios(Integer idServicio);
+    
+    List<Relequiposervicio> buscarComPorTiquet(Integer noTiquet);
 
     int count();
     
