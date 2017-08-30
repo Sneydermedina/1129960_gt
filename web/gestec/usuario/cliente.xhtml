@@ -49,206 +49,212 @@
                             <div id="recientes" class="tab-pane fade in active">
 
                                 <c:forEach items="#{citasRequest.publicaciones}" var="pub">
-                                    <c:if test="#{pub.servicionoTiquet.estadoServicio != 'Oculta'}">
-                                        <div class="row" style="margin: 0">
+                                    
+                                    <c:if test="#{citasRequest.getFiltroPublicacion(pub.solicitudIdsolicitud) == 1}">
+                                        <c:if test="#{pub.servicionoTiquet.estadoServicio != 'Oculta'}">
+                                            <div class="row" style="margin: 0">
 
-                                            <div class="col-md-12 publicacion" style="padding-right:15px;padding-left:15px;border-bottom: 1px solid #ddd;border-right: 1px solid #ddd;padding: 0">
+                                                <div class="col-md-12 publicacion" style="padding-right:15px;padding-left:15px;border-bottom: 1px solid #ddd;border-right: 1px solid #ddd;padding: 0">
 
-                                                <div class="col-md-5 contenido-publicacion" style="padding-right:0;padding-left:0">
-                                                    <div class="col-md-12" style="padding:0;">
-                                                        <div class='notMensajesVistos' style="border:none; padding:0">
+                                                    <div class="col-md-5 contenido-publicacion" style="padding-right:0;padding-left:0">
+                                                        <div class="col-md-12" style="padding:0;">
+                                                            <div class='notMensajesVistos' style="border:none; padding:0">
 
-                                                            <div class="oferta">
-                                                                <div class='notificacionMensaje2'>
-                                                                    <p:graphicImage value="#{citasRequest.imagenTecnico}" class="imagenNotificacion">
-                                                                        <f:param name="imgTecnico" value="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario}"/>
-                                                                    </p:graphicImage>
-                                                                </div>
-                                                                <h5 class='mensajeCorto pull-right'>
-                                                                    <div class="dropdown">
-                                                                        <button class="btn btn-link dropdown-toggle fa fa-ellipsis-v" type="button" id="dropdownMenu#{pub.idCita}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Acciones" style="border:none">
-                                                                        </button>
-                                                                        <ul class="dropdown-menu" style="left:-140px" aria-labelledby="dropdownMenu#{pub.idCita}">
-                                                                            <c:if test="#{pub.servicionoTiquet.estadoServicio != 'Marcado'}">
-                                                                                <li><h:commandLink class="eliminarConversacion">
-                                                                                        <f:ajax event="click" listener="#{citasRequest.marcarPublicacion(pub.servicionoTiquet)}" render="contPublicaciones"/>
-                                                                                        <span class="fa fa-bookmark-o"></span> Marcar
-                                                                                    </h:commandLink></li>
-                                                                            </c:if>
-                                                                            <c:if test="#{pub.servicionoTiquet.estadoServicio == 'Marcado'}">
-                                                                                <li><h:commandLink class="eliminarConversacion">
-                                                                                        <f:ajax event="click" listener="#{citasRequest.desmarcarPublicacion(pub.servicionoTiquet)}" render="contPublicaciones"/>
-                                                                                        <span class="fa fa-bookmark"></span> Desmarcar
-                                                                                    </h:commandLink></li>
-                                                                            </c:if>
-
-                                                                            <li role="separator" class="divider"></li>
-                                                                            <li><h:commandLink class="eliminarConversacion">
-                                                                                    <span class="fa fa-bullhorn"></span> #{msjGestec.reportar}
-                                                                                </h:commandLink></li>
-                                                                            <li><h:commandLink>
-                                                                                    <span class="fa fa-eye-slash"></span> #{msjGestec.ocultar}
-                                                                                    <f:ajax event="click" listener="#{citasRequest.ocultarPublicacion(pub.servicionoTiquet)}" render="contPublicaciones"/>
-                                                                                </h:commandLink></li>
-                                                                        </ul>
+                                                                <div class="oferta">
+                                                                    <div class='notificacionMensaje2'>
+                                                                        <p:graphicImage value="#{citasRequest.imagenTecnico}" class="imagenNotificacion">
+                                                                            <f:param name="imgTecnico" value="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario}"/>
+                                                                        </p:graphicImage>
                                                                     </div>
-                                                                </h5>
+                                                                    <h5 class='mensajeCorto pull-right'>
+                                                                        <div class="dropdown">
+                                                                            <button class="btn btn-link dropdown-toggle fa fa-ellipsis-v" type="button" id="dropdownMenu#{pub.idCita}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="Acciones" style="border:none">
+                                                                            </button>
+                                                                            <ul class="dropdown-menu" style="left:-140px" aria-labelledby="dropdownMenu#{pub.idCita}">
+                                                                                <c:if test="#{pub.servicionoTiquet.estadoServicio != 'Marcado'}">
+                                                                                    <li><h:commandLink class="eliminarConversacion">
+                                                                                            <f:ajax event="click" listener="#{citasRequest.marcarPublicacion(pub.servicionoTiquet)}" render="contPublicaciones"/>
+                                                                                            <span class="fa fa-bookmark-o"></span> Marcar
+                                                                                        </h:commandLink></li>
+                                                                                </c:if>
+                                                                                <c:if test="#{pub.servicionoTiquet.estadoServicio == 'Marcado'}">
+                                                                                    <li><h:commandLink class="eliminarConversacion">
+                                                                                            <f:ajax event="click" listener="#{citasRequest.desmarcarPublicacion(pub.servicionoTiquet)}" render="contPublicaciones"/>
+                                                                                            <span class="fa fa-bookmark"></span> Desmarcar
+                                                                                        </h:commandLink></li>
+                                                                                </c:if>
 
-                                                                <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle conectado'></span>
-                                                                        <h:commandLink value="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
-                                                                                       #{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}" 
-                                                                                       target="_blank"
-                                                                                       style="color: #fff;"
-                                                                                       actionListener="#{sesionGestec.verPerfil(pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario)}"/>
-                                                                    </strong></h5>
-                                                                <h5 class='tiempoMensaje' style="color:#fff">&nbsp;&nbsp;&nbsp;#{sesionGestec.formatearFechaNotificacion(pub.solicitudIdsolicitud.solicitudFecha)}</h5>
-                                                                <div class="descripcion-publicacion">
-                                                                    #{pub.eventoAgenda.descripcionEvento}
+                                                                                <li role="separator" class="divider"></li>
+                                                                                <li><h:commandLink class="eliminarConversacion">
+                                                                                        <span class="fa fa-bullhorn"></span> #{msjGestec.reportar}
+                                                                                    </h:commandLink></li>
+                                                                                <li><h:commandLink>
+                                                                                        <span class="fa fa-eye-slash"></span> #{msjGestec.ocultar}
+                                                                                        <f:ajax event="click" listener="#{citasRequest.ocultarPublicacion(pub.servicionoTiquet)}" render="contPublicaciones"/>
+                                                                                    </h:commandLink></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </h5>
+
+                                                                    <h5 style='margin-bottom:5px;'><strong><span class='fa fa-circle conectado'></span>
+                                                                            <h:commandLink value="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                                                                           #{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}" 
+                                                                                           target="_blank"
+                                                                                           style="color: #fff;"
+                                                                                           actionListener="#{sesionGestec.verPerfil(pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario)}"/>
+                                                                        </strong></h5>
+                                                                    <h5 class='tiempoMensaje' style="color:#fff">&nbsp;&nbsp;&nbsp;#{sesionGestec.formatearFechaNotificacion(pub.solicitudIdsolicitud.solicitudFecha)}</h5>
+                                                                    <div class="descripcion-publicacion">
+                                                                        #{pub.eventoAgenda.descripcionEvento}
+                                                                    </div>
+
+
                                                                 </div>
 
-
-                                                            </div>
-
-                                                            <p:graphicImage value="#{citasRequest.imagenPublicacion}" class="imagen-publicacion">
-                                                                <f:param name="imgPublicacion" value="#{pub.solicitudIdsolicitud.idsolicitud}"/>
-                                                            </p:graphicImage>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="col-md-3 comentarios-publicacion" style="border-bottom: 0;">
-
-                                                    <div class="col-md-12 oferta">
-                                                        <h5>
-                                                            <strong>
-                                                                <span class="fa fa-list-ol"></span>
-                                                                &nbsp;#{msjGestec.detalles}
-                                                            </strong>
-                                                        </h5>
-                                                    </div>
-
-                                                    <div class="col-md-12" style="margin-top: 10px">
-                                                        <div class="row">
-                                                            <div class="col-md-12 col-sm-10 col-xs-10">
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>#{msjGestec.direccion}: </strong>
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.tipoVia} 
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.numeroVia}
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.complementoVia} 
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.numeroVia2} 
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.complementoVia2}-
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.numeroCasa} 
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.complemento}</p>
-                                                                <br/>
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
-                                                                    <strong>#{msjGestec.localidad}: </strong>
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.idBarrio.idLocalidad.nombreLocalidad}
-
-                                                                </p>
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
-                                                                    <strong>#{msjGestec.barrio}: </strong>
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.idBarrio.nombreBarrio}                                                                
-                                                                </p>
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
-                                                                    <strong>#{msjGestec.cliente}: </strong>
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
-                                                                    #{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}</p>
-                                                            </div>
-                                                            <div class="col-md-12 col-sm-10 col-xs-10">
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                                        #{msjGestec.fecha}: </strong>#{pub.fechaCita}</p>
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                                        #{msjGestec.posibleCosto}: </strong>$ #{pub.servicionoTiquet.costoServicio}</p>
-                                                            </div>
-                                                            <div class="col-md-12 col-sm-10 col-xs-10">
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                                        #{msjGestec.estado}: </strong>#{pub.estadoCita}</p>
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                                        #{msjGestec.garantia}: </strong>#{citasRequest.formatearFechaCita(pub.servicionoTiquet.garantia)}</p>
-                                                            </div>
-                                                            <div class="col-md-12 col-sm-10 col-xs-10">
-                                                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                                                        #{msjGestec.descripcion}: </strong>#{pub.servicionoTiquet.descripcionServicio}</p>
+                                                                <p:graphicImage value="#{citasRequest.imagenPublicacion}" class="imagen-publicacion">
+                                                                    <f:param name="imgPublicacion" value="#{pub.solicitudIdsolicitud.idsolicitud}"/>
+                                                                </p:graphicImage>
 
                                                             </div>
                                                         </div>
                                                     </div>
 
-                                                </div>
 
-                                                <div class="col-md-4 comentarios-publicacion" style="border-left: 0;border-bottom: 0">
+                                                    <div class="col-md-3 comentarios-publicacion" style="border-bottom: 0;">
 
-                                                    <div class="col-md-12 oferta">
-                                                        <h5><strong>#{msjGestec.postulaciones} (#{citasRequest.getComentarios(pub).size() - 1})</strong></h5>
+                                                        <div class="col-md-12 oferta">
+                                                            <h5>
+                                                                <strong>
+                                                                    <span class="fa fa-list-ol"></span>
+                                                                    &nbsp;#{msjGestec.detalles}
+                                                                </strong>
+                                                            </h5>
+                                                        </div>
+
+                                                        <div class="col-md-12" style="margin-top: 10px">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-sm-10 col-xs-10">
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>#{msjGestec.direccion}: </strong>
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.tipoVia} 
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.numeroVia}
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.complementoVia} 
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.numeroVia2} 
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.complementoVia2}-
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.numeroCasa} 
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.complemento}</p>
+                                                                    <br/>
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
+                                                                        <strong>#{msjGestec.localidad}: </strong>
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.idBarrio.idLocalidad.nombreLocalidad}
+
+                                                                    </p>
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
+                                                                        <strong>#{msjGestec.barrio}: </strong>
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.idBarrio.nombreBarrio}                                                                
+                                                                    </p>
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12">
+                                                                        <strong>#{msjGestec.cliente}: </strong>
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                                                                        #{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}</p>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-10 col-xs-10">
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                                            #{msjGestec.fecha}: </strong>#{pub.fechaCita}</p>
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                                            #{msjGestec.posibleCosto}: </strong>$ #{pub.servicionoTiquet.costoServicio}</p>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-10 col-xs-10">
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                                            #{msjGestec.estado}: </strong>#{pub.estadoCita}</p>
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                                            #{msjGestec.garantia}: </strong>#{citasRequest.formatearFechaCita(pub.servicionoTiquet.garantia)}</p>
+                                                                </div>
+                                                                <div class="col-md-12 col-sm-10 col-xs-10">
+                                                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
+                                                                            #{msjGestec.descripcion}: </strong>#{pub.servicionoTiquet.descripcionServicio}</p>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
 
-                                                    <div class="col-md-12" style="margin-top: 10px">
-                                                        <c:if test="#{citasRequest.getComentarios(pub).size() ==1}">
-                                                            <center style="margin-top: 30px">
-                                                                <span class="fa fa-comments-o" style="font-size: 120px"></span>
-                                                                <h4>No hay postulaciones para esta solicitud, realiza una cotización</h4>
-                                                            </center>
-                                                        </c:if>
-                                                        <ul class="media-list">
-                                                            <li class="media">
+                                                    <div class="col-md-4 comentarios-publicacion" style="border-left: 0;border-bottom: 0">
+
+                                                        <div class="col-md-12 oferta">
+                                                            <h5><strong>#{msjGestec.postulaciones} (#{citasRequest.getComentarios(pub).size() - 1})</strong></h5>
+                                                        </div>
+
+                                                        <div class="col-md-12" style="margin-top: 10px">
+                                                            <c:if test="#{citasRequest.getComentarios(pub).size() ==1}">
+                                                                <center style="margin-top: 30px">
+                                                                    <span class="fa fa-comments-o" style="font-size: 120px"></span>
+                                                                    <h4>No hay postulaciones para esta solicitud, realiza una cotización</h4>
+                                                                </center>
+                                                            </c:if>
+                                                            <ul class="media-list">
+                                                                <li class="media">
 
 
-                                                                <c:forEach items="#{citasRequest.getComentarios(pub)}" var="comentario">
-                                                                    <c:if test="#{comentario.comentario != 'Comentario'}">
-                                                                        <div class="media-left">
-                                                                            <p:graphicImage value="#{citasRequest.fotoComentario}" class="media-object img-circle">
-                                                                                <f:param name="imgComentario" value="#{comentario.usuario.idUsuario}"/>
-                                                                            </p:graphicImage>
+                                                                    <c:forEach items="#{citasRequest.getComentarios(pub)}" var="comentario">
+                                                                        <c:if test="#{comentario.comentario != 'Comentario'}">
+                                                                            <div class="media-left">
+                                                                                <p:graphicImage value="#{citasRequest.fotoComentario}" class="media-object img-circle">
+                                                                                    <f:param name="imgComentario" value="#{comentario.usuario.idUsuario}"/>
+                                                                                </p:graphicImage>
 
-                                                                        </div>
-                                                                        <div class="media-body">
-                                                                            <h5 class="media-heading">
-                                                                                <h:commandLink class="enlace-perfil" target="_blank"
-                                                                                               value="#{comentario.usuario.nombreUsuario} #{comentario.usuario.apellido}"
-                                                                                               actionListener="#{sesionGestec.verPerfil(comentario.usuario)}"/>
-                                                                            </h5>
-                                                                            #{comentario.comentario}
-                                                                        </div>
-                                                                        <c:if test="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
-                                                                            <div class="row" style="padding: 10px 0">
-                                                                                <h:commandLink styleClass="col-md-4 col-md-offset-1 btn btn-primary fa fa-calendar-check-o"
-                                                                                               title="Agendar cita"
-                                                                                               pt:data-toggle="modal" pt:data-target="#confirmacionSolicitud" >
-                                                                                    <f:ajax event="click" render="mensaje"
-                                                                                            listener="#{citasRequest.setServicioTecnico(comentario)}"></f:ajax>
-                                                                                </h:commandLink>
-
-                                                                                <h:commandLink title="Denegar solicitud"
-                                                                                               styleClass="col-md-4 col-md-offset-1 btn btn-danger fa fa-times"/>
                                                                             </div>
+                                                                            <div class="media-body">
+                                                                                <h5 class="media-heading">
+                                                                                    <h:commandLink class="enlace-perfil" target="_blank"
+                                                                                                   value="#{comentario.usuario.nombreUsuario} #{comentario.usuario.apellido}"
+                                                                                                   actionListener="#{sesionGestec.verPerfil(comentario.usuario)}"/>
+                                                                                </h5>
+                                                                                #{comentario.comentario}
+                                                                            </div>
+                                                                            <c:if test="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
+                                                                                <div class="row" style="padding: 10px 0">
+                                                                                    <h:commandLink styleClass="col-md-4 col-md-offset-1 btn btn-primary fa fa-calendar-check-o"
+                                                                                                   title="Agendar cita"
+                                                                                                   pt:data-toggle="modal" pt:data-target="#confirmacionSolicitud" >
+                                                                                        <f:ajax event="click" render="mensaje"
+                                                                                                listener="#{citasRequest.setServicioTecnico(comentario)}"></f:ajax>
+                                                                                    </h:commandLink>
+
+                                                                                    <h:commandLink title="Denegar solicitud"
+                                                                                                   styleClass="col-md-4 col-md-offset-1 btn btn-danger fa fa-times"/>
+                                                                                </div>
+                                                                            </c:if>
                                                                         </c:if>
-                                                                    </c:if>
-                                                                </c:forEach>
+                                                                    </c:forEach>
 
 
-                                                            </li>
+                                                                </li>
 
-                                                        </ul>
-                                                        <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
-                                                            <div class="col-md-12" style="padding: 0">
-                                                                <h:inputText pt:placeholder="Realiza una cotización..." class="col-md-9"
-                                                                             maxlength="254"
-                                                                             value="#{citasRequest.comentario}"
-                                                                             style="padding: 5px;border: 1px solid #ddd"/>
-                                                                <h:commandLink styleClass="fa fa-paper-plane btn btn-primary col-md-2"
-                                                                               title="Enviar"
-                                                                               actionListener="#{citasRequest.añadirComentario(pub)}"/>
-                                                            </div>
-                                                        </c:if>
+                                                            </ul>
+                                                            <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
+                                                                <div class="col-md-12" style="padding: 0">
+                                                                    <h:inputText pt:placeholder="Realiza una cotización..." class="col-md-9"
+                                                                                 maxlength="254"
+                                                                                 value="#{citasRequest.comentario}"
+                                                                                 style="padding: 5px;border: 1px solid #ddd"/>
+                                                                    <h:commandLink styleClass="fa fa-paper-plane btn btn-primary col-md-2"
+                                                                                   title="Enviar"
+                                                                                   actionListener="#{citasRequest.añadirComentario(pub)}"/>
+                                                                </div>
+                                                            </c:if>
+                                                        </div>
+
                                                     </div>
-
                                                 </div>
-                                            </div>
 
-                                        </div>
-                                    </c:if>                             
+                                            </div>
+                                        </c:if>  
+                                    </c:if>                           
                                 </c:forEach>
+
+
+
                                 <!--<div class="row">
                                     <div class="col-md-12 publicacion" style="padding-right:15px;padding-left:15px">
     

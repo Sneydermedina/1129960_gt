@@ -754,6 +754,12 @@ public class CitasRequest implements Serializable {
         fc.addMessage(null, msj);
 
     }
+    
+    public Integer getFiltroPublicacion(Solicitud solicitud){
+        List<Citas> citSol = cfl.listarCitasSolicitud(solicitud.getIdsolicitud());
+        Integer filtro = citSol.get(0).getFiltro();
+        return filtro;
+    }
 
     public void agendarCita() {
 
