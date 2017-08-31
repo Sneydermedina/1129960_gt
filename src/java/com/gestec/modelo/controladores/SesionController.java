@@ -9,6 +9,7 @@ import com.gestec.model.Email;
 import com.gestec.modelo.entidades.Barrio;
 import com.gestec.modelo.entidades.Certificadoestudio;
 import com.gestec.modelo.entidades.Calificacion;
+import com.gestec.modelo.entidades.Certificadotrabajo;
 import com.gestec.modelo.entidades.Citas;
 import com.gestec.modelo.entidades.Contactos;
 import com.gestec.modelo.entidades.Direccion;
@@ -23,6 +24,8 @@ import com.gestec.modelo.entidades.Solicitud;
 import com.gestec.modelo.entidades.Usuarios;
 import com.gestec.modelo.persistencia.BarrioFacadeLocal;
 import com.gestec.modelo.persistencia.CalificacionFacadeLocal;
+import com.gestec.modelo.persistencia.CertificadoestudioFacadeLocal;
+import com.gestec.modelo.persistencia.CertificadotrabajoFacadeLocal;
 import com.gestec.modelo.persistencia.CitasFacadeLocal;
 import com.gestec.modelo.persistencia.ContactosFacadeLocal;
 import com.gestec.modelo.persistencia.DireccionFacadeLocal;
@@ -99,7 +102,11 @@ public class SesionController implements Serializable {
     private RelcalificacionusuariosFacadeLocal relcu;
     @EJB
     private TelefonoFacadeLocal telfl;
-
+    @EJB
+    private CertificadoestudioFacadeLocal cerefl;
+    @EJB
+    private CertificadotrabajoFacadeLocal certfl;
+    
     private String nombreUsuario;
     private String contrasena;
     private List<Localidad> localidades;
@@ -141,11 +148,17 @@ public class SesionController implements Serializable {
     private byte[] foto;
     private Especialidad esp;
     private Integer num; 
+    private Certificadoestudio cEstudio;
+    private Certificadotrabajo cTrabajo;
+    private Boolean cEstudio1;
+    private Boolean cTrabajo1;
 
     @PostConstruct
     public void init() {
         this.ac = false;
         this.db = false;
+        this.cEstudio1=false;
+        this.cTrabajo1=false;
         this.infor = false;
         this.contacto = new Contactos();
         //this.dire = new Direccion();
@@ -458,6 +471,39 @@ public class SesionController implements Serializable {
         this.esp = esp;
     }
 
+    public Certificadoestudio getcEstudio() {
+        return cEstudio;
+    }
+
+    public void setcEstudio(Certificadoestudio cEstudio) {
+        this.cEstudio = cEstudio;
+    }
+
+    public Certificadotrabajo getcTrabajo() {
+        return cTrabajo;
+    }
+
+    public void setcTrabajo(Certificadotrabajo cTrabajo) {
+        this.cTrabajo = cTrabajo;
+    }
+
+    public Boolean getcEstudio1() {
+        return cEstudio1;
+    }
+
+    public void setcEstudio1(Boolean cEstudio1) {
+        this.cEstudio1 = cEstudio1;
+    }
+
+    public Boolean getcTrabajo1() {
+        return cTrabajo1;
+    }
+
+    public void setcTrabajo1(Boolean cTrabajo1) {
+        this.cTrabajo1 = cTrabajo1;
+    }
+    
+    
     public List<NotificacionCita> getNotificacionesCitaUsuario() {
         List<NotificacionCita> nots;
         if (getUsuario().getTipoUsuario().equals("Tecnico")) {
@@ -1080,6 +1126,8 @@ public class SesionController implements Serializable {
         this.db = false;
         this.ac = false;
         this.infor = false;
+         this.cEstudio1=false;
+        this.cTrabajo1=false;
         redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
     }
 
@@ -1131,6 +1179,19 @@ public class SesionController implements Serializable {
         this.esp = usuario.getEspecialidadList().get(0);
         ufl.edit(usuario);
         efl.edit(esp);
+        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+    }
+    
+    public void actualizarCertificado1(){
+        this.cEstudio = usuario.getCertificadoestudioList().get(0);
+        cerefl.edit(cEstudio);
+        this.cEstudio1=true;
+        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+    }
+    public void actualizarCertificado2(){
+        this.cTrabajo = usuario.getCertificadotrabajoList().get(0);
+        certfl.edit(cTrabajo);
+        this.cTrabajo1=true;
         redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
     }
 }

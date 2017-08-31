@@ -290,10 +290,11 @@
                         <h:commandButton value="Actualizar residencia" actionListener="#{sesionGestec.actualizarResidencia()}" class="col-md-12 col-xs-12 btn btn-primary"/>
                     </div>
                 </h:form>
+                <h:form>
                 <div class="col-md-6 col-xs-12">
                     <h:commandButton value="Volver" actionListener="#{sesionGestec.volverPerfil()}" class="col-md-12 col-xs-12 btn btn-default"/>
                 </div>
-
+                </h:form>
 
                 <div id="sesionContra">
                     <h4 class="col-md-12" style="margin-top: 20px"><strong>#{msjGestec.contra}: </strong></h4>
@@ -444,7 +445,7 @@
                                          requiredMessage="#{msjGestec.editarp11}"
                                          maxlength="100"
                                          class="col-md-6 col-sm-12 col-xs-12 form-control" 
-                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                                         />
                             <h:message for="fechaCE" style="color:red"  styleClass="error"></h:message>
                         </div>
                         <div class="col-md-6" style="padding-left: 0">
@@ -455,10 +456,10 @@
                                          requiredMessage="#{msjGestec.editarp12}"
                                          maxlength="30"
                                          class="col-md-6 col-sm-12 col-xs-12 form-control" 
-                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                                         />
                             <h:message for="nivelE" style="color:red"  styleClass="error"></h:message>
                         </div>
-                        <div class="col-md-6" style="padding-left: 0">
+                        <div class="col-md-6" style="padding-left: 0;margin-top:10px;">
                             <label class="col-md-12">#{msjGestec.titulo}</label>
                             <h:inputText id="titulo"
                                          value="#{est.titulo}"
@@ -466,24 +467,29 @@
                                          requiredMessage="#{msjGestec.editarp12}"
                                          maxlength="70"
                                          class="col-md-6 col-sm-12 col-xs-12 form-control" 
-                                         style="margin-top: 10px;margin-bottom: 10px"/>
+                                         />
                             <h:message for="titulo" style="color:red"  styleClass="error"></h:message>
                         </div>
-                        <div class="col-md-6" style="padding-left: 0">
+                        <div class="col-md-6" style="padding-left: 0;margin-top:10px;">
                             <label class="col-md-12" >#{msjGestec.fecha}</label>
-                            <h:inputText id="fechaCE"
-                                         value="#{sesionGestec.formatearFecha(est.fechaCertificado)}"
-                                         required="true"
-                                         requiredMessage="#{msjGestec.editarp11}"
-                                         maxlength="10"
-                                         class="col-md-6 col-sm-12 col-xs-12 form-control" 
-                                         style="margin-top: 10px;margin-bottom: 10px"/>
-                            <h:message for="fechaCE" style="color:red"  styleClass="error"></h:message>
+                            <p:calendar id="fechaCE" value="#{est.fechaCertificado}" pattern="yyyy-MM-dd"
+                                        style="margin-top:10%;"/>
+                            <h:message for="fechaCE" style="color:red" styleClass="error"
+                                       ></h:message>
                         </div>
-
-
-                        <div class="col-md-offset-6 col-md-6">
-                            <h:commandButton class="btn btn-danger col-md-offset-6 col-md-6" value="#{msjGestec.eliminarCertificado}"/>
+                        
+                        <c:if test="#{sesionGestec.cEstudio1==true}">
+                            <div class="col-md-12">
+                                <center><p style="color:blue;">
+                                   Certificado de estudio actualizado! </p></center>
+                            </div>
+                        </c:if>
+                        <div class="col-md-12" style="margin-top:10px;">
+                            <div class="col-md-5" style="margin-left: 7%;"/>
+                            <h:commandButton class="btn btn-primary col-md-3" 
+                                             value="Editar certificado"
+                                             actionListener="#{sesionGestec.actualizarCertificado1()}"/>
+                            <h:commandButton class="btn btn-danger col-md-3" value="#{msjGestec.eliminarCertificado}"/>
                         </div>
                     </c:forEach>
                 </h:form>
@@ -533,8 +539,18 @@
                                          style="margin-top: 10px;margin-bottom: 10px"/>
                             <h:message for="servicios" style="color:red"  styleClass="error"></h:message>
                         </div>
-                        <div class="col-md-offset-6 col-md-6">
-                            <h:commandButton class="btn btn-danger col-md-offset-6 col-md-6" value="#{msjGestec.eliminarCertificado}"/>
+                        
+                           <c:if test="#{sesionGestec.cTrabajo1==true}">
+                            <div class="col-md-12">
+                                <center><p style="color:blue;">Certificado de trabajo actualizado!</p></center>
+                            </div>
+                        </c:if>
+                        <div class="col-md-12">
+                            <div class="col-md-5" style="margin-left: 7%;"/>
+                            <h:commandButton class="btn btn-primary col-md-3" 
+                                             value="Editar certificado"
+                                             actionListener="#{sesionGestec.actualizarCertificado2()}"/>
+                            <h:commandButton class="btn btn-danger col-md-3" value="#{msjGestec.eliminarCertificado}"/>
                         </div>
                     </c:forEach>
 
