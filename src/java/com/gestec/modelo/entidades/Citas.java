@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Citas.citasSolicitud", query = "SELECT c FROM Citas c WHERE c.solicitudIdsolicitud.idsolicitud = :idSolicitud"),
     @NamedQuery(name = "Citas.findByFechaCita", query = "SELECT c FROM Citas c WHERE c.fechaCita = :fechaCita"),
     @NamedQuery(name = "Citas.findByDuracionCita", query = "SELECT c FROM Citas c WHERE c.duracionCita = :duracionCita"),
-    @NamedQuery(name = "Citas.findByEstadoCita", query = "SELECT c FROM Citas c WHERE c.estadoCita = :estadoCita")})
+    @NamedQuery(name = "Citas.findByEstadoCita", query = "SELECT c FROM Citas c WHERE c.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario = :idUsuario")})
 public class Citas implements Serializable {
 
     @OneToMany(mappedBy = "idCita")

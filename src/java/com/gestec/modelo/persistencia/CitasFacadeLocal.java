@@ -30,7 +30,7 @@ public interface CitasFacadeLocal {
 
     int count();
     
-    List<Citas> listarCitas(String estado);
+    List<Citas> listarCitas(Integer idUsuario);
     
     List<Citas> listarCitasSolicitud(Integer idSolicitud);
     

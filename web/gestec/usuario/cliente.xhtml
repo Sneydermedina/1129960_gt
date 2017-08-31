@@ -193,10 +193,8 @@
                                                                 </center>
                                                             </c:if>
                                                             <ul class="media-list">
-                                                                <li class="media">
-
-
                                                                     <c:forEach items="#{citasRequest.getComentarios(pub)}" var="comentario">
+                                                                <li class="media">
                                                                         <c:if test="#{comentario.comentario != 'Comentario'}">
                                                                             <div class="media-left">
                                                                                 <p:graphicImage value="#{citasRequest.fotoComentario}" class="media-object img-circle">
@@ -226,10 +224,10 @@
                                                                                 </div>
                                                                             </c:if>
                                                                         </c:if>
+                                                                </li>
                                                                     </c:forEach>
 
 
-                                                                </li>
 
                                                             </ul>
                                                             <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">

@@ -165,6 +165,7 @@ public class CitasRequest implements Serializable {
     private List<Mensaje> mensajes;
     private Citas comCita;
     private List<Citas> publicaciones;
+    private List<Mensaje> mensajesCita;
 
     public CitasRequest() {
         this.coincidencias = 0;
@@ -188,7 +189,6 @@ public class CitasRequest implements Serializable {
         this.citaM = new Citas();
         this.tecnicosCita = ufl.listarTecnicosFiltro(numeroBarrio, numeroLocalidad,
                 nombreTecnico, orientacion, orden, operadorBarrio, operadorLocalidad);
-        this.citas = cfl.listarCitas("Agendada");
         this.servicio = new Servicio();
         this.nuevaSolicitud = new Solicitud();
         this.horaDisponibilidad = new Horadisponibilidad();
@@ -223,6 +223,7 @@ public class CitasRequest implements Serializable {
         this.adjunto.setServicionoTiquet(new Servicio());
         this.adjunto.setSolicitudIdsolicitud(new Solicitud());
         this.publicaciones = cfl.findAll();
+        this.citas = new ArrayList<>();
     }
 
     public Citas getCita() {
@@ -233,7 +234,18 @@ public class CitasRequest implements Serializable {
         this.cita = cita;
     }
 
+    public List<Mensaje> getMensajesCita() {
+        this.mensajesCita = mfl.listarMensajesUsuario(sesion.getUsuario().getIdUsuario());
+        return mensajesCita;
+    }
+    
+    public Citas getCitaMs(Mensaje msj){
+        List<Citas> cts = cfl.listarCitasSolicitud(msj.getSolicitudIdsolicitud().getIdsolicitud());
+        return cts.get(0);
+    }
+
     public List<Citas> getCitas() {
+        this.citas = cfl.listarCitas(sesion.getUsuario().getIdUsuario());
         return citas;
     }
 
