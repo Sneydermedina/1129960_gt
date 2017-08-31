@@ -636,7 +636,13 @@
 
                             </c:forEach>
 
-
+                            <c:if test="#{sesionGestec.perfil.contactosList.size() == 0}">
+                                <center>
+                                    <span class="fa fa-user" style="font-size: 60px"></span>
+                                    <h4><strong>No hay contactos</strong></h4>
+                                </center>
+                            </c:if>
+                            
                         </div>
                     </div>
 

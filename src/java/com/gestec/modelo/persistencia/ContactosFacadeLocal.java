@@ -30,4 +30,12 @@ public interface ContactosFacadeLocal {
 
     int count();
     
+    List<Contactos> listarContactosUsuario(Integer idUsuario);
+    
+    List<Contactos> listarContactosPerfil(Integer idUsuario);
+    
+    Integer validarContacto(Integer idUsuario, Integer idContacto);
+    
+    void eliminarContacto(Integer idUsuario, Integer idContacto);
+    
 }

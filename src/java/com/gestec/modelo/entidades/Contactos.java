@@ -28,6 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Contactos.findAll", query = "SELECT c FROM Contactos c"),
+    @NamedQuery(name = "Contactos.listaContactos", query = "SELECT c FROM Contactos c WHERE c.idUsuario.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Contactos.listaContactosP", query = "SELECT c FROM Contactos c WHERE c.idContacto.idUsuario = :idUsuario"),
+    @NamedQuery(name = "Contactos.validaContacto", query = "SELECT c FROM Contactos c WHERE c.idContacto.idUsuario = :idContacto AND c.idUsuario.idUsuario = :idUsuario"),
     @NamedQuery(name = "Contactos.findByIdC", query = "SELECT c FROM Contactos c WHERE c.idC = :idC")})
 public class Contactos implements Serializable {
 
