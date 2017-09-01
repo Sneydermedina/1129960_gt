@@ -94,7 +94,7 @@
 
                     <div class="col-md-12 encabezado_cita" style="margin: 0">
                         <strong>#{citasRequest.formatearFechaCita(citasRequest.cita.fechaCita)}</strong>
-                        <strong class="pull-right"><span class="fa fa-plus"></span> Nuevo</strong>
+                        <strong class="pull-right"><span class="fa fa-plus"></span> #{citasRequest.cita.estadoCita}</strong>
                     </div>
                     <div class="col-md-12 contenido_cita">
                         <div class="row">
@@ -341,7 +341,7 @@
 
                         <div class="col-md-12 encabezado_cita" style="margin: 0">
                             <strong>#{citasRequest.formatearFechaCita(citasRequest.cita.fechaCita)}</strong>
-                            <strong class="pull-right"><span class="fa fa-plus"></span> Nuevo</strong>
+                            <strong class="pull-right"><span class="fa fa-plus"></span> #{citasRequest.cita.estadoCita}</strong>
                         </div>
                         <div class="col-md-12 contenido_cita">
                             <div class="row">
@@ -401,8 +401,8 @@
                             <h:form id="sddssd" prependId="false">
 
 
-                                <label for="apellido">#{msjGestec.citasCosto} </label>
-                                <div class="form-group col-md-6" style="padding-left: 0">
+                                <div class="form-group col-md-12">
+                                    <label for="apellido">#{msjGestec.citasCosto} </label>
                                     <div class="input-group">
                                         <span class="input-group-addon" style="background: #337AB7;color: #fff;">$</span>
                                         <h:inputText id="apellido" class="form-control" pt:placeholder="Costo de la cita"
@@ -412,6 +412,14 @@
                                         <span class="input-group-addon" style="background: #337AB7;color: #fff;">.00</span>
                                     </div>
                                     <h:message for="apellido" style="color: red"/>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="dur">Duración </label>
+                                    <h:inputText id="dur" class="form-control" pt:placeholder="Duración de la cita"
+                                                 value="#{citasRequest.duracion}"
+                                                     required="true"
+                                                     requiredMessage="Digite la duración aproximada del servicio"/>
+                                    <h:message for="dur" style="color: red"/>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="descripcion">#{msjGestec.citasDescripcion} </label>

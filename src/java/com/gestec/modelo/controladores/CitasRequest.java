@@ -166,6 +166,7 @@ public class CitasRequest implements Serializable {
     private Citas comCita;
     private List<Citas> publicaciones;
     private List<Mensaje> mensajesCita;
+    private String duracion;
 
     public CitasRequest() {
         this.coincidencias = 0;
@@ -230,6 +231,10 @@ public class CitasRequest implements Serializable {
         return cita;
     }
 
+    public String getDuracion() {
+        return duracion;
+    }
+    
     public void setCita(Citas cita) {
         this.cita = cita;
     }
@@ -918,6 +923,7 @@ public class CitasRequest implements Serializable {
     public String actualizarCita() {
         setCitaModificada(cita);
         citaModificada.setEstadoCita("Agendada");
+        citaModificada.setDuracionCita(this.duracion);
         citaModificada.getServicionoTiquet().setDescripcionServicio(descrip);
         citaModificada.getServicionoTiquet().setCostoServicio(cos);
         citaModificada.getEventoAgenda().setTipoEvento("Servicio");
