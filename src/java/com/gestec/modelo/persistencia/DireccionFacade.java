@@ -48,5 +48,12 @@ public class DireccionFacade extends AbstractFacade<Direccion> implements Direcc
         List<Direccion> list = q.getResultList();
         return list;
     }
+
+    @Override
+    public List<Direccion> listarDireccionUsuario(Integer idUsuario) {
+        TypedQuery<Direccion> q = getEntityManager().createNamedQuery("Direccion.findByUsuario", Direccion.class);
+        q.setParameter("idUsuario", idUsuario);
+        return q.getResultList();
+    }
     
 }

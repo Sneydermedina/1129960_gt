@@ -551,7 +551,8 @@ public class SesionController implements Serializable {
         try {
             cantidad = 0;
             if (getUsuario().getTipoUsuario().equals("Cliente")) {
-                this.solicitudesUsuario = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
+                List<Direccion> dirs = dfl.listarDireccionUsuario(getUsuario().getIdUsuario());
+                this.solicitudesUsuario = sfl.listarSolicitudesCliente(dirs.get(0).getIdDireccion());
                 for (Solicitud solicitud : this.solicitudesUsuario) {
                     List<Mensaje> mensajes = mfl.listarMensajesCita(solicitud.getIdsolicitud());
                     int tam = mensajes.size() - 1;
@@ -587,7 +588,8 @@ public class SesionController implements Serializable {
 
     public List<Solicitud> getMensajes() {
         if (getUsuario().getTipoUsuario().equals("Cliente")) {
-            List<Solicitud> solMens = sfl.listarSolicitudesCliente(getUsuario().getDireccionList().get(0).getIdDireccion());
+            List<Direccion> dirs = dfl.listarDireccionUsuario(getUsuario().getIdUsuario());
+            List<Solicitud> solMens = sfl.listarSolicitudesCliente(dirs.get(0).getIdDireccion());
             this.solicitudesUsuario.clear();
             for (Solicitud solic : solMens) {
                 List<Citas> citasSolicitud = ctfl.listarCitasSolicitud(solic.getIdsolicitud());
