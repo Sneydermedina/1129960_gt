@@ -1150,4 +1150,9 @@ public class CitasRequest implements Serializable {
         return eqfl.findAll();
     }
 
+    public void calificarTecnico(){
+        Servicio srv = this.dtServicio.getServicionoTiquet();
+        srv.setCalificacionTecnico(this.estrellas.toString());
+        sefl.edit(srv);
+    }
 }

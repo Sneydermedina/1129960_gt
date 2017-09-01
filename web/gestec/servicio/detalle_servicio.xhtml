@@ -15,6 +15,56 @@
     </ui:define>
 
     <ui:define name="head2">
+        <style>
+            #tecnicos tbody{
+                background: transparent;
+            }
+            #tecnicos tbody tr:hover{
+                background: transparent;
+            }
+            label{
+                margin-top: 10px;
+            }
+            .radio-inline{
+                padding-left: 0;
+                font-size: 40px;
+            }
+
+            td,th{
+                padding-left: 10px;
+            }
+            input[type=radio]{
+                display: none;
+
+            }
+            input[type=radio] + label:before{
+                content: '☆';
+                color: #fff;
+            }    
+            td, th{
+                padding-left: 0;
+            }
+            .cuadro:before{
+                content: '';
+
+            }
+            input[type=radio]:checked + label:before{
+                content: '★';
+                color: #fff;
+            } 
+            .ui-inputfield{
+                width: 100%;
+            }
+            .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error{
+                border: 1px solid #ccc;
+            }
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+            }
+        </style>
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
         <link rel="stylesheet" href="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.css"/>
 
@@ -100,7 +150,7 @@
                         Tiempo: </strong>#{citasRequest.dtServicio.duracionCita}</p>
                 <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
                         Fecha: </strong>#{citasRequest.formatearFechaCita(citasRequest.dtServicio.fechaCita)}</p>
-                
+
             </div>
             <div class="col-md-4">
                 <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
@@ -116,96 +166,148 @@
             </div>
 
         </div>
-        
+
         <div class="col-md-12">
-            
-            <div class="col-md-5">
-            <div class="dropdown col-md-2" style="margin: 10px 0px;padding:0">
-                <button class="btn btn-default dropdown-toggle" title="Exportar" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <span class="fa fa-download"></span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#" id="pdf">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            PDF</a>
-                    </li>
-                    <li><a href="#" id="word">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/word_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            WORD
-                        </a></li>
-                    <li><a href="#" id="excel">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xls_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            EXCEL</a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#" id="json">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/json_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            JSON</a></li>
-                    <li><a href="#" id="xml">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xml_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            XML</a></li>
-                    <li><a href="#" id="txt">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/txt_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            TXT</a></li>
-                    <li><a href="#" id="sql">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/sql_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            SQL</a></li>
-                    <li><a href="#" id="csv">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            CSV</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#" id="png">
-                            <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/png_2.png"
-                                 style="height: 18px;width: 18px;margin-bottom: 2px;"/>
-                            PNG</a></li>
-                </ul>
-            </div>
+            <h:form prependId="false">
+                <c:if test="#{citasRequest.dtServicio.servicionoTiquet.calificacionTecnico == null}">
+                    <h:commandButton class="btn btn-primary" value="Calificar técnico" pt:data-toggle="modal"
+                                 pt:data-target="#calificarT">
+                    <f:ajax event="click"/>
+                </h:commandButton>
+                </c:if>
+
+                <div id="calificarT" class="modal fade bs-example-modal-sm" tabindex="-1" 
+                     role="dialog" aria-labelledby="mySmallModalLabel"
+                     style="margin-top: 100px;">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content" style="background-color: #ddd;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Calificar técnico</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <h:panelGroup id="mensaje">
+                                    <center>
+                                        <h:panelGroup id="pts">
+                                            <h4 style="color: #fff;margin: 0"><strong>#{citasRequest.estrellas.intValue()} puntos</strong></h4>
+                                        </h:panelGroup>
+                                        <h:selectOneRadio id="tecnicos" value="#{citasRequest.estrellas}"
+                                                          class="col-md-12"
+                                                          styleClass="radio-inline" enabledClass ="radio-inline">
+                                            <f:selectItem itemValue="1" />
+                                            <f:selectItem itemValue="2" />
+                                            <f:selectItem itemValue="3" />
+                                            <f:selectItem itemValue="4" />
+                                            <f:selectItem itemValue="5"/>
+                                            <f:ajax event="change" render="pts"/>
+                                        </h:selectOneRadio>
+                                    </center>
+                                </h:panelGroup>
+
+
+                            </div>
+                            <h:form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                                    <h:commandButton value="Calificar" class="btn btn-primary" actionListener="#{citasRequest.calificarTecnico()}"/>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
         </div>
 
-        <table id="table" data-click-to-select="true" class="table" data-toggle="table" data-show-refresh="true" 
-               data-sort-name="Numero" data-sort-order="desc" data-show-toggle="true" data-show-columns="true" 
-               data-show-pagination-switch="true" data-search="true" data-pagination="true" 
-               data-detail-formatter="detailFormatter" style="border-left:1px solid#ccc;border-right:1px solid#ccc">
-            <thead>
-                <tr>
-                    <th data-checkbox="true"></th>
-                    <th data-align="left" data-sortable="true" data-field="numero">Referencia</th>
-                    <th data-align="left" data-sortable="true" data-field="desc" data-switchable="false">Descripción</th>
-                    <th data-align="left" data-sortable="true" data-field="estado">Fecha última modificación</th>
-                    <th data-align="left" data-sortable="true" data-field="costo" data-visible="false">Marca</th>
-                    <th data-align="left" data-sortable="true" data-field="fechaS" data-visible="true">Serial</th>
-                    <th data-align="left" data-sortable="true" data-field="fechaG" data-visible="true">Tipo</th>
-                </tr>
-            </thead>
-            <h:form prependId="false">
-                <tbody>
-                    <c:forEach items="#{citasRequest.equiposServicio}" var="s">
-                        <tr>
-                            <td></td>
-                            <td>#{s.referencia}</td>
-                            <td>#{s.descripcionEquipo}</td>
-                            <td>#{citasRequest.formatearFechaCita(s.fechaUltimaRevision)}</td>
-                            <td>#{s.marcaEquipo}</td>
-                            <td>#{s.serialEquipo}</td>
-                            <td>#{s.tipoEquipo}</td>
+        <div class="col-md-12">
 
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </h:form>
-            <tfoot>
-            </tfoot>
-        </table>
-            
+            <div class="col-md-5">
+                <div class="dropdown col-md-2" style="margin: 10px 0px;padding:0">
+                    <button class="btn btn-default dropdown-toggle" title="Exportar" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="fa fa-download"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#" id="pdf">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                PDF</a>
+                        </li>
+                        <li><a href="#" id="word">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/word_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                WORD
+                            </a></li>
+                        <li><a href="#" id="excel">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xls_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                EXCEL</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#" id="json">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/json_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                JSON</a></li>
+                        <li><a href="#" id="xml">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/xml_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                XML</a></li>
+                        <li><a href="#" id="txt">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/txt_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                TXT</a></li>
+                        <li><a href="#" id="sql">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/sql_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                SQL</a></li>
+                        <li><a href="#" id="csv">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/pdf_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                CSV</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#" id="png">
+                                <img src="#{request.contextPath}/faces/resources/plugins/tableExport/test/icons/png_2.png"
+                                     style="height: 18px;width: 18px;margin-bottom: 2px;"/>
+                                PNG</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <table id="table" data-click-to-select="true" class="table" data-toggle="table" data-show-refresh="true" 
+                   data-sort-name="Numero" data-sort-order="desc" data-show-toggle="true" data-show-columns="true" 
+                   data-show-pagination-switch="true" data-search="true" data-pagination="true" 
+                   data-detail-formatter="detailFormatter" style="border-left:1px solid#ccc;border-right:1px solid#ccc">
+                <thead>
+                    <tr>
+                        <th data-checkbox="true"></th>
+                        <th data-align="left" data-sortable="true" data-field="numero">Referencia</th>
+                        <th data-align="left" data-sortable="true" data-field="desc" data-switchable="false">Descripción</th>
+                        <th data-align="left" data-sortable="true" data-field="estado">Fecha última modificación</th>
+                        <th data-align="left" data-sortable="true" data-field="costo" data-visible="false">Marca</th>
+                        <th data-align="left" data-sortable="true" data-field="fechaS" data-visible="true">Serial</th>
+                        <th data-align="left" data-sortable="true" data-field="fechaG" data-visible="true">Tipo</th>
+                    </tr>
+                </thead>
+                <h:form prependId="false">
+                    <tbody>
+                        <c:forEach items="#{citasRequest.equiposServicio}" var="s">
+                            <tr>
+                                <td></td>
+                                <td>#{s.referencia}</td>
+                                <td>#{s.descripcionEquipo}</td>
+                                <td>#{citasRequest.formatearFechaCita(s.fechaUltimaRevision)}</td>
+                                <td>#{s.marcaEquipo}</td>
+                                <td>#{s.serialEquipo}</td>
+                                <td>#{s.tipoEquipo}</td>
+
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </h:form>
+                <tfoot>
+                </tfoot>
+            </table>
+
         </div>
 
 
