@@ -247,7 +247,7 @@
 
                             <c:forEach items="#{sesionGestec.notificacionesCitaUsuario}" var="nc">
                                 <c:if test="#{nc.idCita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario == sesionGestec.usuario.idUsuario}">
-                                    <c:if test="#{nc.idNotificacion.idNotificacion==7}">
+                                    <c:if test="#{nc.idNotificacion.idNotificacion==7 || nc.idNotificacion.idNotificacion==8}">
                                         <c:if test="#{nc.estadoNotificacion=='Visto'}">
                                             <div class="notMensajes" style="background: #fff">
                                                 <div class="notificacionMensaje">
@@ -258,9 +258,16 @@
                                                             #{nc.idCita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.apellido}</span></strong>
                                                     <br/><br/>   <h5 class="mensajeCorto">
                                                         <h:form>
+                                                            <c:if test="#{nc.idNotificacion.idNotificacion==7}">
                                                             <h:commandLink actionListener="#{citasRequest.verDetalleNotificacion(nc.idCita,nc)}"
                                                                            class="enlace-perfil"
                                                                            value="#{nc.idNotificacion.notificacion}"/>
+                                                            </c:if>
+                                                            <c:if test="#{nc.idNotificacion.idNotificacion==8}">
+                                                                <h:commandLink actionListener="#{citasRequest.verDetalleServicio(nc.idCita)}"
+                                                                           class="enlace-perfil"
+                                                                           value="#{nc.idNotificacion.notificacion}"/>
+                                                            </c:if>
                                                         </h:form>
                                                     </h5>
                                                     <h5 class="tiempoMensaje pull-right">#{sesionGestec.formatearFechaNotificacion(nc.fechaNotificacion)}</h5>

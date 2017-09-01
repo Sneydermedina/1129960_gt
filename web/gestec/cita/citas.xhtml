@@ -36,11 +36,13 @@
     <ui:define name="content">
         <f:view>
             <div class="col-md-12">
+                
                 <div class="citas col-md-12" style="padding-right: 0">
                     <h:form prependId="false">
                         <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Cliente'}">
                             <c:forEach items="#{citasRequest.citas}" var="cita">
 
+                                    
                                 <c:if test="#{cita.estadoCita != 'Cancelada'}">
                                     <div class="row col-md-12" style="padding-right: 0">
                                         <div class="col-md-12 encabezado_cita">
@@ -130,6 +132,7 @@
                         </c:if>
 
                         <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Tecnico'}">
+                            
                             <c:forEach items="#{citasRequest.mensajesCita}" var="msj">
                                 <c:if test="#{citasRequest.getCitaMs(msj).estadoCita != 'Cancelada'}">
                                     <div class="row col-md-12" style="padding-right: 0">

@@ -84,7 +84,7 @@
                           fileUploadListener="#{citasRequest.HandleFileUpload}"
                           mode="advanced"
                           dragDropSupport="false"
-                          
+
                           label="${msjGestec.buscar}"
                           cancelLabel="#{msjGestec.cancelar}"
                           uploadLabel="${msjGestec.subir}"
@@ -98,27 +98,28 @@
         </h:form>
 
 
+        <h:form>
+            <br/>
+            <h4><strong>Califica a
+                    #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+                    #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
+                </strong></h4>
+            <hr style="padding: 0;border-top: 1px solid #000;margin-top: 10px;margin-bottom: 10px"></hr>
+            <h:selectOneRadio id="tecnicos" value="#{citasRequest.estrellas}"
+                              class="col-md-12"
+                              styleClass="radio-inline" enabledClass ="radio-inline">
+                <f:selectItem itemValue="1" />
+                <f:selectItem itemValue="2" />
+                <f:selectItem itemValue="3" />
+                <f:selectItem itemValue="4" />
+                <f:selectItem itemValue="5"/>
+            </h:selectOneRadio>
 
-        <br/>
-        <h4><strong>Califica a
-            #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
-            #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
-        </strong></h4>
-        <hr style="padding: 0;border-top: 1px solid #000;margin-top: 10px;margin-bottom: 10px"></hr>
-        <h:selectOneRadio id="tecnicos" value="#{citasRequest.estrellas}"
-                          class="col-md-12"
-                          styleClass="radio-inline" enabledClass ="radio-inline">
-            <f:selectItem itemValue="1" />
-            <f:selectItem itemValue="2" />
-            <f:selectItem itemValue="3" />
-            <f:selectItem itemValue="4" />
-            <f:selectItem itemValue="5"/>
-        </h:selectOneRadio>
-
-        <div class="col-md-12">
-            <h:commandButton class="btn btn-primary pull-right col-md-6" value="Culminar"/>
-        </div>
-
+            <div class="col-md-12">
+                <h:commandButton class="btn btn-primary pull-right col-md-6" value="Culminar"
+                                 actionListener="#{citasRequest.culminarServicio()}"/>
+            </div>
+        </h:form>
 
     </ui:define>
 

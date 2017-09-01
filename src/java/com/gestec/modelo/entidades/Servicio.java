@@ -76,6 +76,8 @@ public class Servicio implements Serializable {
     private List<Citas> citasList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "servicionoTiquet")
     private List<Relequiposervicio> relequiposervicioList;
+    @Column(name = "cal_tecnico")
+    private String calificacionTecnico;
 
     public Servicio() {
     }
@@ -138,6 +140,15 @@ public class Servicio implements Serializable {
     public void setGarantia(Date garantia) {
         this.garantia = garantia;
     }
+
+    public String getCalificacionTecnico() {
+        return calificacionTecnico;
+    }
+
+    public void setCalificacionTecnico(String calificacionTecnico) {
+        this.calificacionTecnico = calificacionTecnico;
+    }
+    
 
     @XmlTransient
     public List<Adjunto> getAdjuntoList() {

@@ -81,6 +81,8 @@ public class Citas implements Serializable {
     @JoinColumn(name = "id_evento", referencedColumnName = "idEvento")
     @ManyToOne(optional = false)
     private Eventoagenda eventoAgenda;
+    @Column(name = "cal_cliente")
+    private String calificacionCliente;
 
     public Citas() {
     }
@@ -152,6 +154,15 @@ public class Citas implements Serializable {
     public void setEventoAgenda(Eventoagenda eventoAgenda) {
         this.eventoAgenda = eventoAgenda;
     }
+
+    public String getCalificacionCliente() {
+        return calificacionCliente;
+    }
+
+    public void setCalificacionCliente(String calificacionCliente) {
+        this.calificacionCliente = calificacionCliente;
+    }
+    
 
     @Override
     public int hashCode() {

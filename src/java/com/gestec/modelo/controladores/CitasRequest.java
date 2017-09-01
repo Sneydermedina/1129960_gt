@@ -182,6 +182,7 @@ public class CitasRequest implements Serializable {
     private List<Mensaje> mensajesCita;
     private String duracion;
     private Double estrellas;
+    private Citas dtServicio;
 
     public CitasRequest() {
         this.coincidencias = 0;
@@ -263,6 +264,14 @@ public class CitasRequest implements Serializable {
     public Citas getCitaMs(Mensaje msj){
         List<Citas> cts = cfl.listarCitasSolicitud(msj.getSolicitudIdsolicitud().getIdsolicitud());
         return cts.get(0);
+    }
+
+    public Citas getDtServicio() {
+        return dtServicio;
+    }
+
+    public void setDtServicio(Citas dtServicio) {
+        this.dtServicio = dtServicio;
     }
 
     public List<Citas> getCitas() {
@@ -1102,28 +1111,43 @@ public class CitasRequest implements Serializable {
     public Double getEstrellas() {
         return estrellas;
     }
+
+    public void setEstrellas(Double estrellas) {
+        this.estrellas = estrellas;
+    }
+    
     
     public void culminarServicio(){
         this.cita.setEstadoCita("Realizada");
+        this.cita.setCalificacionCliente(this.estrellas.toString());
         cfl.edit(cita);
         Usuarios cli = this.cita.getSolicitudIdsolicitud().getDireccionidDireccion().getUsuariosidUsuario();
-        List<Relcalificacionusuarios> cals = rlcu.listarCalsUsuario(cli.getIdUsuario());
-        if (cals.size()>0) {
-            Relcalificacionusuarios cal = cals.get(0);
-            Double cl = cal.getCalificacionIdcalificacion().getCalificacion();
-            Double cl2 = this.estrellas;
-            Double vFinal = (cl + cl2) / 2;
-            Calificacion clf = cal.getCalificacionIdcalificacion();
-            clf.setCalificacion(vFinal);
-            clffl.edit(clf); 
-        }
+//        List<Relcalificacionusuarios> cals = rlcu.listarCalsUsuario(cli.getIdUsuario());
+//        if (cals.size()>0) {
+//            Relcalificacionusuarios cal = cals.get(0);
+//            Double cl = cal.getCalificacionIdcalificacion().getCalificacion();
+//            Double cl2 = this.estrellas;
+//            Double vFinal = (cl + cl2) / 2;
+//            Calificacion clf = cal.getCalificacionIdcalificacion();
+//            clf.setCalificacion(vFinal);
+//            clffl.edit(clf); 
+//        }
+        
         Notificacion not = nfl.find(8);
-        this.notificacionCita.setIdCita(citaEvento);
+        this.notificacionCita.setIdCita(this.cita);
         this.notificacionCita.setIdNotificacion(not);
         this.notificacionCita.setEstadoNotificacion("Enviado");
         this.notificacionCita.setFechaNotificacion(new Date());
         ncfl.create(notificacionCita);
     }
     
+    public void verDetalleServicio(Citas ct){
+        this.dtServicio = ct;
+        redireccionar("/faces/gestec/servicio/detalle_servicio.xhtml");
+    }
+    
+    public List<Equipo> getEquiposServicio(){
+        return eqfl.findAll();
+    }
 
 }
