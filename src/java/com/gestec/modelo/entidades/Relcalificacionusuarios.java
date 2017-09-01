@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Relcalificacionusuarios.findAll", query = "SELECT r FROM Relcalificacionusuarios r"),
+    @NamedQuery(name = "Relcalificacionusuarios.findByUsuario", query = "SELECT r FROM Relcalificacionusuarios r WHERE r.usuariosidUsuario.idUsuario = :idUsuario"),
     @NamedQuery(name = "Relcalificacionusuarios.findByIdrelCalificacionUsuarios", query = "SELECT r FROM Relcalificacionusuarios r WHERE r.idrelCalificacionUsuarios = :idrelCalificacionUsuarios")})
 public class Relcalificacionusuarios implements Serializable {
 

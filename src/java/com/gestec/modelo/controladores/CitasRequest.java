@@ -2,6 +2,7 @@ package com.gestec.modelo.controladores;
 
 import com.gestec.modelo.entidades.Adjunto;
 import com.gestec.modelo.entidades.Barrio;
+import com.gestec.modelo.entidades.Calificacion;
 import com.gestec.modelo.entidades.Citas;
 import com.gestec.modelo.entidades.Direccion;
 import com.gestec.modelo.entidades.Equipo;
@@ -21,6 +22,7 @@ import com.gestec.modelo.entidades.Solicitud;
 import com.gestec.modelo.entidades.Tiposervicio;
 import com.gestec.modelo.entidades.Usuarios;
 import com.gestec.modelo.persistencia.AdjuntoFacadeLocal;
+import com.gestec.modelo.persistencia.CalificacionFacadeLocal;
 import com.gestec.modelo.persistencia.CitasFacadeLocal;
 import com.gestec.modelo.persistencia.DireccionFacadeLocal;
 import com.gestec.modelo.persistencia.EquipoFacadeLocal;
@@ -32,6 +34,7 @@ import com.gestec.modelo.persistencia.MensajeFacadeLocal;
 import com.gestec.modelo.persistencia.NotificacionCitaFacadeLocal;
 import com.gestec.modelo.persistencia.NotificacionFacadeLocal;
 import com.gestec.modelo.persistencia.NotificacionUsuarioFacadeLocal;
+import com.gestec.modelo.persistencia.RelcalificacionusuariosFacadeLocal;
 import com.gestec.modelo.persistencia.RelequiposervicioFacadeLocal;
 import com.gestec.modelo.persistencia.RelsolicitudtipoFacadeLocal;
 import com.gestec.modelo.persistencia.ServicioFacadeLocal;
@@ -39,10 +42,12 @@ import com.gestec.modelo.persistencia.SolicitudFacadeLocal;
 import com.gestec.modelo.persistencia.UsuariosFacadeLocal;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -59,6 +64,9 @@ import javax.faces.event.PhaseId;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -109,7 +117,11 @@ public class CitasRequest implements Serializable {
     @EJB
     private RelequiposervicioFacadeLocal esfl;
     @EJB
+    private RelcalificacionusuariosFacadeLocal rlcu;
+    @EJB
     private AdjuntoFacadeLocal adfl;
+    @EJB
+    private CalificacionFacadeLocal clffl;
 
     private Citas cita;
     private Citas nuevaCita;
@@ -153,6 +165,8 @@ public class CitasRequest implements Serializable {
     private Equipo nuevoEquipo;
     private Relequiposervicio eqServicio;
     private Equipomodificacion eqModificacion;
+    private UploadedFile uploadedFile;
+    private List<Object[]> datosTabla=new ArrayList();
     private Adjunto adjunto;
     private byte[] archivoSolicitud;
     private String cos;
@@ -167,6 +181,7 @@ public class CitasRequest implements Serializable {
     private List<Citas> publicaciones;
     private List<Mensaje> mensajesCita;
     private String duracion;
+    private Double estrellas;
 
     public CitasRequest() {
         this.coincidencias = 0;
@@ -182,6 +197,7 @@ public class CitasRequest implements Serializable {
         this.nuevoMensaje = "";
         this.citaEnviada = false;
         this.tecnicoCita = new Usuarios();
+        this.estrellas = 3.0;
     }
 
     @PostConstruct
@@ -1053,5 +1069,61 @@ public class CitasRequest implements Serializable {
             mfl.remove(mnsj);
         });
     }
+    
+    public void irACulminar(Citas cita){
+        this.cita = cita;
+        redireccionar("/faces/gestec/servicio/culminar_servicio.xhtml");
+    }
+    
+    public void HandleFileUpload(FileUploadEvent event) throws IOException {
+        uploadedFile = event.getFile();
+        InputStream file=uploadedFile.getInputstream();
+        HSSFWorkbook workbook = new HSSFWorkbook(file);
+        HSSFSheet miHoja = workbook.getSheetAt(0);
+        Iterator filas = miHoja.rowIterator();
+        this.datosTabla.clear();
+        
+        while(filas.hasNext()){
+            HSSFRow nuevaFila = (HSSFRow) filas.next();
+            Iterator celdas = nuevaFila.cellIterator();
+            String[] addFila = new String[7];
+            int pos=0;
+            while(celdas.hasNext()){
+                addFila[pos] = celdas.next().toString();
+                pos++;
+            }
+            addFila[6] = ""+eqfl.ingresarEquipoExcel(addFila);
+            this.datosTabla.add(addFila);
+        }
+        FacesMessage fm = new FacesMessage("Exito",event.getFile().getFileName()+" Fue subido");
+        FacesContext.getCurrentInstance().addMessage(null, fm);   
+    }
+
+    public Double getEstrellas() {
+        return estrellas;
+    }
+    
+    public void culminarServicio(){
+        this.cita.setEstadoCita("Realizada");
+        cfl.edit(cita);
+        Usuarios cli = this.cita.getSolicitudIdsolicitud().getDireccionidDireccion().getUsuariosidUsuario();
+        List<Relcalificacionusuarios> cals = rlcu.listarCalsUsuario(cli.getIdUsuario());
+        if (cals.size()>0) {
+            Relcalificacionusuarios cal = cals.get(0);
+            Double cl = cal.getCalificacionIdcalificacion().getCalificacion();
+            Double cl2 = this.estrellas;
+            Double vFinal = (cl + cl2) / 2;
+            Calificacion clf = cal.getCalificacionIdcalificacion();
+            clf.setCalificacion(vFinal);
+            clffl.edit(clf); 
+        }
+        Notificacion not = nfl.find(8);
+        this.notificacionCita.setIdCita(citaEvento);
+        this.notificacionCita.setIdNotificacion(not);
+        this.notificacionCita.setEstadoNotificacion("Enviado");
+        this.notificacionCita.setFechaNotificacion(new Date());
+        ncfl.create(notificacionCita);
+    }
+    
 
 }

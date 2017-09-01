@@ -6,9 +6,11 @@
 package com.gestec.modelo.persistencia;
 
 import com.gestec.modelo.entidades.Relcalificacionusuarios;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,6 +29,14 @@ public class RelcalificacionusuariosFacade extends AbstractFacade<Relcalificacio
 
     public RelcalificacionusuariosFacade() {
         super(Relcalificacionusuarios.class);
+    }
+
+    @Override
+    public List<Relcalificacionusuarios> listarCalsUsuario(Integer idUsuario) {
+        TypedQuery<Relcalificacionusuarios> q = getEntityManager().createNamedQuery
+        ("Relcalificacionusuarios.findByUsuario", Relcalificacionusuarios.class);
+        q.setParameter("idUsuario", idUsuario);
+        return q.getResultList();
     }
     
 }

@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo"> 
+        <f:view>
+            Culminar servicio #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+            #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
+        </f:view>
+    </ui:define>
+
+    <ui:define name="head2">
+        <style>
+            label{
+                margin-top: 10px;
+            }
+            .radio-inline{
+                padding-left: 0;
+                font-size: 40px;
+            }
+
+            td,th{
+                padding-left: 10px;
+            }
+            input[type=radio]{
+                display: none;
+
+            }
+            input[type=radio] + label:before{
+                content: '☆';
+                color: #337AB7;
+            }    
+            td, th{
+                padding-left: 0;
+            }
+            .cuadro:before{
+                content: '';
+
+            }
+            input[type=radio]:checked + label:before{
+                content: '★';
+                color: #337AB7;
+            } 
+            .ui-inputfield{
+                width: 100%;
+            }
+            .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error{
+                border: 1px solid #ccc;
+            }
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+            }
+        </style>
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/js/tabla_citas.js" defer=""></script> 
+
+    </ui:define>
+
+
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/> 
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form>
+            <h4><strong>Subir equipos intervenidos (.xls)</strong></h4>
+            <hr style="padding: 0;border-top: 1px solid #000;margin-top: 10px;margin-bottom: 10px"></hr>
+            <p:fileUpload id="archivos"
+                          fileUploadListener="#{citasRequest.HandleFileUpload}"
+                          mode="advanced"
+                          dragDropSupport="false"
+                          
+                          label="${msjGestec.buscar}"
+                          cancelLabel="#{msjGestec.cancelar}"
+                          uploadLabel="${msjGestec.subir}"
+                          multiple="true"
+                          sizeLimit="100000"
+                          fileLimit="3" allowTypes="/(\.|\/)(xls)$/">
+
+            </p:fileUpload>
+            <h:message for="archivos" style="color: red"/>
+
+        </h:form>
+
+
+
+        <br/>
+        <h4><strong>Califica a
+            #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.nombreUsuario}
+            #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
+        </strong></h4>
+        <hr style="padding: 0;border-top: 1px solid #000;margin-top: 10px;margin-bottom: 10px"></hr>
+        <h:selectOneRadio id="tecnicos" value="#{citasRequest.estrellas}"
+                          class="col-md-12"
+                          styleClass="radio-inline" enabledClass ="radio-inline">
+            <f:selectItem itemValue="1" />
+            <f:selectItem itemValue="2" />
+            <f:selectItem itemValue="3" />
+            <f:selectItem itemValue="4" />
+            <f:selectItem itemValue="5"/>
+        </h:selectOneRadio>
+
+        <div class="col-md-12">
+            <h:commandButton class="btn btn-primary pull-right col-md-6" value="Culminar"/>
+        </div>
+
+
+    </ui:define>
+
+
+
+    <ui:define name="bottom">
+
+    </ui:define>
+
+</ui:composition>
+
+
+

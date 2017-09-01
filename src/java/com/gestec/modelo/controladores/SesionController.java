@@ -530,8 +530,11 @@ public class SesionController implements Serializable {
         this.notificaciones = nfl.listarMisNotificaciones(getUsuario().getIdUsuario());
         for (NotificacionCita not : getNotificacionesCitaUsuario()) {
             if (not.getEstadoNotificacion().equals("Enviado")) {
-                if (getUsuario().getTipoUsuario().equals("Cliente") && not.getIdNotificacion().getIdNotificacion().equals(7)) {
-                    cantidad++;
+                if (getUsuario().getTipoUsuario().equals("Cliente")) {
+                    if (not.getIdNotificacion().getIdNotificacion().equals(7) ||
+                        not.getIdNotificacion().getIdNotificacion().equals(8)) {  
+                        cantidad++;
+                    }
                 }
                 if (getUsuario().getTipoUsuario().equals("Tecnico") && not.getIdNotificacion().getIdNotificacion().equals(5)) {
                     cantidad++;

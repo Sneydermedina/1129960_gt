@@ -30,4 +30,6 @@ public interface RelcalificacionusuariosFacadeLocal {
 
     int count();
     
+    List<Relcalificacionusuarios> listarCalsUsuario(Integer idUsuario);
+    
 }
