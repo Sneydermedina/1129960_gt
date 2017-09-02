@@ -87,8 +87,7 @@
                             PNG</a></li>
                 </ul>
             </div>
-            <a style="text-decoration: none;color:white;"><button data-toggle="modal" data-target="#myModalNuevo" class="btn btn-primary col-md-5 col-sm-4 col-xs-12" style="margin: 10px 0px;text-decoration: none;">&nbsp; #{msjGestec.nuevo}</button></a>
-            <button class="btn btn-danger col-md-5 col-sm-4 col-xs-12" id="eliminar" style="margin: 10px 0px"><span class="fa fa-trash"></span> &nbsp;#{msjGestec.eliminar}</button>
+
         </div>
 
         <table id="table" data-click-to-select="true" class="table" data-toggle="table" data-show-refresh="true" 
@@ -103,157 +102,36 @@
                     <th data-align="left" data-sortable="true" data-field="estado">#{msjGestec.estadoServicio}</th>
                     <th data-align="left" data-sortable="true" data-field="costo" data-visible="false">#{msjGestec.costoServicio}</th>
                     <th data-align="left" data-sortable="true" data-field="fechaS" data-visible="true">#{msjGestec.fechaServicio}</th>
-                    <th data-align="left" data-sortable="true" data-field="fechaG" data-visible="true">Acciones</th>
+                    <th data-align="left" data-sortable="true" data-field="fechaG" data-visible="true">Detalle</th>
                 </tr>
             </thead>
             <h:form prependId="false">
                 <tbody>
-                    <c:forEach items="#{servicioControl.listaServicios}" var="s">
-                        <tr>
-                            <td></td>
-                            <td>#{s.noTiquet}</td>
-                            <td>#{s.descripcionServicio}</td>
-                            <td>#{s.estadoServicio}</td>
-                            <td>#{s.costoServicio}</td>
-                            <td>#{citasRequest.formatearFechaCita(s.fechaServicio)}</td>
-                           
-                            <td>&nbsp;&nbsp;<h:commandLink action="#{servicioControl.editarServicio(s)}">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                     </h:commandLink>
-                                &nbsp;&nbsp;<h:commandLink
-                                    pt:data-toggle="modal" pt:data-target="#myModalEliminar"
-                                    ><i class="fa fa-times" aria-hidden="true">
-                                        <f:ajax event="click" listener="#{servicioControl.setServicio(s)}"
-                                                render="Reliminar"></f:ajax>
-                                    </i></h:commandLink >
-                                &nbsp;&nbsp;<h:commandLink pt:data-toggle="modal" pt:data-target="#myModalVista" >
-                                    <i class="fa fa-eye" aria-hiddem="true">
-                                         <f:ajax event="click" 
-                                                render="Rvista"></f:ajax>
-                                    </i>
-                                </h:commandLink>
-                                
-                            </td>
+                    <c:forEach items="#{citasRequest.citas}" var="s">
+                        <c:if test="#{s.estadoCita == 'Realizada'}">
+                            <tr>
+                                <td></td>
+                                <td>#{s.servicionoTiquet.noTiquet}</td>
+                                <td>#{s.servicionoTiquet.descripcionServicio}</td>
+                                <td>#{s.estadoCita}</td>
+                                <td>#{citasRequest.formatearFechaCita(s.fechaCita)}</td>
+                                <td>#{citasRequest.formatearFechaCita(s.fechaCita)}</td>
 
-                        </tr>
+                                <td>&nbsp;&nbsp;<h:commandLink class="btn btn-default" title="Ver detalle"
+                                                               actionListener="#{citasRequest.verDetalleServicio(s)}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </h:commandLink>
+                                </td>
+
+                            </tr>
+                        </c:if>
                     </c:forEach>
                 </tbody>
             </h:form>
             <tfoot>
             </tfoot>
         </table>
-        
-         <div id="myModalActualizar" class="modal fade" role="dialog">
-            <div class="modal-header">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Actualizar datos del servicio</h4>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <h:panelGroup id="Ractualizar">
-                        
-                            <div class="form-group">
-                                <h:outputLabel value="#{msjGestec.tiquet}"/>    #{servicioControl.servicio.noTiquet}
-                                </div>
-                                <div class="form-group">
-                                    <h:inputTextarea value="#{servicioControl.servicio.descripcionServicio}" class="form-control" pt:placeholder="#{msjGestec.DescipcionServicio}" />
-                                </div>
-                                <div class="form-group">
-                                    <h:inputText value="#{servicioControl.servicio.estadoServicio}" class="form-control" pt:placeholder="#{msjGestec.estadoServicio}" />
-                                </div>
-                                <div class="form-group">
-                                    <h:inputText value="#{servicioControl.servicio.costoServicio}" class="form-control" pt:placeholder="#{msjGestec.costoServicio}" />
-                                </div>
-                                <div class="form-group">
-                                    <h:inputText class="form-control" value="#{servicioControl.servicio.fechaServicio}" pt:placeholder="#{msjGestec.FechaServicio}" />
-                                </div>
-                                <div class="form-group">
-                                    <h:inputText  class="form-control" value="#{servicioControl.servicio.garantia}" pt:placeholder="#{msjGestec.fechaGarantia}" />
-                                </div>
-                                                
-                        </h:panelGroup>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                        <h:form>
-                            <h:commandButton action="#{servicioControl.actualizarServicio()}"  class="btn btn-danger pull-right"  value="Actualizar"/>
-                        </h:form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-<div id="myModalEliminar" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">#{msjGestec.eliminarServicio}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h:panelGroup id="Reliminar">
-                            <p>¿ #{msjGestec.eliminarEquipo2} #{servicioControl.servicio}</p>
-                        </h:panelGroup>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                        <h:form>
-
-
-                            <h:commandButton actionListener="#{servicioControl.eliminarServicio()}"  class="btn btn-danger pull-right"  value="Eliminar">
-                            </h:commandButton>   
-
-
-                        </h:form>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-<div id="myModalVista" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">#{msjGestec.eliminarServicio}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <h:panelGroup id="Rvista">
-                            <p>#{msjGestec.eliminarEquipo2} </p>
-                        </h:panelGroup>
-                    </div>
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
-                        <h:form>
-
-
-                            <h:commandButton actionListener="#{equipoController.eliminar()}"  class="btn btn-danger pull-right"  value="Eliminar">
-                            </h:commandButton>   
-
-
-                        </h:form>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-
-      
     </ui:define>
 
     <ui:define name="bottom"></ui:define>
