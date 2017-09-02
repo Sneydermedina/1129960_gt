@@ -834,9 +834,10 @@ public class CitasRequest implements Serializable {
     public void setServicioTecnico(Relequiposervicio rel) {
         this.tecnicoCita = rel.getUsuario();
         this.servicio = rel.getServicionoTiquet();
-        this.citaEvento = rel.getServicionoTiquet().getCitasList().get(0);
-        this.descripcionEvento = rel.getServicionoTiquet().getCitasList().get(0).getEventoAgenda().getDescripcionEvento();
-        this.solicitud = rel.getServicionoTiquet().getCitasList().get(0).getSolicitudIdsolicitud();
+        List<Citas> cts = cfl.listarCitasServicio(rel.getServicionoTiquet().getNoTiquet());
+        this.citaEvento = cts.get(0);
+        this.descripcionEvento = cts.get(0).getEventoAgenda().getDescripcionEvento();
+        this.solicitud = cts.get(0).getSolicitudIdsolicitud();
     }
 
     public void agendarCitaPublicacion() {
@@ -944,6 +945,11 @@ public class CitasRequest implements Serializable {
         setCitaM(cita);
         return "formulario_citas.xhtml?faces-redirect=true";
     }
+
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
+    }
+    
 
     public String actualizarCita() {
         setCitaModificada(cita);

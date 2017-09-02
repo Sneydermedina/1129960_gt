@@ -44,4 +44,11 @@ public class CitasFacade extends AbstractFacade<Citas> implements CitasFacadeLoc
         q.setParameter("idSolicitud", idSolicitud);
         return q.getResultList();
     }
+
+    @Override
+    public List<Citas> listarCitasServicio(Integer noTiquet) {
+        TypedQuery<Citas> q = getEntityManager().createNamedQuery("Citas.findByServicio", Citas.class);
+        q.setParameter("noTiquet", noTiquet);
+        return q.getResultList();
+    }
 }

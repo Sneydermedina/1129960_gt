@@ -134,12 +134,6 @@
                             <div class="col-md-12 col-sm-10 col-xs-10">
                                 <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
                                         Descripción: </strong>#{citasRequest.cita.servicionoTiquet.descripcionServicio}</p>
-                                <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                        Equipos: </strong></p>
-                                <c:forEach items="#{citasRequest.cita.servicionoTiquet.relequiposervicioList}" var="lo">
-                                    <p style="text-align: left" class="pull-left col-md-12 col-sm-12 col-xs-12"><strong>
-                                        </strong>#{lo.equipoidEquipo.tipoEquipo} #{lo.equipoidEquipo.marcaEquipo}</p>
-                                </c:forEach>
                             </div>
                         </div>
                     </div>

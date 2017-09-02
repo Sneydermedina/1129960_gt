@@ -34,4 +34,6 @@ public interface CitasFacadeLocal {
     
     List<Citas> listarCitasSolicitud(Integer idSolicitud);
     
+    List<Citas> listarCitasServicio(Integer noTiquet);
+    
 }
