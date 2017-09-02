@@ -251,7 +251,12 @@
                                     </c:if>                           
                                 </c:forEach>
 
-
+                                <c:if test="#{citasRequest.publicaciones.size() == 0}">
+                                    <center style="margin-top: 30px">
+                                        <span class="fa fa-image" style="font-size: 280px"></span>
+                                    <h3><strong>No hay publicaciones para mostrar en este momento</strong></h3>
+                                    </center>
+                                </c:if>
 
                                 <!--<div class="row">
                                     <div class="col-md-12 publicacion" style="padding-right:15px;padding-left:15px">
