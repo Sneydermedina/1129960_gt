@@ -111,7 +111,8 @@
 
                     <th data-align="left" data-sortable="true" data-field="telefono" data-visible="true">Calificacion</th>
 
-                    <th data-align="left" data-sortable="true" data-field="true" data-visible="true">Estado</th>
+                    <th data-align="left" data-sortable="true" data-field="estado" data-visible="true">Estado</th>
+                    <th data-align="left" data-sortable="true" data-field="gestion" data-visible="true">Gestion</th>
                 </tr>
             </thead>
                     
@@ -233,6 +234,7 @@
                                         <h:form prependId="false">
                                             <h:commandButton class="btn btn-success" value="Activo" actionListener="#{userController.activar(u.usuariosidUsuario)}"/>
                                         <h:commandButton class="btn btn-default" value="Inactivo" actionListener="#{userController.desactivar(u.usuariosidUsuario)}"/>
+                                        
                                         </h:form>                        
                                     </c:if>
                                     <c:if test="#{u.usuariosidUsuario.tipoUsuario=='Administrador' and u.usuariosidUsuario.estadoUsuario==0}">
@@ -252,9 +254,26 @@
                                     </c:if>    
                                         
                                 </td>
-                                
+                                <td>
+                                    
+                                    <c:if test="#{u.usuariosidUsuario.tipoUsuario=='Administrador'}">
+                                    <button  disabled="true" class="btn btn-default"><span class="fa fa-edit"></span></button>
+                                    &nbsp;
+                                    <button disabled="true" class="btn btn-default"><span class="fa fa-eye"></span></button>
+                                    </c:if>
+                                    
+                                    <c:if test="#{u.usuariosidUsuario.tipoUsuario!='Administrador'}">
+                                        <h:form prependId="false">
+                                            <h:commandLink  class="btn btn-default" actionListener="#{userController.editarUser(u)}" ><i class="fa fa-edit"/></h:commandLink>
+                                    &nbsp;
+                                    <button  class="btn btn-default"><span class="fa fa-eye"></span></button>
+                                    </h:form>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
+                        
+                        
                         
                     </tbody>
                         

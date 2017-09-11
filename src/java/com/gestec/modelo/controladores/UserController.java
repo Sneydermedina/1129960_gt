@@ -52,8 +52,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
+import org.primefaces.event.FileUploadEvent;
 
 
 /**
@@ -106,9 +108,13 @@ public class UserController implements Serializable{
     private String con2;
     private Boolean nuevoUsuario;
     private Boolean tipoUser;
-    
+    private Boolean editar;
+    private Boolean ver;
     private double cali;
     private List<Relcalificacionusuarios> listarGeneral;
+    private byte[] foto;
+    private Boolean foto2;
+    private Boolean contraA;
 
     @PostConstruct
     public void init(){
@@ -138,7 +144,10 @@ public class UserController implements Serializable{
         this.localidades=lfl.findAll();
         this.barrios=bfl.findAll();
         this.cali = 1;
-       
+        this.editar=false;
+        this.ver = false;
+        this.foto2 = false;
+        this.contraA=false;
     }
     public UsuariosFacadeLocal getUfl() {
         return ufl;
@@ -405,6 +414,40 @@ public class UserController implements Serializable{
     public void setTipoUser(Boolean tipoUser) {
         this.tipoUser = tipoUser;
     }
+
+    public Boolean getEditar() {
+        return editar;
+    }
+
+    public void setEditar(Boolean editar) {
+        this.editar = editar;
+    }
+
+    public Boolean getVer() {
+        return ver;
+    }
+
+    public void setVer(Boolean ver) {
+        this.ver = ver;
+    }
+
+    public Boolean getFoto2() {
+        return foto2;
+    }
+
+    public void setFoto2(Boolean foto2) {
+        this.foto2 = foto2;
+    }
+
+    public Boolean getContraA() {
+        return contraA;
+    }
+
+    public void setContraA(Boolean contraA) {
+        this.contraA = contraA;
+    }
+    
+  
     
     
 
@@ -764,6 +807,45 @@ public class UserController implements Serializable{
             msj = new FacesMessage(FacesMessage.SEVERITY_INFO,"No puede bloquear administradores","Prohibido");
         }
         
+    }
+    
+    public void editarUser(Relcalificacionusuarios u){
+        this.rel =  u;
+        this.editar = true;
+        this.ver = false;
+        redireccionar("/faces/gestec/usuario/editar_users.xhtml?faces-redirect=true");
+    }
+    public void actualizarFoto(FileUploadEvent e) throws IOException{
+        this.foto = IOUtils.toByteArray(e.getFile().getInputstream());
+        this.foto2=true;
+    }
+    public void editarUser1(){
+        if (foto2==true) {
+            this.rel.getUsuariosidUsuario().setFotoPerfil(foto);
+        }
+        System.out.println(foto2);
+        relcu.edit(rel);
+        this.ufl.edit(rel.getUsuariosidUsuario());
+        this.foto2=false;
+        redireccionar("/faces/gestec/usuario/editar_users.xhtml?faces-redirect=true");
+    }
+    public void editarUser2(){
+        this.rel.getUsuariosidUsuario().setContrasenaUsuario(con2);
+        this.ufl.edit(rel.getUsuariosidUsuario());
+        this.contraA=true;
+    }
+    
+    public void retornarListado(){
+        this.editar = false;
+        this.foto2 = false;
+        this.ver = false;
+        this.contraA = false;
+        redireccionar("/faces/gestec/usuario/admin_users.xhtml?faces-redirect=true");
+    }
+    
+   
+    public int calcularEdad(){
+        return 1;
     }
   
     

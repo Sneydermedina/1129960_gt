@@ -60,7 +60,7 @@
 
                                                                 <div class="oferta">
                                                                     <div class='notificacionMensaje2'>
-                                                                        <p:graphicImage value="#{citasRequest.imagenTecnico}" class="imagenNotificacion">
+                                                                        <p:graphicImage value="#{citasRequest.imagenTecnico}" class="imagenNotificacion" cache="false">
                                                                             <f:param name="imgTecnico" value="#{pub.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario}"/>
                                                                         </p:graphicImage>
                                                                     </div>
@@ -109,7 +109,7 @@
 
                                                                 </div>
 
-                                                                <p:graphicImage value="#{citasRequest.imagenPublicacion}" class="imagen-publicacion">
+                                                                <p:graphicImage value="#{citasRequest.imagenPublicacion}" class="imagen-publicacion" cache="false">
                                                                     <f:param name="imgPublicacion" value="#{pub.solicitudIdsolicitud.idsolicitud}"/>
                                                                 </p:graphicImage>
 
@@ -196,7 +196,7 @@
                                                                         <c:if test="#{comentario.comentario != 'Comentario'}">
                                                                             <div class="row" style="margin-left: 0;margin-top: 15px">
                                                                                 <div class="media-left">
-                                                                                    <p:graphicImage value="#{citasRequest.fotoComentario}" class="media-object img-circle">
+                                                                                    <p:graphicImage value="#{citasRequest.fotoComentario}" class="media-object img-circle" cache="false">
                                                                                         <f:param name="imgComentario" value="#{comentario.usuario.idUsuario}"/>
                                                                                     </p:graphicImage>
 
@@ -760,7 +760,7 @@
 
                                                             <div class="oferta">
                                                                 <div class='notificacionMensaje2'>
-                                                                    <p:graphicImage value="#{citasRequest.imagenTecnico}" class="imagenNotificacion">
+                                                                    <p:graphicImage value="#{citasRequest.imagenTecnico}" class="imagenNotificacion" cache="false">
                                                                         <f:param name="imgTecnico" value="#{pubIm.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.idUsuario}"/>
                                                                     </p:graphicImage>
                                                                 </div>
@@ -881,7 +881,7 @@
 
                                                                 <c:forEach items="#{citasRequest.getComentarios(pubIm)}" var="comentario2">
                                                                     <div class="media-left">
-                                                                        <p:graphicImage value="#{citasRequest.fotoComentarioM}" class="media-object img-circle">
+                                                                        <p:graphicImage value="#{citasRequest.fotoComentarioM}" class="media-object img-circle" cache="false">
                                                                             <f:param name="imgComentarioM" value="#{comentario2.usuario.idUsuario}"/>
                                                                         </p:graphicImage>
 

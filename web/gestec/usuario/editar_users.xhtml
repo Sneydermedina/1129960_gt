@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal.xhtml"
+                    
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:define name="head2">
+        #{sesionGestec.bloquearCliente()}
+        #{sesionGestec.bloquearTecnico()}
+        
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+        
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" ></script>
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" ></script>
+       
+        <script src="#{request.contextPath}/resources/js/Menu.js" ></script> 
+        <script src="#{request.contextPath}/resources/js/admin.js" ></script>
+    
+      
+    </ui:define>
+    <ui:define name="titulo">
+        <f:view locale="#{sesionGestec.idiomaSeleccionado}">Usuarios</f:view>
+    </ui:define>
+    <ui:define name="menu">
+        <ui:include src="#{sesionGestec.dibujarMenu()}"/>
+    </ui:define>
+    
+    
+    <ui:define name="content">
+        <div class="col-md-12 inicio">
+            <div class="col-md-12 encabezado">
+                <c:if test="#{userController.editar==true}">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" class="active"><a href="#basicos" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;Datos Básicos</a></li>
+                        <li role="presentation"><a href="#contra" data-toggle="tab"><i class="fa fa-lock"></i>&nbsp;Actualizar Contraseña</a></li>
+                        <li role="presentation"><a href="#estudios" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;Estudios</a></li>
+                    </ul>
+                    
+                    <div class="tab-content">
+                        <div id="basicos" class="tab-pane fade in active">
+                            <br/>
+                           
+                            <div  class="col-md-12" id="marco" style="border: 1px solid black;
+                                                                       border-radius: 10px;
+                                                                       padding: 15px;">
+                                <h:form prependId="false" enctype="multipart/form-data">
+                                <div class="col-md-6 col-xs-12">
+                                <h:outputLabel>Nombre de Usuario: </h:outputLabel>
+                                <br/>
+                                <h:inputText class="form-control"
+                                             value="#{userController.rel.usuariosidUsuario.nombreUsuario}"/>
+                                <br/>
+                                <h:outputLabel>Apellido: </h:outputLabel>
+                                <br/>
+                                <h:inputText class="form-control"
+                                             value="#{userController.rel.usuariosidUsuario.apellido}"/>
+                                <br/>
+                                <h:outputLabel>Correo: </h:outputLabel>
+                                <br/>
+                                <h:inputText class="form-control"
+                                             value="#{userController.rel.usuariosidUsuario.correo}"/>
+                                <br/>
+                                <h:outputLabel>Tipo de documento: </h:outputLabel>
+                                <br/>
+                                <h:inputText class="form-control"
+                                             value="#{userController.rel.usuariosidUsuario.tipoDocumento}"/>
+                                <br/>
+                                <h:outputLabel>Documento </h:outputLabel>
+                                <br/>
+                                <h:inputText class="form-control"
+                                             value="#{userController.rel.usuariosidUsuario.documento}"/>
+                                <br/>
+                                </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <center>
+                                    <h:outputLabel>Foto de perfil:</h:outputLabel>
+                                    <br/><br/>
+                                    <p:graphicImage id="image" value="#{fotosController.fto}" cache="false" class="img-thumbnail img-rounded" style="width: 200px;height:200px;">
+                                        <f:param name="pif" value="#{userController.rel.usuariosidUsuario.idUsuario}"/>
+                                    </p:graphicImage>
+                                    <br/><br/>
+                                          <p:fileUpload id="message" fileUploadListener="#{userController.actualizarFoto}"
+                                                  mode="advanced" dragDropSupport="false" update="messages"
+                                                  sizeLimit="64000" fileLimit="1"
+                                                  allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
+                                                  cancelLabel="#{msjGestec.cancelar}"
+                                                  uploadLabel="#{msjGestec.subir}"
+                                                  label="#{msjGestec.examinar}"
+                                                  fileLimitMessage="Solo un archivo"
+                                                  invalidFileMessage="Solo archivos de imagen"
+                                                  invalidSizeMessage="Archivo demasiado grande"/>
+                                    <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
+                                                style="padding: 10px 0; color: #337AB7"/>
+                                    </center>
+                                </div>
+                                    <div class="col-md-12 col-xs-12">
+                                        <h:commandButton value="Actualizar Usuario" 
+                                                         class="btn btn-primary col-md-12 col-xs-12"
+                                                         actionListener="#{userController.editarUser1()}"/>
+                                        <h:commandButton value="Regresar al listado" 
+                                                         class="btn btn-default col-md-12 col-xs-12"
+                                                         actionListener="#{userController.retornarListado()}"/>
+                                    </div>
+                                </h:form>
+                                </div>
+                            
+                        </div>
+                        
+                        <div id="contra" class="tab-pane fade">
+                            <br/>
+                             <div  class="col-md-12" id="marco" style="border: 1px solid black;
+                                                                       border-radius: 10px;
+                                                                           padding: 15px;">
+                                 
+                                 <h:form prependId="false" enctype="multipart/form-data">
+                                 <div class="col-md-5">
+                                      
+                                      <h:outputLabel>Seleccion de la nueva contraseña</h:outputLabel>
+                                 <br/>
+                              
+                                 <h:inputSecret id="contra" value="#{userController.con}" 
+                                               pt:placeholder="#{msjGestec.contra}" class="form-control"
+                                               required="true"
+                                               requiredMessage="#{msjGestec.digiteContra}">
+                                                                   <f:ajax event="change" 
+                                                                   listener="#{userController.valContra}"
+                                                                           execute="contra"/>                             
+                                 </h:inputSecret>
+                                 <h:message for="contra" style="color:Red" styleClass="error"/>
+                             
+                                 </div>
+                                 <div class="col-md-5">
+                                     <h:outputLabel>Repetir contraseña</h:outputLabel>
+                                     <br/>
+                                    <h:inputSecret id="confirmar" value="#{userController.confirmarContra}" 
+                                               pt:placeholder="#{msjGestec.confirmarContra}" 
+                                               class="form-control"
+                                               
+                                               validator="#{userController.validarContrasena}"/>
+                                <h:messages for="confirmar" style="color:red" styleClass="error"/>
+                                     <br/>
+                                 </div>
+                                 <div class="col-md-2">
+                                     <center>
+                         
+                           
+                                 
+                                 
+                                 <h2> &#128272;</h2>
+                                 
+                                     </center>
+                               </div>
+                                  <c:if test="#{userController.contraA==true}">
+                                      <div class="col-md-12 col-xs-12">
+                                          <center>
+                                     <p style="color:blue;">Contraseña actualizada exitosamente</p>
+                                     </center>
+                                     </div>
+                                 </c:if>
+                                 <div class="col-md-12 col-xs-12">
+                                     <h:commandButton value="Actualizar Contraseña" class="btn btn-primary form-control"
+                                                      actionListener="#{userController.editarUser2()}"/>
+                                     <br/>
+                                     <h:commandButton value="Regresar a la lista" class="btn btn-default form-control"
+                                                      actionListener="#{userController.retornarListado()}"/>
+                                 </div>
+                                     </h:form>
+                                 
+                                
+                             </div>
+                        </div>
+                        <div id="estudios" class="tab-pane fade">
+                            Buena   
+                        </div>
+                    </div>
+                </c:if>
+                
+                
+            </div>
+        </div>
+        
+    </ui:define>
+       <ui:define name="bottom">
+
+    </ui:define>
+</ui:composition>
+
