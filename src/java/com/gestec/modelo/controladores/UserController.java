@@ -115,8 +115,7 @@ public class UserController implements Serializable{
     private byte[] foto;
     private Boolean foto2;
     private Boolean contraA;
-    private Boolean certificado1;
-    private Boolean certificado2;
+
 
     @PostConstruct
     public void init(){
@@ -150,8 +149,7 @@ public class UserController implements Serializable{
         this.ver = false;
         this.foto2 = false;
         this.contraA=false;
-        this.certificado1=false;
-        this.certificado2=false;
+      
         
     }
     public UsuariosFacadeLocal getUfl() {
@@ -452,22 +450,7 @@ public class UserController implements Serializable{
         this.contraA = contraA;
     }
 
-    public Boolean getCertificado1() {
-        return certificado1;
-    }
-
-    public void setCertificado1(Boolean certificado1) {
-        this.certificado1 = certificado1;
-    }
-
-    public Boolean getCertificado2() {
-        return certificado2;
-    }
-
-    public void setCertificado2(Boolean certificado2) {
-        this.certificado2 = certificado2;
-    }
-    
+ 
     
     
     
@@ -836,19 +819,13 @@ public class UserController implements Serializable{
         this.ver = false;
         redireccionar("/faces/gestec/usuario/editar_users.xhtml?faces-redirect=true");
     }
+   
     public void verUser(Relcalificacionusuarios u){
         this.rel =  u;
         this.editar = false;
         this.ver = true;
         
-        if (rel.getUsuariosidUsuario().getCertificadoestudioList().isEmpty()) {
-           
-            this.certificado1=true;
-        }
-         if (rel.getUsuariosidUsuario().getCertificadotrabajoList().isEmpty()) {
-           
-            this.certificado2=true;
-        }
+     
         redireccionar("/faces/gestec/usuario/editar_users.xhtml?faces-redirect=true");
        
     }
@@ -877,6 +854,7 @@ public class UserController implements Serializable{
         this.foto2 = false;
         this.ver = false;
         this.contraA = false;
+     
         redireccionar("/faces/gestec/usuario/admin_users.xhtml?faces-redirect=true");
     }
     

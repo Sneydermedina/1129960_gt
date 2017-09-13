@@ -282,13 +282,19 @@
                                        #{d.idBarrio.idLocalidad.nombreLocalidad}
                                     </c:forEach>
                                 </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <br/>
+                                    <h:form>
+                                    <h:commandButton value="Volver" actionListener="#{userController.retornarListado()}" class="btn btn-primary col-md-12 col-xs-12"/>
+                                    </h:form>
+                                </div>
                                 </div>
                             
                         </div>
                         <div id="estudios" class="tab-pane fade">
                             <div class="col-md-12 col-xs-12">
                             <div class="col-md-6 col-xs-12">
-                                <c:if test="#{userController.certificado1==true}">
+                                <c:if test="#{userController.rel.usuariosidUsuario.certificadoestudioList.size()==0}">
                                 <center>
                                     <br/>
                                     <h4>El usuario no registra certificado de estudio</h4>
@@ -297,34 +303,78 @@
                                     
                                 </center>
                             </c:if>
-                                <c:if test="#{userController.certificado1==false}">    
+                                  
                             <c:forEach items="#{userController.rel.usuariosidUsuario.certificadoestudioList}" var="CE">
                              
                                 <h:form>
                                     <div class="col-md-10">
                                         <br/>
+                                        <center><h4><strong>Información certificado estudio</strong></h4></center>
                                     <h:outputLabel>Titulo:</h:outputLabel>
                                     <br/>
-                                    <h:inputText value="#{CE.titulo}" class="form-control"/>
+                                    <h:inputText value="#{CE.titulo}" class="form-control" disabled="true"/>
+                                    <br/>
+                                    <h:outputLabel>Estudios:</h:outputLabel>
+                                    <br/>
+                                    <h:inputText value="#{CE.nivelEstudios}" class="form-control" disabled="true"/>
+                                    <br/>
+                                    <h:outputLabel>Centro educativo:</h:outputLabel>
+                                    <br/>
+                                    <h:inputText value="#{CE.centroEducativo}" class="form-control" disabled="true"/>
+                                    <br/>
+                                    <h:outputLabel>Fecha expedido:</h:outputLabel>
+                                    <br/>
+                                    <h:inputText value="#{sesionGestec.formatearFecha(CE.fechaCertificado)}" class="form-control" disabled="true"/>
+                                    <br/>
+                                    
+                                    <c:if test="#{CE.certificado==null}">
+                                        <h:outputLabel><i class="fa fa-asterisk"></i>&nbsp;No adjunta certificado</h:outputLabel>
+                                    </c:if>
                                     </div>
                                 </h:form>
                             
                             </c:forEach>
-                                    </c:if>
+                                   
                             </div>
                                 <div class="col-md-6 col-xs-12">
-                                    <c:if test="#{userController.certificado2==true}">
+                                    <c:if test="#{userController.rel.usuariosidUsuario.certificadotrabajoList.size()==0}">
                                         <center>
                                             <br/>
                                             <h4>El usuario no registra certificado laboral</h4>
                                             <h:graphicImage library="img" name="cert.png"/>
                                         </center>
                                     </c:if>
-                                    <c:if test="#{userController.certificado2==false}">
+                                   
                                     <c:forEach items="#{userController.rel.usuariosidUsuario.certificadotrabajoList}" var="CT">
-                                        <h:inputText value="#{CT.empresa}"/>
-                                    </c:forEach>
+                                        <div class="col-md-10">
+                                        <br/>
+                                        <center><h4><strong>Información certificado laboral</strong></h4></center>
+                                    <h:outputLabel>Empresa perteneciente: </h:outputLabel>
+                                    <br/>
+                                    <h:inputText value="#{CT.empresa}" class="form-control" disabled="true"/>
+                                    <br/>
+                                    <h:outputLabel>Servicios: </h:outputLabel>
+                                    <br/>
+                                    <h:inputText value="#{CT.serviciosPrestados}" class="form-control" disabled="true"/>
+                                    <br/>
+                                    <h:outputLabel>Fecha expedición:</h:outputLabel>
+                                    <br/>
+                                    <h:inputText value="#{CT.fechaCertificado}" class="form-control" disabled="true"/>
+                                    <br/>
+                                    
+                                    
+                                    <c:if test="#{CT.certificado==null}">
+                                        <h:outputLabel><i class="fa fa-asterisk"></i>&nbsp;No adjunta certificado</h:outputLabel>
                                     </c:if>
+                                    </div>
+                                    </c:forEach>
+                                    
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <br/>
+                                    <h:form>
+                                    <h:commandButton value="Volver" actionListener="#{userController.retornarListado()}" class="btn btn-primary col-md-12 col-xs-12"/>
+                                    </h:form>
                                 </div>
                             </div>
                         </div>

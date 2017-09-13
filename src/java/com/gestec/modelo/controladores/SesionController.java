@@ -152,6 +152,7 @@ public class SesionController implements Serializable {
     private Certificadotrabajo cTrabajo;
     private Boolean cEstudio1;
     private Boolean cTrabajo1;
+    private String mensajeMasivo;
 
     @PostConstruct
     public void init() {
@@ -173,6 +174,7 @@ public class SesionController implements Serializable {
         this.calfl.findAll();
         this.cfl.findAll();
         this.telfl.findAll();
+        this.mensajeMasivo="Envio de correos masivos";
 
         //this.usuario.getDireccionList().set(0, dire);
         //this.dire.setUsuariosidUsuario(new Usuarios());
@@ -501,6 +503,14 @@ public class SesionController implements Serializable {
 
     public void setcTrabajo1(Boolean cTrabajo1) {
         this.cTrabajo1 = cTrabajo1;
+    }
+
+    public String getMensajeMasivo() {
+        return mensajeMasivo;
+    }
+
+    public void setMensajeMasivo(String mensajeMasivo) {
+        this.mensajeMasivo = mensajeMasivo;
     }
     
     
@@ -992,15 +1002,16 @@ public class SesionController implements Serializable {
         //this.listarUsuarios = ufl.listarUsuariosCorreo(correo);
 
         List<Usuarios> listar = new ArrayList();
-
+        System.out.println(this.mensajeMasivo);
         listar = ufl.listarUsuariosCorreo(usuarioLog.getCorreo());
         if (!usuarioLog.getNombreUsuario().equals("No existe")) {
             estados = "2";
             try {
                 Email miCorreo = new Email();
 
-                Email.send(listar, usuarioLog.getNombreUsuario(), "Envio masivo de correos");
+                Email.send(listar, usuarioLog.getNombreUsuario(), this.mensajeMasivo);
                 System.out.println(listar + " " + estados);
+                
                 //Email.sendBienvenido(usuarioLog.getCorreo(),usuarioLog.getNombreUsuario(),usuarioLog.getApellido(),usuarioLog.getContrasenaUsuario());
                 //Email.sendClaves(usuarioLog.getCorreo(), usuarioLog.getNombreUsuario(), usuarioLog.getNombreUsuario(), usuarioLog.getContrasenaUsuario());
             } catch (Exception e) {

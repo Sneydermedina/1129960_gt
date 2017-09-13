@@ -55,8 +55,22 @@
                 </div>
                 <h:form>
                     <div class="row">
+                        
+                        <div class="col-md-12 col-xs-12">
+                            <h4>Escriba el mensaje</h4>
+                        </div>
+                        <div class="col-md-12 col-xs-12">
+                            <h:inputTextarea id="msj" class="form-control" value="#{sesion.mensajeMasivo}" 
+                                             required="true"
+                                             pt:placeholder="Digite el mensajea compartir"
+                                             requiredMessage="Se necesita un mensaje">
+                                
+                            </h:inputTextarea>
+                            <h:message for="msj" style="color:red"/>
+                        </div>
                         <div class="col-md-12">
-                            <h4>Ingrese Correo electronico</h4>
+                            
+                            <h4>Ingrese Correo electronico administrativo</h4>
                         </div>
                     </div>
                     <div class="row">
