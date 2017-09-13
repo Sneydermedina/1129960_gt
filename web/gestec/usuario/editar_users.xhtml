@@ -15,12 +15,16 @@
         
         <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
         
-        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" ></script>
-        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" ></script>
-       
-        <script src="#{request.contextPath}/resources/js/Menu.js" ></script> 
-        <script src="#{request.contextPath}/resources/js/admin.js" ></script>
-    
+        <c:if test="#{userController.ver==true}">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" defer=""></script>
+        </c:if>
+        
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/plugins/bootstrap-table/bootstrap-table.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/admin.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/Menu.js" defer=""></script> 
+
       
     </ui:define>
     <ui:define name="titulo">
@@ -34,11 +38,11 @@
     <ui:define name="content">
         <div class="col-md-12 inicio">
             <div class="col-md-12 encabezado">
+                
                 <c:if test="#{userController.editar==true}">
                     <ul class="nav nav-tabs">
                         <li role="presentation" class="active"><a href="#basicos" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;Datos Básicos</a></li>
                         <li role="presentation"><a href="#contra" data-toggle="tab"><i class="fa fa-lock"></i>&nbsp;Actualizar Contraseña</a></li>
-                        <li role="presentation"><a href="#estudios" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;Estudios</a></li>
                     </ul>
                     
                     <div class="tab-content">
@@ -102,11 +106,16 @@
                                         <h:commandButton value="Actualizar Usuario" 
                                                          class="btn btn-primary col-md-12 col-xs-12"
                                                          actionListener="#{userController.editarUser1()}"/>
-                                        <h:commandButton value="Regresar al listado" 
-                                                         class="btn btn-default col-md-12 col-xs-12"
-                                                         actionListener="#{userController.retornarListado()}"/>
+                                        
                                     </div>
                                 </h:form>
+                                <div class="col-md-12 col-xs-12">
+                                    <h:form>
+                                    <h:commandButton value="Regresar al listado" 
+                                                         class="btn btn-default col-md-12 col-xs-12"
+                                                         actionListener="#{userController.retornarListado()}"/>
+                                    </h:form>
+                                </div>
                                 </div>
                             
                         </div>
@@ -166,21 +175,161 @@
                                      <h:commandButton value="Actualizar Contraseña" class="btn btn-primary form-control"
                                                       actionListener="#{userController.editarUser2()}"/>
                                      <br/>
-                                     <h:commandButton value="Regresar a la lista" class="btn btn-default form-control"
-                                                      actionListener="#{userController.retornarListado()}"/>
+                                     
                                  </div>
                                      </h:form>
-                                 
+                                 <div class="col-md-12 col-xs-12">
+                                     <h:form>
+                                     <h:commandButton value="Regresar a la lista" class="btn btn-default form-control"
+                                                      actionListener="#{userController.retornarListado()}"/>
+                                     </h:form>
+                                 </div>
                                 
                              </div>
                         </div>
-                        <div id="estudios" class="tab-pane fade">
-                            Buena   
-                        </div>
+                        
                     </div>
                 </c:if>
                 
-                
+                <c:if test="#{userController.ver==true}">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" class="active"><a href="#basicos" data-toggle="tab"><i class="fa fa-user"></i>&nbsp;Datos Básicos</a></li>
+                        <li role="presentation"><a href="#estudios" data-toggle="tab"><i class="fa fa-book"></i>&nbsp;Estudios</a></li>
+                    </ul>
+                    
+                    <div class="tab-content">
+                        <div id="basicos" class="tab-pane fade in active">
+                            <br/>
+                           
+                            <div  class="col-md-12" id="marco" style="border: 1px solid black;
+                                                                       border-radius: 10px;
+                                                                       padding: 15px;">
+                                <div class="col-md-4">
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Nombre de usuario:
+                                </h4>
+                               
+                                #{userController.rel.usuariosidUsuario.nombreUsuario} #{userController.rel.usuariosidUsuario.apellido}
+                                <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Correo:
+                                </h4>
+                                    #{userController.rel.usuariosidUsuario.correo}
+                                <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Tipo documento:
+                                </h4>
+                                    #{userController.rel.usuariosidUsuario.tipoDocumento}
+                                    
+                                <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Numero documento:
+                                </h4>
+                                    #{userController.rel.usuariosidUsuario.documento}
+                                    <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Rol:
+                                </h4>
+                                    #{userController.rel.usuariosidUsuario.tipoUsuario}
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                   
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Genero:
+                                </h4>
+                                    #{userController.rel.usuariosidUsuario.sexo}
+                                    
+                                    <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Edad:
+                                </h4>
+                                    #{userController.calcularEdad()}
+                                    <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Discapacidad:
+                                </h4>
+                                    #{userController.rel.usuariosidUsuario.discapacidad}
+                                    <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Pagina:
+                                </h4>
+                                    #{userController.rel.usuariosidUsuario.web}
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                   
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Direccion:
+                                </h4>
+                                    <c:forEach items="#{userController.rel.usuariosidUsuario.direccionList}" var="d">
+                                        #{d.tipoVia} #{d.numeroVia} #{d.complementoVia} #{d.numeroVia2} 
+                                        #{d.complementoVia2}
+                                        #{d.numeroCasa} #{d.complemento}
+                                    </c:forEach>
+                                    
+                                    <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Barrio:
+                                </h4>
+                                    <c:forEach items="#{userController.rel.usuariosidUsuario.direccionList}" var="d">
+                                        #{d.idBarrio.nombreBarrio}
+                                    </c:forEach>
+                                    
+                                    <br/><br/>
+                                <h4>
+                                    <span class="fa fa-asterisk"></span> Localidad:
+                                </h4>
+                                   <c:forEach items="#{userController.rel.usuariosidUsuario.direccionList}" var="d">
+                                       #{d.idBarrio.idLocalidad.nombreLocalidad}
+                                    </c:forEach>
+                                </div>
+                                </div>
+                            
+                        </div>
+                        <div id="estudios" class="tab-pane fade">
+                            <div class="col-md-12 col-xs-12">
+                            <div class="col-md-6 col-xs-12">
+                                <c:if test="#{userController.certificado1==true}">
+                                <center>
+                                    <br/>
+                                    <h4>El usuario no registra certificado de estudio</h4>
+                                    <h:graphicImage library="img" name="cert.png">
+                                    </h:graphicImage>
+                                    
+                                </center>
+                            </c:if>
+                                <c:if test="#{userController.certificado1==false}">    
+                            <c:forEach items="#{userController.rel.usuariosidUsuario.certificadoestudioList}" var="CE">
+                             
+                                <h:form>
+                                    <div class="col-md-10">
+                                        <br/>
+                                    <h:outputLabel>Titulo:</h:outputLabel>
+                                    <br/>
+                                    <h:inputText value="#{CE.titulo}" class="form-control"/>
+                                    </div>
+                                </h:form>
+                            
+                            </c:forEach>
+                                    </c:if>
+                            </div>
+                                <div class="col-md-6 col-xs-12">
+                                    <c:if test="#{userController.certificado2==true}">
+                                        <center>
+                                            <br/>
+                                            <h4>El usuario no registra certificado laboral</h4>
+                                            <h:graphicImage library="img" name="cert.png"/>
+                                        </center>
+                                    </c:if>
+                                    <c:if test="#{userController.certificado2==false}">
+                                    <c:forEach items="#{userController.rel.usuariosidUsuario.certificadotrabajoList}" var="CT">
+                                        <h:inputText value="#{CT.empresa}"/>
+                                    </c:forEach>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
             </div>
         </div>
         

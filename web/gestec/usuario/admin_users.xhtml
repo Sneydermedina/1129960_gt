@@ -266,7 +266,7 @@
                                         <h:form prependId="false">
                                             <h:commandLink  class="btn btn-default" actionListener="#{userController.editarUser(u)}" ><i class="fa fa-edit"/></h:commandLink>
                                     &nbsp;
-                                    <button  class="btn btn-default"><span class="fa fa-eye"></span></button>
+                                    <h:commandLink  class="btn btn-default" actionListener="#{userController.verUser(u)}"><span class="fa fa-eye"></span></h:commandLink>
                                     </h:form>
                                     </c:if>
                                 </td>

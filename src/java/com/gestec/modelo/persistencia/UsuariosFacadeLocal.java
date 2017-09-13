@@ -45,5 +45,5 @@ public interface UsuariosFacadeLocal {
     
     Usuarios validarUsuariosCorreo(String correo);
     
-    
+    Object edadUser(int id);
 }

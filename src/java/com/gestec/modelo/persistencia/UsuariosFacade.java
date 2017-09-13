@@ -133,5 +133,15 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> implements Usuarios
         return usuSalida;
     }
     
+    @Override
+    public Object edadUser(int id){
+        Query q;
+        q = em.createNativeQuery("SELECT TIMESTAMPDIFF(YEAR,fecha_nacimiento,CURDATE()) FROM usuarios WHERE idUsuario=?");
+        q.setParameter(1, id);
+        Object edad = q.getSingleResult();
+        
+        return edad;
+    }
+    
   
 }
