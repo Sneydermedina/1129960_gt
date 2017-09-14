@@ -175,7 +175,7 @@ public class SesionController implements Serializable {
         this.cfl.findAll();
         this.telfl.findAll();
         this.mensajeMasivo="Envio de correos masivos";
-
+        
         //this.usuario.getDireccionList().set(0, dire);
         //this.dire.setUsuariosidUsuario(new Usuarios());
         //this.listarUsuarios = (List)efl.findAll();

@@ -260,7 +260,7 @@
                                 <h4>
                                     <span class="fa fa-asterisk"></span> Direccion:
                                 </h4>
-                                    <c:forEach items="#{userController.rel.usuariosidUsuario.direccionList}" var="d">
+                                    <c:forEach items="#{userController.listarDireccion}" var="d">
                                         #{d.tipoVia} #{d.numeroVia} #{d.complementoVia} #{d.numeroVia2} 
                                         #{d.complementoVia2}
                                         #{d.numeroCasa} #{d.complemento}
@@ -270,7 +270,7 @@
                                 <h4>
                                     <span class="fa fa-asterisk"></span> Barrio:
                                 </h4>
-                                    <c:forEach items="#{userController.rel.usuariosidUsuario.direccionList}" var="d">
+                                    <c:forEach items="#{userController.listarDireccion}" var="d">
                                         #{d.idBarrio.nombreBarrio}
                                     </c:forEach>
                                     
@@ -278,7 +278,7 @@
                                 <h4>
                                     <span class="fa fa-asterisk"></span> Localidad:
                                 </h4>
-                                   <c:forEach items="#{userController.rel.usuariosidUsuario.direccionList}" var="d">
+                                   <c:forEach items="#{userController.listarDireccion}" var="d">
                                        #{d.idBarrio.idLocalidad.nombreLocalidad}
                                     </c:forEach>
                                 </div>

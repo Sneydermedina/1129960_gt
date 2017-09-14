@@ -115,6 +115,7 @@ public class UserController implements Serializable{
     private byte[] foto;
     private Boolean foto2;
     private Boolean contraA;
+    private List<Direccion> listarDireccion;
 
 
     @PostConstruct
@@ -450,6 +451,14 @@ public class UserController implements Serializable{
         this.contraA = contraA;
     }
 
+    public List<Direccion> getListarDireccion() {
+        return listarDireccion;
+    }
+
+    public void setListarDireccion(List<Direccion> listarDireccion) {
+        this.listarDireccion = listarDireccion;
+    }
+
  
     
     
@@ -738,8 +747,8 @@ public class UserController implements Serializable{
         System.out.println("funciona 2");
         dfl.create(direccion);
         System.out.println("funciona 3");
-        this.contactos.setIdContacto(ufl.find(6));
-        this.contactos.setIdUsuario(usu);
+        this.contactos.setIdContacto(usu);
+        this.contactos.setIdUsuario(ufl.find(6));
         cfl.create(contactos);
         //this.telefono=new Telefono();
         //this.telefono.setIdUsuario(new Usuarios());
@@ -824,7 +833,7 @@ public class UserController implements Serializable{
         this.rel =  u;
         this.editar = false;
         this.ver = true;
-        
+        this.listarDireccion = dfl.listarPorUser(rel.getUsuariosidUsuario().getIdUsuario());
      
         redireccionar("/faces/gestec/usuario/editar_users.xhtml?faces-redirect=true");
        

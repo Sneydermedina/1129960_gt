@@ -43,7 +43,7 @@ public class DireccionFacade extends AbstractFacade<Direccion> implements Direcc
     @Override
     public List<Direccion> listarPorUser(int id){
         Query q;
-        q = em.createNativeQuery("SELECT direccion.* FROM direccion JOIN usuarios ON direccion.iddireccion=usuarios.idusuario WHERE direccion.usuarios_idusuario=?1",Direccion.class);
+        q = em.createNativeQuery("SELECT direccion.* FROM direccion JOIN usuarios ON direccion.usuarios_idusuario=usuarios.idusuario WHERE direccion.usuarios_idusuario=?1",Direccion.class);
         q.setParameter("1", id);
         List<Direccion> list = q.getResultList();
         return list;
