@@ -146,6 +146,7 @@ public class SesionController implements Serializable {
     private List<Calificacion> listarCalificacion;
     private List<Localidad> listarLocalidad;
     private byte[] foto;
+    private byte[] fotoCertificado;
     private Especialidad esp;
     private Integer num; 
     private Certificadoestudio cEstudio;
@@ -1190,7 +1191,16 @@ public class SesionController implements Serializable {
     public void cambiarFoto(FileUploadEvent evento) throws IOException {
         this.foto = IOUtils.toByteArray(evento.getFile().getInputstream());
     }
-
+    public void fotoCertificado(FileUploadEvent evento) throws IOException{
+        this.fotoCertificado = IOUtils.toByteArray(evento.getFile().getInputstream());
+    }
+    public Byte[] toPrimitive(byte[] fotoCertificado){
+        //this.fotoCertificado = fotoCertificado;
+        Byte[] a = new Byte[fotoCertificado.length];
+         int i = 0;
+             for (byte b : fotoCertificado) a[i++] = b;
+        return a;
+    }
     public void actualizarPerfil1() {
         this.esp = usuario.getEspecialidadList().get(0);
         ufl.edit(usuario);
@@ -1199,13 +1209,15 @@ public class SesionController implements Serializable {
     }
     
     public void actualizarCertificado1(){
-        this.cEstudio = usuario.getCertificadoestudioList().get(0);
-        cerefl.edit(cEstudio);
+        this.cEstudio = usuario.getCertificadoestudioList().get(0);       
+        this.cEstudio.setCertificado(toPrimitive(this.fotoCertificado));
+        cerefl.edit(cEstudio);      
         this.cEstudio1=true;
         redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
     }
     public void actualizarCertificado2(){
         this.cTrabajo = usuario.getCertificadotrabajoList().get(0);
+        cTrabajo.setCertificado(toPrimitive(this.fotoCertificado));
         certfl.edit(cTrabajo);
         this.cTrabajo1=true;
         redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
