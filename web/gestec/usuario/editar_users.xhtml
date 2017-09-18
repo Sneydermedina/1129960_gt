@@ -292,7 +292,7 @@
                         <div id="estudios" class="tab-pane fade">
                             <div class="col-md-12 col-xs-12">
                                 <div class="col-md-6 col-xs-12">
-                                    <c:if test="#{userController.rel.usuariosidUsuario.certificadoestudioList.size()==0}">
+                                    <c:if test="#{userController.listarCerEstudio.size()==0}">
                                         <center>
                                             <br/>
                                             <h4>El usuario no registra certificado de estudio</h4>
@@ -302,7 +302,7 @@
                                         </center>
                                     </c:if>
 
-                                    <c:forEach items="#{userController.rel.usuariosidUsuario.certificadoestudioList}" var="CE">
+                                    <c:forEach items="#{userController.listarCerEstudio}" var="CE">
 
                                         <h:form>
                                             <div class="col-md-10">
@@ -357,7 +357,7 @@
 
                                 </div>
                                 <div class="col-md-6 col-xs-12">
-                                    <c:if test="#{userController.rel.usuariosidUsuario.certificadotrabajoList.size()==0}">
+                                    <c:if test="#{userController.listarCerTrabajo.size()==0}">
                                         <center>
                                             <br/>
                                             <h4>El usuario no registra certificado laboral</h4>
@@ -365,7 +365,7 @@
                                         </center>
                                     </c:if>
 
-                                    <c:forEach items="#{userController.rel.usuariosidUsuario.certificadotrabajoList}" var="CT">
+                                    <c:forEach items="#{userController.listarCerTrabajo}" var="CT">
                                         <div class="col-md-10">
                                             <br/>
                                             <center><h4><strong>Información certificado laboral</strong></h4></center>

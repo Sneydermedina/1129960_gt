@@ -30,4 +30,5 @@ public interface CertificadoestudioFacadeLocal {
 
     int count();
     
+    public List<Certificadoestudio> listarPorUser(int id);
 }

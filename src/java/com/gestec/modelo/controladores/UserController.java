@@ -14,6 +14,8 @@ import com.gestec.modelo.entidades.Localidad;
 import com.gestec.modelo.entidades.Especialidad;
 import com.gestec.modelo.entidades.Telefono;
 import com.gestec.modelo.entidades.Relcalificacionusuarios;
+import com.gestec.modelo.entidades.Certificadoestudio;
+import com.gestec.modelo.entidades.Certificadotrabajo;
 import com.gestec.modelo.entidades.Calificacion;
 import com.gestec.modelo.persistencia.BarrioFacadeLocal;
 import com.gestec.modelo.persistencia.CalificacionFacadeLocal;
@@ -130,9 +132,12 @@ public class UserController implements Serializable{
     private Boolean foto2;
     private Boolean contraA;
     private List<Direccion> listarDireccion;
+    private List<Certificadoestudio> listarCerEstudio;
+    private List<Certificadotrabajo> listarCerTrabajo;
     private Boolean script;
     private StreamedContent file;
-
+ 
+    
     @PostConstruct
     public void init(){
         this.tipoUser=false;
@@ -482,9 +487,21 @@ public class UserController implements Serializable{
         this.script = script;
     }
 
- 
-    
-    
+    public List<Certificadoestudio> getListarCerEstudio() {
+        return listarCerEstudio;
+    }
+
+    public void setListarCerEstudio(List<Certificadoestudio> listarCerEstudio) {
+        this.listarCerEstudio = listarCerEstudio;
+    }
+
+    public List<Certificadotrabajo> getListarCerTrabajo() {
+        return listarCerTrabajo;
+    }
+
+    public void setListarCerTrabajo(List<Certificadotrabajo> listarCerTrabajo) {
+        this.listarCerTrabajo = listarCerTrabajo;
+    }
     
 
 
@@ -857,6 +874,8 @@ public class UserController implements Serializable{
         this.editar = false;
         this.ver = true;
         this.listarDireccion = dfl.listarPorUser(rel.getUsuariosidUsuario().getIdUsuario());
+        this.listarCerEstudio = cefl.listarPorUser(rel.getUsuariosidUsuario().getIdUsuario());
+        this.listarCerTrabajo = ctfl.listarPorUser(rel.getUsuariosidUsuario().getIdUsuario());
      
         redireccionar("/faces/gestec/usuario/editar_users.xhtml?faces-redirect=true");
        
@@ -949,6 +968,8 @@ public class UserController implements Serializable{
     
 }
     
+}
+    
  
     /*    public StreamedContent getFile() {
     FacesContext fc = FacesContext.getCurrentInstance();
@@ -961,4 +982,3 @@ public class UserController implements Serializable{
     System.out.println("asdas");
     return file;
     }*/
-}

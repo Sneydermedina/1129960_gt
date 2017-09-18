@@ -30,4 +30,5 @@ public interface CertificadotrabajoFacadeLocal {
 
     int count();
     
+    public List<Certificadotrabajo> listarPorUser(int id);
 }

@@ -145,14 +145,18 @@ public class SesionController implements Serializable {
     private List<Telefono> listarTelefono;
     private List<Calificacion> listarCalificacion;
     private List<Localidad> listarLocalidad;
+    private List<Certificadoestudio> listarCerEstudio;
+    private List<Certificadotrabajo> listarCerTrabajo;
     private byte[] foto;
     private byte[] fotoCertificado;
     private Especialidad esp;
     private Integer num; 
-    private Certificadoestudio cEstudio;
-    private Certificadotrabajo cTrabajo;
+    private Certificadoestudio Estudio;
+    private Certificadotrabajo Trabajo;
     private Boolean cEstudio1;
     private Boolean cTrabajo1;
+    private Boolean cEstudio01;
+    private Boolean cTrabajo01;
     private String mensajeMasivo;
 
     @PostConstruct
@@ -161,10 +165,15 @@ public class SesionController implements Serializable {
         this.db = false;
         this.cEstudio1=false;
         this.cTrabajo1=false;
+
+        this.cEstudio01=false;
+        this.cTrabajo01=false;
         this.infor = false;
         this.contacto = new Contactos();
+        this.Estudio = new Certificadoestudio();
+        this.Trabajo = new Certificadotrabajo();
         //this.dire = new Direccion();
-
+        this.listarCerEstudio = cerefl.findAll();
         this.usuario = new Usuarios();
         this.localidades = lfl.findAll();
         this.barrios = bfl.findAll();
@@ -474,20 +483,20 @@ public class SesionController implements Serializable {
         this.esp = esp;
     }
 
-    public Certificadoestudio getcEstudio() {
-        return cEstudio;
+    public Certificadoestudio getEstudio() {
+        return Estudio;
     }
 
-    public void setcEstudio(Certificadoestudio cEstudio) {
-        this.cEstudio = cEstudio;
+    public void setEstudio(Certificadoestudio Estudio) {
+        this.Estudio = Estudio;
     }
 
-    public Certificadotrabajo getcTrabajo() {
-        return cTrabajo;
+    public Certificadotrabajo getTrabajo() {
+        return Trabajo;
     }
 
-    public void setcTrabajo(Certificadotrabajo cTrabajo) {
-        this.cTrabajo = cTrabajo;
+    public void setTrabajo(Certificadotrabajo Trabajo) {
+        this.Trabajo = Trabajo;
     }
 
     public Boolean getcEstudio1() {
@@ -512,6 +521,38 @@ public class SesionController implements Serializable {
 
     public void setMensajeMasivo(String mensajeMasivo) {
         this.mensajeMasivo = mensajeMasivo;
+    }
+
+    public Boolean getcEstudio01() {
+        return cEstudio01;
+    }
+
+    public void setcEstudio01(Boolean cEstudio01) {
+        this.cEstudio01 = cEstudio01;
+    }
+
+    public Boolean getcTrabajo01() {
+        return cTrabajo01;
+    }
+
+    public void setcTrabajo01(Boolean cTrabajo01) {
+        this.cTrabajo01 = cTrabajo01;
+    }
+
+    public List<Certificadoestudio> getListarCerEstudio() {
+        return listarCerEstudio;
+    }
+
+    public void setListarCerEstudio(List<Certificadoestudio> listarCerEstudio) {
+        this.listarCerEstudio = listarCerEstudio;
+    }
+
+    public List<Certificadotrabajo> getListarCerTrabajo() {
+        return listarCerTrabajo;
+    }
+
+    public void setListarCerTrabajo(List<Certificadotrabajo> listarCerTrabajo) {
+        this.listarCerTrabajo = listarCerTrabajo;
     }
     
     
@@ -1162,7 +1203,7 @@ public class SesionController implements Serializable {
     }
 
     public void estadoCertificado1() {
-        if (usuario.getCertificadoestudioList().isEmpty()) {
+        if (this.listarCerEstudio.isEmpty()){
             this.certificado1 = false;
 
         } else {
@@ -1170,7 +1211,7 @@ public class SesionController implements Serializable {
 
         }
 
-        if (usuario.getCertificadotrabajoList().isEmpty()) {
+        if (this.listarCerTrabajo.isEmpty()) {
             this.certificado2 = false;
         } else {
             this.certificado2 = true;
@@ -1184,14 +1225,17 @@ public class SesionController implements Serializable {
         this.listarDireccion = dfl.listarPorUser(usuario.getIdUsuario());
         this.listarCalificacion = calfl.listarPorUser(usuario.getIdUsuario());
         this.listarLocalidad = lfl.listarLocalidad(usuario.getIdUsuario());
-
+        this.listarCerEstudio = cerefl.listarPorUser(usuario.getIdUsuario());
+        this.listarCerTrabajo = certfl.listarPorUser(usuario.getIdUsuario());
+        this.cEstudio01=false;
+        this.cTrabajo01=false;
         redireccionar("/faces/gestec/usuario/perfil.xhtml?faces-redirect=true");
     }
 
     public void cambiarFoto(FileUploadEvent evento) throws IOException {
         this.foto = IOUtils.toByteArray(evento.getFile().getInputstream());
     }
-    public void fotoCertificado(FileUploadEvent evento) throws IOException{
+    public void fotoCertificado0(FileUploadEvent evento) throws IOException{
         this.fotoCertificado = IOUtils.toByteArray(evento.getFile().getInputstream());
     }
     public Byte[] toPrimitive(byte[] fotoCertificado){
@@ -1209,17 +1253,86 @@ public class SesionController implements Serializable {
     }
     
     public void actualizarCertificado1(){
-        this.cEstudio = usuario.getCertificadoestudioList().get(0);       
-        this.cEstudio.setCertificado(toPrimitive(this.fotoCertificado));
-        cerefl.edit(cEstudio);      
+        this.Estudio = listarCerEstudio.get(0);
+        if (this.fotoCertificado!=null) {
+            System.out.println("entra");    
+        Estudio.setCertificado(toPrimitive(this.fotoCertificado));
+            
+        }
+        
+        cerefl.edit(Estudio);      
         this.cEstudio1=true;
         redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
     }
     public void actualizarCertificado2(){
-        this.cTrabajo = usuario.getCertificadotrabajoList().get(0);
-        cTrabajo.setCertificado(toPrimitive(this.fotoCertificado));
-        certfl.edit(cTrabajo);
+        this.Trabajo = listarCerTrabajo.get(0);
+        if (this.fotoCertificado!=null) {
+            
+        Trabajo.setCertificado(toPrimitive(this.fotoCertificado));
+        }
+        certfl.edit(Trabajo);
         this.cTrabajo1=true;
+        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+    }
+    public void agregarCertificado1(){
+        this.cEstudio01=true;
+        this.cTrabajo01=false;
+        redireccionar("/faces/gestec/usuario/form_certificados.xhtml?faces-redirect=true");
+        
+        
+    }
+    public void agregarCertificado2(){
+        this.cTrabajo01=true;
+        this.cEstudio01=false;
+        redireccionar("/faces/gestec/usuario/form_certificados.xhtml?faces-redirect=true");
+    }
+    public void insertarCertificado1(){
+        
+        this.Estudio.setUsuariosidUsuario(usuario);
+        if (this.fotoCertificado!=null) {
+            
+        this.Estudio.setCertificado(toPrimitive(fotoCertificado));
+        }else{
+            
+            this.Estudio.setCertificado(null);
+            
+        }
+        this.cerefl.create(Estudio);
+        this.listarCerEstudio = cerefl.listarPorUser(usuario.getIdUsuario());
+        this.cEstudio01=false;
+        this.cTrabajo01=false;
+        this.certificado1=true;
+        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+    }
+    public void insertarCertificado2(){
+         this.Trabajo.setUsuariosidUsuario(usuario);
+        if (this.fotoCertificado!=null) {
+            
+        this.Trabajo.setCertificado(toPrimitive(fotoCertificado));
+        }else{
+            
+            this.Trabajo.setCertificado(null);
+            
+        }
+        this.certfl.create(Trabajo);
+        this.listarCerTrabajo = certfl.listarPorUser(usuario.getIdUsuario());
+        this.cEstudio01=false;
+        this.cTrabajo01=false;
+        this.certificado2=true;
+        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+    }
+    public void eliminarCertificado1(Certificadoestudio w){
+        this.Estudio = w;
+ 
+        this.cerefl.remove(this.Estudio);
+        this.certificado1=false;
+        redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
+    }
+    public void eliminarCertificado2(Certificadotrabajo c){
+        System.out.println(c);
+        this.Trabajo=c;
+        this.certfl.remove(this.Trabajo);
+        this.certificado2=false;
         redireccionar("/faces/gestec/usuario/editar_perfil.xhtml?faces-redirect=true");
     }
 }

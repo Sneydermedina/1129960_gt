@@ -6,9 +6,11 @@
 package com.gestec.modelo.persistencia;
 
 import com.gestec.modelo.entidades.Certificadoestudio;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,15 @@ public class CertificadoestudioFacade extends AbstractFacade<Certificadoestudio>
 
     public CertificadoestudioFacade() {
         super(Certificadoestudio.class);
+    }
+    
+    @Override
+    public List<Certificadoestudio> listarPorUser(int id){
+        Query q;
+        q = em.createNativeQuery("select c.* from certificadoestudio c join usuarios u on c.usuarios_idusuario=idusuario where c.usuarios_idusuario=?",Certificadoestudio.class);
+        q.setParameter(1, id);
+        List<Certificadoestudio> listar = q.getResultList();
+        return listar;
     }
     
 }

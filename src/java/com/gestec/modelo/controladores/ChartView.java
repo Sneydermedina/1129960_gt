@@ -26,7 +26,7 @@ public class ChartView implements Serializable {
     private PieChartModel pieModel2;
     private BarChartModel barModel;
     private BarChartModel animatedModel2;
-    
+ 
     @EJB
     private UsuariosFacadeLocal ufl;
     
@@ -80,7 +80,8 @@ public class ChartView implements Serializable {
     public void setSfl(SolicitudFacadeLocal sfl) {
         this.sfl = sfl;
     }
-     
+
+  
     
     private void createPieModels() {
         createPieModel1();
@@ -208,5 +209,5 @@ public class ChartView implements Serializable {
         Object event= evfl.contarTipoEvento(tipoE);
         return event;
     }
-     
+  
 }

@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template/template_principal_sin_menu.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head2">
+
+        <link href="#{request.contextPath}/resources/css/estilosFormularios.css" rel="stylesheet"/>
+        <link href="#{request.contextPath}/resources/css/Menu-borde.css" rel="stylesheet"/>
+
+
+        <script src="#{request.contextPath}/resources/plugins/bootstrap/bootstrap.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/plugins/sweetalert/sweetalert.min.js" defer=""></script> 
+        <script src="#{request.contextPath}/resources/js/tecnicoEmpresa.js" defer=""></script>
+        <script src="#{request.contextPath}/resources/js/archivo.js" defer=""></script>
+
+        <style>
+            .container{
+                background-color: #eee;
+                margin-top: 50px;
+            }
+            .progress{
+                height: 10px;
+            }
+            .ui-inputfield{
+                width: 100%;
+            }
+
+
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+            }
+            .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield:invalid {
+                background: #ffffff;
+                -moz-box-shadow: inset 0 2px 2px transparent;
+                -webkit-box-shadow: inset 0 2px 2px transparent; 
+                box-shadow: inset 0 2px 2px transparent; 
+                border: 1px solid #C1C1C1;
+            }
+        </style>
+
+    </ui:define>
+
+
+    <ui:define name="titulo">Agregar certificados</ui:define>
+   
+    <ui:define name="titulo2">
+        <c:if test="#{sesionGestec.getcEstudio01()==true}">
+    Certificado de estudio
+    </c:if>
+        <c:if test="#{sesionGestec.getcTrabajo01()==true}">
+    Certificado laboral
+    </c:if>
+   </ui:define>
+    
+    
+    <ui:define name="content2">
+        <div class="container">
+        <c:if test="#{sesionGestec.getcEstudio01()==true}">
+    <br/><br/>
+    <h3>Complete los campos para la información de su certificado de estudio:</h3>
+    <br/>
+    <h:form prependId="false" enctype="multipart/form-data">
+    <div class="col-md-12">
+    <div class="col-md-6 col-xs-12">
+        <h:outputLabel>Ingrese su centro educativo</h:outputLabel>
+        <br/>
+        <h:inputText value="#{sesionGestec.estudio.centroEducativo}" class="form-control" required="true"/>
+        <br/>
+        <h:outputLabel>Ingrese la fecha de expedición</h:outputLabel>
+        <br/>
+        <p:calendar value="#{sesionGestec.estudio.fechaCertificado}" required="true"/>
+        <br/><br/>
+        <h:outputLabel>Ingrese nivel de estudios obtenidos</h:outputLabel>
+        <br/>
+        <h:inputText value="#{sesionGestec.estudio.nivelEstudios}" class="form-control" required="true"/>
+        <br/>
+        <h:outputLabel>Ingrese titulo obtenido</h:outputLabel>
+        <br/>
+        <h:inputText value="#{sesionGestec.estudio.titulo}" class="form-control" required="true"/>
+        <br/>
+    </div>
+        <div class="col-md-6 col-xs-12">
+            <center>
+                <h:outputLabel>Adjunte su certificado de estudios (opcional)</h:outputLabel>
+                <br/>
+                <h:graphicImage library="img" name="cert.png" width="200"/>
+            <br/>
+            <p:fileUpload id="message" fileUploadListener="#{sesionGestec.fotoCertificado0}"
+                                                          mode="advanced" dragDropSupport="false" update="messages"
+                                                          sizeLimit="64000" fileLimit="1"
+                                                          allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
+                                                          cancelLabel="#{msjGestec.cancelar}"
+                                                          uploadLabel="#{msjGestec.subir}"
+                                                          label="#{msjGestec.examinar}"
+                                                          fileLimitMessage="Solo un archivo"
+                                                          invalidFileMessage="Solo archivos de imagen"
+                                                          invalidSizeMessage="Archivo demasiado grande"/>
+                                            <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
+                                                        style="padding: 10px 0; color: #337AB7"/>
+            </center>
+            
+        </div>    
+    </div>  
+    <div class="col-md-12 col-xs-12">
+        <br/>
+        <h:commandButton value="Subir archivo" class="btn btn-primary form-control" 
+                         actionListener="#{sesionGestec.insertarCertificado1()}"/>
+        <br/>
+        
+        
+    </div>
+    </h:form>
+    <h:form>
+        <div class="col-md-12 col-xs-12">
+            <h:commandButton value="Volver" class="btn btn-default form-control" actionListener="#{sesionGestec.irPerfil()}"/>
+        </div>
+    </h:form>    
+    </c:if>
+            <c:if test="#{sesionGestec.getcTrabajo01()==true}">
+                <br/><br/>
+    <h3>Complete los campos para la información de su certificado de trabajo:</h3>
+    <br/>
+    <h:form prependId="false" enctype="multipart/form-data">
+    <div class="col-md-12">
+    <div class="col-md-6 col-xs-12">
+        <h:outputLabel>Empresa asociada:</h:outputLabel>
+        <br/>
+        <h:inputText value="#{sesionGestec.trabajo.empresa}" class="form-control" required="true"/>
+        <br/>
+        <h:outputLabel>Fecha de expedición del certificad:o</h:outputLabel>
+        <br/>
+        <h:inputText value="#{sesionGestec.trabajo.fechaCertificado}" required="true" class="form-control"/>
+        <br/><br/>
+        <h:outputLabel>Servicios prestados:</h:outputLabel>
+        <br/>
+        <h:inputText value="#{sesionGestec.trabajo.serviciosPrestados}" class="form-control" required="true"/>
+        <br/>
+        
+    </div>
+        <div class="col-md-6 col-xs-12">
+            <center>
+                <h:outputLabel>Adjunte su certificado de trabajo (opcional)</h:outputLabel>
+                <br/>
+                <h:graphicImage library="img" name="cert.png" width="200"/>
+            <br/>
+            <p:fileUpload id="message" fileUploadListener="#{sesionGestec.fotoCertificado0}"
+                                                          mode="advanced" dragDropSupport="false" update="messages"
+                                                          sizeLimit="64000" fileLimit="1"
+                                                          allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
+                                                          cancelLabel="#{msjGestec.cancelar}"
+                                                          uploadLabel="#{msjGestec.subir}"
+                                                          label="#{msjGestec.examinar}"
+                                                          fileLimitMessage="Solo un archivo"
+                                                          invalidFileMessage="Solo archivos de imagen"
+                                                          invalidSizeMessage="Archivo demasiado grande"/>
+                                            <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
+                                                        style="padding: 10px 0; color: #337AB7"/>
+            </center>
+            
+        </div>    
+    </div>  
+    <div class="col-md-12 col-xs-12">
+        <br/>
+        <h:commandButton value="Subir archivo" class="btn btn-primary form-control" 
+                         actionListener="#{sesionGestec.insertarCertificado2()}"/>
+        <br/>
+        
+        
+    </div>
+    </h:form>
+    <h:form>
+        <div class="col-md-12 col-xs-12">
+            <h:commandButton value="Volver" class="btn btn-default form-control" actionListener="#{sesionGestec.irPerfil()}"/>
+            <br/><br/>
+        </div>
+        
+    </h:form>    
+            </c:if>        
+        </div>
+    </ui:define>
+    
+</ui:composition>
+

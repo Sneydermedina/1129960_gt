@@ -112,23 +112,23 @@
 
                         <h:message for="calendario" style="color:Red" styleClass="error" />
                     </div>
-                    
+
                     <div class="col-md-12">
                         <p:fileUpload id="imgSol"
                                       fileUploadListener="#{sesionGestec.cambiarFoto}" mode="advanced" dragDropSupport="false"
-                                          update="messages" sizeLimit="64000" fileLimit="1" 
-                                          allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
-                                          cancelLabel="#{msjGestec.cancelar}"
-                                          uploadLabel="#{msjGestec.subir}"
-                                          label="#{msjGestec.examinar}"
-                                          fileLimitMessage="Sólo un archivo"
-                                          invalidFileMessage="Sólo archivos de imagen"
-                                          invalidSizeMessage="El archivo es demasiado grande"/>
+                                      update="messages" sizeLimit="64000" fileLimit="1" 
+                                      allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
+                                      cancelLabel="#{msjGestec.cancelar}"
+                                      uploadLabel="#{msjGestec.subir}"
+                                      label="#{msjGestec.examinar}"
+                                      fileLimitMessage="Sólo un archivo"
+                                      invalidFileMessage="Sólo archivos de imagen"
+                                      invalidSizeMessage="El archivo es demasiado grande"/>
 
-                            <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
-                                        style="padding: 10px 0; color: #337AB7"/>
+                        <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
+                                    style="padding: 10px 0; color: #337AB7"/>
                     </div>
-                    
+
                     <hr class="col-md-12" style="border-top-color: #C1C1C1"/>
                     <div class="form-group col-md-6">
                         <label for="correo">#{msjGestec.corre} </label>
@@ -291,9 +291,9 @@
                     </div>
                 </h:form>
                 <h:form>
-                <div class="col-md-6 col-xs-12">
-                    <h:commandButton value="Volver" actionListener="#{sesionGestec.volverPerfil()}" class="col-md-12 col-xs-12 btn btn-default"/>
-                </div>
+                    <div class="col-md-6 col-xs-12">
+                        <h:commandButton value="Volver" actionListener="#{sesionGestec.volverPerfil()}" class="col-md-12 col-xs-12 btn btn-default"/>
+                    </div>
                 </h:form>
 
                 <div id="sesionContra">
@@ -365,35 +365,30 @@
                                  validatorMessage="#{msjGestec.editarp1}"
                                  requiredMessage="#{msjGestec.editarp10}"/>
                     <h:message for="perfilU" style="color:red"  styleClass="error"></h:message>
-                    
+
                     <c:if test="#{sesionGestec.usuario.tipoUsuario.equals('Tecnico')}">
-                    <h4 class="col-md-12 col-xs-12"><strong>Especialidad</strong></h4>
-                    <c:forEach items="#{sesionGestec.usuario.especialidadList}" var="esp">
-                        <h:selectOneMenu id="especialidad" value="#{esp.especialidad}" class="form-control">
-                            <f:selectItem itemValue="#{esp.especialidad}"/>
-                            <f:selectItem itemValue="Mantenimiento" itemLabel="Mantenimiento"/>
-                            <f:selectItem itemValue="Diagnostico" itemLabel="Diagnostico"/>
-                            <f:selectItem itemValue="Instalación" itemLabel="Instalación"/>
-                        </h:selectOneMenu>
-                    </c:forEach>
+                        <h4 class="col-md-12 col-xs-12"><strong>Especialidad</strong></h4>
+                        <c:forEach items="#{sesionGestec.usuario.especialidadList}" var="esp">
+                            <h:selectOneMenu id="especialidad" value="#{esp.especialidad}" class="form-control">
+                                <f:selectItem itemValue="#{esp.especialidad}"/>
+                                <f:selectItem itemValue="Mantenimiento" itemLabel="Mantenimiento"/>
+                                <f:selectItem itemValue="Diagnostico" itemLabel="Diagnostico"/>
+                                <f:selectItem itemValue="Instalación" itemLabel="Instalación"/>
+                            </h:selectOneMenu>
+                        </c:forEach>
                     </c:if>
                     <br/>
                     <h:commandButton class="btn btn-primary col-md-12 col-xs-12" value="Actualizar Perfil" actionListener="#{sesionGestec.actualizarPerfil1()}"/>
-                    </h:form>
-                                    <h:form>
-                                        
-                                        
+                </h:form>
+                <h:form>
+
+
                     <h4 class="col-md-12"><strong>#{msjGestec.estudios}</strong></h4>
-                    
-                    <button class="col-md-12 col-xs-12 btn btn-primary"
-                            data-toggle="modal" data-target="#ModalEstudio">
 
-
-                        <f:ajax event="click" listener="#{sesionGestec.setUsuario(usuario)}" render="nombreEstudio"/>&nbsp;Agregar certificado de estudio
-
-                    </button>
-
-
+                        <h:commandButton actionListener="#{sesionGestec.agregarCertificado1()}" 
+                                         value="&nbsp;Agregar certificado de estudio"
+                                         class="col-md-12 btn btn-primary" />    
+                        
                 </h:form>
             </c:if>
             <c:if test="#{sesionGestec.certificado1==true}">
@@ -413,42 +408,43 @@
                     <h:message for="perfilU" style="color:red"  styleClass="error"></h:message>
 
                     <c:if test="#{sesionGestec.usuario.tipoUsuario.equals('Tecnico')}">
-                    <h4 class="col-md-12 col-xs-12"><strong>Especialidad</strong></h4>
-                    <c:forEach items="#{sesionGestec.usuario.especialidadList}" var="esp">
-                        <h:selectOneMenu id="especialidad" value="#{esp.especialidad}" class="form-control">
-                            <f:selectItem itemValue="#{esp.especialidad}"/>
-                            <f:selectItem itemValue="Mantenimiento" itemLabel="Mantenimiento"/>
-                            <f:selectItem itemValue="Diagnostico" itemLabel="Diagnostico"/>
-                            <f:selectItem itemValue="Instalación" itemLabel="Instalación"/>
-                        </h:selectOneMenu>
-                    </c:forEach>
+                        <h4 class="col-md-12 col-xs-12"><strong>Especialidad</strong></h4>
+                        <c:forEach items="#{sesionGestec.usuario.especialidadList}" var="esp">
+                            <h:selectOneMenu id="especialidad" value="#{esp.especialidad}" class="form-control">
+                                <f:selectItem itemValue="#{esp.especialidad}"/>
+                                <f:selectItem itemValue="Mantenimiento" itemLabel="Mantenimiento"/>
+                                <f:selectItem itemValue="Diagnostico" itemLabel="Diagnostico"/>
+                                <f:selectItem itemValue="Instalación" itemLabel="Instalación"/>
+                            </h:selectOneMenu>
+                        </c:forEach>
                     </c:if>
                     <br/>
-                    
+
                     <h:commandButton class="btn btn-primary col-md-12 col-xs-12" value="Actualizar Perfil" actionListener="#{sesionGestec.actualizarPerfil1()}"/>
                 </h:form>
+                
                 <h:form enctype="multipart/form-data">
 
                     <h4 class="col-md-12"><strong>#{msjGestec.estudios}</strong></h4>
                     <br/>
-                    <c:forEach items="#{sesionGestec.usuario.certificadoestudioList}" var="est">
-                        
+                    <c:forEach items="#{sesionGestec.listarCerEstudio}" var="est">
+
                         <div class="col-md-12 col-sm-12" style="padding-left:0">
-                            <p:fileUpload id="certificado1" fileUploadListener="#{sesionGestec.fotoCertificado}"
-                                                  mode="advanced" dragDropSupport="false" update="messages"
-                                                  sizeLimit="64000" fileLimit="1"
-                                                  allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
-                                                  cancelLabel="#{msjGestec.cancelar}"
-                                                  uploadLabel="#{msjGestec.subir}"
-                                                  label="#{msjGestec.examinar}"
-                                                  fileLimitMessage="Solo un archivo"
-                                                  invalidFileMessage="Solo archivos de imagen"
-                                                  invalidSizeMessage="Archivo demasiado grande"/>
-                                    <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
-                                                style="padding: 10px 0; color: #337AB7"/>
-                                    <br/>
+                            <p:fileUpload id="certificado1" fileUploadListener="#{sesionGestec.fotoCertificado0}"
+                                          mode="advanced" dragDropSupport="false" update="messages"
+                                          sizeLimit="64000" fileLimit="1"
+                                          allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
+                                          cancelLabel="#{msjGestec.cancelar}"
+                                          uploadLabel="#{msjGestec.subir}"
+                                          label="#{msjGestec.examinar}"
+                                          fileLimitMessage="Solo un archivo"
+                                          invalidFileMessage="Solo archivos de imagen"
+                                          invalidSizeMessage="Archivo demasiado grande"/>
+                            <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
+                                        style="padding: 10px 0; color: #337AB7"/>
+                            <br/>
                         </div>
-                        
+
 
                         <div class="col-md-6" style="padding-left: 0">
                             <label class="col-md-12">#{msjGestec.centroEducativo}</label>
@@ -489,30 +485,58 @@
                             <h:message for="fechaCE" style="color:red" styleClass="error"
                                        ></h:message>
                         </div>
-                        
+
                         <c:if test="#{sesionGestec.cEstudio1==true}">
                             <div class="col-md-12">
                                 <center><p style="color:blue;">
-                                   Certificado de estudio actualizado! </p></center>
+                                        Certificado de estudio actualizado! </p></center>
                             </div>
                         </c:if>
                         <div class="col-md-12" style="margin-top:10px;">
                             <div class="col-md-2" style="margin-left: 6%;"/>
                             <input type="button" value="Ver adjunto" class="btn btn-default col-md-3"
-                               onclick="PF('img1').show()"/>
+                                   onclick="PF('img1').show()"/>
                             <h:commandButton class="btn btn-primary col-md-3" 
                                              value="Editar certificado"
                                              actionListener="#{sesionGestec.actualizarCertificado1()}"/>
-                            <h:commandButton class="btn btn-danger col-md-3" value="#{msjGestec.eliminarCertificado}"/>
+                           <button type="button" class="btn btn-danger col-md-3 col-sm-12 col-xs-12" 
+                        style="margin-bottom: 10px"
+                        data-toggle="modal" data-target="#MyModalEliminar1"> 
+                    <f:ajax event="click" listener="#{sesionGestec.setUsuario(usuario)}" render="eliminar1"/>Eliminar certificado
+
+                </button>
                         </div>
-                            <p:dialog header="Certificado de estudios" minWidth="400" widgetVar="img1">
-                                <p:graphicImage value="#{userController.cer1}" cache="false"
-                                                width="400" class="img-thumbnail">
-                                    <f:param name="pif2" value="#{est.idCertificadoEstudio}"/>
-                                </p:graphicImage>
-                                
-                              
-                            </p:dialog>    
+                        <div id="MyModalEliminar1" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Eliminar certificado de estudio</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:panelGroup id="eliminar1">
+                                <p>¿Esta seguro que desea eliminar el certificado?
+                                    <br/>Tenga en cuenta que posteriormente puede volver a generar el certificado</p> 
+                            </h:panelGroup>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                            <h:form>
+                                <h:commandButton actionListener="#{sesionGestec.eliminarCertificado1(est)}" value="Eliminar certificado de estudio"
+                                                 class="btn btn-danger pull-right"/>
+                            </h:form>
+                        </div>
+                    </div> 
+                </div>
+            </div>    
+                        <p:dialog header="Certificado de estudios" minWidth="400" widgetVar="img1">
+                            <p:graphicImage value="#{userController.cer1}" cache="false"
+                                            width="400" class="img-thumbnail">
+                                <f:param name="pif2" value="#{est.idCertificadoEstudio}"/>
+                            </p:graphicImage>
+
+
+                        </p:dialog>    
                     </c:forEach>
                 </h:form>
             </c:if>
@@ -520,31 +544,31 @@
             <c:if test="#{sesionGestec.certificado2==false}">
                 <h:form>
                     <h4 class="col-md-12"><strong>#{msjGestec.experiencia}</strong></h4>
-                    <button class="col-md-12 col-xs-12 btn btn-primary">
-                        Agregar certificado de trabajo
-                    </button>
+                    <h:commandButton actionListener="#{sesionGestec.agregarCertificado2()}" 
+                                         value="&nbsp;Agregar certificado de trabajo"
+                                         class="col-md-12 btn btn-primary" />  
                 </h:form>
             </c:if>
             <c:if test="#{sesionGestec.certificado2==true}">
                 <h:form enctype="multipart/form-data">
                     <h4 class="col-md-12"><strong>#{msjGestec.experiencia}</strong></h4>
-                    <c:forEach items="#{sesionGestec.usuario.certificadotrabajoList}" var="tra">
+                    <c:forEach items="#{sesionGestec.listarCerTrabajo}" var="tra">
                         <div class="col-md-12 col-sm-12" style="padding-left:0">
-                            <p:fileUpload id="certificado2" fileUploadListener="#{sesionGestec.fotoCertificado}"
-                                                  mode="advanced" dragDropSupport="false" update="messages"
-                                                  sizeLimit="64000" fileLimit="1"
-                                                  allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
-                                                  cancelLabel="#{msjGestec.cancelar}"
-                                                  uploadLabel="#{msjGestec.subir}"
-                                                  label="#{msjGestec.examinar}"
-                                                  fileLimitMessage="Solo un archivo"
-                                                  invalidFileMessage="Solo archivos de imagen"
-                                                  invalidSizeMessage="Archivo demasiado grande"/>
-                                    <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
-                                                style="padding: 10px 0; color: #337AB7"/>
-                                    <br/>
+                            <p:fileUpload id="certificado2" fileUploadListener="#{sesionGestec.fotoCertificado0}"
+                                          mode="advanced" dragDropSupport="false" update="messages"
+                                          sizeLimit="64000" fileLimit="1"
+                                          allowTypes="/(\.|\/)(jpg|gif|jpe?g|png)$/"
+                                          cancelLabel="#{msjGestec.cancelar}"
+                                          uploadLabel="#{msjGestec.subir}"
+                                          label="#{msjGestec.examinar}"
+                                          fileLimitMessage="Solo un archivo"
+                                          invalidFileMessage="Solo archivos de imagen"
+                                          invalidSizeMessage="Archivo demasiado grande"/>
+                            <h:messages id="messages" showDetail="true" showSummary="true" globalOnly="true"
+                                        style="padding: 10px 0; color: #337AB7"/>
+                            <br/>
                         </div>
-                        
+
                         <div class="col-md-6" style="padding-left: 0">
                             <label class="col-md-12">Empresa</label>
                             <h:inputText id="empresa"
@@ -575,8 +599,8 @@
                                          style="margin-top: 10px;margin-bottom: 10px"/>
                             <h:message for="servicios" style="color:red"  styleClass="error"></h:message>
                         </div>
-                        
-                           <c:if test="#{sesionGestec.cTrabajo1==true}">
+
+                        <c:if test="#{sesionGestec.cTrabajo1==true}">
                             <div class="col-md-12">
                                 <center><p style="color:blue;">Certificado de trabajo actualizado!</p></center>
                             </div>
@@ -584,18 +608,46 @@
                         <div class="col-md-12">
                             <div class="col-md-2" style="margin-left: 6%;"/>
                             <input type="button" value="Ver adjunto" class="btn btn-default col-md-3"
-                               onclick="PF('img2').show()"/>
+                                   onclick="PF('img2').show()"/>
                             <h:commandButton class="btn btn-primary col-md-3" 
                                              value="Editar certificado"
                                              actionListener="#{sesionGestec.actualizarCertificado2()}"/>
-                            <h:commandButton class="btn btn-danger col-md-3" value="#{msjGestec.eliminarCertificado}"/>
+                            <button type="button" class="btn btn-danger col-md-3 col-sm-12 col-xs-12" 
+                        style="margin-bottom: 10px"
+                        data-toggle="modal" data-target="#MyModalEliminar2"> 
+                    <f:ajax event="click" listener="#{sesionGestec.setUsuario(usuario)}" render="eliminar2"/>Eliminar certificado
+
+                </button>
                         </div>
-                            <p:dialog header="Certificado de trabajo" minWidth="70" widgetVar="img2">
-                                <p:graphicImage value="#{userController.cer2}" cache="false"
-                                                width="400" class="img-thumbnail">
-                                    <f:param name="pif3" value="#{tra.idCertificadoTrabajo}"/>
-                                </p:graphicImage>
-                            </p:dialog>
+                        <div id="MyModalEliminar2" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Eliminar certificado de trabajo</h4>
+                        </div>
+                        <div class="modal-body">
+                            <h:panelGroup id="eliminar2">
+                                <p>¿Esta seguro que desea eliminar el certificado?
+                                    <br/>Tenga en cuenta que posteriormente puede volver a generar el certificado</p> 
+                            </h:panelGroup>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                            <h:form>
+                                <h:commandButton actionListener="#{sesionGestec.eliminarCertificado2(tra)}" value="Eliminar certificado laboral"
+                                                 class="btn btn-danger pull-right"/>
+                            </h:form>
+                        </div>
+                    </div> 
+                </div>
+            </div>    
+                        <p:dialog header="Certificado de trabajo" minWidth="70" widgetVar="img2">
+                            <p:graphicImage value="#{userController.cer2}" cache="false"
+                                            width="400" class="img-thumbnail">
+                                <f:param name="pif3" value="#{tra.idCertificadoTrabajo}"/>
+                            </p:graphicImage>
+                        </p:dialog>
                     </c:forEach>
 
                 </h:form>
@@ -624,8 +676,8 @@
                 <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 15px 0">
                     <div class="col-md-6 col-sm-6 col-xs-6" style="padding-left: 0">
                         <h:form>
-                        <h:commandButton class="btn btn-default col-md-12 col-sm-12 col-xs-12"
-                                         value="#{msjGestec.volver}" actionListener="#{sesionGestec.volverPerfil()}"/>
+                            <h:commandButton class="btn btn-default col-md-12 col-sm-12 col-xs-12"
+                                             value="#{msjGestec.volver}" actionListener="#{sesionGestec.volverPerfil()}"/>
                         </h:form>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6" style="padding-right: 0">
@@ -659,29 +711,10 @@
                     </div> 
                 </div>
             </div>
+            
+            
 
-            <div id="ModalEstudio" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
-                        </div>
-                        <div class="modal-body">
-                            <h:panelGroup id="nombreEstudio">
-                                <p>¿Esta seguro que desea desactivar su cuenta?
-                                    <br/>Puede comunicarse con el administrador para re activar su cuenta</p> 
-                            </h:panelGroup>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            
 
 
         </div> 
