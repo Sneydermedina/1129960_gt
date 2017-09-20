@@ -879,6 +879,11 @@ public class CitasRequest implements Serializable {
         List<Mensaje> msjs = mfl.listarMensajesCita(idSolicitud);
         return msjs.get(0).getMensaje();
     }
+    
+    public Mensaje getPMensaje(Integer idSolicitud) {
+        List<Mensaje> msjs = mfl.listarMensajesCita(idSolicitud);
+        return msjs.get(0);
+    }
 
     public Integer getCantidadMensajes(Integer idSolicitud) {
         List<Mensaje> msjs = mfl.listarMensajesCita(idSolicitud);
@@ -886,8 +891,9 @@ public class CitasRequest implements Serializable {
     }
 
     public String ultimoMensaje(Citas cita) {
-        int tamañoLista = cita.getSolicitudIdsolicitud().getMensajeList().size() - 1;
-        return cita.getSolicitudIdsolicitud().getMensajeList().get(tamañoLista).getMensaje();
+        List<Mensaje> msjs = mfl.listarMensajesCita(cita.getSolicitudIdsolicitud().getIdsolicitud());
+        int tamañoLista = msjs.size() - 1;
+        return msjs.get(tamañoLista).getMensaje();
     }
 
     public String verDetalle(Citas cita) {
@@ -903,7 +909,8 @@ public class CitasRequest implements Serializable {
     }
     
     public void verDetalleMensaje(Solicitud solicitud) {
-        setCita(solicitud.getCitasList().get(0));
+        Citas c = cfl.listarCitasSolicitud(solicitud.getIdsolicitud()).get(0);
+        setCita(c);
         List<Mensaje> msjs = mfl.listarMensajesCita(solicitud.getIdsolicitud());
         int t = msjs.size() - 1;
         Mensaje m = msjs.get(t);

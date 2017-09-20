@@ -254,8 +254,9 @@
                                                     <img src="#{request.contextPath}/resources/img/tecnico5.jpg" alt="" class="imagenNotificacion"/>
                                                 </div>
                                                 <div>
-                                                    <strong><span class=" label label-success">#{nc.idCita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.nombreUsuario}
-                                                            #{nc.idCita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.apellido}</span></strong>
+                                                    <strong><span class=" label label-success">#{citasRequest.getPMensaje(nc.idCita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.nombreUsuario}
+                                                            #{citasRequest.getPMensaje(nc.idCita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.apellido}</span></strong>
+                                                            
                                                     <br/><br/>   <h5 class="mensajeCorto">
                                                         <h:form>
                                                             <c:if test="#{nc.idNotificacion.idNotificacion==7}">

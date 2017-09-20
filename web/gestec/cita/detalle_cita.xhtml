@@ -70,8 +70,8 @@
                 #{citasRequest.cita.solicitudIdsolicitud.direccionidDireccion.usuariosidUsuario.apellido}
             </c:if>
             <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Cliente'}">
-                #{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.nombreUsuario}
-                #{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.apellido}
+                #{citasRequest.getPMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.nombreUsuario}
+                #{citasRequest.getPMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.apellido}
             </c:if>
         </c:if>
     </ui:define>
@@ -180,7 +180,8 @@
                                 </c:if>
                                 <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Cliente'}">
                                     <p:graphicImage value="#{sesionGestec.imagenPerfil}" style="border-radius: 50%;width: 40px;height: 40px;vertical-align: bottom;float: left">                                                       
-                                        <f:param name="pid" value="#{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.idUsuario}"/>
+                                        <f:param name="pid" 
+                                                 value="#{citasRequest.getPMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.idUsuario}"/>
                                     </p:graphicImage>
                                 </c:if>
                             </div>
@@ -209,9 +210,9 @@
                                 <h:form>
                                     <c:if test="#{sesionGestec.usuario.tipoUsuario=='Cliente'}">
                                     <h:commandLink class="enlace-perfil" style="margin-left: 10px" target="_blank"
-                                                   actionListener="#{sesionGestec.verPerfil(citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario)}">
-                                            <strong>#{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.nombreUsuario}</strong>
-                                            <strong>#{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.apellido}</strong>
+                                                   actionListener="#{sesionGestec.verPerfil(citasRequest.getPMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario)}">
+                                            <strong>#{citasRequest.getPMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.nombreUsuario}</strong>
+                                            <strong>#{citasRequest.getPMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.apellido}</strong>
                                     </h:commandLink>
                                         </c:if>
                                     <c:if test="#{sesionGestec.usuario.tipoUsuario=='Tecnico'}">
@@ -228,8 +229,9 @@
                                         #{citasRequest.obtenerContacto().direccionList.get(0).idBarrio.nombreBarrio} #{citasRequest.obtenerContacto().direccionList.get(0).idBarrio.idLocalidad.nombreLocalidad}
                                     </c:if>
                                     <c:if test="#{sesionGestec.usuario.tipoUsuario == 'Cliente'}">
-                                        #{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.direccionList.get(0).idBarrio.nombreBarrio} 
-                                        #{citasRequest.cita.solicitudIdsolicitud.mensajeList.get(0).usuariosidUsuario.direccionList.get(0).idBarrio.idLocalidad.nombreLocalidad}
+                                        
+                                        #{citasRequest.getPMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.direccionList.get(0).idBarrio.nombreBarrio} 
+                                        #{citasRequest.getPMensaje(citasRequest.cita.solicitudIdsolicitud.idsolicitud).usuariosidUsuario.direccionList.get(0).idBarrio.idLocalidad.nombreLocalidad}
                                     </c:if>
                                 </h5>
                             </div>
