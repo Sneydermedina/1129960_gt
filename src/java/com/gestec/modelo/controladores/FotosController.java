@@ -71,4 +71,5 @@ public class FotosController implements Serializable {
         }
     }
     
+    
 }

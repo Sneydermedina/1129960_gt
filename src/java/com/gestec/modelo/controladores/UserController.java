@@ -17,6 +17,9 @@ import com.gestec.modelo.entidades.Relcalificacionusuarios;
 import com.gestec.modelo.entidades.Calificacion;
 import com.gestec.modelo.persistencia.BarrioFacadeLocal;
 import com.gestec.modelo.persistencia.CalificacionFacadeLocal;
+import com.gestec.modelo.persistencia.CertificadoestudioFacade;
+import com.gestec.modelo.persistencia.CertificadoestudioFacadeLocal;
+import com.gestec.modelo.persistencia.CertificadotrabajoFacadeLocal;
 import com.gestec.modelo.persistencia.ContactosFacadeLocal;
 import com.gestec.modelo.persistencia.DireccionFacadeLocal;
 import com.gestec.modelo.persistencia.EspecialidadFacadeLocal;
@@ -24,10 +27,14 @@ import com.gestec.modelo.persistencia.LocalidadFacadeLocal;
 import com.gestec.modelo.persistencia.RelcalificacionusuariosFacadeLocal;
 import com.gestec.modelo.persistencia.TelefonoFacadeLocal;
 import com.gestec.modelo.persistencia.UsuariosFacadeLocal;
+import com.sun.xml.messaging.saaj.soap.impl.CDATAImpl;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,12 +57,15 @@ import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseId;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 
 /**
@@ -85,6 +95,10 @@ public class UserController implements Serializable{
     private CalificacionFacadeLocal calfl;
     @EJB
     private EspecialidadFacadeLocal efl;
+    @EJB
+    private CertificadoestudioFacadeLocal cefl;
+    @EJB
+    private CertificadotrabajoFacadeLocal ctfl;
     private List<Usuarios> listarUsuarios;
     private Usuarios usuarios;
     private Contactos contactos;
@@ -116,7 +130,8 @@ public class UserController implements Serializable{
     private Boolean foto2;
     private Boolean contraA;
     private List<Direccion> listarDireccion;
-
+    private Boolean script;
+    private StreamedContent file;
 
     @PostConstruct
     public void init(){
@@ -150,7 +165,7 @@ public class UserController implements Serializable{
         this.ver = false;
         this.foto2 = false;
         this.contraA=false;
-      
+        this.script=false;
         
     }
     public UsuariosFacadeLocal getUfl() {
@@ -457,6 +472,14 @@ public class UserController implements Serializable{
 
     public void setListarDireccion(List<Direccion> listarDireccion) {
         this.listarDireccion = listarDireccion;
+    }
+
+    public Boolean getScript() {
+        return script;
+    }
+
+    public void setScript(Boolean script) {
+        this.script = script;
     }
 
  
@@ -875,7 +898,67 @@ public class UserController implements Serializable{
         System.out.println(rel.getUsuariosidUsuario());
         return edad;
     }
-  
-
+    public Boolean s(){
+        this.script=true;
+        return this.script;
+    }
+    public byte[] toPrimitive(Byte[] fotoCertificado){
+        //this.fotoCertificado = fotoCertificado;
+        byte[] a = new byte[fotoCertificado.length];
+         
+            for(int i = 0; i < fotoCertificado.length; i++) {
+            a[i] = fotoCertificado[i];
+    }
+        return a;
+    }
     
+    public StreamedContent getCer1() throws IOException,SQLException{
+        FacesContext fc = FacesContext.getCurrentInstance();
+        
+        if (fc.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            System.out.println("1");
+            return new DefaultStreamedContent();
+        }else{
+            String id= fc.getExternalContext().getRequestParameterMap().get("pif2");
+            Integer idF = Integer.valueOf(id);
+            byte[] imagen = toPrimitive(cefl.find(idF).getCertificado()); 
+            System.out.println("Completa img");
+            if (imagen==null) {
+                System.out.println("entra");
+                return new DefaultStreamedContent();
+                
+
+            }
+            System.out.println("nada");
+            return new DefaultStreamedContent(new ByteArrayInputStream(imagen));
+        }
+    }
+    public StreamedContent getCer2() throws IOException,SQLException{
+        FacesContext fc = FacesContext.getCurrentInstance();
+        if (fc.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+            return new DefaultStreamedContent();
+        }else{
+         String id = fc.getExternalContext().getRequestParameterMap().get("pif3");
+         Integer idF = Integer.valueOf(id);
+         byte [] imagen = toPrimitive(ctfl.find(idF).getCertificado());
+            if (imagen==null) {
+                return new DefaultStreamedContent();
+            }
+        return new DefaultStreamedContent(new ByteArrayInputStream(imagen));
+        }
+    
+}
+    
+ 
+    /*    public StreamedContent getFile() {
+    FacesContext fc = FacesContext.getCurrentInstance();
+    String id = fc.getExternalContext().getRequestParameterMap().get("pif2");
+    Integer idF = Integer.valueOf(id);
+    byte [] imagen = toPrimitive(cefl.find(idF).getCertificado());
+    
+    InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream(id);
+    file = new DefaultStreamedContent(stream, "image/jpg", "downloaded_optimus.jpg");
+    System.out.println("asdas");
+    return file;
+    }*/
 }
