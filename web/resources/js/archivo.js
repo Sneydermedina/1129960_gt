@@ -1,4 +1,4 @@
-$(".archivo").on("change", function (e) {
+$(".ar").on("change", function (e) {
 
     var archivos = $(this)[0].files;
 

@@ -13,12 +13,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.Part;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -40,8 +43,9 @@ public class ArchivosView implements Serializable{
     
     @EJB
     private EquipoFacadeLocal efl;
-    
     private UploadedFile uploadedFile;
+    
+    
     private List<Object[]> datosTabla=new ArrayList();
 
     public ArchivosView() {
@@ -51,9 +55,11 @@ public class ArchivosView implements Serializable{
         return datosTabla;
     }
 
+
     public void setDatosTabla(List<Object[]> datosTabla) {
         this.datosTabla = datosTabla;
     }
+
     
     public void HandleFileUpload(FileUploadEvent event) throws IOException {
         uploadedFile = event.getFile();
