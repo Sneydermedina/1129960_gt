@@ -134,7 +134,7 @@ public class UserController implements Serializable{
     private List<Direccion> listarDireccion;
     private List<Certificadoestudio> listarCerEstudio;
     private List<Certificadotrabajo> listarCerTrabajo;
-    private Boolean script;
+    
     private StreamedContent file;
  
     
@@ -170,7 +170,7 @@ public class UserController implements Serializable{
         this.ver = false;
         this.foto2 = false;
         this.contraA=false;
-        this.script=false;
+        
         
     }
     public UsuariosFacadeLocal getUfl() {
@@ -479,13 +479,7 @@ public class UserController implements Serializable{
         this.listarDireccion = listarDireccion;
     }
 
-    public Boolean getScript() {
-        return script;
-    }
-
-    public void setScript(Boolean script) {
-        this.script = script;
-    }
+    
 
     public List<Certificadoestudio> getListarCerEstudio() {
         return listarCerEstudio;
@@ -917,10 +911,7 @@ public class UserController implements Serializable{
         System.out.println(rel.getUsuariosidUsuario());
         return edad;
     }
-    public Boolean s(){
-        this.script=true;
-        return this.script;
-    }
+    
     public byte[] toPrimitive(Byte[] fotoCertificado){
         //this.fotoCertificado = fotoCertificado;
         byte[] a = new byte[fotoCertificado.length];
