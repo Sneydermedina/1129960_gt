@@ -131,6 +131,7 @@ public class CitasRequest implements Serializable {
     private Integer numeroLocalidad;
     private Integer numeroBarrio;
     private Integer tecnicos;
+    private Integer paginaActiva;
     private Servicio servicio;
     private Direccion direccion;
     private Citas citaModificada;
@@ -199,6 +200,8 @@ public class CitasRequest implements Serializable {
         this.citaEnviada = false;
         this.tecnicoCita = new Usuarios();
         this.estrellas = 3.0;
+        this.paginaActiva = 0;
+
     }
 
     @PostConstruct
@@ -250,6 +253,14 @@ public class CitasRequest implements Serializable {
 
     public String getDuracion() {
         return duracion;
+    }
+
+    public Integer getPaginaActiva() {
+        return paginaActiva;
+    }
+
+    public void setPaginaActiva(Integer paginaActiva) {
+        this.paginaActiva = paginaActiva;
     }
     
     public void setCita(Citas cita) {
@@ -790,6 +801,7 @@ public class CitasRequest implements Serializable {
             msj = new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "La fecha inicial no puede ser mayor a la fecha final", "");
         } else if (validarFiltro() == 2) {
+            setPaginaActiva(1);
             redireccionar("/faces/gestec/cita/busqueda_tecnico.xhtml?faces-redirect=true");
         } else {
             try {
@@ -829,6 +841,7 @@ public class CitasRequest implements Serializable {
         efl.edit(evento);
         this.citaEnviada = true;
         this.publicaciones = cfl.findAll();
+        setPaginaActiva(2);
     }
 
     public void setServicioTecnico(Relequiposervicio rel) {
